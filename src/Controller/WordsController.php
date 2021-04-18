@@ -23,6 +23,22 @@ class WordsController extends AppController
         $this->set(compact('words'));
     }
 
+    public function alphabetical()
+    {
+        $letter = $this->request->getParam('letter');
+        
+        //Taken care of by default value on blank URL in router
+        /*if (empty($this->request->params['letter']))
+			$letter = 'a';
+		else 
+			$letter = $this->request->params['letter'];
+        */
+        $words = $this->Words->get_words_starting_with_letter($letter);
+        $this->set(compact('words'));
+    }
+    
+    
+    
     /**
      * View method
      *

@@ -161,7 +161,14 @@ class WordsTable extends Table
     }
 
     public function get_words_starting_with_letter($letter){
-        
+        $query = $this->find()
+                    //->contain(['Definitions'])
+                    ->where(['spelling LIKE' => $letter.'%'])
+                    //->select(['spelling'])
+                    //->select($this->Definitions)
+                    ->order(['spelling' => 'ASC']);
+        //debug($query);
+        return $query->all();
     }
 
 }

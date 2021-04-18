@@ -60,6 +60,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->connect('/pages/*', 'Pages::display');
 
+    $builder->connect('/alphabetical', ['controller' => 'Words', 'action' => 'alphabetical', 'a']);
+    $builder->connect('/alphabetical/{letter}', 
+        ['controller' => 'Words', 'action' => 'alphabetical'],
+        ['letter' => '[a-zA-Z]', 'pass' => ['letter']]);
     /*
      * Connect catchall routes for all controllers.
      *
