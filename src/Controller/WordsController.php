@@ -25,16 +25,11 @@ class WordsController extends AppController
 
     public function alphabetical()
     {
-        $letter = $this->request->getParam('letter');
         
-        //Taken care of by default value on blank URL in router
-        /*if (empty($this->request->params['letter']))
-			$letter = 'a';
-		else 
-			$letter = $this->request->params['letter'];
-        */
+        $letter = $this->request->getParam('pass')[0];
+        
         $words = $this->Words->get_words_starting_with_letter($letter);
-        $this->set(compact('words'));
+        $this->set(compact('letter', 'words'));
     }
     
     
@@ -50,6 +45,8 @@ class WordsController extends AppController
     {
         $word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations'],
+            //'contain' => ['Definitions'],
+            'cache' => false
         ]);
 
         $this->set(compact('word'));
