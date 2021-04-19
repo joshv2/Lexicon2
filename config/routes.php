@@ -64,6 +64,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/alphabetical/{letter}', 
         ['controller' => 'Words', 'action' => 'alphabetical'],
         ['letter' => '[a-zA-Z]', 'pass' => ['letter']]);
+
+    $builder->connect('/words/{id}', 
+        ['controller' => 'Words', 'action' => 'view'],
+        ['id' => '[0-9]+', 'pass' => ['id']]);
     /*
      * Connect catchall routes for all controllers.
      *

@@ -3,7 +3,10 @@
 <nav id="crumbs" class="group">
 	<?php echo $this->element('user_bar');?>
 	<ul class="right">
-		<li><a class="button blue" href="<?php echo $this->Html->url('/add', true);?>"><i class="icon-plus-sign"></i> Add a new word</a></li>
+		<li>
+		<?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
+										['class' => 'button blue', 'escape' => false]);?>
+		</li>
 	</ul>
 </nav>
 
@@ -20,7 +23,8 @@
 				if ($letter == $uc || $letter == $lc)
 					echo '<li class="current">'.$uc.'</li>';
 				else
-					echo '<li><a href="'.$this->Html->url("/alphabetical/$lc", true).'">'.$uc.'</a></li>';
+					echo '<li>'. 
+					$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
 			}
 			?>
 			</ul>
@@ -39,7 +43,8 @@
 				if ($letter == $uc || $letter == $lc)
 					echo '<li class="current">'.$uc.'</li>';
 				else
-					echo '<li><a href="'.$this->Html->url("/alphabetical/$lc", true).'">'.$uc.'</a></li>';
+				echo '<li>'. 
+				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
 			}
 			?>
 			</ul>
@@ -63,13 +68,16 @@
 	<?php foreach ($words as $word): ?>
 		<li class="group">
 			<div class="word-main">
-				<h3><?php echo $this->Html->link($word['Word']['spelling'], '/words/'.$word['Word']['id']); ?>
-					<?php /*?><small><a href="<?=$this->Html->url('/words/'.$word['Word']['id']);?>">See full entry</a></small><?php */?>
-                    <a href="<?php echo $this->Html->url('/words/'.$word['Word']['id']);?>"> <img class="seefullentrybutton" src="<?php echo$this->Html->url('/seefullentry.jpg', true);?>" height="20" width="111" /></a>
-                    </h3>
-				<?php foreach ($word['Definition'] as $d): ?>
-					<p class="definition"><?php echo h($d['definition']);?></p>
-				<?php endforeach;?>
+				<h3>
+				
+				<?php echo $this->Html->link($word->spelling, '/words//'.$word->id);?>
+				<?php echo $this->Html->image('seefullentry.jpg', 
+                                            ['url' => '/words//'.$word->id, 
+                                            'width' => 111,
+                                            'height' => 20,
+											'class' => 'seefullentrybutton'])?></h3>
+				<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
+				
 			</div>
 		</li>
 	<?php endforeach; ?>
@@ -85,7 +93,8 @@
 			if ($letter == $uc || $letter == $lc)
 				echo '<li class="current">'.$uc.'</li>';
 			else
-				echo '<li><a href="'.$this->Html->url("/alphabetical/$lc", true).'">'.$uc.'</a></li>';
+				echo '<li>'. 
+				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
 		}
 		?>
 	</ul>
