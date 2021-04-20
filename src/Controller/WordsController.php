@@ -49,7 +49,39 @@ class WordsController extends AppController
             'cache' => false
         ]);
 
-        $this->set(compact('word'));
+        $contain = ['Dictionaries', 'Origins', 'Regions', 'Types', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations']; //, 'Sentences', 'Pronunciations'
+        $valuenames = ['Dictionaries' => ['dictionary'], 
+                        'Origins' => ['origin'], 
+                        'Regions' => ['region'], 
+                        'Types' => ['type'],
+                        'Alternates' => ['spelling'],
+                        'Definitions' => ['definition'], 
+                        'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']];//'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']
+        
+        $arraysforcompact = [];
+        foreach ($contain as $assoc){ //for each association
+            $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
+            //debug($lowerassoc);
+            foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
+                //debug($assoc. '_' . $arrayname);
+                $finalarrayname = $assoc . '_' . $arrayname;
+                $$finalarrayname = array();
+            
+                foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
+                    //debug($toplevelassoc);
+                    if (!empty($toplevelassoc)) {
+                        $$finalarrayname[] = $toplevelassoc->$arrayname;
+                    }
+                    
+                }
+                //debug($finalarrayname);
+                //debug($$finalarrayname);
+                $arraysforcompact[$finalarrayname] = $$finalarrayname;
+            }
+        }
+        $arraysforcompact['word'] = $word;
+        //debug($arraysforcompact);
+        $this->set($arraysforcompact);
     }
 
     /**
