@@ -34,24 +34,25 @@
 		<h3>
 			<?php echo $word->spelling; ?>
 		</h3>
-
-		<?php if (!empty($alternates)): ?><h4>Alternative Spellings</h4>
-		<p><?php echo $alternates; ?></p><?php endif;?>
+		
+		<h4>Etymology</h4>
+		<p class="notes"><?php echo $word->etymology;?></p>
 
 		<h4>Definitions</h4>
 		<ul class="definitions">
-			<?php foreach ($word['Definition'] as $d): ?><li><?php echo $d['definition'];?></li><?php endforeach; ?>
+			<?php foreach ($Definitions_definition as $d): ?><li><?php echo $d;?></li><?php endforeach; ?>
 		</ul>
 
-		<?php if (!empty($word['Sentence'])): ?><h4>Example Sentences</h4>
+		<?php if (!empty($Sentences_sentence)): ?><h4>Example Sentences</h4>
 		<ul class="sentences">
-		<?php foreach ($word['Sentence'] as $s): ?>
-			<li><?php echo $s['sentence'];?></li>
+		<?php foreach ($Sentences_sentence as $s): ?>
+			<li><?php echo $s;?></li>
 		<?php endforeach; ?>
 		</ul><?php endif;?>
 
 		<?php if(!empty($origins)):?><h4>Languages of Origin</h4>
-		<p class="origins"><?php echo $origins;?></p><?php endif;?>
+			<p class="origins"><?php echo $origins;?></p>
+		<?php endif;?>
 
 		<?php if(!empty($word['Word']['etymology'])):?><h4>Etymology</h4>
 		<p class="notes"><?php echo $word['Word']['etymology'];?></p><?php endif;?>
@@ -67,7 +68,9 @@
 
 		<?php if(!empty($word['Word']['notes'])):?><h4>Notes</h4>
 		<p class="notes"><?php echo $word['Word']['notes'];?></p><?php endif;?>
-
+		
+		<?php if (!empty($word->alternates)): ?><h4>Alternative Spellings</h4>
+		<p><?php echo implode(', ', $Alternates_spelling); ?></p><?php endif;?>
 	</div>
 	<div class="c wordedit">
 		<p class="m0"><a class="button blue" href="<?php
