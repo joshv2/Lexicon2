@@ -33,49 +33,82 @@
 	<div class="c word">
 		<h3>
 			<?php echo $word->spelling; ?>
+
 		</h3>
 		
-		<h4>Etymology</h4>
-		<p class="notes"><?php echo $word->etymology;?></p>
+		
+		<h4>Pronunciations</h4>
+		<table>
+		<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
+		<?php foreach ($word->pronunciations as $p): ?>
+			<?php echo $this->Html->tableCells([[$p->spelling, $p->sound_file, $p->pronunciation, $p->notes]]); ?>
+		<?php endforeach; ?>
+		</table>
+
 
 		<h4>Definitions</h4>
 		<ul class="definitions">
 			<?php foreach ($Definitions_definition as $d): ?><li><?php echo $d;?></li><?php endforeach; ?>
 		</ul>
 
-		<?php if (!empty($Sentences_sentence)): ?><h4>Example Sentences</h4>
-		<ul class="sentences">
-		<?php foreach ($Sentences_sentence as $s): ?>
-			<li><?php echo $s;?></li>
-		<?php endforeach; ?>
+		<?php if (!empty($Sentences_sentence)): ?>
+			<h4>Example Sentences</h4>
+			<ul class="sentences">
+			<?php foreach ($Sentences_sentence as $s): ?>
+				<li><?php echo $s;?></li>
+			<?php endforeach; ?>
 		</ul><?php endif;?>
 
-		<?php if(!empty($origins)):?><h4>Languages of Origin</h4>
-			<p class="origins"><?php echo $origins;?></p>
+		<?php if(!empty($word->origins)):?>
+			<h4>Languages of Origin</h4>
+			<?php foreach ($word->origins as $s): ?>
+			<li><?php echo $s->origin;?></li>
+			<?php endforeach; ?>
 		<?php endif;?>
 
-		<?php if(!empty($word['Word']['etymology'])):?><h4>Etymology</h4>
-		<p class="notes"><?php echo $word['Word']['etymology'];?></p><?php endif;?>
+		<?php if(!empty($word->etymology)):?>
+			<h4>Etymology</h4>
+			<p class="notes"><?php echo $word->etymology;?></p>
+		<?php endif;?>
 		
-		<?php if(!empty($uses)):?><h4>Who Uses This</h4>
-		<p class="uses"><?php echo $uses;?></p><?php endif;?>
+		<?php if(!empty($Types_type)):?>
+			<h4>Who Uses This</h4>
+			<?php foreach ($Types_type as $s): ?>
+			<li><?php echo $s;?></li>
+			<?php endforeach; ?>
+		<?php endif;?>
 		
-		<?php if(!empty($regions)):?><h4>Regions</h4>
-		<p class="regions"><?php echo $regions;?></p><?php endif;?>
+		<?php if(!empty($word->regions)):?>
+			<h4>Regions</h4>
+			<?php foreach ($word->regions as $s): ?>
+			<li><?php echo $s->region;?></li>
+			<?php endforeach; ?>
+		<?php endif;?>
 
-		<h4>Dictionaries</h4>
-		<p class="dictionaries"><?php echo (!empty($dictionaries))? $dictionaries : 'None';?></p>
 
-		<?php if(!empty($word['Word']['notes'])):?><h4>Notes</h4>
-		<p class="notes"><?php echo $word['Word']['notes'];?></p><?php endif;?>
+		<?php if(!empty($word->dictionaries)):?>
+			<h4>Dictionaries</h4>
+			<?php foreach ($word->dictionaries as $s): ?>
+			<li><?php echo $s->dictionary;?></li>
+			<?php endforeach; ?>
+		<?php endif;?>
+
 		
-		<?php if (!empty($word->alternates)): ?><h4>Alternative Spellings</h4>
-		<p><?php echo implode(', ', $Alternates_spelling); ?></p><?php endif;?>
+		<?php if(!empty($word->notes)):?>
+			<h4>Notes</h4>
+			<p class="notes"><?php echo $word->notes;?></p>
+		<?php endif;?>
+		
+		<?php if (!empty($word->alternates)): ?>
+			<h4>Alternative Spellings</h4>
+			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
+		<?php endif;?>
+
 	</div>
 	<div class="c wordedit">
-		<p class="m0"><a class="button blue" href="<?php
-			echo $this->Html->url('/words/'.$word['Word']['id'].'/edit/', true);
-			?>"><i class="icon-edit"></i> Edit</a> 
-			&nbsp;&nbsp;&nbsp;&nbsp;See something you disagree with? Feel free to edit it. All changes will be moderated. </p>
+		<p class="m0">
+		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words//'.$word->id.'/edit',
+											['class' => 'button blue', 'escape' => false]);?>
+		&nbsp;&nbsp;&nbsp;&nbsp;See something you disagree with? Feel free to edit it. All changes will be moderated. </p>
 	</div>
 </section>
