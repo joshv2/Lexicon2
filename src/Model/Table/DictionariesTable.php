@@ -72,7 +72,7 @@ class DictionariesTable extends Table
     }
 
     public function top_dictionaries(){
-        $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
+        $query = $this->find('list', ['valueField' => 'dictionary', 'limit' => 6, 'order' => 'id']);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;

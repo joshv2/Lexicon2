@@ -17,6 +17,27 @@ html, body
 	min-width: 960px;
 }
 
+
+/*for banner*/
+#frdiv {
+	width: 100%;
+    margin: 0 auto;
+}
+
+#fundraiser {
+	padding: 17px;
+    background-color: #0554b1;
+    border: 10px;
+    border: 26px solid white;
+    color: white;
+    text-align: center;
+    font-size: 14pt;
+}
+
+#frlink {
+	color: yellow;
+}
+/*end for banner*/
 p, h1, h2, h3, ul, ol, blockquote
 {
 	margin-top: 0;

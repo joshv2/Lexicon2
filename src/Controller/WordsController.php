@@ -11,6 +11,13 @@ namespace App\Controller;
  */
 class WordsController extends AppController
 {
+    
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+    
     /**
      * Index method
      *
@@ -18,9 +25,93 @@ class WordsController extends AppController
      */
     public function index()
     {
-        $words = $this->paginate($this->Words);
+        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
-        $this->set(compact('words'));
+        $origins = $this->Origins->top_origins();
+        $regions = $this->Regions->top_regions();
+        $types = $this->Types->top_types();
+        $dictionaries = $this->Dictionaries->top_dictionaries();
+
+        $originvalue = $this->request->getQuery('origin');
+        $regionvalue = $this->request->getQuery('region');
+        $typevalue = $this->request->getQuery('use');
+        $dictionaryvalue = $this->request->getQuery('dictionary');
+
+        $current_condition = ['origin' => $originvalue,
+                              'region' => $regionvalue,
+                              'use' => $typevalue,
+                              'dictionary' => $dictionaryvalue];
+
+        $this->paginate = [
+            'contain' => [
+                'Definitions',
+                'Origins',
+                'Regions',
+                'Types',
+                'Dictionaries'
+            ]];
+        
+        $words = $this->paginate($this->Words->find());
+        
+
+
+        $originfilter = array();
+        if(!is_null($originvalue)){
+            foreach ($words as $w) {
+                foreach ($w->origins as $wo){
+                    if ($wo->id == $originvalue){
+                        $originfilter[] = $w;
+                    }
+                }
+            }
+        } else {
+            $originfilter = $words;
+        }
+        
+
+        $regionfilter = array();
+        if(!is_null($regionvalue)){
+            foreach ($originfilter as $w) {
+                foreach ($w->regions as $wr){
+                    if ($wr->id == $regionvalue){
+                        $regionfilter[] = $w;
+                    }
+                }
+            }
+        } else {
+            $regionfilter = $originfilter;
+        }
+
+        $typefilter = array();
+        if(!is_null($typevalue)){
+            foreach ($regionfilter as $w) {
+                foreach ($w->types as $wt){
+                    if ($wt->id == $typevalue){
+                        $typefilter[] = $w;
+                    }
+                }
+            }
+        } else {
+            $typefilter = $regionfilter;
+        }
+
+        $dictionaryfilter = array();
+        if(!is_null($dictionaryvalue)){
+            foreach ($typefilter as $w) {
+                foreach ($w->dictionaries as $wd){
+                    if ($wd->id == $dictionaryvalue){
+                        $dictionaryfilter[] = $w;
+                    }
+                }
+            }
+        } else {
+            $dictionaryfilter = $typefilter;
+        }
+
+        $words2 = $dictionaryfilter;
+
+        $this->set(compact('words', 'words2', 'current_condition', 'origins', 'regions', 'types', 'dictionaries'));
+        $this->render('browse');
     }
 
     public function alphabetical()
@@ -44,7 +135,7 @@ class WordsController extends AppController
     public function view($id = null)
     {
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations'],
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]],
             //'contain' => ['Definitions'],
             'cache' => false
         ]);
