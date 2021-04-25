@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Words Model
@@ -168,5 +169,70 @@ class WordsTable extends Table
                     ->order(['spelling' => 'ASC']);
         return $query->all();
     }
+
+    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue){
+
+        if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
+            $query = $this->find()
+                        ->contain(['Definitions']);
+        } else {
+
+            $params = [];
+            if (!is_null($originvalue)){
+                $params['o.origin_id IN'] = $originvalue;
+            }
+
+            if (!is_null($regionvalue)){
+                $params['r.region_id IN'] = $regionvalue;
+            }
+
+            if (!is_null($typevalue)){
+                $params['t.type_id IN'] = $typevalue;
+            }
+
+            if (!is_null($dictionaryvalue)){
+                $params['d.dictionary_id IN'] = $dictionaryvalue;
+            }
+            //debug($typeids);
+            $query = $this->find()
+                        ->join([
+                            'd' => [
+                                'table' => 'dictionaries_words',
+                                'type' => 'LEFT',
+                                'conditions' => 'id = d.word_id'
+                            ],
+                            't' => [
+                                'table' => 'types_words',
+                                'type' => 'LEFT',
+                                'conditions' => 'id = t.word_id'
+                            ],
+                            'r' => [
+                                'table' => 'regions_words',
+                                'type' => 'LEFT',
+                                'conditions' => 'id = r.word_id'
+                            ],
+                            'o' => [
+                                'table' => 'origins_words',
+                                'type' => 'LEFT',
+                                'conditions' => 'id = o.word_id'
+                            ]
+                        ])
+                        ->where($params)
+                        ->contain(['Definitions'])
+                        ->distinct()
+                        ->order(['spelling' => 'ASC']);
+        }    
+        return $query;                        
+                
+    }
+
+    public function get_random_words() {
+        $query = $this->find()
+                ->contain(['Definitions'])
+                ->order("rand()")
+                ->limit(20);
+        return $query;
+    }  
+
 
 }

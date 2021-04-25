@@ -51,67 +51,17 @@ class WordsController extends AppController
                 'Dictionaries'
             ]];
         
-        $words = $this->paginate($this->Words->find());
+        $words = $this->Paginator->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue));
         
 
-
-        $originfilter = array();
-        if(!is_null($originvalue)){
-            foreach ($words as $w) {
-                foreach ($w->origins as $wo){
-                    if ($wo->id == $originvalue){
-                        $originfilter[] = $w;
-                    }
-                }
-            }
-        } else {
-            $originfilter = $words;
-        }
-        
-
-        $regionfilter = array();
-        if(!is_null($regionvalue)){
-            foreach ($originfilter as $w) {
-                foreach ($w->regions as $wr){
-                    if ($wr->id == $regionvalue){
-                        $regionfilter[] = $w;
-                    }
-                }
-            }
-        } else {
-            $regionfilter = $originfilter;
-        }
-
-        $typefilter = array();
-        if(!is_null($typevalue)){
-            foreach ($regionfilter as $w) {
-                foreach ($w->types as $wt){
-                    if ($wt->id == $typevalue){
-                        $typefilter[] = $w;
-                    }
-                }
-            }
-        } else {
-            $typefilter = $regionfilter;
-        }
-
-        $dictionaryfilter = array();
-        if(!is_null($dictionaryvalue)){
-            foreach ($typefilter as $w) {
-                foreach ($w->dictionaries as $wd){
-                    if ($wd->id == $dictionaryvalue){
-                        $dictionaryfilter[] = $w;
-                    }
-                }
-            }
-        } else {
-            $dictionaryfilter = $typefilter;
-        }
-
-        $words2 = $dictionaryfilter;
-
-        $this->set(compact('words', 'words2', 'current_condition', 'origins', 'regions', 'types', 'dictionaries'));
+        $this->set(compact('words', 'current_condition', 'origins', 'regions', 'types', 'dictionaries'));
         $this->render('browse');
+    }
+
+    public function random() {
+        $words = $this->Paginator->paginate($this->Words->get_random_words());
+        $this->set(compact('words'));
+
     }
 
     public function alphabetical()

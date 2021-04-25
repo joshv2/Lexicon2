@@ -139,35 +139,40 @@
 	</nav>
 	
 
-	<?php if (sizeof($words2) == 0):?>
-	<div class="c content">
-		<p>No words were found. Refine your search options above.</p>
-	</div>
+	<?php if (sizeof($words) == 0):?>
+		<div class="c content">
+			<p>No words were found. Refine your search options above.</p>
+		</div>
 	<?php else:?>
 
-	<div id="browse_info" class="group">
-		<p id="paging_info">
-			<?php echo count($words2) . ' match your search';?>
-		</p>
-	</div>
-	
-	<ul class="word-list">
-	<?php foreach ($words2 as $word): ?>
-		<li class="group">
-			<div class="word-main">
-				<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
-                <?php echo $this->Html->image('seefullentry.jpg', 
-                                            ['url' => '/words//'.$word->id, 
-                                            'width' => 111,
-                                            'height' => 20,
-											'class' => 'seefullentrybutton'])?></h3>
-				<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
-			</div>
-		</li>
-	<?php endforeach; ?>
-	</ul>
+		<div id="browse_info" class="group">
+			<p id="paging_info">
+				<?php echo $this->Paginator->counter('range');?>
+			</p>
+		</div>
+		
+		<ul class="word-list">
+		<?php foreach ($words as $word): ?>
+			<li class="group">
+				<div class="word-main">
+					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
+					<?php echo $this->Html->image('seefullentry.jpg', 
+												['url' => '/words//'.$word->id, 
+												'width' => 111,
+												'height' => 20,
+												'class' => 'seefullentrybutton'])?></h3>
+					<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
+				</div>
+			</li>
+		<?php endforeach; ?>
 
-
+		</ul>
+			<?php if ($this->Paginator->hasPrev()) :?>
+				<?= $this->Paginator->prev(' << ' . __('previous'));?>
+			<?php endif ?>
+			<?php if ($this->Paginator->hasNext()) :?>
+				<?= $this->Paginator->next(' >> ' . __('next'));?>
+			<?php endif ?>	
 
 	<?php endif;?>
 
