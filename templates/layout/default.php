@@ -51,8 +51,8 @@
 					<li class="last"><a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a></li>
 				</ul>
 			</nav>
-			<form type="GET" action="<?php echo $this->Url->build(["controller" => "Search"]);?>">
-				<input type="text" results="5" placeholder="Search..." name="q" id="search" />
+			<form type="GET" action="/search">
+				<input type="text" results="5" placeholder="Search..." name="q" id="search">
 			</form>
 		</div>
 		<div class="mobile-header">
@@ -60,7 +60,7 @@
 			<h1><a href="<?php echo $this->Html->link('/', true);?>"><img src="<?php echo $this->Html->link('/logo.jpg', true);?>" /></a></h1>
 		</div>
 		<div id="searchform">
-			<form type="GET" action="<?php echo $this->Html->link('/search', true);?>">
+			<form type="GET" action="/search">
 				<input type="text" results="5" placeholder="Search..." name="q" id="search" />
 			</form>
 		</div>
