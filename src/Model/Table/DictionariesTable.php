@@ -77,4 +77,13 @@ class DictionariesTable extends Table
         $data = $query->toArray();
         return $data;
     }
+
+    public function get_all_ids(){
+        $query = $this->find()->all()->extract('id');
+        foreach ($query as $q){
+            $idarray[] = $q;
+        }
+        $typeids = implode(',',$idarray);
+        return $typeids;
+    }
 }

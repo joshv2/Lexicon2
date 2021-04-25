@@ -68,6 +68,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/words/{id}', 
         ['controller' => 'Words', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]);
+
+    $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
     /*
      * Connect catchall routes for all controllers.
      *
