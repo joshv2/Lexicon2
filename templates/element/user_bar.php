@@ -3,7 +3,7 @@
 	if ($this->Identity->isLoggedIn()):?>
 	<ul class="left">
 		<li>
-		<?=$this->Html->link('Log out ' . $this->Identity->get('username'), '/moderators/logout',
+		<?=$this->Html->link('Log out ' . $this->Identity->get('username'), '/logout',
 										['class' => 'button grey']);?>
 		</li>
 		<li>

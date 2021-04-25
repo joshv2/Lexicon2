@@ -126,7 +126,13 @@ return [
         [
             'role' => '*',
             'controller' => 'Pages',
-            'action' => 'display',
+            'action' => ['index','display'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => '*',
+            'controller' => 'Words',
+            'action' => ['index', 'alphabetical', 'view', 'add', 'random'],
             'bypassAuth' => true,
         ],
         [

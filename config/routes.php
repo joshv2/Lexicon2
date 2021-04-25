@@ -42,9 +42,9 @@ use Cake\Routing\RouteBuilder;
  * `:action` markers.
  */
 /** @var \Cake\Routing\RouteBuilder $routes */
-$routes->setRouteClass(DashedRoute::class);
+    $routes->setRouteClass(DashedRoute::class);
 
-$routes->scope('/', function (RouteBuilder $builder) {
+    $routes->scope('/', function (RouteBuilder $builder) {
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
@@ -52,7 +52,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);
     $builder->connect('/add', ['controller' => 'Words', 'action' => 'add']);
-    $builder->connect('/welcome', ['controller' => 'Pages', 'action' => 'welcome']);
+    $builder->connect('/welcome', ['controller' => 'Pages', 'action' => 'display', 'welcome']);
     $builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
     $builder->connect('/notes', ['controller' => 'Pages', 'action' => 'display', 'notes']);
     /*
@@ -70,6 +70,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
         ['id' => '[0-9]+', 'pass' => ['id']]);
 
     $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
+
+
     /*
      * Connect catchall routes for all controllers.
      *

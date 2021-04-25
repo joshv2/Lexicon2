@@ -91,9 +91,4 @@ class PagesController extends AppController
         $this->render('home');
     }
 
-    public function welcome(){
-        
-    }
-
-
 }
