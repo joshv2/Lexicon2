@@ -167,13 +167,14 @@
 		<?php endforeach; ?>
 
 		</ul>
+		<div class="pagination">
 			<?php if ($this->Paginator->hasPrev()) :?>
 				<?= $this->Paginator->prev(' << ' . __('previous'));?>
 			<?php endif ?>
 			<?php if ($this->Paginator->hasNext()) :?>
 				<?= $this->Paginator->next(' >> ' . __('next'));?>
 			<?php endif ?>	
-
+		</div>
 	<?php endif;?>
 
 

@@ -8,6 +8,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Words Model
@@ -232,7 +233,73 @@ class WordsTable extends Table
                 ->order("rand()")
                 ->limit(20);
         return $query;
-    }  
+    }
 
+    public function search_results($querystring){
+        $searchqueryraw = <<<SQL
+                                SELECT words.id, words.spelling,
+                                GROUP_CONCAT(alternates.spelling SEPARATOR ', ') AS alternates,
+                                GROUP_CONCAT(DISTINCT definitions.id) AS definitions,
+                                CASE
+                                WHEN words.spelling LIKE :query THEN 2
+                                WHEN alternates.spelling LIKE :query THEN 2
+                                WHEN words.spelling LIKE :lquery THEN 1
+                                WHEN alternates.spelling LIKE :lquery THEN 1
+                                ELSE 0
+                                END as spellingmatch,
+                                MATCH(words.notes) AGAINST (:query) AS notesmatch,
+                                MATCH(definitions.definition) AGAINST (:query) AS definitionmatch
+                                FROM words
+                                LEFT JOIN definitions ON definitions.word_id = words.id
+                                LEFT JOIN alternates ON alternates.word_id = words.id
+                                WHERE words.spelling LIKE :lquery
+                                OR alternates.spelling LIKE :lquery
+                                OR MATCH(words.notes) AGAINST (:query)
+                                OR MATCH(definitions.definition) AGAINST (:query)
+                                OR words.etymology LIKE :lquery
+                                GROUP BY words.id
+                                ORDER BY spellingmatch DESC, definitionmatch DESC, notesmatch DESC, spelling ASC
+                            SQL;
+        
 
+        $query = $this->find()->contain(['Definitions']);
+        $query = $query->join([
+                        'd' => [
+                            'table' => 'definitions',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = d.word_id'
+                        ],
+                        'a' => [
+                            'table' => 'alternates',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = a.word_id'
+                        ]
+                    ]);
+        $spellingmatch = $query->newExpr()
+                    ->addCase(
+                        [$query->newExpr()->add(['Words.spelling LIKE' => $querystring]),
+                         $query->newExpr()->add(['a.spelling LIKE' => $querystring]),
+                         $query->newExpr()->add(['Words.spelling LIKE' => '%'.$querystring.'%']),
+                         $query->newExpr()->add(['a.spelling LIKE' => '%'.$querystring.'%'])],
+
+                        [ 2,2,1,1,0]
+
+                    );
+        $query = $query->select(['id','spelling',
+                                 'alternates'=> 'group_concat(a.spelling)', 
+                                 'definitions' => 'group_concat(DISTINCT d.id)', 
+                                 'spellingmatch' => $spellingmatch,
+                                 'notesmatch' => "MATCH(notes) AGAINST ('".$querystring."')",
+                                 'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"])
+                        ->where(['OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
+                                         ['a.spelling LIKE' => '%'.$querystring.'%'],
+                                         ["MATCH(notes) AGAINST ('".$querystring."')"],
+                                         ["MATCH(d.definition) AGAINST ('".$querystring."')"],
+                                         ['etymology LIKE' => '%'.$querystring.'%']]])
+                        ->group(['Words.id'])
+                        ->order(['spellingmatch' => 'DESC', 'definitionmatch' => 'DESC', 'notesmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+
+        //debug($query);
+        return $query;
+    }
 }

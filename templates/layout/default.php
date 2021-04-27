@@ -57,7 +57,12 @@
 		</div>
 		<div class="mobile-header">
 		<div id="headerlogo">
-			<h1><a href="<?php echo $this->Html->link('/', true);?>"><img src="<?php echo $this->Html->link('/logo.jpg', true);?>" /></a></h1>
+			<h1>
+			<?php echo $this->Html->image('logo.jpg', 
+                                            ['url' => '/', 
+                                            'width' => 58,
+                                            'height' => 40])?>
+			</h1>
 		</div>
 		<div id="searchform">
 			<form type="GET" action="/search">
@@ -66,12 +71,13 @@
 		</div>
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
-			  <a href="<?php echo $this->Html->link('/welcome', true);?>">Welcome</a>
-			  <a href="<?php echo $this->Html->link('/', true);?>">Lexicon</a>
-			  <a href="<?php echo $this->Html->link('/add', true);?>">Add a Word</a>
-			  <a href="<?php echo $this->Html->link('/about', true);?>">About Us</a>
-			  <a href="<?php echo $this->Html->link('/notes', true);?>">Notes</a>
-			  <a href="http://www.jewishlanguages.org" target="_blank">Jewish Languages</a>
+					<?php echo $this->Html->link('Welcome', '/welcome');?>
+					<?php echo $this->Html->link('Home', '/');?>
+					<?php echo $this->Html->link('Add a Word', '/add');?>
+					<?php echo $this->Html->link('About Us', '/about');?>
+					<?php echo $this->Html->link('Notes', '/notes');?>
+					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
+					<a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a>
 			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>
