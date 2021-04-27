@@ -137,6 +137,12 @@ return [
         ],
         [
             'role' => '*',
+            'controller' => 'Search',
+            'action' => ['index'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => '*',
             'plugin' => 'DebugKit',
             'controller' => '*',
             'action' => '*',

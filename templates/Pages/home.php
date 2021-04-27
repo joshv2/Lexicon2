@@ -50,14 +50,11 @@ $(document).ready(function() {
     	</div>
         <hr class="m2" />
         <h3>SEARCH:</h3>
-		<form id="home_search" class="group m3" type="GET" action="<?php echo $this->Url->build(["controller" => "Search"]);?>">
+		<form id="home_search" class="group m3" type="GET" action="/search">
 				<input type="text" placeholder="Search" name="q" />
 				<a class="button blue" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
 			</form>
-		<!--<form id="home_search" class="group m3" type="GET" action="<?php echo $this->Html->link('/search', true);?>">
-			<input type="text" placeholder="Search" name="q" />
-			<a class="button blue" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
-		</form>-->
+
         <hr class="m2" />
 		<h3 class="m1">ADVANCED SEARCH:</h3>
 		<p class="m2">(See the <?php echo $this->Html->link('NOTES', '/notes');?> for information about these languages, dictionaries, and types of people.)</p>
