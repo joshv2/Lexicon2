@@ -1293,7 +1293,9 @@ seefullentrybutton{
 	margin-left: 20px;
 }
 
-
+.error-message {
+	color: red;
+}
 
 /* Mobile Nav */
 

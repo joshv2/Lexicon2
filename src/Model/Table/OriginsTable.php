@@ -9,6 +9,8 @@ class OriginsTable extends Table
     public function initialize(array $config): void
     {
         //$this->addBehavior('Timestamp');
+        $this->setDisplayField('origin');
+        $this->setPrimaryKey('id');
         $this->belongsToMany('Words', ['joinTable' => 'words_origins']);
     }
 

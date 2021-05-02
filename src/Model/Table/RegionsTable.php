@@ -9,6 +9,8 @@ class RegionsTable extends Table
     public function initialize(array $config): void
     {
         //$this->addBehavior('Timestamp');
+        $this->setDisplayField('region');
+        $this->setPrimaryKey('id');
         $this->belongsToMany('Words', ['joinTable' => 'words_regions']);
     }
 
