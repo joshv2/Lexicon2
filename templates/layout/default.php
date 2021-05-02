@@ -13,6 +13,7 @@
 		),
 		'as' => 'font']
 	);?>
+	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 	
     <?php echo $this->Html->css('style');?>
 
@@ -29,6 +30,7 @@
 	  gtag('config', 'UA-71563013-2');
 	</script>-->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<?= $this->Html->script('addform')."\n";?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>

@@ -9,6 +9,12 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableLocator;
+use Cake\ORM\Rule\IsUnique;
+// Include use statements at the top of your file.
+use Cake\Event\EventInterface;
+use ArrayObject;
+//use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Words Model
@@ -62,6 +68,7 @@ class WordsTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Users', [
+            'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
@@ -132,6 +139,8 @@ class WordsTable extends Table
             ->requirePresence('approved', 'create')
             ->notEmptyString('approved');
 
+
+
         return $validator;
     }
 
@@ -146,9 +155,21 @@ class WordsTable extends Table
     {
         $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-
+        $rules->addCreate([$this, 'findWithSpelling'], 'uniqueSpelling', ['errorField' => 'spelling', 'message' => 'This word has already been submitted.']);
         return $rules;
     }
+
+    /*public function beforeMarshal(EventInterface $event, ArrayObject $data, ArrayObject $options)
+    {
+        if(!empty($data['dictionaries']['_ids'])){
+            $chosenids = implode(',', $data['dictionaries']['_ids']);
+            unset($data['dictionaries']['_ids']);
+            $data['dictionaries']['_ids'] = [$chosenids];
+        }
+        //debug($data);
+        //debug($data['dictionaries']['_ids']);
+
+    }*/
 
     public function get_not_in_other_dictionary(){
         $query = $this->find()
@@ -236,7 +257,7 @@ class WordsTable extends Table
     }
 
     public function search_results($querystring){
-        $searchqueryraw = <<<SQL
+        /*$searchqueryraw = <<<SQL
                                 SELECT words.id, words.spelling,
                                 GROUP_CONCAT(alternates.spelling SEPARATOR ', ') AS alternates,
                                 GROUP_CONCAT(DISTINCT definitions.id) AS definitions,
@@ -259,7 +280,7 @@ class WordsTable extends Table
                                 OR words.etymology LIKE :lquery
                                 GROUP BY words.id
                                 ORDER BY spellingmatch DESC, definitionmatch DESC, notesmatch DESC, spelling ASC
-                            SQL;
+                            SQL;*/
         
 
         $query = $this->find()->contain(['Definitions']);
@@ -301,5 +322,26 @@ class WordsTable extends Table
 
         //debug($query);
         return $query;
+    }
+
+    public function findWithSpelling($spelling){
+        $wordtosearch = $spelling["spelling"];
+        $alternates = $this->Alternates;
+
+        $wordspellingquery = $this->find()
+                                ->select(['spelling'])
+                                ->where(['spelling =' => $wordtosearch]);
+
+        $altspellingquery = $alternates->find()
+                                ->select(['spelling'])
+                                ->where(['spelling =' => $wordtosearch]);
+
+        $finalquery = $altspellingquery->union($wordspellingquery);
+        //debug($finalquery);
+        if ($finalquery->count() > 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 }

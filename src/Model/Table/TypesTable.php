@@ -9,6 +9,8 @@ class TypesTable extends Table
     public function initialize(array $config): void
     {
         //$this->addBehavior('Timestamp');
+        $this->setDisplayField('type');
+        $this->setPrimaryKey('id');
         $this->belongsToMany('Words', ['joinTable' => 'words_types']);
     }
 

@@ -134,7 +134,8 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
-            $word = $this->Words->patchEntity($word, $this->request->getData());
+            $word = $this->Words->patchEntity($word, $this->request->getData(), 
+                                                ['associated' => ['Alternates', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types']]);
             if ($this->Words->save($word)) {
                 $this->Flash->success(__('The word has been saved.'));
 
@@ -149,6 +150,29 @@ class WordsController extends AppController
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
     }
 
+    public function checkforword(){
+        $this->RequestHandler->renderAs($this, 'json');
+        $response = [];
+        //debug($this->request->getData());
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            //$doeswordexist = $data['spelling'];
+            $doeswordexist = $this->Words->findWithSpelling($data['spelling']);
+            //debug($data);
+            $response['spelling'] = $doeswordexist;
+            //debug($response['spelling']);
+        } else {
+            $response['success'] = 0;
+        }
+
+        //$spelling = $this->request->getData('spelling');
+        //debug($spelling);
+        //$data = $this->Words->findWithSpelling($spelling);
+        $this->set(compact('response'));
+        $this->viewBuilder()->setOption('serialize', true);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
     /**
      * Edit method
      *
@@ -159,7 +183,7 @@ class WordsController extends AppController
     public function edit($id = null)
     {
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types'],
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $word = $this->Words->patchEntity($word, $this->request->getData());
@@ -174,7 +198,8 @@ class WordsController extends AppController
         $origins = $this->Words->Origins->find('list', ['limit' => 200]);
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
         $types = $this->Words->Types->find('list', ['limit' => 200]);
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
+        $alternates = $this->Words->Alternates->find('list');
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types','alternates'));
     }
 
     /**

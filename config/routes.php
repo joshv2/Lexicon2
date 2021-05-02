@@ -44,6 +44,13 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
     $routes->setRouteClass(DashedRoute::class);
 
+    $routes->prefix('Moderators', function (RouteBuilder $routes) {
+        // All routes here will be prefixed with `/admin`, and
+        // have the `'prefix' => 'Admin'` route element added that
+        // will be required when generating URLs for these routes
+        $routes->connect('/', ['controller' => 'Panel', 'action' => 'index']);
+        $routes->fallbacks(DashedRoute::class);
+    });
     $routes->scope('/', function (RouteBuilder $builder) {
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',

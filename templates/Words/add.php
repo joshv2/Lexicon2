@@ -18,6 +18,22 @@
                 <legend><?= __('Add Word') ?></legend>
                 <?php
                     echo $this->Form->control('spelling');
+
+                    echo $this->Form->control('alternates.0.id',['class' => 'muliplespid']);
+                    echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'muliplespsp']);
+                    echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
+				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
+
+                    echo $this->Form->control('definitions.0.id',['class' => 'muliplespid']);
+                    echo $this->Form->control('definitions.0.definition', ['label' => 'Definition(s)', 'class' => 'muliplespsp']);
+                    echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
+				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
+
+                    echo $this->Form->control('sentences.0.id',['class' => 'muliplespid']);
+                    echo $this->Form->control('sentences.0.definition', ['label' => 'Example Sentences(s)', 'class' => 'muliplespsp']);
+                    echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
+				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
+
                     echo $this->Form->control('etymology');
                     echo $this->Form->control('notes');
                     echo $this->Form->control('approved');
@@ -34,3 +50,30 @@
         </div>
     </div>
 </div>
+<!--<script>
+$(function(){
+    $('[name="spelling"]').blur(function(){
+        $.ajax({
+            type: "POST",
+            url: "/words/checkforword",
+            data: {
+                spelling: $('[name="spelling"]').val()
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
+            },
+            success: function(response) {
+                var newData = response;
+                
+                //alert(newData.response.spelling);
+                if (newData.response.spelling == "There are words") {
+                    $('#wordexists').text("True");
+                } else {
+                    $('#wordexists').text("False");
+                }
+            }
+        })
+    });
+})
+
+</script>-->

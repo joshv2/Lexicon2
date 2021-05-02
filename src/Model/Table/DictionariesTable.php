@@ -40,7 +40,7 @@ class DictionariesTable extends Table
         parent::initialize($config);
 
         $this->setTable('dictionaries');
-        $this->setDisplayField('id');
+        $this->setDisplayField('dictionary');
         $this->setPrimaryKey('id');
 
         $this->belongsToMany('Words', [

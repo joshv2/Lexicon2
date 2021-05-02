@@ -25,13 +25,13 @@
                     echo $this->Form->control('spelling');
                     echo $this->Form->control('etymology');
                     echo $this->Form->control('notes');
-                    echo $this->Form->control('approved');
-                    echo $this->Form->control('language_id');
+                    echo $this->Form->control('alternates');
                     echo $this->Form->control('user_id');
                     echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries]);
                     echo $this->Form->control('origins._ids', ['options' => $origins]);
                     echo $this->Form->control('regions._ids', ['options' => $regions]);
                     echo $this->Form->control('types._ids', ['options' => $types]);
+                    echo $this->Form->control('approved');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

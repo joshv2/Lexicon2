@@ -9,7 +9,8 @@ $(function()
 	});
 
 	$("a.add").each(function() {
-		$(this).siblings("input:last").addClass("multiple");
+		$(this).siblings("input:last").addClass("multiplespid");
+		$(this).siblings("input:last").addClass("multiplespsp");
 
 		if ($(this).siblings(".multiple").size() > 1)
 		{
