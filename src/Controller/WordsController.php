@@ -135,7 +135,15 @@ class WordsController extends AppController
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
             $word = $this->Words->patchEntity($word, $this->request->getData(), 
-                                                ['associated' => ['Alternates', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types']]);
+                                                ['associated' => ['Alternates', 
+                                                                    'Languages', 
+                                                                    'Definitions', 
+                                                                    'Pronunciations', 
+                                                                    'Sentences', 
+                                                                    'Dictionaries', 
+                                                                    'Origins', 
+                                                                    'Regions', 
+                                                                    'Types']]);
             if ($this->Words->save($word)) {
                 $this->Flash->success(__('The word has been saved.'));
 

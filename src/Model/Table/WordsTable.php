@@ -139,6 +139,8 @@ class WordsTable extends Table
             ->requirePresence('approved', 'create')
             ->notEmptyString('approved');
 
+        $validator
+            ->email('email');
 
 
         return $validator;
