@@ -24,11 +24,28 @@ $(function()
 		var f = $(this).siblings(".multiple").length;
 		$(this).siblings("a.remove").removeClass("disabled");
 		//if (f < 10) {
-		var input = $(this).siblings(".multiple:last").clone();
-		var counter = parseInt(input.attr("data-counter"));
-		input.attr("id", `alternates-${counter + 1}-spelling`);
-		input.attr("data-counter", counter + 1);
-		input.insertBefore(this);
+
+		var hiddenInput = $(this).siblings('input[type="hidden"]').last();
+		var counter = hiddenInput.attr('data-counter');
+		var nextCounter = parseInt(counter) + 1;
+		var hiddenInputClone = hiddenInput.clone();
+		var hiddenInputName = hiddenInputClone.attr('name');
+		var hiddenInputID = hiddenInputClone.attr('id');
+		hiddenInputClone.attr('name', hiddenInputName.replace(counter, nextCounter));
+		hiddenInputClone.attr('id', hiddenInputID.replace(counter, nextCounter));
+		hiddenInputClone.attr('data-counter', nextCounter);
+		var formGroup = $(hiddenInput).next();
+		var formGroupClone = $(formGroup).clone();
+		var label = $(formGroupClone).children('label');
+		var labelFor = label.attr('for');
+		label.attr('for', labelFor.replace(counter, nextCounter));
+		var inputClone = $(label).next();
+		inputCloneName = inputClone.attr('name');
+		inputCloneID = inputClone.attr('id');
+		inputClone.attr('name', inputCloneName.replace(counter, nextCounter));
+		inputClone.attr('id', inputCloneID.replace(counter, nextCounter));
+		hiddenInputClone.insertBefore(this);
+		formGroupClone.insertBefore(this);
 
 			//attr('name', 'alternates.1.id') f+1
 			//if (f == 9)
