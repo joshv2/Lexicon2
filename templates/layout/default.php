@@ -31,6 +31,8 @@
 	</script>-->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<?= $this->Html->script('addform')."\n";?>
+	<?= $this->Html->script('exConfirm')."\n";?>
+<?= $this->Html->script('recorder')."\n";?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
@@ -135,4 +137,6 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		}
 	</script>
 </body>
+
+
 </html>

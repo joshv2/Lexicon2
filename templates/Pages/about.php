@@ -17,7 +17,7 @@
 		</p>
 		<p>The goals of the Jewish English Lexicon (JEL) are to collect data on English spoken and written by Jews and to make it available to the public. Concept, production, and moderation by <a href="http://huc.edu/directory/sarah-bunin-benor">Sarah Bunin Benor</a>; programming by <a href="https://www.joshthewebman.com/about/">Josh Vogel</a>. Photo credits: <a href="http://www.billaron.com/">Bill Aron</a> (1, 3, 4), <a href="http://www.silverliningphotosbykim.com/">Kim Silverstein</a> (2), and Ra'anan Boustan (5). Special thanks to Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, and David Voong for the help in the early stages of design, programming, and maintenance.</p>
 
-		<p>JEL is an initiative of the HUC-JIR <a href="https://www.jewishlanguages.org/jewish-language-project">Jewish Language Project</a> and is made possible by funding from the American Academy for Jewish Research Special Initiatives Fund and the Dorot Foundation.</p>
+		<p>JEL is an initiative of the HUC-JIR <a href="https://www.jewishlanguages.org/jewish-language-project">Jewish Language Project</a> and is made possible by funding from Hebrew Union College - Jewish Institute of Religion, the American Academy for Jewish Research Special Initiatives Fund and the Dorot Foundation.</p>
 
 		<div class="clear m3"></div>
 		<h3>Top word contributors</h3>

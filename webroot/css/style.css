@@ -394,9 +394,14 @@ a.disabled, a.disabled:hover {
 	font-size: 18px;
 }
 
+.mini {
+	font-size: 10px;
+}
+
 .button.blue
 {
 	color: #fff;
+	padding: 10px;
 	border: 1px #0071E0 solid;
 	background: #0079FF;
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));

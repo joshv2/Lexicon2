@@ -55,5 +55,7 @@ class Word extends Entity
         'origins' => true,
         'regions' => true,
         'types' => true,
+        'full_name' => true,
+        'email' => true
     ];
 }
