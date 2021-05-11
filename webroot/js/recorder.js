@@ -68,7 +68,7 @@
           var configOpt = {
               title: "Record Word",
               message: "<div id='dialogContents' class='dialog-contents'><h3>Click the record button to begin recording.</h3><p>When you are done, click 'submit' to save your recording</p><ul id='recordings'></ul></div>",
-              btnClassSuccessText: "Submit",
+              btnClassSuccessText: "Save",
               btnClassFailText: "Cancel"
           }
           exConfirmPromise.make(configOpt).then((option) => {
