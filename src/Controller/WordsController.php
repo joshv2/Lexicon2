@@ -145,9 +145,9 @@ class WordsController extends AppController
                                                                     'Regions', 
                                                                     'Types']]);
             if ($this->Words->save($word)) {
-                $this->Flash->success(__('The word has been saved.'));
+                //$this->Flash->success(__('The word has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'success']);
             }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
@@ -228,5 +228,10 @@ class WordsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function success(){
+
     }
 }

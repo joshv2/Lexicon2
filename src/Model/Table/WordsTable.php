@@ -179,7 +179,7 @@ class WordsTable extends Table
                 'd' => [
                     'table' => 'dictionaries_words',
                     'type' => 'LEFT',
-                    'conditions' => 'id = d.word_id'
+                    'conditions' => 'words.id = d.word_id'
                 ]
             ])->where(['d.word_id IS' => NULL]);
         return $query->count();

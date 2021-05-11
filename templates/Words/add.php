@@ -4,30 +4,51 @@
  * @var \App\Model\Entity\Word $word
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Words'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="words form content">
-            <?= $this->Form->create($word) ?>
-            <fieldset>
-                <legend><?= __('Add Word') ?></legend>
+
+
+<section id="main" class="main">
+	<div class="page-header group">
+		<h2 class="left">New word</h2>
+	</div>
+    <div class="c add">
+            <?= $this->Form->create($word, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
+
                 <?php
                     echo "<div class='form-group'>";
                     echo $this->Form->control('spelling', ['label' => ['text' => 'Most Common Spelling', 'class' => 'req'], 'required' => TRUE]);
                     echo "</div>";
 
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('alternates.0.id',['class' => 'muliplespid']);
-                    echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'muliplespsp']);
+                    echo $this->Form->control('alternates.0.id',['class' => 'multiple']);
+                    echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'multiple']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
+                    /*echo $this->Form->control('submittedfile', [
+                        'type' => 'file'
+                    ]);*/
+                    ?>
+                    <table>
+                    <tr>
+                    <td>
+                    <?=  $this->Form->control('pronunciations.0.id',['class' => 'muliplespid']);?>
+                    </td>
+                    <td>
+                    <?= $this->Form->control('pronunciations.0.spelling', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    </td>
+                    <td>
+                    <?= $this->Form->button('Record Pronunciation', ['class' => 'btn-record', 'id' => 'record']);?>
+                    </td>
+                    <td>
+                    <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    </td>
+                    <td>
+                    <?= $this->Form->control('pronunciations.0.notes', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    </td>
+                    </tr>
+                    </table>
+                    <?php
                     echo "<div class='form-group'>";
                     echo $this->Form->control('definitions.0.id',['class' => 'muliplespid']);
                     echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);
@@ -37,13 +58,14 @@
 
                     echo "<div class='form-group'>";
                     echo $this->Form->control('sentences.0.id',['class' => 'muliplespid']);
-                    echo $this->Form->control('sentences.0.definition', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp']);
+                    echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;']);
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
@@ -61,10 +83,12 @@
                     
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('types._ids', ['options' => $types, 'label' => 'Who Uses This', 'style' => 'width:100%;display:block;']);
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
@@ -89,36 +113,17 @@
                     }
                     echo "<p>Double check your submission!</p>";
                 ?>
-            </fieldset>
+
             <?= $this->Form->button(__('Submit'), ['class' => "button blue"]) ?>
             <?= $this->Form->end() ?>
-        </div>
     </div>
-</div>
-<!--<script>
-$(function(){
-    $('[name="spelling"]').blur(function(){
-        $.ajax({
-            type: "POST",
-            url: "/words/checkforword",
-            data: {
-                spelling: $('[name="spelling"]').val()
-            },
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
-            },
-            success: function(response) {
-                var newData = response;
-                
-                //alert(newData.response.spelling);
-                if (newData.response.spelling == "There are words") {
-                    $('#wordexists').text("True");
-                } else {
-                    $('#wordexists').text("False");
-                }
-            }
-        })
-    });
-})
+</section>
 
-</script>-->
+
+<script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const recordButton = document.getElementById('record');
+            window.InitializeRecorder(recordButton);
+        });
+    </script>
+
