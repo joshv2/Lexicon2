@@ -19,7 +19,7 @@
                     echo "</div>";
 
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('alternates.0.id',['class' => 'multiple']);
+                    echo $this->Form->control('alternates.0.id',['class' => 'multiple', 'data-counter' => '0']);
                     echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'multiple']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
@@ -35,29 +35,30 @@
                     <?=  $this->Form->control('pronunciations.0.id',['class' => 'muliplespid']);?>
                     </td>
                     <td>
-                    <?= $this->Form->control('pronunciations.0.spelling', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    <?= $this->Form->control('pronunciations.0.spelling', ['label' => ['text' => 'Pronunciation(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
                     </td>
                     <td>
                     <?= $this->Form->button('Record Pronunciation', ['class' => 'btn-record', 'id' => 'record']);?>
                     </td>
                     <td>
-                    <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => ['text' => 'Pronunciation(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
                     </td>
                     <td>
-                    <?= $this->Form->control('pronunciations.0.notes', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
+                    <?= $this->Form->control('pronunciations.0.notes', ['label' => ['text' => 'Pronunciation Note', 'class' => 'req'], 'class' => 'muliplespsp']);?>
                     </td>
                     </tr>
                     </table>
                     <?php
+                    
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('definitions.0.id',['class' => 'muliplespid']);
+                    echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                     echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('sentences.0.id',['class' => 'muliplespid']);
+                    echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                     echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
