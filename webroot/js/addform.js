@@ -113,6 +113,14 @@ function addRow(el) {
 			return;
 		updateAttribute(label, 'for', counter, nextCounter);
 	});
+	let recordBtn = newRow.find('.btn-record');
+	$(recordBtn).click(function(ev) {
+		ev.preventDefault();
+		openRecorderDialog(this)
+	});
+	$(recordBtn).text('Record');
+	$(recordBtn).prev().hide(); //hide record success message
+	$(recordBtn).next().find('input').files = '';
 	newRow.attr('data-counter', nextCounter);
 	lastRow.after(newRow);
 }
