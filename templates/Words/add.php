@@ -30,24 +30,39 @@
                     ]);*/
                     ?>
                     <table>
-                    <tr>
-                    <td>
-                    <?=  $this->Form->control('pronunciations.0.id',['class' => 'muliplespid']);?>
-                    </td>
-                    <td>
-                    <?= $this->Form->control('pronunciations.0.spelling', ['label' => ['text' => 'Pronunciation(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
-                    </td>
-                    <td>
-                    <?= $this->Form->button('Record Pronunciation', ['class' => 'btn-record', 'id' => 'record']);?>
-                    </td>
-                    <td>
-                    <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => ['text' => 'Pronunciation(s)', 'class' => 'req'], 'class' => 'muliplespsp']);?>
-                    </td>
-                    <td>
-                    <?= $this->Form->control('pronunciations.0.notes', ['label' => ['text' => 'Pronunciation Note', 'class' => 'req'], 'class' => 'muliplespsp']);?>
-                    </td>
-                    </tr>
-                    </table>
+                        <thead>
+                            <tr>
+                                <th style="width: 0;"></th>
+                                <th style="text-align: left;">Pronuciation (Spelling)</th>
+                                <th style="text-align: left;">Record</th>
+                                <th style="text-align: left;">Phonetic Spelling</th>
+                                <th style="text-align: left;">Notes</th>
+                            </tr>
+                        </thead>
+                        <tr class="table-row" data-counter="0">
+                            <td style="width:0;">
+                                <?=  $this->Form->control('pronunciations.0.id',['class' => 'muliplespid']);?>
+                            </td>
+                            <td>
+                                <?= $this->Form->control('pronunciations.0.spelling', ['class' => 'muliplespsp']);?>
+                            </td>
+                            <td>
+                                <?= $this->Form->button('Record', ['class' => 'btn-record button grey', 'id' => 'record']);?>
+                            </td>
+                            <td>
+                                <?= $this->Form->control('pronunciations.0.pronunciation', ['class' => 'muliplespsp']);?>
+                            </td>
+                            <td>
+                                <?= $this->Form->control('pronunciations.0.notes', ['class' => 'muliplespsp']);?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
+                                <a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>
+                            </td>
+                        </tr>
+                        </table>
                     <?php
                     
                     echo "<div class='form-group'>";

@@ -57,6 +57,10 @@ $(function()
 		}
 	});
 
+	$("a.add-row").click(function() {
+		addRow(this);
+	})
+
 	$(".btn-record").click(openRecorderDialog);
 	
 	$('.remove-recording').click(function(e) {
@@ -82,6 +86,29 @@ function unloadMessage()
 function updateAttribute(el, attribute, counter, nextCounter) {
 	var attrValue = el.attr(attribute);
 	el.attr(attribute, attrValue.replace(counter, nextCounter));
+}
+
+function addRow(el) {
+	$(el).siblings("a.remove").removeClass("disabled");
+	let lastRow = $('.table-row').last();
+	let counter = lastRow.attr('data-counter');
+	let nextCounter = parseInt(counter) + 1;
+	let newRow = lastRow.clone();
+	let cells = newRow.children();
+	cells.each((index, cell) => {
+		let input = $(cell).find('input');
+		if (input.length == 0)
+			return;
+		updateAttribute(input, 'name', counter, nextCounter);
+		updateAttribute(input, 'id', counter, nextCounter);
+		input.val('');
+		let label = $(cell).find('label');
+		if (label.length == 0)
+			return;
+		updateAttribute(label, 'for', counter, nextCounter);
+	});
+	newRow.attr('data-counter', nextCounter);
+	lastRow.after(newRow);
 }
 
 function openRecorderDialog(e) {
