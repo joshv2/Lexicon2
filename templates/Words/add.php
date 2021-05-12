@@ -47,7 +47,12 @@
                                 <?= $this->Form->control('pronunciations.0.spelling', ['class' => 'muliplespsp']);?>
                             </td>
                             <td>
+                                <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
                                 <?= $this->Form->button('Record', ['class' => 'btn-record button grey', 'id' => 'record']);?>
+                                <?= $this->Form->control('pronunciations.0.sound_file', [
+                                    'type' => 'file',
+                                    'style' => 'display:none'
+                                ]); ?>
                             </td>
                             <td>
                                 <?= $this->Form->control('pronunciations.0.pronunciation', ['class' => 'muliplespsp']);?>

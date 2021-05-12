@@ -1,7 +1,8 @@
 (function(){
+    var theBlob;
     // window.addEventListener('DOMContentLoaded', () => {
         // window.InitializeRecorder = function(recordBtn) {
-            window.openRecorder = async (e, callback) => {
+            window.openRecorder = async (callback) => {
             // const getMic = document.getElementById('mic');
             // const recordButton = document.getElementById('record');
             // const recordButton = recordBtn;
@@ -9,7 +10,6 @@
                 if ('MediaRecorder' in window) {
                     // recordBtn.addEventListener('click', async (e) => {
                         // getMic.setAttribute('hidden', 'hidden');
-                        e.preventDefault();
                         try {
                             const stream = await navigator.mediaDevices.getUserMedia({
                                 audio: true,
@@ -74,7 +74,7 @@
           exConfirmPromise.make(configOpt).then((option) => {
             // alert(option);
             if (option)
-                callback();
+                callback(theBlob);
           });
           var dialogContents = document.getElementById('dialogContents');
           dialogContents.appendChild(recorderUI);
@@ -98,6 +98,7 @@
       }
 
       function renderRecording(blob, list) {
+        theBlob = blob;
         const blobUrl = URL.createObjectURL(blob);
         const li = document.createElement('li');
         const audio = document.createElement('audio');
@@ -109,6 +110,7 @@
             showRecordBtn();
         });
         anchor.setAttribute('href', blobUrl);
+        anchor.setAttribute('id', 'recording-url');
         const now = new Date();
         // anchor.setAttribute(
         //   'download',
