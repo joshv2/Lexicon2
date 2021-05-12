@@ -1897,3 +1897,7 @@ textarea {
 .btn-record {
 	padding: 5px;
 }
+
+.dialog-contents {
+	padding: 0 15px;
+}

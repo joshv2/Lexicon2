@@ -51,7 +51,7 @@
                     // });
                 } else {
                     renderError(
-                        "Sorry, your browser doesn't support the MediaRecorder API, so this demo will not work."
+                        "Sorry, your browser doesn't support the MediaRecorder API, so this feature will not work."
                     );
                 }
             }
@@ -67,12 +67,11 @@
           var recorderUI = buildRecorderUI(recorder);
           var configOpt = {
               title: "Record Word",
-              message: "<div id='dialogContents' class='dialog-contents'><h3>Click the record button to begin recording.</h3><p>When you are done, click 'submit' to save your recording</p><ul id='recordings'></ul></div>",
+              message: "<div id='dialogContents' class='dialog-contents'><h3>Click the record button to begin recording.</h3><p>When you are done, click 'Save' to save your recording</p><div id='recordings'></div></div>",
               btnClassSuccessText: "Save",
               btnClassFailText: "Cancel"
           }
           exConfirmPromise.make(configOpt).then((option) => {
-            // alert(option);
             if (option)
                 callback(theBlob);
           });
@@ -91,7 +90,6 @@
             } else {
                 recorder.stop();
                 recordBtn.style.display = 'none';
-            // recordBtn.innerText = 'Record another';
             }
         });
         return recordBtn;
@@ -100,43 +98,18 @@
       function renderRecording(blob, list) {
         theBlob = blob;
         const blobUrl = URL.createObjectURL(blob);
-        const li = document.createElement('li');
         const audio = document.createElement('audio');
-        const anchor = document.createElement('a');
         const removeBtn = document.createElement('button');
         removeBtn.innerText = 'Re-record';
         removeBtn.addEventListener('click', () => {
-            li.remove();
+            audio.remove();
+            removeBtn.remove();
             showRecordBtn();
         });
-        anchor.setAttribute('href', blobUrl);
-        anchor.setAttribute('id', 'recording-url');
-        const now = new Date();
-        // anchor.setAttribute(
-        //   'download',
-        //   `recording-${now.getFullYear()}-${(now.getMonth() + 1)
-        //     .toString()
-        //     .padStart(2, '0')}-${now
-        //     .getDay()
-        //     .toString()
-        //     .padStart(2, '0')}--${now
-        //     .getHours()
-        //     .toString()
-        //     .padStart(2, '0')}-${now
-        //     .getMinutes()
-        //     .toString()
-        //     .padStart(2, '0')}-${now
-        //     .getSeconds()
-        //     .toString()
-        //     .padStart(2, '0')}.webm`
-        // );
-        // anchor.innerText = 'Download';
         audio.setAttribute('src', blobUrl);
-        audio.setAttribute('controls', 'controls');
-        li.appendChild(audio);
-        // li.appendChild(anchor);
-        li.appendChild(removeBtn);
-        list.appendChild(li);
+        audio.setAttribute('controls', 'nodownload');
+        list.appendChild(audio);
+        list.appendChild(removeBtn);
       }
 
       function showRecordBtn() {
