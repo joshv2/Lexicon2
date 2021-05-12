@@ -34,6 +34,7 @@ $(function()
 		hiddenInputClone.attr('name', hiddenInputName.replace(counter, nextCounter));
 		hiddenInputClone.attr('id', hiddenInputID.replace(counter, nextCounter));
 		hiddenInputClone.attr('data-counter', nextCounter);
+		hiddenInputClone.val('');
 		var formGroup = $(hiddenInput).next();
 		var formGroupClone = $(formGroup).clone();
 		var label = $(formGroupClone).children('label');
@@ -42,6 +43,7 @@ $(function()
 		var inputClone = $(label).next();
 		inputCloneName = inputClone.attr('name');
 		inputCloneID = inputClone.attr('id');
+		inputClone.val('');
 		inputClone.attr('name', inputCloneName.replace(counter, nextCounter));
 		inputClone.attr('id', inputCloneID.replace(counter, nextCounter));
 		hiddenInputClone.insertBefore(this);
