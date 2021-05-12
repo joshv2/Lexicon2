@@ -21,41 +21,26 @@ $(function()
 	});
 
 	$("a.add").click(function() {
-		var f = $(this).siblings(".multiple").length;
 		$(this).siblings("a.remove").removeClass("disabled");
-		//if (f < 10) {
-
 		var hiddenInput = $(this).siblings('input[type="hidden"]').last();
 		var counter = hiddenInput.attr('data-counter');
 		var nextCounter = parseInt(counter) + 1;
 		var hiddenInputClone = hiddenInput.clone();
-		var hiddenInputName = hiddenInputClone.attr('name');
-		var hiddenInputID = hiddenInputClone.attr('id');
-		hiddenInputClone.attr('name', hiddenInputName.replace(counter, nextCounter));
-		hiddenInputClone.attr('id', hiddenInputID.replace(counter, nextCounter));
+		updateAttribute(hiddenInputClone, 'name', counter, nextCounter);
+		updateAttribute(hiddenInputClone, 'id', counter, nextCounter);
 		hiddenInputClone.attr('data-counter', nextCounter);
 		hiddenInputClone.val('');
 		var formGroup = $(hiddenInput).next();
 		var formGroupClone = $(formGroup).clone();
 		var label = $(formGroupClone).children('label');
-		var labelFor = label.attr('for');
-		label.attr('for', labelFor.replace(counter, nextCounter));
+		updateAttribute(label, 'for', counter, nextCounter);
 		var inputClone = $(label).next();
-		inputCloneName = inputClone.attr('name');
-		inputCloneID = inputClone.attr('id');
+		updateAttribute(inputClone, 'name', counter, nextCounter);
+		updateAttribute(inputClone, 'id', counter, nextCounter);
 		inputClone.val('');
-		inputClone.attr('name', inputCloneName.replace(counter, nextCounter));
-		inputClone.attr('id', inputCloneID.replace(counter, nextCounter));
 		hiddenInputClone.insertBefore(this);
 		formGroupClone.insertBefore(this);
 		inputClone.focus();
-
-			//attr('name', 'alternates.1.id') f+1
-			//if (f == 9)
-			//{
-			//	$(this).addClass("disabled");
-			//}
-		//}
 	});
 
 	$("a.remove").click(function() {
@@ -92,6 +77,11 @@ function setConfirmUnload(on)
 function unloadMessage()
 {
 	return 'The data you entered will be lost.';
+}
+
+function updateAttribute(el, attribute, counter, nextCounter) {
+	var attrValue = el.attr(attribute);
+	el.attr(attribute, attrValue.replace(counter, nextCounter));
 }
 
 function openRecorderDialog(e) {
