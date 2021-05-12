@@ -59,7 +59,10 @@ $(function()
 
 	$("a.add-row").click(function() {
 		addRow(this);
-	})
+	});
+	$("a.remove-row").click(function() {
+		removeRow(this);
+	});
 
 	$(".btn-record").click(openRecorderDialog);
 	
@@ -89,7 +92,7 @@ function updateAttribute(el, attribute, counter, nextCounter) {
 }
 
 function addRow(el) {
-	$(el).siblings("a.remove").removeClass("disabled");
+	$(el).siblings("a.remove-row").removeClass("disabled");
 	let lastRow = $('.table-row').last();
 	let counter = lastRow.attr('data-counter');
 	let nextCounter = parseInt(counter) + 1;
@@ -109,6 +112,17 @@ function addRow(el) {
 	});
 	newRow.attr('data-counter', nextCounter);
 	lastRow.after(newRow);
+}
+
+function removeRow(el) {
+	var f = $('.table-row').length;
+	let lastRow = $('.table-row').last();
+	if ( f > 1 ) {
+		lastRow.remove();
+		if (f == 2) {
+			$(el).addClass("disabled");
+		}
+	}
 }
 
 function openRecorderDialog(e) {
