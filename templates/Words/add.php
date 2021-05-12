@@ -59,7 +59,7 @@
                         <tr>
                             <td colspan="5">
                                 <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
-                                <a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>
+                                <a class='remove-row disabled'><i class='icon-minus-sign'></i> Remove</a>
                             </td>
                         </tr>
                         </table>
