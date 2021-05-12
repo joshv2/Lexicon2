@@ -19,7 +19,7 @@
                     echo "</div>";
 
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('alternates.0.id',['class' => 'multiple', 'data-counter' => '0']);
+                    echo $this->Form->control('alternates.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                     echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'multiple']);
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";

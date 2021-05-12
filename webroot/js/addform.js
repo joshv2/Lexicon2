@@ -56,10 +56,13 @@ $(function()
 	});
 
 	$("a.remove").click(function() {
-		var f = $(this).siblings(".multiple").length;
+		var f = $(this).siblings(".muliplespid").length;
 		$(this).siblings("a.add").removeClass("disabled");
 		if ( f > 1 ) {
-			$(this).siblings(".multiple:last").remove();
+			var hiddenInput = $(this).siblings('input[type="hidden"]').last();
+			var lastFormGroup = $(hiddenInput).next();
+			$(hiddenInput).remove();
+			$(lastFormGroup).remove();
 			if (f == 2) {
 				$(this).addClass("disabled");
 			}
