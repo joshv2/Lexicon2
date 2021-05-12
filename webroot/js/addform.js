@@ -48,6 +48,7 @@ $(function()
 		inputClone.attr('id', inputCloneID.replace(counter, nextCounter));
 		hiddenInputClone.insertBefore(this);
 		formGroupClone.insertBefore(this);
+		inputClone.focus();
 
 			//attr('name', 'alternates.1.id') f+1
 			//if (f == 9)
