@@ -1889,3 +1889,11 @@ textarea {
 		text-decoration: underline;
 	}
 }
+
+/*** Recorder Styles ***/
+.record-success {
+	color: green;
+}
+.btn-record {
+	padding: 5px;
+}

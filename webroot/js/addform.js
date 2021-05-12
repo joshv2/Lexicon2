@@ -64,7 +64,10 @@ $(function()
 		removeRow(this);
 	});
 
-	$(".btn-record").click(openRecorderDialog);
+	$(".btn-record").click(function(ev) {
+		ev.preventDefault();
+		openRecorderDialog(this);
+	});
 	
 	$('.remove-recording').click(function(e) {
 		e.preventDefault();
@@ -125,22 +128,17 @@ function removeRow(el) {
 	}
 }
 
-function openRecorderDialog(e) {
-	window.openRecorder(e, setRecording);
+function openRecorderDialog(el) {
+	window.openRecorder(setRecording.bind(this, el));
 }
 
-function setRecording(blob) {
-	let file = new File([blob], "recording.webm",{type:"audio", lastModified:new Date().getTime()});
+function setRecording(recordBtn, blob) {
+	let file = new File([blob], "recording.webm",{type:"audio/webm", lastModified:new Date().getTime()});
 	let container = new DataTransfer();
 	container.items.add(file);
-	var fileInput = document.createElement("input");
-	fileInput.type = "file";
-	fileInput.id = "recording-file";
-	$(fileInput).attr("name", "uploadedfile");
-	$(fileInput).css("display", "none");
-	fileInput.files = container.files;
-	$('#add_form').prepend(fileInput);
+	const inputEl = $(recordBtn).next().children('input')[0];
+	inputEl.files = container.files;
 	$('.remove-recording').show();
-	$('.record-success').show();
-	$(".btn-record").hide();
+	$(recordBtn).prev('.record-success').show();
+	$(".btn-record").text('Change');
 }
