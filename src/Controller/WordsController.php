@@ -134,7 +134,8 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
-            $word = $this->Words->patchEntity($word, $this->request->getData(), 
+            debug($this->request->getUploadedFiles());
+            $word = $this->Words->patchEntity($word, $postData, 
                                                 ['associated' => ['Alternates', 
                                                                     'Languages', 
                                                                     'Definitions', 
