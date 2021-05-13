@@ -35,33 +35,34 @@
                                 <tr>
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;">Pronuciation (Spelling)</th>
-                                    <th style="text-align: left;">Record</th>
                                     <th style="text-align: left;">Phonetic Spelling</th>
                                     <th style="text-align: left;">Notes</th>
+                                    <th style="text-align: left;">Record</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="table-row" data-counter="0">
                                     <td style="width:0;">
-                                        <?=  $this->Form->control('pronunciations.0.id',['class' => 'muliplespid']);?>
+                                        <?=  $this->Form->control('pronunciations.0.id',['label' => FALSE, 'class' => 'muliplespid']);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control('pronunciations.0.spelling', ['class' => 'muliplespsp']);?>
+                                        <?= $this->Form->control('pronunciations.0.spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                     </td>
                                     <td>
+                                        <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                    </td>
+                                    <td>
+                                        <?= $this->Form->control('pronunciations.0.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                    </td>
+                                    <td style="vertical-align: top;">
                                         <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
-                                        <?= $this->Form->button('Record', ['class' => 'btn-record button grey', 'id' => 'record']);?>
+                                        <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
                                         <?= $this->Form->control('pronunciations.0.sound_file', [
                                             'class' => 'recording-input',
                                             'type' => 'file',
-                                            'style' => 'display:none'
+                                            'style' => 'display:none',
+                                            'label' => FALSE
                                         ]); ?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('pronunciations.0.pronunciation', ['class' => 'muliplespsp']);?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('pronunciations.0.notes', ['class' => 'muliplespsp']);?>
                                     </td>
                                 </tr>
                                 <tr>
