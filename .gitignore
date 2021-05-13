@@ -5,6 +5,7 @@
 /logs/*
 /tmp/*
 /vendor/*
+/webroot/recordings/*
 
 # OS generated files #
 ######################
