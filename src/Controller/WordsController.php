@@ -134,7 +134,25 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
-            debug($this->request->getUploadedFiles());
+            $postData = $this->request->getData();
+            $soundFiles = $this->request->getUploadedFiles();
+            //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+            $i = 0;
+            foreach ($soundFiles as $soundFile) {
+                $name = $soundFile->getClientFilename();
+                $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+                $type = $soundFile->getClientMediaType();
+                if ($type == 'audio/webm') {
+                    if(!empty($name)){
+                        if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
+                            $soundFile->moveTo($targetPath);
+                            $postData['pronunciations'][$i]['sound_file'] = $finalname;
+                        }
+                    }
+                }
+                $i++;
+            }
             $word = $this->Words->patchEntity($word, $postData, 
                                                 ['associated' => ['Alternates', 
                                                                     'Languages', 
