@@ -57,7 +57,7 @@
                                     <td style="vertical-align: top;">
                                         <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
                                         <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
-                                        <?= $this->Form->control('pronunciations.0.sound_file', [
+                                        <?= $this->Form->control('soundfile0', [
                                             'class' => 'recording-input',
                                             'type' => 'file',
                                             'style' => 'display:none',

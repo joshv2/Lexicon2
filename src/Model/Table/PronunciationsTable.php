@@ -67,11 +67,11 @@ class PronunciationsTable extends Table
             ->requirePresence('spelling', 'create')
             ->notEmptyString('spelling');
 
-        $validator
+        /*$validator
             ->scalar('sound_file')
             ->maxLength('sound_file', 4000)
             ->requirePresence('sound_file', 'create')
-            ->notEmptyFile('sound_file');
+            ->notEmptyFile('sound_file');*/
 
         $validator
             ->scalar('pronunciation')
