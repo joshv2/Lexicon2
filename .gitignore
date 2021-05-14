@@ -6,6 +6,8 @@
 /tmp/*
 /vendor/*
 /webroot/recordings/*
+/src/Application.php
+superuser.txt
 
 # OS generated files #
 ######################

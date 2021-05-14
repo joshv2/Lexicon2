@@ -1,7 +1,7 @@
 $(function()
 {
 
-	$(':input',document.add_form).bind("change", function() { setConfirmUnload(true); });
+	//$(':input',document.add_form).bind("change", function() { setConfirmUnload(true); });
 
 	$('#add_form').submit(function() {
 		$('input:submit').removeClass("blue").addClass("submitting").attr("disabled", true).val("Submitting ...");
