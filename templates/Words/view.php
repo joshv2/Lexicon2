@@ -41,7 +41,8 @@
 		<table>
 		<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
 		<?php foreach ($word->pronunciations as $p): ?>
-			<?php echo $this->Html->tableCells([[$p->spelling, $p->sound_file, $p->pronunciation, $p->notes]]); ?>
+			<?php $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']); ?>
+			<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation, $p->notes]]); ?>
 		<?php endforeach; ?>
 		</table>
 
