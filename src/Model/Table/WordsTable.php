@@ -124,15 +124,20 @@ class WordsTable extends Table
             ->requirePresence('spelling', 'create')
             ->notEmptyString('spelling');
 
-        $validator
+        /*$validator
             ->scalar('etymology')
             ->requirePresence('etymology', 'create')
-            ->notEmptyString('etymology');
+            ->notEmptyString('etymology');*/
 
-        $validator
+        /*$validator
             ->scalar('notes')
             ->requirePresence('notes', 'create')
-            ->notEmptyString('notes');
+            ->notEmptyString('notes');*/
+
+        $validator
+            ->scalar('full_name')
+            ->requirePresence('full_name', 'create')
+            ->notEmptyString('full_name');
 
         $validator
             ->boolean('approved')
@@ -327,7 +332,11 @@ class WordsTable extends Table
     }
 
     public function findWithSpelling($spelling){
-        $wordtosearch = $spelling["spelling"];
+        if(isset($spelling["spelling"])){
+            $wordtosearch = $spelling["spelling"];
+        } else {
+            $wordtosearch = $spelling;
+        }
         $alternates = $this->Alternates;
 
         $wordspellingquery = $this->find()

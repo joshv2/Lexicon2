@@ -132,7 +132,7 @@ return [
         [
             'role' => '*',
             'controller' => 'Words',
-            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success'],
+            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword'],
             'bypassAuth' => true,
         ],
         [
