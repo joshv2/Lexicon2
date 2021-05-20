@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1562b959901da239acc907453754b0d4",
+    "content-hash": "800fa955b46e4e46feb0112dd1c0b16f",
     "packages": [
         {
             "name": "cakedc/auth",
@@ -637,6 +637,71 @@
                 }
             ],
             "time": "2021-01-12T12:10:35+00:00"
+        },
+        {
+            "name": "deanblackborough/php-quill-renderer",
+            "version": "v3.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deanblackborough/php-quill-renderer.git",
+                "reference": "11d3c7c0105a09ca007fc51925373ef5da168a9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/11d3c7c0105a09ca007fc51925373ef5da168a9d",
+                "reference": "11d3c7c0105a09ca007fc51925373ef5da168a9d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2",
+                "phpunit/phpunit": "^7"
+            },
+            "suggest": {
+                "php": "^7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DBlackborough\\Quill\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dean Blackborough",
+                    "email": "dean@g3d-development.com"
+                }
+            ],
+            "description": "Render quill insert deltas to HTML, Markdown and GitHub flavoured Markdown",
+            "homepage": "http://www.transmute-coffee.com/php-quill-renderer.php",
+            "keywords": [
+                "delta",
+                "html",
+                "markdown",
+                "parse",
+                "php",
+                "quill",
+                "quilljs",
+                "renderer"
+            ],
+            "support": {
+                "issues": "https://github.com/deanblackborough/php-quill-renderer/issues",
+                "source": "https://github.com/deanblackborough/php-quill-renderer/tree/v3.18.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/deanblackborough",
+                    "type": "github"
+                }
+            ],
+            "time": "2019-12-10T22:44:21+00:00"
         },
         {
             "name": "google/recaptcha",

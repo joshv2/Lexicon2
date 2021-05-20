@@ -34,6 +34,7 @@
 	<?= $this->Html->script('addform')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
 <?= $this->Html->script('recorder')."\n";?>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
