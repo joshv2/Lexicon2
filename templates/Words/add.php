@@ -17,6 +17,7 @@
                     echo "<div class='form-group'>";
                     echo $this->Form->control('spelling', ['label' => ['text' => 'Most Common Spelling', 'class' => 'req'], 'required' => TRUE]);
                     echo "</div>";
+                    echo "<div id='wordexists' style='color:red'></div>";
 
                     echo "<div class='form-group'>";
                     echo $this->Form->control('alternates.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
@@ -137,11 +138,12 @@
                         echo $this->Form->control('email', ['label' => ['text' => 'Your Email Address', 'class' => 'req']]);
                         echo "</div>";
                         echo $this->Form->hidden('approved', ['value' => FALSE]);
+                        echo "<div class='g-recaptcha' data-sitekey='6LdXhXwUAAAAAE6bcodYGt-FgNvlUJdcme3WprFh'></div>";
                     }
                     echo "<p>Double check your submission!</p>";
                 ?>
 
-            <?= $this->Form->button(__('Submit'), ['class' => "button blue"]) ?>
+            <?= $this->Form->button(__('Submit'), ['class' => "button blue", 'id'=> "submitbutton"]) ?>
             <?= $this->Form->end() ?>
     </div>
 </section>
@@ -154,3 +156,31 @@
         });
     </script>
 
+<script>
+$(function(){
+    $('[name="spelling"]').blur(function(){
+        $.ajax({
+            type: "POST",
+            url: "/words/checkforword",
+            data: {
+                spelling: $('[name="spelling"]').val()
+            },
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
+            },
+            success: function(response) {
+                var newData = response;
+                
+                //alert(newData.response.spelling);
+                if (newData.response.spelling == false) {
+                    $('#wordexists').text("This word already exists in the lexicon or is being evaluated.");
+                    $("#submitbutton").prop('disabled', true);
+                } else {
+                    $('#wordexists').text("");
+                    $("#submitbutton").prop('disabled', false);
+                }
+            }
+        })
+    });
+})
+</script>

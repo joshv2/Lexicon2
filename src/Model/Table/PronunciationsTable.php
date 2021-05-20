@@ -61,11 +61,11 @@ class PronunciationsTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
+        /*$validator
             ->scalar('spelling')
             ->maxLength('spelling', 255)
             ->requirePresence('spelling', 'create')
-            ->notEmptyString('spelling');
+            ->notEmptyString('spelling');*/
 
         /*$validator
             ->scalar('sound_file')
@@ -73,7 +73,7 @@ class PronunciationsTable extends Table
             ->requirePresence('sound_file', 'create')
             ->notEmptyFile('sound_file');*/
 
-        $validator
+        /*$validator
             ->scalar('pronunciation')
             ->maxLength('pronunciation', 4000)
             ->requirePresence('pronunciation', 'create')
@@ -83,7 +83,7 @@ class PronunciationsTable extends Table
             ->scalar('notes')
             ->maxLength('notes', 4000)
             ->requirePresence('notes', 'create')
-            ->notEmptyString('notes');
+            ->notEmptyString('notes');*/
 
         return $validator;
     }

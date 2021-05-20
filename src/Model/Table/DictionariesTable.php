@@ -62,11 +62,11 @@ class DictionariesTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
+        /*$validator
             ->scalar('dictionary')
             ->maxLength('dictionary', 255)
             ->requirePresence('dictionary', 'create')
-            ->notEmptyString('dictionary');
+            ->notEmptyString('dictionary');*/
 
         return $validator;
     }

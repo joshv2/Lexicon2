@@ -14,7 +14,8 @@
 		'as' => 'font']
 	);?>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
-	
+	<!-- Include stylesheet -->
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <?php echo $this->Html->css('style');?>
 
 	<!--[if lt IE 9]>

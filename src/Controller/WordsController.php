@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Http\Client;
 
 /**
  * Words Controller
@@ -135,6 +136,18 @@ class WordsController extends AppController
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
+            
+            //reCaptcha authentication
+            $recaptcha = $postData['g-recaptcha-response'];
+            $google_url = "https://www.google.com/recaptcha/api/siteverify";
+			$secret = '6LdXhXwUAAAAAI_q-e-CrqD3hB77OJiEKunESnOv';
+			$ip = $_SERVER['REMOTE_ADDR'];
+            $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
+            $http = new Client();
+
+            $res = $http->get($url);
+            $json = $res->getJson();
+            //debug($json);
             $soundFiles = $this->request->getUploadedFiles();
             //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
             $i = 0;
@@ -163,11 +176,13 @@ class WordsController extends AppController
                                                                     'Origins', 
                                                                     'Regions', 
                                                                     'Types']]);
+        if ($json['success'] == "true"){   //reqiuring reCaptcha to be true
             if ($this->Words->save($word)) {
                 //$this->Flash->success(__('The word has been saved.'));
 
                 return $this->redirect(['action' => 'success']);
             }
+        }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
         $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
