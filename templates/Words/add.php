@@ -79,7 +79,9 @@
                     
                     echo "<div class='form-group'>";
                     echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
-                    echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp']);
+                    //echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp', 'id' => 'editor']);
+                    echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
+                    echo "<div id='editor'></div>";
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
@@ -138,7 +140,7 @@
                         echo $this->Form->control('email', ['label' => ['text' => 'Your Email Address', 'class' => 'req']]);
                         echo "</div>";
                         echo $this->Form->hidden('approved', ['value' => FALSE]);
-                        echo "<div class='g-recaptcha' data-sitekey='6LdXhXwUAAAAAE6bcodYGt-FgNvlUJdcme3WprFh'></div>";
+                        echo "<div class='g-recaptcha' data-sitekey='" . $recaptcha_user . "'></div>";
                     }
                     echo "<p>Double check your submission!</p>";
                 ?>
@@ -183,4 +185,14 @@ $(function(){
         })
     });
 })
+</script>
+<script>
+  var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+
+  $('#add_form').submit(function() {
+    $('#definition0').val(JSON.stringify(quill.getContents()));
+    return true;
+});
 </script>

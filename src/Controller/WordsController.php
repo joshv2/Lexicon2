@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Http\Client;
+use Cake\Core\Configure;
 
 /**
  * Words Controller
@@ -136,11 +137,18 @@ class WordsController extends AppController
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
-            
+            try {
+                $quill = new \DBlackborough\Quill\Render($postData['definitions'][0]['definition']);
+                $defresult = $quill->render();
+                $postData['definitions'][0]['definition'] = $defresult;
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+            //debug($postData['definitions'][0]['definition']);
             //reCaptcha authentication
             $recaptcha = $postData['g-recaptcha-response'];
             $google_url = "https://www.google.com/recaptcha/api/siteverify";
-			$secret = '6LdXhXwUAAAAAI_q-e-CrqD3hB77OJiEKunESnOv';
+			$secret = Configure::consume('recaptcha_secret');
 			$ip = $_SERVER['REMOTE_ADDR'];
             $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
             $http = new Client();
@@ -176,7 +184,7 @@ class WordsController extends AppController
                                                                     'Origins', 
                                                                     'Regions', 
                                                                     'Types']]);
-        if ($json['success'] == "true"){   //reqiuring reCaptcha to be true
+        if ($json['success'] == "true" || $this->Identity->isLoggedIn()){   //reqiuring reCaptcha to be true or to be logged in
             if ($this->Words->save($word)) {
                 //$this->Flash->success(__('The word has been saved.'));
 
@@ -189,7 +197,8 @@ class WordsController extends AppController
         $origins = $this->Words->Origins->find('list', ['limit' => 200]);
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
         $types = $this->Words->Types->find('list', ['limit' => 200]);
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
+        $recaptcha_user = Configure::consume('recaptcha_user');
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user'));
     }
 
     public function checkforword(){

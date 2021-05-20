@@ -36,16 +36,17 @@
 
 		</h3>
 		
-		
-		<h4>Pronunciations</h4>
-		<table>
-		<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
-		<?php foreach ($word->pronunciations as $p): ?>
-			<?php $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']); ?>
-			<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation, $p->notes]]); ?>
-		<?php endforeach; ?>
-		</table>
-
+		<?php if(!empty($word->pronunciations)) : ?>
+			<h4>Pronunciations</h4>
+			<table>
+			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
+			
+			<?php foreach ($word->pronunciations as $p): ?>
+				<?php $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']); ?>
+				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation, $p->notes]]); ?>
+			<?php endforeach; ?>
+			</table>
+		<?php endif; ?>
 
 		<h4>Definitions</h4>
 		<ul class="definitions">
