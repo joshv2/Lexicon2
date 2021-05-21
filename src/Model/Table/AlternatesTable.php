@@ -61,9 +61,10 @@ class AlternatesTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        /*$validator
-            ->scalar('spelling');
-            //->maxLength('spelling', 255)
+        $validator
+            ->scalar('spelling')
+            ->maxLength('spelling', 255)
+            ->allowEmptyString('spelling', 'true');
             //->requirePresence('spelling');
             //->allowEmptyString('spelling', 'false')*/
 

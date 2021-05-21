@@ -136,7 +136,9 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         if ($this->request->is('post')) {
+            //assign the post data to a variable
             $postData = $this->request->getData();
+            //process the WYSIWYG Quills
             try {
                 $quill = new \DBlackborough\Quill\Render($postData['definitions'][0]['definition']);
                 $defresult = $quill->render();
@@ -144,7 +146,17 @@ class WordsController extends AppController
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
-            //debug($postData['definitions'][0]['definition']);
+
+            //account for non-subitted data
+            $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+            $associatedforfilter =  ['Alternates', 'Definitions', 'Pronunciations', 'Sentences'];
+            foreach ($associatedforfilter as $assoc){
+                //debug($postData[strtolower($assoc)]);
+                if (!array_filter($postData[strtolower($assoc)][0])) {
+                    unset($postData[strtolower($assoc)]);  
+                }
+            }
+
             //reCaptcha authentication
             $recaptcha = $postData['g-recaptcha-response'];
             $google_url = "https://www.google.com/recaptcha/api/siteverify";
@@ -174,23 +186,14 @@ class WordsController extends AppController
                 }
                 $i++;
             }
-            $word = $this->Words->patchEntity($word, $postData, 
-                                                ['associated' => ['Alternates', 
-                                                                    'Languages', 
-                                                                    'Definitions', 
-                                                                    'Pronunciations', 
-                                                                    'Sentences', 
-                                                                    'Dictionaries', 
-                                                                    'Origins', 
-                                                                    'Regions', 
-                                                                    'Types']]);
-        if ($json['success'] == "true" || $this->Identity->isLoggedIn()){   //reqiuring reCaptcha to be true or to be logged in
-            if ($this->Words->save($word)) {
-                //$this->Flash->success(__('The word has been saved.'));
+            $word = $this->Words->patchEntity($word, $postData,  ['associated' => $associated]);
+            if ($json['success'] == "true" || $this->Identity->isLoggedIn()){   //reqiuring reCaptcha to be true or to be logged in
+                if ($this->Words->save($word)) {
+                    //$this->Flash->success(__('The word has been saved.'));
 
-                return $this->redirect(['action' => 'success']);
+                    return $this->redirect(['action' => 'success']);
+                }
             }
-        }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
         $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
