@@ -84,7 +84,7 @@
                     echo "<label>Definition(s)</label>";
                     echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
-				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
+				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
                     echo "<div class='form-group'>";
