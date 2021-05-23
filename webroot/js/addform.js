@@ -68,6 +68,10 @@ $(function()
 		addEditorField(this, mappedEditors);
 	});
 
+	$("a.remove-editor").click(function() {
+		removeEditorField(this, mappedEditors);
+	});
+
 	$(".btn-record").click(function(ev) {
 		ev.preventDefault();
 		openRecorderDialog(this);
@@ -149,7 +153,7 @@ function addRow(el) {
 }
 
 function addEditorField(el, mappedEditors) {
-	$(el).siblings("a.remove").removeClass("disabled");
+	$(el).siblings("a.remove-editor").removeClass("disabled");
 	var hiddenInput = $(el).siblings('input[type="hidden"]').last().prev();
 	var counter = hiddenInput.attr('data-counter');
 	var nextCounter = parseInt(counter) + 1;
@@ -183,6 +187,37 @@ function removeRow(el) {
 		lastRow.remove();
 		if (f == 2) {
 			$(el).addClass("disabled");
+		}
+	}
+}
+
+function removeEditorField(el, mappedEditors) {
+	var f = $('.editor-container').length;
+	let lastContainer = $('.editor-container').last();
+	if ( f > 1 ) {
+		const hiddenInputs = lastContainer.siblings('input[type="hidden"]');
+		const last = hiddenInputs.last();
+		const secondLast = hiddenInputs.last().prev();
+		last.remove();
+		secondLast.remove();
+		lastContainer.remove();
+		removeEditor(lastContainer, mappedEditors)
+		if (f == 2) {
+			$(el).addClass("disabled");
+		}
+	}
+}
+
+function removeEditor(container, mappedEditors) {
+	const editor = container.children().last();
+	const id = editor.attr('id').replace('editor-', '');
+	removeByID(mappedEditors, 'id', id);
+}
+
+function removeByID(array, prop, value) {
+	for(var i = 0; i < array.length; i++) {
+		if(array[i][prop] == value){
+			return array.splice(i,1);
 		}
 	}
 }
