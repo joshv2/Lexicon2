@@ -82,8 +82,8 @@
                     //echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp', 'id' => 'editor']);
                     echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
                     echo "<label>Definition(s)</label>";
-                    echo "<div id='editor-definition0'></div>";
-                    echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
+                    echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
+                    echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
@@ -193,24 +193,4 @@ $(function(){
         })
     });
 })
-</script>
-<script>
-  var editors = $('[id^=editor]');
-  var mappedEditors = [];
-  editors.each((index, el) => {
-        var quill = new Quill(el, {
-            theme: 'snow'
-        });
-        mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
-  });
-
-  $('#add_form').submit(function(e) {
-      mappedEditors.forEach((el) => {
-          var element = el.id;
-          var stringifiedContent = JSON.stringify(el.editor.getContents());
-          $(element).val(stringifiedContent);
-      })
-    // $('#definition0').val(JSON.stringify(quill.getContents()));
-    return true;
-});
 </script>
