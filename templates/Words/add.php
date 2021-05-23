@@ -103,9 +103,11 @@
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
+                    echo $this->Form->hidden('etymology', ['id' => 'etymology']);
                     echo $this->Form->label('etymology');
                     echo "<p class='notes'>Etymology of the word</p>";
-                    echo $this->Form->control('etymology', ['label' => false]);
+                    // echo $this->Form->control('etymology', ['label' => false]);
+                    echo "<div id='editor-etymology'></div>";
                     echo "</div>";
 
                     //echo $this->Form->control('approved');
@@ -126,9 +128,11 @@
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
+                    echo $this->Form->hidden('notes', ['id' => 'notes']);
                     echo $this->Form->label('notes');
                     echo "<p class='notes'>Pronunciation, context, or anything else you want website visitors to know about this entry</p>";
-                    echo $this->Form->control('notes', ['label' => false]);
+                    // echo $this->Form->control('notes', ['label' => false]);
+                    echo "<div id='editor-notes'></div>";
                     echo "</div>";
 
                     if ($this->Identity->isLoggedIn()){
