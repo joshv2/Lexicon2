@@ -1911,3 +1911,7 @@ textarea {
 	padding: 1em;
 	background-color: rgb(238, 184, 193);
 }
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+	margin-bottom: 10px;
+}
