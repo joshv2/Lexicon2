@@ -1906,3 +1906,8 @@ textarea {
 .dialog-contents {
 	padding: 0 15px;
 }
+
+.error {
+	padding: 1em;
+	background-color: rgb(238, 184, 193);
+}
