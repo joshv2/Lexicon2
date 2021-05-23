@@ -1,5 +1,6 @@
 (function(){
     var theBlob;
+    var theStream;
     // window.addEventListener('DOMContentLoaded', () => {
         // window.InitializeRecorder = function(recordBtn) {
             window.openRecorder = async (callback) => {
@@ -11,13 +12,13 @@
                     // recordBtn.addEventListener('click', async (e) => {
                         // getMic.setAttribute('hidden', 'hidden');
                         try {
-                            const stream = await navigator.mediaDevices.getUserMedia({
+                             theStream = await navigator.mediaDevices.getUserMedia({
                                 audio: true,
                                 video: false
                             });
                             const mimeType = 'audio/webm';
                             let chunks = [];
-                            const recorder = new MediaRecorder(stream, { type: mimeType });
+                            const recorder = new MediaRecorder(theStream, { type: mimeType });
                             recorder.addEventListener('dataavailable', event => {
                                 if (typeof event.data === 'undefined') return;
                                 if (event.data.size === 0) return;
@@ -64,8 +65,10 @@
               btnClassFailText: "Cancel"
           }
           exConfirmPromise.make(configOpt).then((option) => {
-            if (option)
+            theStream.getTracks().forEach(track => track.stop());
+            if (option) {
                 callback(theBlob);
+            }
           });
           var dialogContents = document.getElementById('dialogContents');
           dialogContents.appendChild(recorderUI);
