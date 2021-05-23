@@ -32,20 +32,9 @@
                                 chunks = [];
                             });
                             openRecordDialog(recorder, callback);
-                            // recordButton.removeAttribute('hidden');
-                            recordButton.addEventListener('click', () => {
-                                // openRecordDialog(recorder);
-                                // if (recorder.state === 'inactive') {
-                                // recorder.start();
-                                // recordButton.innerText = 'Stop';
-                                // } else {
-                                // recorder.stop();
-                                // recordButton.innerText = 'Record';
-                                // }
-                            });
                         } catch {
                             renderError(
-                                'You denied access to the microphone so this demo will not work.'
+                                'You denied access to the microphone so this feature will not work.'
                             );
                         }
                     // });
@@ -60,7 +49,10 @@
 
       function renderError(message) {
         const main = document.getElementById('main');
-        main.prepend(`<div class="error"><p>${message}</p></div>`);
+        const div = document.createElement('div');
+        div.classList = 'error';
+        div.innerHTML = message;
+        main.prepend(div);
       }
 
       function openRecordDialog(recorder, callback) {
