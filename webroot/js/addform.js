@@ -64,6 +64,10 @@ $(function()
 		removeRow(this);
 	});
 
+	$("a.add-editor").click(function() {
+		addEditorField(this, mappedEditors);
+	});
+
 	$(".btn-record").click(function(ev) {
 		ev.preventDefault();
 		openRecorderDialog(this);
@@ -76,6 +80,25 @@ $(function()
 		$(".btn-record").show();
 		$(this).hide();
 	});
+
+	var editors = $('[id^=editor]');
+	var mappedEditors = [];
+	editors.each((index, el) => {
+		  var quill = new Quill(el, {
+			  theme: 'snow'
+		  });
+		  mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
+	});
+  
+	$('#add_form').submit(function(e) {
+		mappedEditors.forEach((el) => {
+			var element = el.id;
+			var stringifiedContent = JSON.stringify(el.editor.getContents());
+			$(element).val(stringifiedContent);
+		})
+	  // $('#definition0').val(JSON.stringify(quill.getContents()));
+	  return true;
+  });
 
 });
 
@@ -125,6 +148,34 @@ function addRow(el) {
 	lastRow.after(newRow);
 }
 
+function addEditorField(el, mappedEditors) {
+	$(el).siblings("a.remove").removeClass("disabled");
+	var hiddenInput = $(el).siblings('input[type="hidden"]').last().prev();
+	var counter = hiddenInput.attr('data-counter');
+	var nextCounter = parseInt(counter) + 1;
+	var hiddenInputClone = hiddenInput.clone();
+	updateAttribute(hiddenInputClone, 'name', counter, nextCounter);
+	updateAttribute(hiddenInputClone, 'id', counter, nextCounter);
+	hiddenInputClone.attr('data-counter', nextCounter);
+	hiddenInputClone.val('');
+	var editorClone = getNewEditor(el, counter, nextCounter);
+	var hiddenEditorInput = $(el).siblings('input[type="hidden"]').last();
+	var hiddenEditorInputClone = hiddenEditorInput.clone();
+	updateAttribute(hiddenEditorInputClone, 'name', counter, nextCounter);
+	updateAttribute(hiddenEditorInputClone, 'id', counter, nextCounter);
+	hiddenInputClone.insertBefore(el);
+	hiddenEditorInputClone.insertBefore(el);
+	var div = document.createElement('div');
+	
+	$(div).addClass('editor-container').append(editorClone);
+	$(div).insertBefore(el);
+	var quill = new Quill(editorClone[0], {
+		theme: 'snow'
+	});
+	mappedEditors.push({"id": $(editorClone).attr('id').replace('editor-', ''), "editor": quill});
+	quill.focus();
+}
+
 function removeRow(el) {
 	var f = $('.table-row').length;
 	let lastRow = $('.table-row').last();
@@ -149,4 +200,15 @@ function setRecording(recordBtn, blob) {
 	$('.remove-recording').show();
 	$(recordBtn).prev('.record-success').show();
 	$(".btn-record").text('Change');
+}
+
+function getNewEditor(el, counter, nextCounter) {
+	var editor = $(el).siblings('.editor-container').last().children().last(); //get the editor div
+	var editorClone = editor.clone();
+	updateAttribute(editorClone, 'id', counter, nextCounter);
+	return editorClone;
+}
+
+function getEditorToolbar() {
+	return $('.ql-toolbar').last().clone();
 }
