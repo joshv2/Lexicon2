@@ -65,10 +65,10 @@ class SentencesTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        /*$validator
+        $validator
             ->scalar('sentence')
             //->requirePresence('sentence', 'create')
-            ->notEmptyString('sentence');*/
+            ->allowEmptyString('sentence', 'true');
 
         return $validator;
     }
