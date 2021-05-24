@@ -78,6 +78,7 @@
                     <?php
                     
                     echo "<div class='form-group'>";
+                    echo $this->Form->label('Definition');
                     echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                     //echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp', 'id' => 'editor']);
                     echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
@@ -86,20 +87,37 @@
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
-
-                    echo "<div class='form-group'>";
-                    echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
-                    // echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
-                    echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
-                    echo "<label>Example Sentence(s)</label>";
-                    echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
-                    echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
-                    echo "</div>";
-
+                    
+                    if (!empty($_POST)) {
+                        $postData = $this->request->getData();
+                        $i = 0;
+                        while ($i < count($postData['sentences'])){
+                            echo "<div class='form-group'>";
+                            echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
+//                          echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
+                            echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i]);
+                            echo "<label>Example Sentence(s)</label>";
+                            echo "<div class='editor-container'><div id='editor-sentences' . $i'></div></div>";
+                            echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
+				                    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
+                            echo "</div>";
+                            $i += 1;
+                        }
+                    } else {
+                        echo "<div class='form-group'>";
+                        echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => '0']);
+//                      echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
+                        echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
+                        echo "<label>Example Sentence(s)</label>";
+                        echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
+                        echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
+				                echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
+                        echo "</div>";
+                    }
+      
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
@@ -119,12 +137,12 @@
                     
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('types._ids', ['options' => $types, 'label' => 'Who Uses This', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselec</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option</p>";
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselec</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
