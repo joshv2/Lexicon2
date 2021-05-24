@@ -135,6 +135,7 @@ class WordsController extends AppController
     public function add()
     {
         $word = $this->Words->newEmptyEntity();
+        //debug($this->request->getSession()->read('Auth.username'));
         if ($this->request->is('post')) {
             //assign the post data to a variable
             $postData = $this->request->getData();
@@ -158,15 +159,21 @@ class WordsController extends AppController
             }
 
             //reCaptcha authentication
-            $recaptcha = $postData['g-recaptcha-response'];
-            $google_url = "https://www.google.com/recaptcha/api/siteverify";
-			$secret = Configure::consume('recaptcha_secret');
-			$ip = $_SERVER['REMOTE_ADDR'];
-            $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
-            $http = new Client();
+            if (null == $this->request->getSession()->read('Auth.username')){
+                $recaptcha = $postData['g-recaptcha-response'];
+                $google_url = "https://www.google.com/recaptcha/api/siteverify";
+                $secret = Configure::consume('recaptcha_secret');
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
+                $http = new Client();
 
-            $res = $http->get($url);
-            $json = $res->getJson();
+                $res = $http->get($url);
+                $json = $res->getJson();
+                $validationSet = 'notloggedin';
+            } else {
+                $json['success'] = 'false';
+                $validationSet = 'default';
+            }
             //debug($json);
             $soundFiles = $this->request->getUploadedFiles();
             //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
@@ -186,13 +193,18 @@ class WordsController extends AppController
                 }
                 $i++;
             }
-            $word = $this->Words->patchEntity($word, $postData,  ['associated' => $associated]);
-            if ($json['success'] == "true" || $this->Identity->isLoggedIn()){   //reqiuring reCaptcha to be true or to be logged in
+            //debug($postData['pronunciations'][0]['sound_file']);
+            $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
+            //debug($json['success']);
+            
+            
+            if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in - $json['success'] == "true" || 
                 if ($this->Words->save($word)) {
                     //$this->Flash->success(__('The word has been saved.'));
 
                     return $this->redirect(['action' => 'success']);
                 }
+                //$this->Flash->error(__('Authentication passed.'));
             }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }

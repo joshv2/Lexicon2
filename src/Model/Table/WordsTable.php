@@ -124,15 +124,36 @@ class WordsTable extends Table
             ->requirePresence('spelling', 'create')
             ->notEmptyString('spelling');
 
-        /*$validator
+        $validator
             ->scalar('etymology')
-            ->requirePresence('etymology', 'create')
-            ->notEmptyString('etymology');*/
+            //->requirePresence('etymology', 'create')
+            ->allowEmptyString('etymology', 'true');
+
+        $validator
+            ->scalar('notes')
+            //->requirePresence('notes', 'create')
+            ->allowEmptyString('notes', 'true');
 
         /*$validator
-            ->scalar('notes')
-            ->requirePresence('notes', 'create')
-            ->notEmptyString('notes');*/
+            ->scalar('full_name');*/
+            //->requirePresence('full_name', 'create')
+            //->notEmptyString('full_name');
+
+        /*$validator
+            ->boolean('approved')
+            ->requirePresence('approved', 'create')
+            ->notEmptyString('approved');
+
+        $validator
+            ->email('email');*/
+
+
+        return $validator;
+    }
+
+    public function validationNotloggedin(Validator $validator): Validator
+    {
+        $validator = $this->validationDefault($validator);
 
         $validator
             ->scalar('full_name')
@@ -140,16 +161,11 @@ class WordsTable extends Table
             ->notEmptyString('full_name');
 
         $validator
-            ->boolean('approved')
-            ->requirePresence('approved', 'create')
-            ->notEmptyString('approved');
-
-        $validator
             ->email('email');
-
 
         return $validator;
     }
+    
 
     /**
      * Returns a rules checker object that will be used for validating

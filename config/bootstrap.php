@@ -164,6 +164,8 @@ Mailer::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
 Security::setSalt(Configure::consume('Security.salt'));
 
+
+
 /*
  * Setup detectors for mobile and tablet.
  */
