@@ -61,29 +61,33 @@ class PronunciationsTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        /*$validator
+        $validator
             ->scalar('spelling')
             ->maxLength('spelling', 255)
-            ->requirePresence('spelling', 'create')
-            ->notEmptyString('spelling');*/
+            //->requirePresence('spelling', 'create')
+            ->allowEmptyString('spelling', 'true');
 
-        /*$validator
-            ->scalar('sound_file')
-            ->maxLength('sound_file', 4000)
-            ->requirePresence('sound_file', 'create')
-            ->notEmptyFile('sound_file');*/
+        $validator
+            ->notEmpty('spelling', 'Please enter a spelling if you made a recording', function ($context) {
+                    //debug($context['data']['sound_file']);
+                    return !empty($context['data']['sound_file']);
+                }
+            );
+            //->maxLength('sound_file', 4000)
+            //->requirePresence('sound_file', 'create')
+            //->allowEmptyFile('sound_file', 'true');
 
-        /*$validator
+        $validator
             ->scalar('pronunciation')
             ->maxLength('pronunciation', 4000)
-            ->requirePresence('pronunciation', 'create')
-            ->notEmptyString('pronunciation');
+            //->requirePresence('pronunciation', 'create')
+            ->allowEmptyString('pronunciation', 'true');
 
         $validator
             ->scalar('notes')
             ->maxLength('notes', 4000)
-            ->requirePresence('notes', 'create')
-            ->notEmptyString('notes');*/
+            //->requirePresence('notes', 'create')
+            ->allowEmptyString('notes');
 
         return $validator;
     }
