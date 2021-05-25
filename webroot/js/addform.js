@@ -98,7 +98,7 @@ $(function()
 		mappedEditors.forEach((el) => {
 			var element = el.id;
 			var stringifiedContent = JSON.stringify(el.editor.getContents());
-			$(element).val(stringifiedContent);
+			$('#' + element).val(stringifiedContent);
 		})
 	  // $('#definition0').val(JSON.stringify(quill.getContents()));
 	  return true;
