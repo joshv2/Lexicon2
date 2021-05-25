@@ -101,6 +101,18 @@ return [
             'controller' => '*',
             'action' => '*',
         ],
+        [
+            'role' => 'user',
+            'prefix' => 'Moderators',
+            'controller' => '*',
+            'action' => '*',
+        ],
+        [
+            'role' => 'user',
+            'plugin' => 'CakeDC/Users',
+            'controller' => 'Users',
+            'action' => ['register'],
+        ],
         //specific actions allowed for the all roles in Users plugin
         [
             'role' => '*',
@@ -132,7 +144,7 @@ return [
         [
             'role' => '*',
             'controller' => 'Words',
-            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword'],
+            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword', 'edit'],
             'bypassAuth' => true,
         ],
         [

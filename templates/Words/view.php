@@ -17,18 +17,18 @@
 											['escape' => false, 'class' => 'button blue', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);
 				?></li>
 				<li>
-				<?=$this->Html->link('Admin Edit', '/moderators/words/'.$word->id.'/edit',
+				<?=$this->Html->link('Admin Edit', '/moderators/words/edit/' .$word->id,
 											['class' => 'button blue']);?>
 				</li>
 			<?php endif;?>
 			<li>
-			<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words//'.$word->id.'/edit',
+			<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 			</li>
 		</ul>
 	</div>
 	<div class="page-header group2">
-	<?=$this->Html->link('Edit', '/words//'.$word->id.'/edit');?>
+	<?=$this->Html->link('Edit', '/words/edit/' .$word->id);?>
 	</div>
 	<div class="c word">
 		<h3>
@@ -42,7 +42,13 @@
 			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
 			
 			<?php foreach ($word->pronunciations as $p): ?>
-				<?php $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']); ?>
+				<?php 
+					if ('' !== $p->sound_file){
+						$audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
+					} else {
+						$audioPlayer = '';
+					}
+					 ?>
 				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation, $p->notes]]); ?>
 			<?php endforeach; ?>
 			</table>
@@ -109,7 +115,7 @@
 	</div>
 	<div class="c wordedit">
 		<p class="m0">
-		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words//'.$word->id.'/edit',
+		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 		&nbsp;&nbsp;&nbsp;&nbsp;See something you disagree with? Feel free to edit it. All changes will be moderated. </p>
 	</div>
