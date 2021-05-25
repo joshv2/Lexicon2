@@ -192,8 +192,9 @@ function removeRow(el) {
 }
 
 function removeEditorField(el, mappedEditors) {
-	var f = $('.editor-container').length;
-	let lastContainer = $('.editor-container').last();
+	var editors = $(el).siblings('.editor-container');
+	var f = editors.length;
+	let lastContainer = editors.last();
 	if ( f > 1 ) {
 		const hiddenInputs = lastContainer.siblings('input[type="hidden"]');
 		const last = hiddenInputs.last();
