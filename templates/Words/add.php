@@ -105,8 +105,8 @@
                         }
                     } else {
                         echo "<div class='form-group'>";
-                        echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => '0']);
-//                      echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
+                        echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
+//                      echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                         echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
                         echo "<label>Example Sentence(s)</label>";
                         echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
