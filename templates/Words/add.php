@@ -78,7 +78,7 @@
                     <?php
                     
                     echo "<div class='form-group'>";
-                    echo $this->Form->label('Definition');
+                    //echo $this->Form->label('Definition');
                     echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                     //echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp', 'id' => 'editor']);
                     echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);

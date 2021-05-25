@@ -140,10 +140,24 @@ class WordsController extends AppController
             //assign the post data to a variable
             $postData = $this->request->getData();
             //process the WYSIWYG Quills
+            $quillAssoc2 = ['definitions', 'sentences'];
+            $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
             try {
-                $quill = new \DBlackborough\Quill\Render($postData['definitions'][0]['definition']);
+                $i = 0;
+                foreach ($quillAssoc2 as $quillAssoc){
+                    while ($i < count($postData[$quillAssoc])){
+                        $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                        $defresult = $quill->render();
+                        $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
+                        $i += 1;
+                    }
+                }
+                $quill = new \DBlackborough\Quill\Render($postData['etymology']);
                 $defresult = $quill->render();
-                $postData['definitions'][0]['definition'] = $defresult;
+                $postData['etymology'] = $defresult;
+                $quill = new \DBlackborough\Quill\Render($postData['notes']);
+                $defresult = $quill->render();
+                $postData['notes'] = $defresult;
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
@@ -249,7 +263,7 @@ class WordsController extends AppController
     public function edit($id = null)
     {
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions'],
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $word = $this->Words->patchEntity($word, $this->request->getData());
@@ -260,6 +274,9 @@ class WordsController extends AppController
             }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
+
+        $this->set(compact('word'));
+        //$this->render('');
         $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
         $origins = $this->Words->Origins->find('list', ['limit' => 200]);
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
