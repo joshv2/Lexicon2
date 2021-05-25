@@ -279,6 +279,11 @@ class WordsTable extends Table
         return $query;
     }
 
+    public function get_pending_words() {
+        $query = $this->find()->where(['approved' => 0])->order(['created' => 'DESC']);
+        return $query;
+    }
+
     public function search_results($querystring){
         /*$searchqueryraw = <<<SQL
                                 SELECT words.id, words.spelling,

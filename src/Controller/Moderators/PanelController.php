@@ -7,7 +7,9 @@ use App\Controller\AppController;
 class PanelController extends AppController {
     public function index()
         {
-            if ($this->request->query('dismiss_id') != null){
+            array_map([$this, 'loadModel'], ['Words']);
+            
+            /*if ($this->request->query('dismiss_id') != null){
                 $suggestid = $this->request->query['dismiss_id'];
                 $this->loadModel('Suggestion');
                 $data = array('id' => $suggestid, 'status' => 'read');
@@ -27,21 +29,11 @@ class PanelController extends AppController {
                         'submitted_on' => 'DESC'
                         )
                     )
-                );
+                );*/
             
-            $newWords = $this->Edit->find('all', 
-                array(
-                    'conditions' => array(
-                        'status =' => 'Pending',
-                        'word_id =' => NULL
-                    ),
-                    'order' => array(
-                        'created' => 'ASC'
-                    )
-                )
-            );
+            $newWords = $this->Words->get_pending_words();
 
-            $newEdits = $this->Edit->find('all', 
+            /*$newEdits = $this->Edit->find('all', 
                 array('conditions' => array(
                     'status =' => 'Pending',
                     'word_id !=' => NULL
@@ -50,12 +42,12 @@ class PanelController extends AppController {
                         'created' => 'ASC'
                     )
                 )
-            );
+            );*/
 
-            $this->set(compact('newWords', 'newEdits', 'pendingSuggestions'));
+            $this->set(compact('newWords')); //, 'newEdits', 'pendingSuggestions'
             
             
-            $this->layout = 'moderators';
+            $this->viewBuilder()->setLayout('moderators');
             $this->render('edits');
 
             
