@@ -149,6 +149,12 @@ return [
         ],
         [
             'role' => '*',
+            'controller' => 'Suggestions',
+            'action' => ['add'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => '*',
             'controller' => 'Search',
             'action' => ['index'],
             'bypassAuth' => true,

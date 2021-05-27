@@ -1,41 +1,24 @@
+<nav id="crumbs" class="group">
+</nav>
+
+<section id="main">
+	<div class="page-header group">
+		<h2 class="left"><?php echo $word['Word']['spelling'];?> <small>- Editing</small></h2>
+	</div>
+
+	<div class="c word">
+	<h2>SUGGEST CHANGES FOR <?php echo $word['Word']['spelling'];?></h2>
+			<p class="notes">You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see <a href=" http://www.jewish-languages.org/jewish-english-lexicon/notes" target="_blank">Notes.</a> <br /><br />What edits would you like to suggest to this entry? Please be specific.</p>
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Word $word
- */
+echo $this->Form->create(false, array(
+    'url' => array('controller' => 'add', 'action' => 'edit')));
+	echo $this->Form->textarea('changenotes');
+	echo $this->Form->input('name', array('type' => 'text', 
+		'name' => 'data[Name]'));
+	echo $this->Form->input('email', array('type' => 'email'));
+	echo '<input type="hidden" name="data[id]" value="' . $word['Word']['id'] . '">';
+	echo '<div class="g-recaptcha" data-sitekey="6LdXhXwUAAAAAE6bcodYGt-FgNvlUJdcme3WprFh"></div>';
+	echo $this->Form->button('Submit', array('type' => 'submit'));
+echo $this->Form->end(); 
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $word->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $word->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Words'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="words form content">
-            <?= $this->Form->create($word) ?>
-            <fieldset>
-                <legend><?= __('Edit Word') ?></legend>
-                <?php
-                    echo $this->Form->control('spelling');
-                    echo $this->Form->control('etymology');
-                    echo $this->Form->control('notes');
-                    echo $this->Form->control('alternates');
-                    echo $this->Form->control('user_id');
-                    echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries]);
-                    echo $this->Form->control('origins._ids', ['options' => $origins]);
-                    echo $this->Form->control('regions._ids', ['options' => $regions]);
-                    echo $this->Form->control('types._ids', ['options' => $types]);
-                    echo $this->Form->control('approved');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+</section>

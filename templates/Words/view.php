@@ -16,10 +16,6 @@
 											'/moderators/words/delete/'.$word->id, 
 											['escape' => false, 'class' => 'button blue', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);
 				?></li>
-				<li>
-				<?=$this->Html->link('Admin Edit', '/moderators/words/edit/' .$word->id,
-											['class' => 'button blue']);?>
-				</li>
 			<?php endif;?>
 			<li>
 			<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,

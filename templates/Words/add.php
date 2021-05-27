@@ -8,7 +8,14 @@
 
 <section id="main" class="main">
 	<div class="page-header group">
-		<h2 class="left">New word</h2>
+		<?php 
+            if ('edit' == $controllerName){
+                $header = 'Edit';
+            } else {
+                $header = 'New';
+            }
+        ?>
+        <h2 class="left"><?= $header ?> word</h2>
 	</div>
     <div class="c add">
             <?= $this->Form->create($word, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
@@ -87,7 +94,6 @@
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
-                    
                     if (!empty($_POST)) {
                         $postData = $this->request->getData();
                         $i = 0;

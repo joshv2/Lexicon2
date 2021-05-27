@@ -135,16 +135,23 @@ class WordsController extends AppController
     public function add()
     {
         $word = $this->Words->newEmptyEntity();
+
+        $getRoute = explode("/", $this->request->getRequestTarget());
+        $controllerName = $getRoute[1];
+
         //debug($this->request->getSession()->read('Auth.username'));
         if ($this->request->is('post')) {
             //assign the post data to a variable
             $postData = $this->request->getData();
+            
+            
+
             //process the WYSIWYG Quills
             $quillAssoc2 = ['definitions', 'sentences'];
             $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
             try {
-                $i = 0;
                 foreach ($quillAssoc2 as $quillAssoc){
+                    $i = 0;
                     while ($i < count($postData[$quillAssoc])){
                         $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                         $defresult = $quill->render();
@@ -212,7 +219,7 @@ class WordsController extends AppController
             //debug($json['success']);
             
             
-            if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in - $json['success'] == "true" || 
+            if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in
                 if ($this->Words->save($word)) {
                     //$this->Flash->success(__('The word has been saved.'));
 
@@ -227,7 +234,7 @@ class WordsController extends AppController
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
         $types = $this->Words->Types->find('list', ['limit' => 200]);
         $recaptcha_user = Configure::consume('recaptcha_user');
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user'));
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName'));
     }
 
     public function checkforword(){
@@ -263,17 +270,45 @@ class WordsController extends AppController
     public function edit($id = null)
     {
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations'],
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences'],
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $word = $this->Words->patchEntity($word, $this->request->getData());
-            if ($this->Words->save($word)) {
-                $this->Flash->success(__('The word has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if (null !== $this->request->getSession()->read('Auth.username')){
+            
+            
+            $getRoute = explode("/", $this->request->getRequestTarget());
+            $controllerName = $getRoute[2];
+            //debug($controller);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+
+                $word = $this->Words->patchEntity($word, $this->request->getData(),  [
+                    'associated' => $associated]);
+                if ($this->Words->save($word)) {
+                    $this->Flash->success(__('The word has been saved.'));
+    
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The word could not be saved. Please, try again.'));
+            
+            $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
+            $origins = $this->Words->Origins->find('list', ['limit' => 200]);
+            $regions = $this->Words->Regions->find('list', ['limit' => 200]);
+            $types = $this->Words->Types->find('list', ['limit' => 200]);
+            //$alternates = $this->Words->Alternates->find('list');
+            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName'));
+            $this->render('add');
+        } else {
+            return $this->redirect([
+                'controller' => 'Suggestions',
+                'action' => 'add',
+                $word->id
+            ]);
         }
+
+
+        
 
         $this->set(compact('word'));
         //$this->render('');
@@ -281,8 +316,9 @@ class WordsController extends AppController
         $origins = $this->Words->Origins->find('list', ['limit' => 200]);
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
         $types = $this->Words->Types->find('list', ['limit' => 200]);
-        $alternates = $this->Words->Alternates->find('list');
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types','alternates'));
+        //$alternates = $this->Words->Alternates->find('list');
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
+        $this->render('add');
     }
 
     /**
