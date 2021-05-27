@@ -93,16 +93,26 @@
                     echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
-                    echo "</div>";
-                    if (!empty($_POST)) {
-                        $postData = $this->request->getData();
+                    echo count($this->request->getData('spelling')) . "</div>";
+                    
+                    echo "<div class='form-group'>";
+                    echo "<label>Example Sentence(s)</label>";
+                    if (null !== $this->request->getData('spelling') || 'Edit' == $header) { //true == $word->{'hasErrors'} || 
+                        if(null !== $this->request->getData('spelling')){
+                            $wordData = $this->request->getData();
+                            $arrayLocation = 'sentence_json';
+                        } else {
+                            $wordData = $word;
+                            $arrayLocation = 'sentence_json';
+                        }
+                        
                         $i = 0;
                         while ($i < count($postData['sentences'])){
-                            echo "<div class='form-group'>";
+                            
                             echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
 //                          echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                             echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i]);
-                            echo "<label>Example Sentence(s)</label>";
+                            
                             echo "<div class='editor-container'><div id='editor-sentences' . $i'></div></div>";
                             echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				                    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
@@ -110,11 +120,11 @@
                             $i += 1;
                         }
                     } else {
-                        echo "<div class='form-group'>";
+                        //echo "<div class='form-group'>";
                         echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
 //                      echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                         echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
-                        echo "<label>Example Sentence(s)</label>";
+                        //echo "<label>Example Sentence(s)</label>";
                         echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
                         echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				                echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";

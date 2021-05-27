@@ -29,6 +29,7 @@ class Sentence extends Entity
     protected $_accessible = [
         'word_id' => true,
         'sentence' => true,
+        'sentence_json' => true,
         'word' => true,
         'sentence_recordings' => true,
     ];

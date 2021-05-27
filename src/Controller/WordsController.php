@@ -135,7 +135,7 @@ class WordsController extends AppController
     public function add()
     {
         $word = $this->Words->newEmptyEntity();
-
+        debug($this->request->getAttribute('params'));
         $getRoute = explode("/", $this->request->getRequestTarget());
         $controllerName = $getRoute[1];
 
@@ -153,15 +153,25 @@ class WordsController extends AppController
                 foreach ($quillAssoc2 as $quillAssoc){
                     $i = 0;
                     while ($i < count($postData[$quillAssoc])){
+                        $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
+                        $jsonFromOriginal = json_decode($original);
+                        //debug($jsonFromOriginal->ops[0]->insert);
+                        $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal->ops[0]);
                         $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                         $defresult = $quill->render();
                         $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
                         $i += 1;
                     }
                 }
+                $original = $postData['etymology'];
+                $jsonFromOriginal = json_decode($original);
+                $postData['etymology_json'] = json_encode($jsonFromOriginal->ops[0]);
                 $quill = new \DBlackborough\Quill\Render($postData['etymology']);
                 $defresult = $quill->render();
                 $postData['etymology'] = $defresult;
+                $original = $postData['notes'];
+                $jsonFromOriginal = json_decode($original);
+                $postData['notes_json'] = json_encode($jsonFromOriginal->ops[0]);
                 $quill = new \DBlackborough\Quill\Render($postData['notes']);
                 $defresult = $quill->render();
                 $postData['notes'] = $defresult;
