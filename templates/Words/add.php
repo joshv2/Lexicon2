@@ -103,7 +103,7 @@
 //                          echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                             echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i]);
                             echo "<label>Example Sentence(s)</label>";
-                            echo "<div class='editor-container'><div id='editor-sentences' . $i'></div></div>";
+                            echo "<div class='editor-container'><div id='editor-sentences$i'></div></div>";
                             echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				                    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
                             echo "</div>";

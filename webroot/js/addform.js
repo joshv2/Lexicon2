@@ -85,14 +85,7 @@ $(function()
 		$(this).hide();
 	});
 
-	var editors = $('[id^=editor]');
-	var mappedEditors = [];
-	editors.each((index, el) => {
-		  var quill = new Quill(el, {
-			  theme: 'snow'
-		  });
-		  mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
-	});
+	var mappedEditors = initializeEditors();
   
 	$('#add_form').submit(function(e) {
 		mappedEditors.forEach((el) => {
@@ -114,6 +107,29 @@ function setConfirmUnload(on)
 function unloadMessage()
 {
 	return 'The data you entered will be lost.';
+}
+
+function initializeEditors() {
+	var editors = $('[id^=editor]');
+	var mappedEditors = [];
+	editors.each((index, el) => {
+		  var quill = new Quill(el, {
+			  theme: 'snow'
+		  });
+		  mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
+	});
+	setInitialValues(mappedEditors);
+	return mappedEditors;
+}
+
+function setInitialValues(mappedEditors) {
+	mappedEditors.forEach(editor => {
+		const hiddenContent = $('#' + editor.id).val();
+		if (hiddenContent) {
+			var content = JSON.parse(hiddenContent);
+			editor.editor.setContents(content.ops);
+		}
+	});
 }
 
 function updateAttribute(el, attribute, counter, nextCounter) {
@@ -176,6 +192,7 @@ function addEditorField(el, mappedEditors) {
 	var quill = new Quill(editorClone[0], {
 		theme: 'snow'
 	});
+	quill.setContents([]);
 	mappedEditors.push({"id": $(editorClone).attr('id').replace('editor-', ''), "editor": quill});
 	quill.focus();
 }
