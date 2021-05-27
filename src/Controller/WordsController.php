@@ -135,7 +135,7 @@ class WordsController extends AppController
     public function add()
     {
         $word = $this->Words->newEmptyEntity();
-        debug($this->request->getAttribute('params'));
+        //debug($this->request->getAttribute('params'));
         $getRoute = explode("/", $this->request->getRequestTarget());
         $controllerName = $getRoute[1];
 
