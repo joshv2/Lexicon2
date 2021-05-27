@@ -28,6 +28,7 @@ class Definition extends Entity
     protected $_accessible = [
         'word_id' => true,
         'definition' => true,
+        'definition_json' => true,
         'word' => true,
     ];
 }

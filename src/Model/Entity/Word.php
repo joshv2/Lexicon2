@@ -41,7 +41,9 @@ class Word extends Entity
     protected $_accessible = [
         'spelling' => true,
         'etymology' => true,
+        'etymology_json' => true,
         'notes' => true,
+        'notes_json' => true,
         'created' => true,
         'approved' => true,
         'language_id' => true,
