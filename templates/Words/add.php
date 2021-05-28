@@ -3,18 +3,27 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Word $word
  */
+
+if ('edit' == $controllerName){
+    $header = 'Edit';
+} else {
+    $header = 'New';
+}
+
+if (null !== $this->request->getData('spelling') || 'Edit' == $header){
+    if(null !== $this->request->getData('spelling')){
+        $wordData = $this->request->getData();
+    } else {
+        $wordData = $word;
+    }
+}
+
 ?>
 
 
 <section id="main" class="main">
 	<div class="page-header group">
-		<?php 
-            if ('edit' == $controllerName){
-                $header = 'Edit';
-            } else {
-                $header = 'New';
-            }
-        ?>
+
         <h2 class="left"><?= $header ?> word</h2>
 	</div>
     <div class="c add">
@@ -26,17 +35,30 @@
                     echo "</div>";
                     echo "<div id='wordexists' style='color:red'></div>";
 
+                    //Alternate Spellings
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('alternates.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
-                    echo $this->Form->control('alternates.0.spelling', ['label' => 'Alternate Spelling(s)', 'class' => 'multiple']);
+                    echo "<label>Alternate Spelling(s)</label>";
+                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['alternates']) > 0) {
+
+                        $i = 0;
+
+                        while ($i < count($wordData['alternates'])){
+                            echo $this->Form->control('alternates.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
+                            echo $this->Form->control('alternates.' . $i . '.spelling', ['class' => 'multiple']);
+                            $i += 1;
+                        }
+                    } else {
+                        echo $this->Form->control('alternates.0.id', ['class' => 'muliplespid', 'data-counter' => '0']);
+                        echo $this->Form->control('alternates.0.spelling', ['class' => 'multiple']);
+                    }
                     echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
 				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo "</div>";
 
-                    /*echo $this->Form->control('submittedfile', [
-                        'type' => 'file'
-                    ]);*/
+
                     ?>
+
+                    <!--Pronunciations-->
                     <div class="form-group">
                         <table>
                             <thead>
@@ -49,30 +71,70 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="table-row" data-counter="0">
-                                    <td style="width:0;">
-                                        <?=  $this->Form->control('pronunciations.0.id',['label' => FALSE, 'class' => 'muliplespid']);?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('pronunciations.0.spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('pronunciations.0.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                    </td>
-                                    <td style="vertical-align: top;">
-                                        <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
-                                        <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
-                                        <?= $this->Form->control('soundfile0', [
-                                            'class' => 'recording-input',
-                                            'type' => 'file',
-                                            'style' => 'display:none',
-                                            'label' => FALSE
-                                        ]); ?>
-                                    </td>
-                                </tr>
+                                <?php if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['pronunciations']) > 0): ?>
+                                    <?php $i = 0;
+                                          while ($i < count($wordData['pronunciations'])){ ?>
+                                          
+                                        <!--Produce rows-->
+                                        <tr class="table-row" data-counter=<?= $i; ?>>
+                                            <td style="width:0;">
+                                                <?=  $this->Form->control('pronunciations.' . $i . '.id',['label' => FALSE, 'class' => 'muliplespid']);?>
+                                            </td>
+                                            <td>
+                                                <?= $this->Form->control('pronunciations.' . $i . '.spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                            </td>
+                                            <td>
+                                                <?= $this->Form->control('pronunciations.' . $i . '.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                            </td>
+                                            <td>
+                                                <?= $this->Form->control('pronunciations.' . $i . '.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
+                                                <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
+                                                <?= $this->Form->control('soundfile' . $i, [
+                                                    'class' => 'recording-input',
+                                                    'type' => 'file',
+                                                    'style' => 'display:none',
+                                                    'label' => FALSE
+                                                ]); ?>
+                                            </td>
+
+                                        </tr>
+                                        <!--End Produce rows-->
+                                        <?php echo $this->Form->hidden('pronunciations.' . $i. '.sound_file'); ?>
+                                    <?php $i += 1;
+                                          } ?>      
+
+                                <?php else: ?>
+                                    <!--Produce rows-->
+                                    <tr class="table-row" data-counter="0">
+                                        <td style="width:0;">
+                                            <?=  $this->Form->control('pronunciations.0.id',['label' => FALSE, 'class' => 'muliplespid']);?>
+                                        </td>
+                                        <td>
+                                            <?= $this->Form->control('pronunciations.0.spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        </td>
+                                        <td>
+                                            <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        </td>
+                                        <td>
+                                            <?= $this->Form->control('pronunciations.0.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        </td>
+                                        <td style="vertical-align: top;">
+                                            <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
+                                            <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
+                                            <?= $this->Form->control('soundfile0', [
+                                                'class' => 'recording-input',
+                                                'type' => 'file',
+                                                'style' => 'display:none',
+                                                'label' => FALSE
+                                            ]); ?>
+                                        </td>
+                                    </tr>
+                                    <!--End Produce rows-->
+                                <?php endif; ?>
+
                                 <tr>
                                     <td colspan="5">
                                         <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
@@ -84,76 +146,104 @@
                     </div>
                     <?php
                     
+                    //Definitions
                     echo "<div class='form-group'>";
-                    //echo $this->Form->label('Definition');
-                    echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
-                    //echo $this->Form->control('definitions.0.definition', ['label' => ['text' => 'Definition(s)', 'class' => 'req'], 'class' => 'muliplespsp', 'id' => 'editor']);
-                    echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
                     echo "<label>Definition(s)</label>";
-                    echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
+                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
+                        if(null !== $this->request->getData('spelling')){
+                            $arrayLocation = 'defintion';
+
+                        } else {
+                            $arrayLocation = 'definition_json';
+                        }
+                        
+                        $i = 0;
+                        while ($i < count($wordData['definitions'])){
+                            echo $this->Form->control('definitions.' . $i. '.id',['class' => 'muliplespid', 'data-counter' => $i]);
+                            
+                            //For entries with no presubmitted JSON
+                            if ('' == $wordData['definitions'][$i][$arrayLocation]){
+                                $finalInsert = '{"ops":[{"insert":"' . $wordData['definitions'][$i]['definition'] . '\n"}]}';
+                            } else {
+                                $finalInsert = $wordData['definitions'][$i][$arrayLocation];
+                            }
+                            echo $this->Form->hidden('definitions.' . $i. '.definition', ['id' => 'definition'. $i, 'value' => $finalInsert]);
+                            echo "<div class='editor-container'><div id='editor-definition" . $i ."'></div></div>";
+                            $i += 1;
+                        }
+                    } else {
+                        echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
+                        echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
+                        echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
+                    }
+                    
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
 				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
                     echo  "</div>";
                     
+                    //Sentences
                     echo "<div class='form-group'>";
                     echo "<label>Example Sentence(s)</label>";
-                    if (null !== $this->request->getData('spelling') || 'Edit' == $header) { //true == $word->{'hasErrors'} || 
+                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['sentences']) > 0) { 
                         if(null !== $this->request->getData('spelling')){
-                            $wordData = $this->request->getData();
                             $arrayLocation = 'sentence';
-                            $path = 1;
+
                         } else {
-                            $wordData = $word;
                             $arrayLocation = 'sentence_json';
-                            $path = 2;
                         }
                         
-
-                        /*function get_insert($original, $path){
-                            if (2 == $path){
-                                $jsonFromOriginal = json_decode($original);
-
-                                return json_encode($jsonFromOriginal->ops[0]);
-                            } else {
-                                return $original;
-                            }
-                        }*/
-
                         $i = 0;
                         while ($i < count($wordData['sentences'])){
-                            
+                            //For entries with no presubmitted JSON
+                            if ('' == $wordData['sentences'][$i][$arrayLocation]){
+                                $finalInsert = '{"ops":[{"insert":"' . $wordData['sentences'][$i]['sentence'] . '\n"}]}';
+                            } else {
+                                $finalInsert = $wordData['sentences'][$i][$arrayLocation];
+                            }
                             echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
-//                          echo $this->Form->control('sentences.' . $i . '.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
-                            echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i, 'value' => $wordData['sentences'][$i][$arrayLocation]]);
+                            echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i, 'value' => $finalInsert]);
                             echo "<div class='editor-container'><div id='editor-sentences" . $i . "'></div></div>";
                             
                             $i += 1;
                         }
                     } else {
-                        //echo "<div class='form-group'>";
                         echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
-//                      echo $this->Form->control('sentences.0.sentence', ['label' => 'Example Sentence(s)', 'class' => 'muliplespsp', 'size' => '60']);
                         echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
-                        //echo "<label>Example Sentence(s)</label>";
                         echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
-                        //echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
-				        //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
-                        //echo "</div>";
                     }
                     
                     echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
 				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
-                    //echo "</div>";
                     echo "</div>";
+
+
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
-                    echo $this->Form->hidden('etymology', ['id' => 'etymology']);
-                    echo $this->Form->label('etymology');
                     echo "<p class='notes'>Etymology of the word</p>";
+                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
+                        if(null !== $this->request->getData('spelling')){
+                            $arrayLocation = 'etymology';
+
+                        } else {
+                            $arrayLocation = 'etymology_json';
+                        }
+                        
+                        //For entries with no presubmitted JSON
+                        if ('' == $wordData['etymology_json']){
+                            $finalInsert = '{"ops":[{"insert":"' . $wordData['etymology'] . '\n"}]}';
+                        } else {
+                            $finalInsert = $wordData[$arrayLocation];
+                        }
+                        echo $this->Form->hidden('etymology', ['id' => 'etymology', 'value' => $finalInsert]);
+                        echo $this->Form->label('etymology');
+                    } else {
+                        echo $this->Form->hidden('etymology', ['id' => 'etymology']);
+                        echo $this->Form->label('etymology');
+                    }
                     // echo $this->Form->control('etymology', ['label' => false]);
                     echo "<div id='editor-etymology'></div>";
                     echo "</div>";
@@ -167,17 +257,35 @@
                     
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('types._ids', ['options' => $types, 'label' => 'Who Uses This', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselec</p>";
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselec</p>";
+                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
-                    echo $this->Form->hidden('notes', ['id' => 'notes']);
-                    echo $this->Form->label('notes');
+                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
+                        if(null !== $this->request->getData('spelling')){
+                            $arrayLocation = 'notes';
+
+                        } else {
+                            $arrayLocation = 'notes_json';
+                        }
+
+                        //For entries with no presubmitted JSON
+                        if ('' == $wordData['notes_json']){
+                            $finalInsert = '{"ops":[{"insert":"' . $wordData['notes'] . '\n"}]}';
+                        } else {
+                            $finalInsert = $wordData[$arrayLocation];
+                        }
+                        echo $this->Form->hidden('notes', ['id' => 'notes', 'value' => $finalInsert]);
+                        echo $this->Form->label('notes');
+                    } else {
+                        echo $this->Form->hidden('notes', ['id' => 'notes']);
+                        echo $this->Form->label('notes');
+                    }
                     echo "<p class='notes'>Pronunciation, context, or anything else you want website visitors to know about this entry</p>";
                     // echo $this->Form->control('notes', ['label' => false]);
                     echo "<div id='editor-notes'></div>";
@@ -203,9 +311,22 @@
 
             <?= $this->Form->button(__('Submit'), ['class' => "button blue", 'id'=> "submitbutton"]) ?>
             <?= $this->Form->end() ?>
+            <?php 
+                if (isset($wordData) && 0 == $wordData['approved']) {
+                echo $this->Form->postLink(
+                    'Approve Word',
+                    ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
+                    ['confirm' => 'Are you sure?']);
+                }?>
     </div>
 </section>
 
+<?php if ('Edit' == $header){ 
+    foreach ($wordData['suggestions'] as $suggestion) {
+        echo "Suggestions:" . $suggestion['suggestion'];
+    }
+
+} ?>
 
 <script>
         window.addEventListener('DOMContentLoaded', () => {

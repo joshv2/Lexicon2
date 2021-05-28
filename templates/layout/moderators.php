@@ -17,6 +17,7 @@
 </head>
 <body>
 <!-- Access to Moderator pages is controlled by the CakeDC/Users plugin -->
+	<?= $this->Flash->render() ?>
 	<div id="wrapper">
 		<div id="top">
 			<h1>JEL Control Panel</h1>

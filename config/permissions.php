@@ -109,6 +109,21 @@ return [
         ],
         [
             'role' => 'user',
+            'controller' => 'Suggestions',
+            'action' => ['delete'],
+        ],
+        [
+            'role' => 'user',
+            'controller' => 'Words',
+            'action' => ['approve'],
+        ],
+        [
+            'role' => 'user',
+            'controller' => 'Pronunciations',
+            'action' => ['add'],
+        ],
+        [
+            'role' => 'user',
             'plugin' => 'CakeDC/Users',
             'controller' => 'Users',
             'action' => ['register'],
@@ -144,7 +159,7 @@ return [
         [
             'role' => '*',
             'controller' => 'Words',
-            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword', 'edit'],
+            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword', 'edit', 'wordnotfound'],
             'bypassAuth' => true,
         ],
         [

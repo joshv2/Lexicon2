@@ -18,11 +18,15 @@
 <?php foreach ($pendingSuggestions as $suggestion): //$word = $word['Edit']; ?>
 
 	<tr>
-		<td><?php echo h($suggestion['Word']['spelling']);?></td>
-		<td><?php echo h($suggestion['Suggestion']['contributor_name']);?> (<?php echo h($suggestion['Suggestion']['contributor_email']);?>)</td>
-		<td><?php echo h($suggestion['Suggestion']['suggested_changes']);?></td>
-		<td><?php echo h($suggestion['Suggestion']['submitted_on'].' ('.$this->NiceTime->nice($suggestion['Suggestion']['submitted_on']).')');?></td>
-		<td><a href="<?php echo $this->Html->url('/moderators/edits/?dismiss_id='.$suggestion['Suggestion']['id'], true);?>">Dismiss</a></td>
+		<td><?php echo h($suggestion['word']['spelling']);?></td>
+		<td><?php echo h($suggestion['full_name']);?> (<?php echo h($suggestion['email']);?>)</td>
+		<td><?php echo h($suggestion['suggestion']);?></td>
+		<td><?php echo h($suggestion['created']);?></td>
+		<td><?php echo 
+			$this->Form->postLink(
+                'Delete',
+                ['prefix' => false, 'controller' => 'Suggestions', 'action' => 'delete', $suggestion['id']],
+                ['confirm' => 'Are you sure?']);?></td>
 	</tr>
 <?php endforeach; ?>
 
@@ -52,7 +56,7 @@
 		<td><?php echo h($word['spelling']);?></td>
 		<td><?php echo h($word['full_name']);?> (<?php echo h($word['email']);?>)</td>
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
-		<td><?php echo $this->Html->link('View Entry', '/moderators/edit/'.$word['id']);?></td>
+		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
 	</tr>
 <?php endforeach; ?>
 

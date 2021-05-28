@@ -86,11 +86,9 @@ class WordsController extends AppController
      */
     public function view($id = null)
     {
+        
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]],
-            //'contain' => ['Definitions'],
-            'cache' => false
-        ]);
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
 
         $contain = ['Dictionaries', 'Origins', 'Regions', 'Types', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations']; //, 'Sentences', 'Pronunciations'
         $valuenames = ['Dictionaries' => ['dictionary'], 
@@ -101,30 +99,63 @@ class WordsController extends AppController
                         'Definitions' => ['definition'], 
                         'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']];//'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']
         
-        $arraysforcompact = [];
-        foreach ($contain as $assoc){ //for each association
-            $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
-            //debug($lowerassoc);
-            foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
-                //debug($assoc. '_' . $arrayname);
-                $finalarrayname = $assoc . '_' . $arrayname;
-                $$finalarrayname = array();
-            
-                foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
-                    //debug($toplevelassoc);
-                    if (!empty($toplevelassoc)) {
-                        $$finalarrayname[] = $toplevelassoc->$arrayname;
+        if (null == $this->request->getSession()->read('Auth.username')){
+            if (1 == $word->approved){
+            $arraysforcompact = [];
+            foreach ($contain as $assoc){ //for each association
+                $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
+                //debug($lowerassoc);
+                foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
+                    //debug($assoc. '_' . $arrayname);
+                    $finalarrayname = $assoc . '_' . $arrayname;
+                    $$finalarrayname = array();
+                
+                    foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
+                        //debug($toplevelassoc);
+                        if (!empty($toplevelassoc)) {
+                            $$finalarrayname[] = $toplevelassoc->$arrayname;
+                        }
+                        
                     }
-                    
+                    //debug($finalarrayname);
+                    //debug($$finalarrayname);
+                    $arraysforcompact[$finalarrayname] = $$finalarrayname;
                 }
-                //debug($finalarrayname);
-                //debug($$finalarrayname);
-                $arraysforcompact[$finalarrayname] = $$finalarrayname;
             }
+            $arraysforcompact['word'] = $word;
+            //debug($arraysforcompact);
+            $this->set($arraysforcompact);
+        } else {
+            return $this->redirect(['action' => 'wordnotfound']);
         }
-        $arraysforcompact['word'] = $word;
-        //debug($arraysforcompact);
-        $this->set($arraysforcompact);
+        } elseif (!null == $this->request->getSession()->read('Auth.username')){
+            $arraysforcompact = [];
+            foreach ($contain as $assoc){ //for each association
+                $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
+                //debug($lowerassoc);
+                foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
+                    //debug($assoc. '_' . $arrayname);
+                    $finalarrayname = $assoc . '_' . $arrayname;
+                    $$finalarrayname = array();
+                
+                    foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
+                        //debug($toplevelassoc);
+                        if (!empty($toplevelassoc)) {
+                            $$finalarrayname[] = $toplevelassoc->$arrayname;
+                        }
+                        
+                    }
+                    //debug($finalarrayname);
+                    //debug($$finalarrayname);
+                    $arraysforcompact[$finalarrayname] = $$finalarrayname;
+                }
+            }
+            $arraysforcompact['word'] = $word;
+            //debug($arraysforcompact);
+            $this->set($arraysforcompact);
+        } else {
+            return $this->redirect(['action' => 'wordnotfound']);
+        }
     }
 
     /**
@@ -156,7 +187,7 @@ class WordsController extends AppController
                         $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
                         $jsonFromOriginal = json_decode($original);
                         //debug($jsonFromOriginal->ops[0]->insert);
-                        $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal->ops[0]);
+                        $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
                         $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                         $defresult = $quill->render();
                         $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
@@ -165,13 +196,14 @@ class WordsController extends AppController
                 }
                 $original = $postData['etymology'];
                 $jsonFromOriginal = json_decode($original);
-                $postData['etymology_json'] = json_encode($jsonFromOriginal->ops[0]);
+                $postData['etymology_json'] = json_encode($jsonFromOriginal);
                 $quill = new \DBlackborough\Quill\Render($postData['etymology']);
                 $defresult = $quill->render();
                 $postData['etymology'] = $defresult;
                 $original = $postData['notes'];
                 $jsonFromOriginal = json_decode($original);
-                $postData['notes_json'] = json_encode($jsonFromOriginal->ops[0]);
+                $postData['notes_json'] = json_encode($jsonFromOriginal
+            );
                 $quill = new \DBlackborough\Quill\Render($postData['notes']);
                 $defresult = $quill->render();
                 $postData['notes'] = $defresult;
@@ -205,9 +237,9 @@ class WordsController extends AppController
                 $json['success'] = 'false';
                 $validationSet = 'default';
             }
-            //debug($json);
+
+            //Process sound files
             $soundFiles = $this->request->getUploadedFiles();
-            //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
             $i = 0;
             foreach ($soundFiles as $soundFile) {
                 $name = $soundFile->getClientFilename();
@@ -224,16 +256,17 @@ class WordsController extends AppController
                 }
                 $i++;
             }
-            //debug($postData['pronunciations'][0]['sound_file']);
             $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
-            //debug($json['success']);
             
             
             if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in
                 if ($this->Words->save($word)) {
                     //$this->Flash->success(__('The word has been saved.'));
-
-                    return $this->redirect(['action' => 'success']);
+                    if (null !== $this->request->getSession()->read('Auth.username')) {
+                        return $this->redirect(['action' => 'success/' . $word->id]);
+                    } else {
+                        return $this->redirect(['action' => 'success']);
+                    }
                 }
                 //$this->Flash->error(__('Authentication passed.'));
             }
@@ -280,7 +313,7 @@ class WordsController extends AppController
     public function edit($id = null)
     {
         $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences'],
+            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
         ]);
 
         if (null !== $this->request->getSession()->read('Auth.username')){
@@ -290,9 +323,72 @@ class WordsController extends AppController
             $controllerName = $getRoute[2];
             //debug($controller);
             if ($this->request->is(['patch', 'post', 'put'])) {
-                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+                $postData = $this->request->getData();
+                //process the WYSIWYG Quills
+                $quillAssoc2 = ['definitions', 'sentences'];
+                $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
+                try {
+                    foreach ($quillAssoc2 as $quillAssoc){
+                        $i = 0;
+                        while ($i < count($postData[$quillAssoc])){
+                            $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
+                            $jsonFromOriginal = json_decode($original);
+                            //debug($jsonFromOriginal->ops[0]->insert);
+                            $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
+                            $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                            $defresult = $quill->render();
+                            $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
+                            $i += 1;
+                        }
+                    }
+                    $original = $postData['etymology'];
+                    $jsonFromOriginal = json_decode($original);
+                    $postData['etymology_json'] = json_encode($jsonFromOriginal);
+                    $quill = new \DBlackborough\Quill\Render($postData['etymology']);
+                    $defresult = $quill->render();
+                    $postData['etymology'] = $defresult;
+                    $original = $postData['notes'];
+                    $jsonFromOriginal = json_decode($original);
+                    $postData['notes_json'] = json_encode($jsonFromOriginal
+                );
+                    $quill = new \DBlackborough\Quill\Render($postData['notes']);
+                    $defresult = $quill->render();
+                    $postData['notes'] = $defresult;
+                } catch (\Exception $e) {
+                    echo $e->getMessage();
+                }
 
-                $word = $this->Words->patchEntity($word, $this->request->getData(),  [
+                //account for non-subitted data
+                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+                $associatedforfilter =  ['Alternates', 'Definitions', 'Pronunciations', 'Sentences'];
+                foreach ($associatedforfilter as $assoc){
+                    //debug($postData[strtolower($assoc)]);
+                    if (!array_filter($postData[strtolower($assoc)][0])) {
+                        unset($postData[strtolower($assoc)]);  
+                    }
+                }
+
+                $soundFiles = $this->request->getUploadedFiles();
+                //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+                $i = 0;
+                foreach ($soundFiles as $soundFile) {
+                    $name = $soundFile->getClientFilename();
+                    $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                    $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+                    $type = $soundFile->getClientMediaType();
+                    if ($type == 'audio/webm') {
+                        if(!empty($name)){
+                            if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
+                                $soundFile->moveTo($targetPath);
+                                $postData['pronunciations'][$i]['sound_file'] = $finalname;
+                            }
+                        }
+                    }
+                    $i++;
+                }
+
+
+                $word = $this->Words->patchEntity($word, $postData,  [
                     'associated' => $associated]);
                 if ($this->Words->save($word)) {
                     $this->Flash->success(__('The word has been saved.'));
@@ -320,7 +416,7 @@ class WordsController extends AppController
 
         
 
-        $this->set(compact('word'));
+        /*$this->set(compact('word'));
         //$this->render('');
         $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
         $origins = $this->Words->Origins->find('list', ['limit' => 200]);
@@ -328,7 +424,7 @@ class WordsController extends AppController
         $types = $this->Words->Types->find('list', ['limit' => 200]);
         //$alternates = $this->Words->Alternates->find('list');
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
-        $this->render('add');
+        $this->render('add');*/
     }
 
     /**
@@ -352,7 +448,27 @@ class WordsController extends AppController
     }
 
 
+    public function approve($id = null)
+    {
+        $this->request->allowMethod(['post']);
+        $word = $this->Words->get($id);
+        $word->approved = 1;
+        $word->approved_date = date('Y-m-d h:i:s', time());
+        $word->user_id = $this->request->getSession()->read('Auth.id');
+        if ($this->Words->save($word)) {
+            $this->Flash->success(__('The word has been approved.'));
+        } else {
+            $this->Flash->error(__('The word could not be approved. Please, try again.'));
+        }
+
+        return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
+    }
+
     public function success(){
+
+    }
+
+    public function wordnotfound(){
 
     }
 }

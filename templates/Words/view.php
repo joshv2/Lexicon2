@@ -11,11 +11,17 @@
 		<h2 class="left"><?php echo $word->spelling;?></h2>
 		<ul class="editbuttons">
 			<?php if ($this->Identity->isLoggedIn()):?>
-				<li><?php
-				echo $this->Form->postLink('<i class="icon-trash"></i> Delete', 
-											'/moderators/words/delete/'.$word->id, 
-											['escape' => false, 'class' => 'button blue', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);
-				?></li>
+				<li>
+				<?php echo 
+			$this->Form->postLink(
+                '<i class="icon-trash"></i> Delete',
+                ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
+                ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
+				</li>
+				<li>
+				<?=$this->Html->link('<i class="icon-microphone"></i> Record a Pronunciation', '/pronunciations/add/' .$word->id,
+											['class' => 'button blue', 'escape' => false]);?>
+				</li>
 			<?php endif;?>
 			<li>
 			<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,

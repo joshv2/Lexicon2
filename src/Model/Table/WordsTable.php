@@ -84,6 +84,9 @@ class WordsTable extends Table
         $this->hasMany('Sentences', [
             'foreignKey' => 'word_id',
         ]);
+        $this->hasMany('Suggestions', [
+            'foreignKey' => 'word_id',
+        ]);
         $this->belongsToMany('Dictionaries', [
             'foreignKey' => 'word_id',
             'targetForeignKey' => 'dictionary_id',
@@ -202,14 +205,14 @@ class WordsTable extends Table
                     'type' => 'LEFT',
                     'conditions' => 'Words.id = d.word_id'
                 ]
-            ])->where(['d.word_id IS' => NULL]);
+            ])->where(['d.word_id IS' => NULL, 'approved' => 1]);
         return $query->count();
     }
 
     public function get_words_starting_with_letter($letter){
         //need to add logic around approved words
         $query = $this->find()
-                    ->where(['spelling LIKE' => $letter.'%'])
+                    ->where(['spelling LIKE' => $letter.'%', 'approved' => 1])
                     ->contain(['Definitions'])
                     ->order(['spelling' => 'ASC']);
         return $query->all();
@@ -238,6 +241,7 @@ class WordsTable extends Table
             if (!is_null($dictionaryvalue)){
                 $params['d.dictionary_id IN'] = $dictionaryvalue;
             }
+            $params['approved ='] = 1; 
             //debug($typeids);
             $query = $this->find()
                         ->join([
@@ -274,6 +278,7 @@ class WordsTable extends Table
     public function get_random_words() {
         $query = $this->find()
                 ->contain(['Definitions'])
+                ->where(['approved' => 1])
                 ->order("rand()")
                 ->limit(20);
         return $query;
@@ -344,7 +349,7 @@ class WordsTable extends Table
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
                                          ["MATCH(notes) AGAINST ('".$querystring."')"],
                                          ["MATCH(d.definition) AGAINST ('".$querystring."')"],
-                                         ['etymology LIKE' => '%'.$querystring.'%']]])
+                                         ['etymology LIKE' => '%'.$querystring.'%']], 'approved' => 1])
                         ->group(['Words.id'])
                         ->order(['spellingmatch' => 'DESC', 'definitionmatch' => 'DESC', 'notesmatch' => 'DESC', 'Words.spelling' => 'ASC']);
 
@@ -362,7 +367,7 @@ class WordsTable extends Table
 
         $wordspellingquery = $this->find()
                                 ->select(['spelling'])
-                                ->where(['spelling =' => $wordtosearch]);
+                                ->where(['spelling =' => $wordtosearch, 'approved' => 1]);
 
         $altspellingquery = $alternates->find()
                                 ->select(['spelling'])

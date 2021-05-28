@@ -50,12 +50,32 @@ class PronunciationsController extends AppController
     public function add()
     {
         $pronunciation = $this->Pronunciations->newEmptyEntity();
+        
         if ($this->request->is('post')) {
-            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $this->request->getData());
+            $postData = $this->request->getData();
+            //Process sound files
+            $soundFiles = $this->request->getUploadedFiles();
+            $i = 0;
+            foreach ($soundFiles as $soundFile) {
+                $name = $soundFile->getClientFilename();
+                $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+                $type = $soundFile->getClientMediaType();
+                if ($type == 'audio/webm') {
+                    if(!empty($name)){
+                        if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
+                            $soundFile->moveTo($targetPath);
+                            $postData['sound_file'] = $finalname;
+                        }
+                    }
+                }
+                $i++;
+            }
+            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
                 $this->Flash->success(__('The pronunciation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['prefix' => 'Moderators', 'controller' => 'Panel', 'action' => 'index']);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }

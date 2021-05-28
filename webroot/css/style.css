@@ -409,6 +409,14 @@ a.disabled, a.disabled:hover {
 	background: -moz-linear-gradient(center top, #0096FF, #005DFF);
 }
 
+.button.red {
+    color: #fff;
+    padding: 10px;
+    border: 1px #0071E0 solid;
+    background: red;
+    
+}
+
 .button.blue:hover, .button.blue:focus, .button.blue:active {
 	cursor: pointer;
 	text-decoration: none;
