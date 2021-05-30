@@ -13,11 +13,12 @@
 		),
 		'as' => 'font']
 	);?>
+	<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 	<!-- Include stylesheet -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <?php echo $this->Html->css('style');?>
-
+	<title><?php echo (isset($title)) ? $title . '- Jewish English Lexicon' : 'Jewish English Lexicon'; ?></title>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->

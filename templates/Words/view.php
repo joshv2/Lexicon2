@@ -19,7 +19,7 @@
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
 				</li>
 				<li>
-				<?=$this->Html->link('<i class="icon-microphone"></i> Record a Pronunciation', '/pronunciations/add/' .$word->id,
+				<?=$this->Html->link('<i class="fas fa-microphone"></i> Record a Pronunciation', '/pronunciations/add/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 				</li>
 			<?php endif;?>
