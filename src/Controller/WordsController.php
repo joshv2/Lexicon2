@@ -54,15 +54,16 @@ class WordsController extends AppController
             ]];
         
         $words = $this->Paginator->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue));
-        
+        $title = 'Home';
 
-        $this->set(compact('words', 'current_condition', 'origins', 'regions', 'types', 'dictionaries'));
+        $this->set(compact('words', 'current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title'));
         $this->render('browse');
     }
 
     public function random() {
         $words = $this->Paginator->paginate($this->Words->get_random_words());
-        $this->set(compact('words'));
+        $title = 'Random Word Listing';
+        $this->set(compact('words', 'title'));
 
     }
 
@@ -72,7 +73,8 @@ class WordsController extends AppController
         $letter = $this->request->getParam('pass')[0];
         
         $words = $this->Words->get_words_starting_with_letter($letter);
-        $this->set(compact('letter', 'words'));
+        $title = 'Alphabetical Listing';
+        $this->set(compact('letter', 'words', 'title'));
     }
     
     
@@ -123,6 +125,7 @@ class WordsController extends AppController
                 }
             }
             $arraysforcompact['word'] = $word;
+            $arraysforcompact['title'] = $word->spelling;
             //debug($arraysforcompact);
             $this->set($arraysforcompact);
         } else {
@@ -151,6 +154,7 @@ class WordsController extends AppController
                 }
             }
             $arraysforcompact['word'] = $word;
+            $arraysforcompact['title'] = $word->spelling;
             //debug($arraysforcompact);
             $this->set($arraysforcompact);
         } else {
@@ -277,7 +281,8 @@ class WordsController extends AppController
         $regions = $this->Words->Regions->find('list', ['limit' => 200]);
         $types = $this->Words->Types->find('list', ['limit' => 200]);
         $recaptcha_user = Configure::consume('recaptcha_user');
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName'));
+        $title = 'Add a Word';
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title'));
     }
 
     public function checkforword(){
@@ -349,8 +354,7 @@ class WordsController extends AppController
                     $postData['etymology'] = $defresult;
                     $original = $postData['notes'];
                     $jsonFromOriginal = json_decode($original);
-                    $postData['notes_json'] = json_encode($jsonFromOriginal
-                );
+                    $postData['notes_json'] = json_encode($jsonFromOriginal);
                     $quill = new \DBlackborough\Quill\Render($postData['notes']);
                     $defresult = $quill->render();
                     $postData['notes'] = $defresult;
@@ -403,7 +407,8 @@ class WordsController extends AppController
             $regions = $this->Words->Regions->find('list', ['limit' => 200]);
             $types = $this->Words->Types->find('list', ['limit' => 200]);
             //$alternates = $this->Words->Alternates->find('list');
-            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName'));
+            $title = 'Edit: ' . $word->spelling;
+            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title'));
             $this->render('add');
         } else {
             return $this->redirect([

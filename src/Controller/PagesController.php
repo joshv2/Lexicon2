@@ -62,7 +62,9 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $this->set(compact('page', 'subpage'));
+
+        $title = ucfirst($page);
+        $this->set(compact('page', 'subpage', 'title'));
 
         try {
             return $this->render(implode('/', $path));
@@ -86,8 +88,8 @@ class PagesController extends AppController
         $no_dict_entries = $this->Words->get_not_in_other_dictionary();
         
         //$total_entries = 200000;
-        $title_for_layout = '';
-        $this->set(compact('total_entries', 'title_for_layout', 'no_dict_entries', 'origins', 'regions', 'types', 'dictionaries'));
+        $title = 'Home';
+        $this->set(compact('total_entries', 'title', 'no_dict_entries', 'origins', 'regions', 'types', 'dictionaries'));
         $this->render('home');
     }
 
