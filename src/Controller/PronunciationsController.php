@@ -85,7 +85,7 @@ class PronunciationsController extends AppController
 
     public function ranking($wordid = null) 
     {
-        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid]);
+        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             $success = 0;
