@@ -35,5 +35,6 @@ class Pronunciation extends Entity
         'pronunciation' => true,
         'notes' => true,
         'word' => true,
+        'display_order' => true,
     ];
 }

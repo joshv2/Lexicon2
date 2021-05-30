@@ -83,6 +83,37 @@ class PronunciationsController extends AppController
         $this->set(compact('pronunciation', 'words'));
     }
 
+    public function ranking($wordid = null) 
+    {
+        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $postData = $this->request->getData();
+            $success = 0;
+            foreach ($postData['pronunciations'] as $pronunciation_edit) {
+
+                $pronunciation = $this->Pronunciations->get($pronunciation_edit['id'], [
+                    'contain' => [],
+                ]);
+                $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $pronunciation_edit);
+                if ($this->Pronunciations->save($pronunciation)) {
+                    //$this->Flash->success(__('The pronunciation has been saved.'));
+
+                    //return $this->redirect(['action' => 'index']);
+                    $success += 1;
+                } else {
+                    $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
+                }
+            }
+            if ($success == count($postData['pronunciations'])) {
+                $this->Flash->success(__('The rankings have been saved.'));
+                return $this->redirect(['controller' => 'Words', 'action' => 'view', $wordid]);
+            }
+
+        }   
+        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $this->set(compact('requested_pronunciations', 'words'));
+    }
+
     /**
      * Edit method
      *
