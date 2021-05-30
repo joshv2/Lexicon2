@@ -6,6 +6,7 @@
 ?>
 <div class="column-responsive column-80">
     <div class="pronunciations form content">
+        <p>Pronunciations are shown in their current ranking</p>
         <?= $this->Form->create() ?>
         <table>
 
