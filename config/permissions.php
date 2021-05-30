@@ -120,7 +120,7 @@ return [
         [
             'role' => 'user',
             'controller' => 'Pronunciations',
-            'action' => ['add'],
+            'action' => ['add', 'ranking'],
         ],
         [
             'role' => 'user',

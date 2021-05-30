@@ -139,6 +139,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                     <td colspan="5">
                                         <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
                                         <a class='remove-row disabled'><i class='icon-minus-sign'></i> Remove</a>
+                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link('Change Ranking', ['controller' => 'Pronunciations', 'action' => 'ranking', $wordData['id']]) : ''; ?>
                                     </td>
                                 </tr>
                             </tbody>
