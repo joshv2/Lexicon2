@@ -78,7 +78,7 @@ class Application extends BaseApplication
          */
         if (Configure::read('debug')) {
             $this->addPlugin('DebugKit', ['bootstrap' => true, 'routes' => true, 'middleware' => true]);
-            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com']);
+            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com', 'net']);
             //$this->addPlugin('DebugKit');
         }
 

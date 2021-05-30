@@ -68,7 +68,7 @@ class PronunciationsTable extends Table
             ->allowEmptyString('spelling', 'true');
 
         $validator
-            ->notEmpty('spelling', 'Please enter a spelling if you made a recording', function ($context) {
+            ->notEmptyString('spelling', 'Please enter a spelling if you made a recording', function ($context) {
                     //debug($context['data']['sound_file']);
                     return !empty($context['data']['sound_file']);
                 }
