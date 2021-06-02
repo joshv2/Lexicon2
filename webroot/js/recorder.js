@@ -66,9 +66,11 @@
           }
           exConfirmPromise.make(configOpt).then((option) => {
             theStream.getTracks().forEach(track => track.stop());
-            if (option) {
-                callback(theBlob);
-            }
+            setTimeout(() => {
+                if (option) {
+                    callback(theBlob);
+                }
+            }, 10);
           });
           var dialogContents = document.getElementById('dialogContents');
           dialogContents.appendChild(recorderUI);
