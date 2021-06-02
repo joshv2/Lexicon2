@@ -63,34 +63,3 @@
 </table>
 
 <?php endif;?>
-
-<h2>New Edits</h2>
-
-<?php if (empty($newEdits)):?>
-
-<p>There are no new submissions.</p>
-
-<?php else: ?>
-
-<table>
-	<tr>
-		<th>Word</th>
-		<th>Submitted By</th>
-		<th>Submitted On</th>
-		<th>Status</th>
-		<th></th>
-	</tr>
-
-<?php foreach ($newEdits as $word): $word = $word['Edit']; ?>
-	<tr>
-		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['contributor_name']);?> (<?php echo h($word['contributor_email']);?>)</td>
-		<td><?php echo h($word['created'].' ('.$this->NiceTime->nice($word['created']).')');?></td>
-		<td><?php if ($word['status'] == "Pending") echo "Pending Approval"; else echo h($word['status']);?></td>
-		<td><a href="<?php echo $this->Html->url('/moderators/edit/'.$word['id'], true);?>">View Entry</a></td>
-	</tr>
-<?php endforeach; ?>
-
-</table>
-
-<?php endif;?>

@@ -66,7 +66,6 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;">Pronuciation (Spelling)</th>
                                     <th style="text-align: left;">Phonetic Spelling</th>
-                                    <th style="text-align: left;">Notes</th>
                                     <th style="text-align: left;">Record</th>
                                 </tr>
                             </thead>
@@ -85,9 +84,6 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                             </td>
                                             <td>
                                                 <?= $this->Form->control('pronunciations.' . $i . '.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                            </td>
-                                            <td>
-                                                <?= $this->Form->control('pronunciations.' . $i . '.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                             </td>
                                             <td style="vertical-align: top;">
                                                 <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
@@ -118,9 +114,6 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                         <td>
                                             <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                         </td>
-                                        <td>
-                                            <?= $this->Form->control('pronunciations.0.notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                        </td>
                                         <td style="vertical-align: top;">
                                             <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
                                             <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
@@ -139,7 +132,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                     <td colspan="5">
                                         <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
                                         <a class='remove-row disabled'><i class='icon-minus-sign'></i> Remove</a>
-                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link('Change Ranking', ['controller' => 'Pronunciations', 'action' => 'ranking', $wordData['id']]) : ''; ?>
+                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link('Change Ranking', ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -287,7 +280,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo $this->Form->hidden('notes', ['id' => 'notes']);
                         echo $this->Form->label('notes');
                     }
-                    echo "<p class='notes'>Pronunciation, context, or anything else you want website visitors to know about this entry</p>";
+                    echo "<p class='notes'>Anything else you want website visitors to know about this entry</p>";
                     // echo $this->Form->control('notes', ['label' => false]);
                     echo "<div id='editor-notes'></div>";
                     echo "</div>";

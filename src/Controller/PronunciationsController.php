@@ -47,10 +47,12 @@ class PronunciationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
-        $pronunciation = $this->Pronunciations->newEmptyEntity();
+        array_map([$this, 'loadModel'], ['Words']);
         
+        $pronunciation = $this->Pronunciations->newEmptyEntity();
+        $word =  $this->Words->get($id);
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
             //Process sound files
@@ -75,16 +77,18 @@ class PronunciationsController extends AppController
             if ($this->Pronunciations->save($pronunciation)) {
                 $this->Flash->success(__('The pronunciation has been saved.'));
 
-                return $this->redirect(['prefix' => 'Moderators', 'controller' => 'Panel', 'action' => 'index']);
+                return $this->redirect(['controller' => 'Words', 'action' => 'view', $word->id]);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
         $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
-        $this->set(compact('pronunciation', 'words'));
+        $this->set(compact('pronunciation', 'words', 'word'));
     }
 
-    public function ranking($wordid = null) 
+    public function manage($wordid = null) 
     {
+        array_map([$this, 'loadModel'], ['Words']);
+        $word =  $this->Words->get($wordid);
         $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
@@ -111,7 +115,8 @@ class PronunciationsController extends AppController
 
         }   
         $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
-        $this->set(compact('requested_pronunciations', 'words'));
+        $this->set(compact('requested_pronunciations', 'words', 'word'));
+        $this->render('ranking');
     }
 
     /**
@@ -146,7 +151,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id = null, $wordid)
     {
         $this->request->allowMethod(['post', 'delete']);
         $pronunciation = $this->Pronunciations->get($id);
@@ -156,6 +161,6 @@ class PronunciationsController extends AppController
             $this->Flash->error(__('The pronunciation could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'manage', $wordid]);
     }
 }

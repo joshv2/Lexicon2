@@ -120,10 +120,10 @@ return [
         [
             'role' => 'user',
             'controller' => 'Pronunciations',
-            'action' => ['add', 'ranking'],
+            'action' => ['add', 'manage', 'delete'],
         ],
         [
-            'role' => 'user',
+            'role' => 'superuser',
             'plugin' => 'CakeDC/Users',
             'controller' => 'Users',
             'action' => ['register'],

@@ -41,7 +41,7 @@
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
 			<table>
-			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Notes']);?>
+			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>
 			
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php 
@@ -51,7 +51,7 @@
 						$audioPlayer = '';
 					}
 					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation, $p->notes]]); ?>
+				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation]]); ?>
 			<?php endforeach; ?>
 			</table>
 		<?php endif; ?>
@@ -104,16 +104,16 @@
 		<?php endif;?>
 
 		
-		<?php if(!empty($word->notes)):?>
-			<h4>Notes</h4>
-			<p class="notes"><?php echo $word->notes;?></p>
-		<?php endif;?>
+		
 		
 		<?php if (!empty($word->alternates)): ?>
 			<h4>Alternative Spellings</h4>
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
 		<?php endif;?>
-
+		<?php if(!empty($word->notes)):?>
+			<h4>Notes</h4>
+			<p class="notes"><?php echo $word->notes;?></p>
+		<?php endif;?>
 	</div>
 	<div class="c wordedit">
 		<p class="m0">
