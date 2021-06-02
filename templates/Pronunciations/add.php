@@ -9,7 +9,7 @@
         <div class="pronunciations form content">
             <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
-                <legend><?= __('Add Pronunciation') ?></legend>
+                <legend><?= __('Add Pronunciation for ' . $word->spelling) ?></legend>
                 <div class="form-group">
                         <table>
                             <thead>
@@ -17,7 +17,6 @@
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;">Pronuciation (Spelling)</th>
                                     <th style="text-align: left;">Phonetic Spelling</th>
-                                    <th style="text-align: left;">Notes</th>
                                     <th style="text-align: left;">Record</th>
                                 </tr>
                             </thead>
@@ -31,9 +30,6 @@
                                     </td>
                                     <td>
                                         <?= $this->Form->control('pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
-                                    </td>
-                                    <td>
-                                        <?= $this->Form->control('notes', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                     </td>
                                     <td style="vertical-align: top;">
                                         <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
