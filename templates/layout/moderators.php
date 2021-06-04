@@ -32,8 +32,8 @@
 		<div id="left">
 			<div id="left_inner">
 				<ul class="nav">
-					<li><?php echo $this->Html->link('New Entries', '/moderators/edits');?></li>
-					<li><?php echo $this->Html->link('Approved Entries', '/moderators/edits/approved');?></li>
+					<li><?php echo $this->AuthLink->link('Add Users', '/register');?></li>
+					<li><?php echo $this->Html->link('Log', '/moderators/log');?></li>
 					<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
 					
 				</ul>

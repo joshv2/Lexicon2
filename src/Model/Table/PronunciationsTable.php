@@ -38,7 +38,7 @@ class PronunciationsTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-
+        $this->addBehavior('Timestamp');
         $this->setTable('pronunciations');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
@@ -104,5 +104,13 @@ class PronunciationsTable extends Table
         $rules->add($rules->existsIn(['word_id'], 'Words'), ['errorField' => 'word_id']);
 
         return $rules;
+    }
+
+    public function get_user_pronunciations($userid){
+        $query = $this->find()
+                    ->where(['Pronunciations.user_id' => $userid])
+                    ->contain(['Words'])
+                    ->order(['Pronunciations.created' => 'DESC']);
+        return $query;
     }
 }

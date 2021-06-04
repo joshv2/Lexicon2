@@ -284,6 +284,18 @@ class WordsTable extends Table
         return $query;
     }
 
+    public function get_word_for_view($id){
+        $query = $this->find()
+                    ->where(['id' => $id])
+                    ->contain('Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences')
+                    ->contain('Pronunciations', function (Query $q) {
+                        return $q
+                            ->where(['Pronunciations.approved' => 1])
+                            ->order(['Pronunciations.display_order' => 'ASC']);
+                    });
+        return $query[0];
+    }
+
     public function get_pending_words() {
         $query = $this->find()->where(['approved' => 0])->order(['created' => 'DESC']);
         return $query;
@@ -380,5 +392,10 @@ class WordsTable extends Table
         } else {
             return TRUE;
         }
+    }
+
+    public function get_user_words($userid){
+        $query = $this->find()->where(['user_id' => $userid])->order(['created' => 'DESC']);
+        return $query;
     }
 }

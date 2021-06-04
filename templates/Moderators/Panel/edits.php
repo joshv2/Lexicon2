@@ -1,4 +1,16 @@
-<h2>Pending Suggetions</h2>
+<?php function status_to_words($approved){
+	switch ($approved) {
+		case 0:
+			return "Pending";
+		case 1:
+			return "Approved";
+		case -1:
+			return "Denied";
+	}
+}
+?>
+<?php if ('superuser' == $userLevel):?>
+<h2>Pending Suggestions</h2>
 
 <?php if (empty($pendingSuggestions)):?>
 
@@ -57,6 +69,81 @@
 		<td><?php echo h($word['full_name']);?> (<?php echo h($word['email']);?>)</td>
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
 		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
+	</tr>
+<?php endforeach; ?>
+
+</table>
+
+<?php endif;?>
+<?php endif;?>
+
+<h2>Your Words</h2>
+
+<?php if (empty($submittedWords)):?>
+
+<p>You have made no submissions or they have all been deleted.</p>
+
+<?php else: ?>
+
+<table>
+	<tr>
+		<th>Word</th>
+		<th>Submitted On</th>
+		<th>Status</th>
+		<th></th>
+	</tr>
+
+<?php foreach ($submittedWords as $word): ////$word = $word['Edit'];  ?> 
+
+	<tr>
+		<td><?php echo h($word['spelling']);?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+		<td><?php echo status_to_words($word['approved']);?></td>
+		<td><?php if(1==$word['approved']) {
+			echo $this->Html->link('View Entry', ['controller' => 'words', 'action' => 'view', $word['id']]);
+		 } ?></td>
+	</tr>
+<?php endforeach; ?>
+
+</table>
+
+<?php endif;?>
+
+
+<h2>Your Pronunciations</h2>
+
+<?php if (empty($submittedPronunciations)):?>
+
+<p>You have made no submissions or they have all been deleted.</p>
+
+<?php else: ?>
+
+<table>
+	<tr>
+		<th>For Word</th>
+		<th>Pronunciation Spelling</th>
+		<th>Submitted On</th>
+		<th>Status</th>
+	</tr>
+
+<?php foreach ($submittedPronunciations as $word): ////$word = $word['Edit'];  ?> 
+
+	<tr>
+		<td><?php echo h($word->word->spelling);?></td>
+		<td><?php echo h($word['spelling']);?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+
+		<td>
+			<?php if(1==$word['approved'] && 1 == $word->word->approved) {
+				echo "Approved: " . $this->Html->link('View Entry', ['controller' => 'words', 'action' => 'view', $word->word->id]);	
+			} elseif (0 == $word->word->approved) {
+				echo "Pending Approval";
+			} elseif (-1 == $word->word->approved) {
+				echo "Denied" . $word->notes;
+			}
+			?>
+				
+		</td>
 	</tr>
 <?php endforeach; ?>
 

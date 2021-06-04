@@ -91,7 +91,22 @@ class WordsController extends AppController
         
         $word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
+        
 
+        //$word = $this->Words->get_word_for_view($id);
+        
+       /*$this->Words->find()
+                    ->where(['id' => $id])
+                    ->contain('Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences')
+                    ->contain('Pronunciations', function (Query $q) {
+                        return $q
+                            ->where(['Pronunciations.approved' => 1])
+                            ->order(['Pronunciations.display_order' => 'ASC']);
+                    });*/
+                    
+                    //) => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
+        
+        
         $contain = ['Dictionaries', 'Origins', 'Regions', 'Types', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations']; //, 'Sentences', 'Pronunciations'
         $valuenames = ['Dictionaries' => ['dictionary'], 
                         'Origins' => ['origin'], 
@@ -276,10 +291,18 @@ class WordsController extends AppController
             }
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
-        $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
-        $origins = $this->Words->Origins->find('list', ['limit' => 200]);
-        $regions = $this->Words->Regions->find('list', ['limit' => 200]);
-        $types = $this->Words->Types->find('list', ['limit' => 200]);
+
+        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+
+        $origins = $this->Origins->top_origins();
+        $regions = $this->Regions->top_regions();
+        $types = $this->Types->top_types();
+        $dictionaries = $this->Dictionaries->top_dictionaries();
+
+        //$dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
+        //$origins = $this->Words->Origins->find('list', ['limit' => 200]);
+        //$regions = $this->Words->Regions->find('list', ['limit' => 200]);
+        //$types = $this->Words->Types->find('list', ['limit' => 200]);
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title'));
@@ -321,7 +344,7 @@ class WordsController extends AppController
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
         ]);
 
-        if (null !== $this->request->getSession()->read('Auth.username')){
+        if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')){
             
             
             $getRoute = explode("/", $this->request->getRequestTarget());
@@ -456,10 +479,24 @@ class WordsController extends AppController
     public function approve($id = null)
     {
         $this->request->allowMethod(['post']);
-        $word = $this->Words->get($id);
-        $word->approved = 1;
-        $word->approved_date = date('Y-m-d h:i:s', time());
-        $word->user_id = $this->request->getSession()->read('Auth.id');
+        $datefortimestamp = date('Y-m-d h:i:s', time());
+        $word = $this->Words->get($id, [
+            'contain' => ['Pronunciations']
+        ]);
+        $pronunciations = array();
+        foreach ($word->pronunciations as $p){
+            //debug(['id' => $p->id, 'appproved' => 1, 'approved_date' => $datefortimestamp]);
+            array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
+        }
+        $data = ['approved' => 1,
+                 'approved_date' => $datefortimestamp,
+                 'user_id' => $this->request->getSession()->read('Auth.id'),
+                 'pronunciations' => $pronunciations];
+        
+        
+        //$word['pronunciations'] = $pronunciations;
+        //debug($data);
+        $this->Words->patchEntity($word, $data, ['associated' => ['Pronunciations']]);
         if ($this->Words->save($word)) {
             $this->Flash->success(__('The word has been approved.'));
         } else {
