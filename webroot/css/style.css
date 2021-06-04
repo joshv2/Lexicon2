@@ -417,6 +417,23 @@ a.disabled, a.disabled:hover {
     
 }
 
+.button.orange {
+    color: #fff;
+    padding: 10px;
+    border: 1px #0071E0 solid;
+    background: orange;
+    
+}
+
+
+.button.green {
+    color: #fff;
+    padding: 10px;
+    border: 1px #0071E0 solid;
+    background: green;
+    
+}
+
 .button.blue:hover, .button.blue:focus, .button.blue:active {
 	cursor: pointer;
 	text-decoration: none;

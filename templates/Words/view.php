@@ -44,6 +44,7 @@
 			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>
 			
 			<?php foreach ($word->pronunciations as $p): ?>
+				<?php if(1 == $p->approved): ?>
 				<?php 
 					if ('' !== $p->sound_file){
 						$audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
@@ -52,14 +53,15 @@
 					}
 					 ?>
 				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation]]); ?>
+				<?php endif; ?>
 			<?php endforeach; ?>
 			</table>
 		<?php endif; ?>
 
 		<h4>Definitions</h4>
-		<ul class="definitions">
+		<!--<ul>-->
 			<?php foreach ($Definitions_definition as $d): ?><li><?php echo $d;?></li><?php endforeach; ?>
-		</ul>
+		<!--</ul>-->
 
 		<?php if (!empty($Sentences_sentence)): ?>
 			<h4>Example Sentences</h4>

@@ -56,6 +56,7 @@ class PronunciationsController extends AppController
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
             //Process sound files
+            $postData['user_id'] = $this->request->getSession()->read('Auth.id');
             $soundFiles = $this->request->getUploadedFiles();
             $i = 0;
             foreach ($soundFiles as $soundFile) {
@@ -126,17 +127,20 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null, $wordid)
     {
         $pronunciation = $this->Pronunciations->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $this->request->getData());
+            $postData = $this->request->getData();
+            $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+            $postData['approved_date'] = date('Y-m-d h:i:s', time());
+            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
-                $this->Flash->success(__('The pronunciation has been saved.'));
+                $this->Flash->success(__('The pronunciation has been denied.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'manage', $wordid]);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
@@ -163,4 +167,23 @@ class PronunciationsController extends AppController
 
         return $this->redirect(['action' => 'manage', $wordid]);
     }
+
+    public function approve($id = null, $wordid){
+        $this->request->allowMethod(['post']);
+        $datefortimestamp = date('Y-m-d h:i:s', time());
+        $pronunciation = $this->Pronunciations->get($id);
+        $pronunciation->approved = 1;
+        $pronunciation->approved_date = $datefortimestamp;
+        $pronunciation->approving_user_id = $this->request->getSession()->read('Auth.id');
+        $pronunciation->notes = '';
+        if ($this->Pronunciations->save($pronunciation)) {
+            $this->Flash->success(__('The word has been approved.'));
+        } else {
+            $this->Flash->error(__('The word could not be approved. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'manage', $wordid]);
+    }
+
+    
 }

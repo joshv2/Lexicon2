@@ -36,5 +36,9 @@ class Pronunciation extends Entity
         'notes' => true,
         'word' => true,
         'display_order' => true,
+        'approved' => true,
+        'approved_date' => true,
+        'approving_user_id' => true,
+        'user_id' => true,
     ];
 }

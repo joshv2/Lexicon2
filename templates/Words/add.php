@@ -64,7 +64,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                             <thead>
                                 <tr>
                                     <th style="width: 0;"></th>
-                                    <th style="text-align: left;">Pronuciation (Spelling)</th>
+                                    <th style="text-align: left;">Spelling</th>
                                     <th style="text-align: left;">Phonetic Spelling</th>
                                     <th style="text-align: left;">Record</th>
                                 </tr>
@@ -212,12 +212,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
 
 
                     echo "<div class='form-group left'>";
-                    echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;']);
+                    echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;', 'size' => '7']);
                     echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
-                    echo "<p class='notes'>Etymology of the word</p>";
+
                     if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'etymology';
@@ -307,7 +307,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
             <?= $this->Form->end() ?>
             <?php 
                 if (isset($wordData) && 0 == $wordData['approved']) {
-                echo $this->Form->postLink(
+                echo $this->AuthLink->postLink(
                     'Approve Word',
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
                     ['confirm' => 'Are you sure?']);

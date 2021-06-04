@@ -4,11 +4,13 @@
  * @var \App\Model\Entity\Pronunciation $pronunciation
  */
 ?>
-  
+<nav id="crumbs" class="group">
+	<?php echo $this->element('user_bar');?>
+</nav>
 <div class="column-responsive column-80">
 <h2><?php echo 'Order pronunciations for ' . $word->spelling; ?></h2>
     <div class="pronunciations form content">
-        <p>Pronunciations are shown in their current ranking</p>
+        <p>Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.</p>
         <?= $this->Form->create() ?>
         <table>
 
@@ -16,6 +18,7 @@
                 $i = 0; ?>
             
             <?php foreach ($requested_pronunciations as $p): ?>
+                <?php if(1 == $p->approved): ?>
                 <?php 
                     
                     if ('' !== $p->sound_file){
@@ -28,9 +31,10 @@
                                                     $audioPlayer, 
                                                     $p->pronunciation, 
                                                     $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
-                                                    $this->Form->control('pronunciations.' . $i . '.display_order')
+                                                    $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false])
                                                    ]]); 
                         $i += 1; ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         </table>
         <?= $this->Form->button(__('Submit')) ?>
@@ -39,10 +43,10 @@
         
         <hr/>
        
-<h2>Delete Pronunciations</h2>       
+<h2>Delete/Approve Pronunciations</h2>       
 <table>
 
-            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Delete']);
+            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', '','', '']);
                 $i = 0; ?>
             
             <?php foreach ($requested_pronunciations as $p): ?>
@@ -61,7 +65,13 @@
                                                     $this->Form->postLink(
                                                         '<i class="icon-trash"></i> Delete',
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 
-                                                        ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red'])
+                                                        ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']),
+                                                    $this->Html->link('<i class="fas fa-times"></i> Deny',
+                                                    ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'edit', $p->id, $word->id], ['escape' => false, 'class' => 'button orange']),
+                                                    $this->Form->postLink(
+                                                        '<i class="fas fa-check"></i> Approve',
+                                                        ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'approve', $p->id, $word->id], 
+                                                        ['confirm' => 'Are you sure you want to approve this pronunciation?', 'escape' => false, 'class' => 'button green'])
                                                    ]]); 
                         $i += 1; ?>
             <?php endforeach; ?>

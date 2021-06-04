@@ -7,7 +7,7 @@ use App\Controller\AppController;
 class PanelController extends AppController {
     public function index()
         {
-            array_map([$this, 'loadModel'], ['Words', 'Suggestions']);
+            array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             
             /*if ($this->request->query('dismiss_id') != null){
                 $suggestid = $this->request->query['dismiss_id'];
@@ -30,7 +30,9 @@ class PanelController extends AppController {
                         )
                     )
                 );*/
-            
+            $userLevel = $this->request->getSession()->read('Auth.role');
+            $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+            $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'));
             $newWords = $this->Words->get_pending_words();
 
             $pendingSuggestions = $this->Suggestions->find('all')
@@ -48,7 +50,7 @@ class PanelController extends AppController {
                 )
             );*/
 
-            $this->set(compact('newWords', 'pendingSuggestions')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');

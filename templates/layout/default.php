@@ -43,7 +43,7 @@
 	<header>
 		<div class="headergroup">
 			<h1>
-            <?php echo $this->Html->image('logo.jpg', 
+            <?php echo $this->Html->image('JELlogo2021.png', 
                                             ['url' => '/', 
                                             'width' => 58,
                                             'height' => 40])?></h1>

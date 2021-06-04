@@ -113,7 +113,7 @@ return [
             'action' => ['delete'],
         ],
         [
-            'role' => 'user',
+            'role' => 'superuser',
             'controller' => 'Words',
             'action' => ['approve'],
         ],
