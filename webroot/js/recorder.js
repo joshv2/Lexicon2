@@ -60,7 +60,7 @@
           var recorderUI = buildRecorderUI(recorder);
           var configOpt = {
               title: "Record Word",
-              message: "<div id='dialogContents' class='dialog-contents'><h3>Click the record button to begin recording.</h3><p>When you are done, click 'Save' to save your recording</p><div id='recordings'></div></div>",
+              message: "<div id='dialogContents' class='dialog-contents'><h3>Click the record button to begin recording.</h3><p>When you are done, click 'Stop', 'Save' and then 'Submit' to save your recording</p><div id='recordings'></div></div>",
               btnClassSuccessText: "Save",
               btnClassFailText: "Cancel"
           }
