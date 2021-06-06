@@ -107,6 +107,13 @@ $(function()
 		}
 	});
 
+	// automatically set initial pronunciation to match value of main spelling
+	$('#spelling').blur(function() {
+		var pronunciation = $('#pronunciations-0-spelling');
+		if (pronunciation.val() == null || pronunciation.val()  == '')
+			pronunciation.val($(this).val());
+	});
+
 });
 
 function setConfirmUnload(on)
