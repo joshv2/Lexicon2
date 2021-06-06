@@ -1940,3 +1940,8 @@ textarea {
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
 	margin-bottom: 10px;
 }
+
+/*** Add/Edit Word Form ***/
+label[for="alternates-0-spelling"] {
+	display: none;
+}
