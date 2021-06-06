@@ -131,12 +131,19 @@ function initializeEditors() {
 	var mappedEditors = [];
 	editors.each((index, el) => {
 		  var quill = new Quill(el, {
-			  theme: 'snow'
+		    theme: 'snow',
+		    modules: {
+		      toolbar: getToolbarOptions()
+		    }
 		  });
 		  mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
 	});
 	setInitialValues(mappedEditors);
 	return mappedEditors;
+}
+
+function getToolbarOptions() {
+	return [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], ['link'], ['clean']];
 }
 
 function setInitialValues(mappedEditors) {
@@ -207,7 +214,10 @@ function addEditorField(el, mappedEditors) {
 	$(div).addClass('editor-container').append(editorClone);
 	$(div).insertBefore(el);
 	var quill = new Quill(editorClone[0], {
-		theme: 'snow'
+		theme: 'snow',
+		modules: {
+			toolbar: getToolbarOptions()
+		}
 	});
 	quill.setContents([]);
 	mappedEditors.push({"id": $(editorClone).attr('id').replace('editor-', ''), "editor": quill});
