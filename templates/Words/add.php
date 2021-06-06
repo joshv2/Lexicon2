@@ -65,7 +65,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                 <tr>
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;">Spelling</th>
-                                    <th style="text-align: left;">Phonetic Spelling <span title="Using dashes and capital letters, indicate syllabus and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"><i class="icon-info-sign"></i></span></th>
+                                    <th style="text-align: left;">Phonetic Spelling <span class="tooltip" title="Using dashes and capital letters, indicate syllabus and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"><i class="icon-info-sign"></i></span></th>
                                     <th style="text-align: left;">Record</th>
                                 </tr>
                             </thead>

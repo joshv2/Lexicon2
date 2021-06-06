@@ -1945,3 +1945,16 @@ textarea {
 label[for="alternates-0-spelling"] {
 	display: none;
 }
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip .title {
+	position: absolute;
+	top: 20px;
+	background: silver;
+	padding: 4px;
+	left: 0;
+	width: 200px;
+  }
