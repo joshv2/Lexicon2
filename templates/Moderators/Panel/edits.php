@@ -152,6 +152,7 @@
 <?php endif;?>
 
 <?php if ('superuser' == $userLevel):?>
+<h2>Pending Pronunciations</h2>
 	<table>
 	<tr>
 		<th>For Word</th>
