@@ -49,6 +49,7 @@ use Cake\Routing\RouteBuilder;
         // have the `'prefix' => 'Admin'` route element added that
         // will be required when generating URLs for these routes
         $routes->connect('/', ['controller' => 'Panel', 'action' => 'index']);
+        $routes->connect('/logs', ['controller' => 'Panel', 'action' => 'logs']);
         $routes->fallbacks(DashedRoute::class);
     });
     $routes->scope('/', function (RouteBuilder $builder) {

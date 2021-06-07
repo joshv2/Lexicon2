@@ -1270,13 +1270,18 @@ nav#browse
 	word-break: break-word;
 	margin: 0;
 	padding: 0;
-	list-style: none;
+	list-style-position: inside;
 }
 
 .word li, .word p {
 	margin: 0 0 10px 0;
 	padding: 0 10px;
 	line-height: 20px;
+}
+
+.word li p {
+	display: inline;
+	padding: 0px;
 }
 
 

@@ -59,13 +59,15 @@
 		<?php endif; ?>
 
 		<h4>Definitions</h4>
-		<!--<ul>-->
-			<?php foreach ($Definitions_definition as $d): ?><li><?php echo $d;?></li><?php endforeach; ?>
-		<!--</ul>-->
+		<ul>
+			<?php foreach ($Definitions_definition as $d): ?>
+			<li><?php echo $d;?></li>
+			<?php endforeach; ?>
+		</ul>
 
 		<?php if (!empty($Sentences_sentence)): ?>
 			<h4>Example Sentences</h4>
-			<ul class="sentences">
+			<ul class='sentences'>
 			<?php foreach ($Sentences_sentence as $s): ?>
 				<li><?php echo $s;?></li>
 			<?php endforeach; ?>
@@ -80,7 +82,9 @@
 
 		<?php if(!empty($word->etymology)):?>
 			<h4>Etymology</h4>
-			<p class="notes"><?php echo $word->etymology;?></p>
+			<ul class='sentences'>
+			<li><?php echo $word->etymology;?></li>
+			<ul>
 		<?php endif;?>
 		
 		<?php if(!empty($Types_type)):?>
@@ -114,7 +118,9 @@
 		<?php endif;?>
 		<?php if(!empty($word->notes)):?>
 			<h4>Notes</h4>
-			<p class="notes"><?php echo $word->notes;?></p>
+			<ul>
+				<li><?php echo $word->notes;?></li>
+			</ul>
 		<?php endif;?>
 	</div>
 	<div class="c wordedit">
