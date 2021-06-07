@@ -114,6 +114,15 @@ $(function()
 			pronunciation.val($(this).val());
 	});
 
+	// Handle View More Sections
+	$('.multiple-items').each((index, item) => {
+		collapseMultipleItems(item);
+	});
+
+	$('.view-more-link').click(function(e) {
+		e.preventDefault();
+		showAllMultipleItems(this);
+	});
 });
 
 function setConfirmUnload(on)
@@ -291,4 +300,23 @@ function getNewEditor(el, counter, nextCounter) {
 
 function getEditorToolbar() {
 	return $('.ql-toolbar').last().clone();
+}
+
+function collapseMultipleItems(el) {
+	var items = $(el).children();
+	if (items.length > 4) {
+		for (i = 3; i < items.length - 1; i++) {
+			$(items[i]).slideUp();
+		}
+	}
+}
+
+function showAllMultipleItems(el) {
+	var items = $(el).parent().children();
+	for (i = 3; i < items.length - 1; i++) {
+		$(items[i]).slideDown();
+	}
+	setTimeout(function() {
+		$(items[items.length - 1]).hide()
+	}, 300);
 }

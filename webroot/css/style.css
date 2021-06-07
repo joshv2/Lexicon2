@@ -1957,4 +1957,14 @@ label[for="alternates-0-spelling"] {
 	padding: 4px;
 	left: 0;
 	width: 200px;
-  }
+}
+
+/*** View Word ***/
+.word ul.multiple-items {
+	list-style: disc;
+	padding-left: 25px;
+}
+
+.word ul.multiple-items li {
+	padding-left: 5px;
+}
