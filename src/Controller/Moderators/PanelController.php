@@ -12,7 +12,13 @@ class PanelController extends AppController {
             array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             
             $userLevel = $this->request->getSession()->read('Auth.role');
-            $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+            if('user' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = [];
+            } elseif ('superuser' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
+            }
             $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'));
             $newWords = $this->Words->get_pending_words();
 
@@ -20,7 +26,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');
@@ -37,7 +43,7 @@ class PanelController extends AppController {
             $wordLogs = [];
             $pronciationLogs = [];
             foreach ($filerows as $row){
-                $findFirstInfo = strpos("Info:", $row)
+                $findFirstInfo = strpos("Info:", $row);
                 $eventTime = substr($row, 0, 19);
                 //$splitTimeandMessage = substr($row, 19);
                 //$eventTime = $splitTimeandMessage[0];
