@@ -6,6 +6,15 @@ use Cake\Database\Driver\Mysql;
 use Cake\Error\ExceptionRenderer;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
+use Cake\Log\Log;
+
+Log::setConfig('events', [
+    'className' => 'File',
+    'path' => LOGS,
+    'levels' => ['info'],
+    'scopes' => ['events'],
+    'file' => 'events.log',
+]);
 
 return [
     /*
@@ -188,6 +197,7 @@ return [
         'ignoredDeprecationPaths' => [],
     ],
 
+    
     /*
      * Debugger configuration
      *

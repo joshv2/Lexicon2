@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\Http\Client;
 use Cake\Core\Configure;
+use Cake\Log\Log;
 
 /**
  * Words Controller
@@ -204,35 +205,46 @@ class WordsController extends AppController
                     $i = 0;
                     while ($i < count($postData[$quillAssoc])){
                         $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
-                        $jsonFromOriginal = json_decode($original);
-                        //debug($jsonFromOriginal->ops[0]->insert);
-                        $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
-                        $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
-                        $defresult = $quill->render();
-                        $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
+                        if ('{"ops":[{"insert":"\n"}]}' == $original){
+                            unset($postData[$quillAssoc][$i]);
+                        } else {
+                            $jsonFromOriginal = json_decode($original);
+                            //debug($jsonFromOriginal->ops[0]->insert);
+                            $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
+                            $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                            $defresult = $quill->render();
+                            $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
+                        }
                         $i += 1;
                     }
                 }
                 $original = $postData['etymology'];
-                $jsonFromOriginal = json_decode($original);
-                $postData['etymology_json'] = json_encode($jsonFromOriginal);
-                $quill = new \DBlackborough\Quill\Render($postData['etymology']);
-                $defresult = $quill->render();
-                $postData['etymology'] = $defresult;
+                if ('{"ops":[{"insert":"\n"}]}' == $original){
+                    unset($postData['etymology']);
+                } else {
+                    $jsonFromOriginal = json_decode($original);
+                    $postData['etymology_json'] = json_encode($jsonFromOriginal);
+                    $quill = new \DBlackborough\Quill\Render($postData['etymology']);
+                    $defresult = $quill->render();
+                    $postData['etymology'] = $defresult;
+                }
                 $original = $postData['notes'];
-                $jsonFromOriginal = json_decode($original);
-                $postData['notes_json'] = json_encode($jsonFromOriginal
-            );
-                $quill = new \DBlackborough\Quill\Render($postData['notes']);
-                $defresult = $quill->render();
-                $postData['notes'] = $defresult;
+                if ('{"ops":[{"insert":"\n"}]}' == $original){
+                    unset($postData['notes']);
+                } else {
+                    $jsonFromOriginal = json_decode($original);
+                    $postData['notes_json'] = json_encode($jsonFromOriginal);
+                    $quill = new \DBlackborough\Quill\Render($postData['notes']);
+                    $defresult = $quill->render();
+                    $postData['notes'] = $defresult;
+                }
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
 
             //account for non-subitted data
             $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
-            $associatedforfilter =  ['Alternates', 'Definitions', 'Pronunciations', 'Sentences'];
+            $associatedforfilter =  ['Alternates', 'Pronunciations']; //'Definitions', 'Sentences'
             foreach ($associatedforfilter as $assoc){
                 //debug($postData[strtolower($assoc)]);
                 if (!array_filter($postData[strtolower($assoc)][0])) {
@@ -275,15 +287,31 @@ class WordsController extends AppController
                 }
                 $i++;
             }
+
+
+            if (null !== $this->request->getSession()->read('Auth.username')){
+                $datefortimestamp = date('Y-m-d h:i:s', time());
+                $i = 0;
+                foreach ($postData['pronunciations'] as $p) {
+                    $postData['pronunciations'][$i]['approved'] = 1;
+                    $postData['pronunciations'][$i]['approved_date'] = $datefortimestamp;
+                    $postData['pronunciations'][$i]['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+                    $i += 1;
+                }
+            }
+            //debug($postData);
             $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
             
             
             if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in
                 if ($this->Words->save($word)) {
                     //$this->Flash->success(__('The word has been saved.'));
+                    //Log::info('A word was added', ['scope' => ['events']]);
                     if (null !== $this->request->getSession()->read('Auth.username')) {
+                        Log::info('Word \/\/ ' . $word->spelling. ' was added by ' .  $this->request->getSession()->read('Auth.username') . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                         return $this->redirect(['action' => 'success/' . $word->id]);
                     } else {
+                        Log::info($word->spelling. ' was added by ' . $word->full_name . ' (' . $word->email . ')', ['scope' => ['events']]);
                         return $this->redirect(['action' => 'success']);
                     }
                 }
@@ -413,11 +441,12 @@ class WordsController extends AppController
                     }
                     $i++;
                 }
-
+                
 
                 $word = $this->Words->patchEntity($word, $postData,  [
                     'associated' => $associated]);
                 if ($this->Words->save($word)) {
+                    Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' edited ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                     $this->Flash->success(__('The word has been saved.'));
     
                     return $this->redirect(['action' => 'index']);
@@ -467,6 +496,7 @@ class WordsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $word = $this->Words->get($id);
         if ($this->Words->delete($word)) {
+            Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' deleted ' . $word->spelling . ' \/\/ ', ['scope' => ['events']]);
             $this->Flash->success(__('The word has been deleted.'));
         } else {
             $this->Flash->error(__('The word could not be deleted. Please, try again.'));
@@ -498,6 +528,7 @@ class WordsController extends AppController
         //debug($data);
         $this->Words->patchEntity($word, $data, ['associated' => ['Pronunciations']]);
         if ($this->Words->save($word)) {
+            Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
             $this->Flash->success(__('The word has been approved.'));
         } else {
             $this->Flash->error(__('The word could not be approved. Please, try again.'));
