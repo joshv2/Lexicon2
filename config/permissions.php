@@ -104,8 +104,8 @@ return [
         [
             'role' => 'user',
             'prefix' => 'Moderators',
-            'controller' => '*',
-            'action' => '*',
+            'controller' => 'Panel',
+            'action' => ['index'],
         ],
         [
             'role' => 'user',

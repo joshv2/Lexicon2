@@ -41,7 +41,7 @@
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
 			<table>
-			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>
+			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
 			
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php if(1 == $p->approved): ?>
@@ -52,7 +52,7 @@
 						$audioPlayer = '';
 					}
 					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation]]); ?>
+				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
 				<?php endif; ?>
 			<?php endforeach; ?>
 			</table>
