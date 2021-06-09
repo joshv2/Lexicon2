@@ -150,3 +150,30 @@
 </table>
 
 <?php endif;?>
+
+<?php if ('superuser' == $userLevel):?>
+<h2>Pending Pronunciations</h2>
+	<table>
+	<tr>
+		<th>For Word</th>
+		<th>Pronunciation Spelling</th>
+		<th>Submitted On</th>
+		<th></th>
+	</tr>
+
+<?php foreach ($pendingPronunciations as $word): ////$word = $word['Edit'];  ?> 
+
+	<tr>
+		<td><?php echo h($word->word->spelling);?></td>
+		<td><?php echo h($word['spelling']);?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+
+		<td>
+			<?php echo $this->Html->link('Manage', ['prefix' => false, 'controller' => 'pronunciations', 'action' => 'manage', $word->word->id]); ?>
+				
+		</td>
+	</tr>
+<?php endforeach; ?>
+
+</table>
+<?php endif;?>

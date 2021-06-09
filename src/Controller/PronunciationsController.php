@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\Log\Log;
 /**
  * Pronunciations Controller
  *
@@ -74,8 +74,17 @@ class PronunciationsController extends AppController
                 }
                 $i++;
             }
+
+            if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')){
+                $datefortimestamp = date('Y-m-d h:i:s', time());
+                $postData['approved'] = 1;
+                $postData['approved_date'] = $datefortimestamp;
+                $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+            }
+
             $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a pronunciation for ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been saved.'));
 
                 return $this->redirect(['controller' => 'Words', 'action' => 'view', $word->id]);
@@ -110,6 +119,7 @@ class PronunciationsController extends AppController
                 }
             }
             if ($success == count($postData['pronunciations'])) {
+                Log::info($this->request->getSession()->read('Auth.username') . ' ranked ' . $pronunciation->spelling , ['scope' => ['events']]);
                 $this->Flash->success(__('The rankings have been saved.'));
                 return $this->redirect(['controller' => 'Words', 'action' => 'view', $wordid]);
             }
@@ -138,6 +148,7 @@ class PronunciationsController extends AppController
             $postData['approved_date'] = date('Y-m-d h:i:s', time());
             $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling  . ' \/\/', ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been denied.'));
 
                 return $this->redirect(['action' => 'manage', $wordid]);
@@ -160,6 +171,7 @@ class PronunciationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $pronunciation = $this->Pronunciations->get($id);
         if ($this->Pronunciations->delete($pronunciation)) {
+            Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' deleted ' . $pronunciation->spelling . ' \/\/', ['scope' => ['events']]);
             $this->Flash->success(__('The pronunciation has been deleted.'));
         } else {
             $this->Flash->error(__('The pronunciation could not be deleted. Please, try again.'));
@@ -177,6 +189,7 @@ class PronunciationsController extends AppController
         $pronunciation->approving_user_id = $this->request->getSession()->read('Auth.id');
         $pronunciation->notes = '';
         if ($this->Pronunciations->save($pronunciation)) {
+            Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
             $this->Flash->success(__('The word has been approved.'));
         } else {
             $this->Flash->error(__('The word could not be approved. Please, try again.'));

@@ -13,7 +13,7 @@
 			<?php if ($this->Identity->isLoggedIn()):?>
 				<li>
 				<?php echo 
-			$this->Form->postLink(
+			$this->AuthLink->postLink(
                 '<i class="icon-trash"></i> Delete',
                 ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
@@ -41,7 +41,7 @@
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
 			<table>
-			<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>
+			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
 			
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php if(1 == $p->approved): ?>
@@ -52,7 +52,7 @@
 						$audioPlayer = '';
 					}
 					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, $audioPlayer, $p->pronunciation]]); ?>
+				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
 				<?php endif; ?>
 			<?php endforeach; ?>
 			</table>
@@ -60,10 +60,12 @@
 
 		<h4>Definitions</h4>
 		<ul class="multiple-items">
-			<?php foreach ($Definitions_definition as $d): ?><li><?php echo $d;?></li><?php endforeach; ?>
-				<?php if (count($Definitions_definition) > 3): ?>
-					<li class="view-more-link"><a href="#">View More</a></li>
-				<?php endif; ?>
+			<?php foreach ($Definitions_definition as $d): ?>
+        <li><?php echo $d;?></li>
+      <?php endforeach; ?>
+      <?php if (count($Definitions_definition) > 3): ?>
+        <li class="view-more-link"><a href="#">View More</a></li>
+      <?php endif; ?>
 		</ul>
 
 		<?php if (!empty($Sentences_sentence)): ?>
@@ -86,7 +88,9 @@
 
 		<?php if(!empty($word->etymology)):?>
 			<h4>Etymology</h4>
-			<p class="notes"><?php echo $word->etymology;?></p>
+			<ul class='sentences'>
+			<li><?php echo $word->etymology;?></li>
+			<ul>
 		<?php endif;?>
 		
 		<?php if(!empty($Types_type)):?>
@@ -120,7 +124,9 @@
 		<?php endif;?>
 		<?php if(!empty($word->notes)):?>
 			<h4>Notes</h4>
-			<p class="notes"><?php echo $word->notes;?></p>
+			<ul>
+				<li><?php echo $word->notes;?></li>
+			</ul>
 		<?php endif;?>
 	</div>
 	<div class="c wordedit">

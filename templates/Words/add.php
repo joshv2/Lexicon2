@@ -251,12 +251,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     
                     echo "<div class='form-group left'>";
                     echo $this->Form->control('types._ids', ['options' => $types, 'label' => 'Who Uses This', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
+                    echo "<p class='mini'>Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
+                    echo "<p class='mini'>Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect</p>";
                     echo "</div>";
 
                     echo "<div class='form-group clear'>";
