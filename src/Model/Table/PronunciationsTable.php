@@ -113,4 +113,12 @@ class PronunciationsTable extends Table
                     ->order(['Pronunciations.created' => 'DESC']);
         return $query;
     }
+
+    public function get_pending_pronunciations(){
+        $query = $this->find()
+                    ->where(['Pronunciations.approved' => 0])
+                    ->contain(['Words'])
+                    ->order(['Pronunciations.created' => 'DESC']);
+        return $query;
+    }
 }

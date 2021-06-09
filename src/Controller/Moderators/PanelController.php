@@ -3,35 +3,24 @@
 namespace App\Controller\Moderators;
 
 use App\Controller\AppController;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 class PanelController extends AppController {
     public function index()
         {
             array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             
-            /*if ($this->request->query('dismiss_id') != null){
-                $suggestid = $this->request->query['dismiss_id'];
-                $this->loadModel('Suggestion');
-                $data = array('id' => $suggestid, 'status' => 'read');
-                $this->Suggestion->save($data);
-            }
-            
-            $this->helpers[] = 'NiceTime';
-
-            $this->Edit->recursive = -1;
-            $this->loadModel('Suggestion');
-            $pendingSuggestions = $this->Suggestion->find('all', 
-                array(
-                    'conditions' => array(
-                        'status =' => 'new'
-                        ),
-                    'order' => array(
-                        'submitted_on' => 'DESC'
-                        )
-                    )
-                );*/
             $userLevel = $this->request->getSession()->read('Auth.role');
-            $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+            $userid = $this->request->getSession()->read('Auth.id');
+            //debug($userid);
+            if('user' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = [];
+            } elseif ('superuser' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
+            }
             $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'));
             $newWords = $this->Words->get_pending_words();
 
@@ -39,23 +28,39 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            /*$newEdits = $this->Edit->find('all', 
-                array('conditions' => array(
-                    'status =' => 'Pending',
-                    'word_id !=' => NULL
-                    ),
-                    'order' => array(
-                        'created' => 'ASC'
-                    )
-                )
-            );*/
-
-            $this->set(compact('newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');
             $this->render('edits');
 
             
+        }
+
+        public function logs()
+        {
+            $userid = $this->request->getSession()->read('Auth.id');
+            $file = new File(LOGS.'events.log');
+            $eventfile = $file->read();
+            $filerows = explode("\n", $eventfile);
+            $wordLogs = [];
+            $pronunciationLogs = [];
+            foreach ($filerows as $row){
+                $findFirstInfo = strpos($row, "Info:");
+                $eventTime = substr($row, 0, 19);
+                //$splitTimeandMessage = substr($row, 19);
+                //$eventTime = $splitTimeandMessage[0];
+                $logData = substr($row, 26);
+                $logDataParsed = explode("\/\/", $logData);
+                array_unshift($logDataParsed, $eventTime);
+                //debug($logDataParsed);
+                if ('Word' == trim($logDataParsed[1])){
+                    array_unshift($wordLogs, $logDataParsed);
+                } elseif ('Pronunciation' == trim($logDataParsed[1])) {
+                    array_unshift($pronunciationLogs, $logDataParsed);
+                }
+            }
+            $this->set(compact('wordLogs', 'pronunciationLogs', 'userid'));
+            $this->viewBuilder()->setLayout('moderators');
         }
     }

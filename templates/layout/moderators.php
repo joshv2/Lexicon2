@@ -32,10 +32,11 @@
 		<div id="left">
 			<div id="left_inner">
 				<ul class="nav">
-					<li><?php echo $this->AuthLink->link('Add Users', '/register');?></li>
-					<li><?php echo $this->Html->link('Log', '/moderators/log');?></li>
+					<li><?php echo $this->Html->link('Moderator Panel', '/moderators');?></li>
+					<li><?php echo $this->AuthLink->link('Add User', '/Users/add');?></li>
+					<li><?php echo $this->AuthLink->link('Log', '/moderators/logs');?></li>
 					<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
-					
+					<li><?php echo $this->Html->link('Change Password', '/Users/change-password/' . $userid);?></li>
 				</ul>
 			</div>
 		</div>
