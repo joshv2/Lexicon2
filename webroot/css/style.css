@@ -1928,6 +1928,12 @@ textarea {
 	border: 1px solid #aaa;
 }
 
+@media (max-width: 600px) {
+	#exConfirmPromiseWrap {
+		left: 0;
+	}
+}
+
 .dialog-contents {
 	padding: 0 15px;
 }
