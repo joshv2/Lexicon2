@@ -13,7 +13,7 @@
 			<?php if ($this->Identity->isLoggedIn()):?>
 				<li>
 				<?php echo 
-			$this->Form->postLink(
+			$this->AuthLink->postLink(
                 '<i class="icon-trash"></i> Delete',
                 ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
