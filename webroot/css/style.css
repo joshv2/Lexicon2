@@ -1933,6 +1933,12 @@ textarea {
 	border: 1px solid #aaa;
 }
 
+@media (max-width: 600px) {
+	#exConfirmPromiseWrap {
+		left: 0;
+	}
+}
+
 .dialog-contents {
 	padding: 0 15px;
 }
@@ -1944,4 +1950,32 @@ textarea {
 
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
 	margin-bottom: 10px;
+}
+
+/*** Add/Edit Word Form ***/
+label[for="alternates-0-spelling"] {
+	display: none;
+}
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip .title {
+	position: absolute;
+	top: 20px;
+	background: silver;
+	padding: 4px;
+	left: 0;
+	width: 200px;
+}
+
+/*** View Word ***/
+.word ul.multiple-items {
+	list-style: disc;
+	padding-left: 25px;
+}
+
+.word ul.multiple-items li {
+	padding-left: 5px;
 }

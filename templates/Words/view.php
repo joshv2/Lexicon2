@@ -59,18 +59,24 @@
 		<?php endif; ?>
 
 		<h4>Definitions</h4>
-		<ul>
+		<ul class="multiple-items">
 			<?php foreach ($Definitions_definition as $d): ?>
-			<li><?php echo $d;?></li>
-			<?php endforeach; ?>
+        <li><?php echo $d;?></li>
+      <?php endforeach; ?>
+      <?php if (count($Definitions_definition) > 3): ?>
+        <li class="view-more-link"><a href="#">View More</a></li>
+      <?php endif; ?>
 		</ul>
 
 		<?php if (!empty($Sentences_sentence)): ?>
 			<h4>Example Sentences</h4>
-			<ul class='sentences'>
+			<ul class="sentences multiple-items">
 			<?php foreach ($Sentences_sentence as $s): ?>
 				<li><?php echo $s;?></li>
 			<?php endforeach; ?>
+			<?php if (count($Sentences_sentence) > 3): ?>
+				<li class="view-more-link"><a href="#">View More</a></li>
+			<?php endif; ?>
 		</ul><?php endif;?>
 
 		<?php if(!empty($word->origins)):?>
