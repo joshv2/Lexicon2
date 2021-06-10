@@ -95,8 +95,34 @@ $(function()
 		})
 	  // $('#definition0').val(JSON.stringify(quill.getContents()));
 	  return true;
-  });
+    });
 
+	// show tooltip on click
+	$("span[title]").click(function() {
+		var $title = $(this).find(".title");
+		if (!$title.length) {
+		  $(this).append('<span class="title">' + $(this).attr("title") + '</span>');
+		} else {
+		  $title.remove();
+		}
+	});
+
+	// automatically set initial pronunciation to match value of main spelling
+	$('#spelling').blur(function() {
+		var pronunciation = $('#pronunciations-0-spelling');
+		if (pronunciation.val() == null || pronunciation.val()  == '')
+			pronunciation.val($(this).val());
+	});
+
+	// Handle View More Sections
+	$('.multiple-items').each((index, item) => {
+		collapseMultipleItems(item);
+	});
+
+	$('.view-more-link').click(function(e) {
+		e.preventDefault();
+		showAllMultipleItems(this);
+	});
 });
 
 function setConfirmUnload(on)
@@ -114,12 +140,19 @@ function initializeEditors() {
 	var mappedEditors = [];
 	editors.each((index, el) => {
 		  var quill = new Quill(el, {
-			  theme: 'snow'
+		    theme: 'snow',
+		    modules: {
+		      toolbar: getToolbarOptions()
+		    }
 		  });
 		  mappedEditors.push({"id": $(el).attr('id').replace('editor-', ''), "editor": quill});
 	});
 	setInitialValues(mappedEditors);
 	return mappedEditors;
+}
+
+function getToolbarOptions() {
+	return [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], ['link'], ['clean']];
 }
 
 function setInitialValues(mappedEditors) {
@@ -190,7 +223,10 @@ function addEditorField(el, mappedEditors) {
 	$(div).addClass('editor-container').append(editorClone);
 	$(div).insertBefore(el);
 	var quill = new Quill(editorClone[0], {
-		theme: 'snow'
+		theme: 'snow',
+		modules: {
+			toolbar: getToolbarOptions()
+		}
 	});
 	quill.setContents([]);
 	mappedEditors.push({"id": $(editorClone).attr('id').replace('editor-', ''), "editor": quill});
@@ -264,4 +300,23 @@ function getNewEditor(el, counter, nextCounter) {
 
 function getEditorToolbar() {
 	return $('.ql-toolbar').last().clone();
+}
+
+function collapseMultipleItems(el) {
+	var items = $(el).children();
+	if (items.length > 4) {
+		for (i = 3; i < items.length - 1; i++) {
+			$(items[i]).slideUp();
+		}
+	}
+}
+
+function showAllMultipleItems(el) {
+	var items = $(el).parent().children();
+	for (i = 3; i < items.length - 1; i++) {
+		$(items[i]).slideDown();
+	}
+	setTimeout(function() {
+		$(items[items.length - 1]).hide()
+	}, 300);
 }
