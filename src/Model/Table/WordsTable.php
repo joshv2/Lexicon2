@@ -226,21 +226,31 @@ class WordsTable extends Table
         } else {
 
             $params = [];
-            if (!is_null($originvalue)){
+            if (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
+            } elseif ('other' == $originvalue) {
+                $params['o.origin_id NOT IN'] = [1,2,3,4,5,6,7];
             }
 
-            if (!is_null($regionvalue)){
+            if (!is_null($regionvalue) && 'other' !== $regionvalue){
                 $params['r.region_id IN'] = $regionvalue;
+            } elseif ('other' == $regionvalue) {
+                $params['r.region_id NOT IN'] = [1,2,3,4];
             }
 
-            if (!is_null($typevalue)){
+            if (!is_null($typevalue) && 'other' !== $typevalue){
                 $params['t.type_id IN'] = $typevalue;
+            } elseif ('other' == $typevalue) {
+                $params['t.type_id NOT IN'] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
             }
 
-            if (!is_null($dictionaryvalue)){
+            if (!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue){
                 $params['d.dictionary_id IN'] = $dictionaryvalue;
-            }
+            } elseif ('other' == $dictionaryvalue) {
+                $params['d.dictionary_id NOT IN'] = [1,2,3,4,5,6];
+            } elseif ('none' == $dictionaryvalue) {
+                $params['d.dictionary_id IS'] = null;
+            } 
             $params['approved ='] = 1; 
             //debug($typeids);
             $query = $this->find()
@@ -248,22 +258,22 @@ class WordsTable extends Table
                             'd' => [
                                 'table' => 'dictionaries_words',
                                 'type' => 'LEFT',
-                                'conditions' => 'id = d.word_id'
+                                'conditions' => 'Words.id = d.word_id'
                             ],
                             't' => [
                                 'table' => 'types_words',
                                 'type' => 'LEFT',
-                                'conditions' => 'id = t.word_id'
+                                'conditions' => 'Words.id = t.word_id'
                             ],
                             'r' => [
                                 'table' => 'regions_words',
                                 'type' => 'LEFT',
-                                'conditions' => 'id = r.word_id'
+                                'conditions' => 'Words.id = r.word_id'
                             ],
                             'o' => [
                                 'table' => 'origins_words',
                                 'type' => 'LEFT',
-                                'conditions' => 'id = o.word_id'
+                                'conditions' => 'Words.id = o.word_id'
                             ]
                         ])
                         ->where($params)

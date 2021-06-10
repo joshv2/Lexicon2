@@ -30,15 +30,28 @@ class WordsController extends AppController
     {
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
+        //private function 
+        
         $origins = $this->Origins->top_origins();
+        $origins['other'] = 'Other';
         $regions = $this->Regions->top_regions();
+        $regions['other'] = 'Other';
         $types = $this->Types->top_types();
+        $types['other'] = 'Other';
         $dictionaries = $this->Dictionaries->top_dictionaries();
+        $dictionaries['other'] = 'Other';
+        $dictionaries['none'] = 'None';
 
         $originvalue = $this->request->getQuery('origin');
         $regionvalue = $this->request->getQuery('region');
         $typevalue = $this->request->getQuery('use');
         $dictionaryvalue = $this->request->getQuery('dictionary');
+        
+        /*if ('other' !== $this->request->getQuery('dictionary')){
+            $dictionaryvalue = $this->request->getQuery('dictionary');
+        } elseif ('other' == $this->request->getQuery('dictionary')) {
+            $dictionaryvalue = 'other';
+        }*/
 
         $current_condition = ['origin' => $originvalue,
                               'region' => $regionvalue,
