@@ -322,7 +322,8 @@ class WordsController extends AppController
                     //Log::info('A word was added', ['scope' => ['events']]);
                     if (null !== $this->request->getSession()->read('Auth.username')) {
                         Log::info('Word \/\/ ' . $word->spelling. ' was added by ' .  $this->request->getSession()->read('Auth.username') . ' \/\/ ' . $word->id, ['scope' => ['events']]);
-                        return $this->redirect(['action' => 'success/' . $word->id]);
+                        return $this->redirect(['action' => 'view' ,
+                         $word->id]);
                     } else {
                         Log::info($word->spelling. ' was added by ' . $word->full_name . ' (' . $word->email . ')', ['scope' => ['events']]);
                         return $this->redirect(['action' => 'success']);
@@ -340,10 +341,6 @@ class WordsController extends AppController
         $types = $this->Types->top_types();
         $dictionaries = $this->Dictionaries->top_dictionaries();
 
-        //$dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
-        //$origins = $this->Words->Origins->find('list', ['limit' => 200]);
-        //$regions = $this->Words->Regions->find('list', ['limit' => 200]);
-        //$types = $this->Words->Types->find('list', ['limit' => 200]);
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title'));
@@ -462,7 +459,7 @@ class WordsController extends AppController
                     Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' edited ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                     $this->Flash->success(__('The word has been saved.'));
     
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'view', $word->id]);
                 }
                 $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
@@ -482,19 +479,6 @@ class WordsController extends AppController
                 $word->id
             ]);
         }
-
-
-        
-
-        /*$this->set(compact('word'));
-        //$this->render('');
-        $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
-        $origins = $this->Words->Origins->find('list', ['limit' => 200]);
-        $regions = $this->Words->Regions->find('list', ['limit' => 200]);
-        $types = $this->Words->Types->find('list', ['limit' => 200]);
-        //$alternates = $this->Words->Alternates->find('list');
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types'));
-        $this->render('add');*/
     }
 
     /**

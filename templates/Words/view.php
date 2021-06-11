@@ -42,18 +42,19 @@
 			<h4>Pronunciations</h4>
 			<table>
 			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
-			
+			<?php $i = 0; ?>
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php if(1 == $p->approved): ?>
 				<?php 
 					if ('' !== $p->sound_file){
-						$audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
+						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-play"></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
 					} else {
 						$audioPlayer = '';
 					}
 					 ?>
 				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
 				<?php endif; ?>
+				<?php $i += 1; ?>
 			<?php endforeach; ?>
 			</table>
 		<?php endif; ?>
