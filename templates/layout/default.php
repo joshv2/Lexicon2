@@ -31,8 +31,11 @@
 
 	  gtag('config', 'UA-71563013-2');
 	</script>-->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 	<?= $this->Html->script('addform')."\n";?>
+	<?= $this->Html->script('audioplayback
+	')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
 <?= $this->Html->script('recorder')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -43,10 +46,10 @@
 	<header>
 		<div class="headergroup">
 			<h1>
-            <?php echo $this->Html->image('JELlogo2021.png', 
+            <?php echo $this->Html->image('Logo-hi-resscaled.jpg', 
                                             ['url' => '/', 
-                                            'width' => 58,
-                                            'height' => 40])?></h1>
+                                            'width' => 50,
+                                            'height' => 51])?></h1>
 			<nav>
 				<ul id="navbar_sub">
 					<li><?php echo $this->Html->link('Welcome', '/welcome');?></li>

@@ -625,13 +625,13 @@ header h1 a {
 	height: 50px;
 }
 
-header h1 a img {
+/*header h1 a img {
 	background: #fff;
 	padding: 2px 5px 0 5px;
 	margin: 3px 0 0 0;
 	border: 0;
 	border-radius: 5px;
-}
+}*/
 
 header h1 a:hover, header h1:hover {
 	color: #fff;
@@ -1271,12 +1271,14 @@ nav#browse
 	margin: 0;
 	padding: 0;
 	list-style-position: inside;
+	list-style: none;
 }
 
 .word li, .word p {
 	margin: 0 0 10px 0;
 	padding: 0 10px;
 	line-height: 20px;
+	list-style: none;
 }
 
 .word li p {
@@ -1972,10 +1974,28 @@ label[for="alternates-0-spelling"] {
 
 /*** View Word ***/
 .word ul.multiple-items {
-	list-style: disc;
-	padding-left: 25px;
+	list-style: none;
+	padding-left: 5px;
 }
 
 .word ul.multiple-items li {
 	padding-left: 5px;
+}
+
+[id^="play-pause-button-"]{
+	font-size: 50px;
+	cursor: pointer;
+	text-decoration: none;
+    color: black;
+  }
+
+  [id^="play-pause-button-"]:hover{
+	font-size: 50px;
+	cursor: pointer;
+	text-decoration: none;
+    color: black;
+  }
+
+.audioplayers {
+	display: none;
 }
