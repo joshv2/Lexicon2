@@ -134,11 +134,11 @@
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
 
 		<td>
-			<?php if(1==$word['approved'] && 1 == $word->word->approved) {
+			<?php if(1==$word->approved && 1 == $word->word->approved) {
 				echo "Approved: " . $this->Html->link('View Entry', ['controller' => 'words', 'action' => 'view', $word->word->id]);	
-			} elseif (0 == $word->word->approved) {
+			} elseif (0 == $word->approved) {
 				echo "Pending Approval";
-			} elseif (-1 == $word->word->approved) {
+			} elseif (-1 == $word->approved) {
 				echo "Denied" . $word->notes;
 			}
 			?>
