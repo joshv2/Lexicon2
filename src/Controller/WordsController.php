@@ -499,7 +499,7 @@ class WordsController extends AppController
             $this->Flash->error(__('The word could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
     }
 
 

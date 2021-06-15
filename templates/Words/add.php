@@ -310,8 +310,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                 echo $this->AuthLink->postLink(
                     'Approve Word',
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
-                    ['confirm' => 'Are you sure?']);
-                }?>
+                    ['confirm' => 'Are you sure?'])
+                 . ' ' . $this->AuthLink->postLink(
+                    'Delete Word',
+                    ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $wordData['id']],
+                    ['confirm' => 'Are you sure?', 'style' => 'color:red']);
+                  } ?>
     </div>
 </section>
 
