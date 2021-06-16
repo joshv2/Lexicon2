@@ -5,7 +5,7 @@ namespace App\Controller;
 use Cake\Http\Client;
 use Cake\Core\Configure;
 use Cake\Log\Log;
-
+use Cake\Collection\Collection;
 /**
  * Words Controller
  *
@@ -395,6 +395,7 @@ class WordsController extends AppController
                 $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
                 try {
                     foreach ($quillAssoc2 as $quillAssoc){
+                        $idsToDelete = [];
                         $i = 0;
                         while ($i < count($postData[$quillAssoc])){
                             $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
@@ -404,8 +405,32 @@ class WordsController extends AppController
                             $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                             $defresult = $quill->render();
                             $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
+                            
+                            //debug(preg_replace('/\s+/', '',$defresult));
+
+                            if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillAssoc][$i][$processFields[$quillAssoc]])){
+                                array_push($idsToDelete, $postData[$quillAssoc][$i]['id']);
+                                if ($i > 0){
+                                    unset($postData[$quillAssoc][$i]);
+                                }
+                                else {
+                                    unset($postData[$quillAssoc][$i]['id']);
+                                    unset($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                                    unset($postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json']);
+                                }
+                            }
                             $i += 1;
                         }
+                        //debug($idsToDelete);
+                        if(count($idsToDelete) > 0){
+                            $getDeleteTable = $this->getTableLocator()->get(ucfirst($quillAssoc));
+                            //$present = (new Collection($entity->comments))->extract('id')->filter()->toList();
+                            $getDeleteTable->deleteAll([
+                                'word_id' => $word->id,
+                                'id IN' => $idsToDelete,
+                            ]);
+                        }
+
                     }
                     $original = $postData['etymology'];
                     $jsonFromOriginal = json_decode($original);
@@ -413,12 +438,18 @@ class WordsController extends AppController
                     $quill = new \DBlackborough\Quill\Render($postData['etymology']);
                     $defresult = $quill->render();
                     $postData['etymology'] = $defresult;
+                    if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['etymology'])){
+                        $postData['etymology'] = null;
+                    }
                     $original = $postData['notes'];
                     $jsonFromOriginal = json_decode($original);
                     $postData['notes_json'] = json_encode($jsonFromOriginal);
                     $quill = new \DBlackborough\Quill\Render($postData['notes']);
                     $defresult = $quill->render();
                     $postData['notes'] = $defresult;
+                    if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['notes'])){
+                        $postData['notes'] = null;
+                    }
                 } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
@@ -453,8 +484,7 @@ class WordsController extends AppController
                 }
                 
 
-                $word = $this->Words->patchEntity($word, $postData,  [
-                    'associated' => $associated]);
+                $word = $this->Words->patchEntity($word, $postData,  ['associated' => $associated]);
                 if ($this->Words->save($word)) {
                     Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' edited ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                     $this->Flash->success(__('The word has been saved.'));

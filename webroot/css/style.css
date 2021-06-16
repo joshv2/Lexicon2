@@ -1281,10 +1281,19 @@ nav#browse
 	list-style: none;
 }
 
-.word li p {
+.word li p:first-child {
 	display: inline;
 	padding: 0px;
 }
+
+.word li p:not(:first-child) {
+	margin: 0 0 10px 0;
+	padding: 0px;
+	line-height: 20px;
+	list-style: none;
+}
+
+
 
 
 /* Crumbs */
