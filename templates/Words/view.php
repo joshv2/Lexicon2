@@ -48,7 +48,6 @@
 					<?php if (0 === $i){
 						 echo '<h4>Pronunciations</h4><table>';
 					} ?>
-					<? endif; ?>
 				<?php 
 					if ('' !== $p->sound_file){
 						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-play"></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
