@@ -85,13 +85,14 @@
 
 		<?php if(!empty($word->origins)):?>
 			<h4>Languages of Origin</h4>
+			<ul class="multiple-items">
 			<?php foreach ($word->origins as $s): ?>
 			<li><?php echo $s->origin;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->origins) > 3): ?>
 				<li class="view-more-link"><a href="#">View More</a></li>
 			<?php endif; ?>
-		<?php endif;?>
+		</ul><?php endif;?>
 
 		<?php if(!empty($word->etymology)):?>
 			<h4>Etymology</h4>
@@ -113,13 +114,14 @@
 		
 		<?php if(!empty($word->regions)):?>
 			<h4>Regions</h4>
+			<ul class="multiple-items">
 			<?php foreach ($word->regions as $s): ?>
 			<li><?php echo $s->region;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->regions) > 3): ?>
 				<li class="view-more-link"><a href="#">View More</a></li>
 			<?php endif; ?>
-		<?php endif;?>
+		</ul><?php endif;?>
 
 
 		<?php if(!empty($word->dictionaries)):?>
