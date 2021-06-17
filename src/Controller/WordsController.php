@@ -106,7 +106,7 @@ class WordsController extends AppController
         $word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
         
-
+        
         //$word = $this->Words->get_word_for_view($id);
         
        /*$this->Words->find()
