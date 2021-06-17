@@ -216,6 +216,16 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
                     echo "</div>";
 
+                    //echo "<div class='form-group left'>";
+                    //echo $this->Form->label('Add an Origin');
+                    //echo $this->Form->text('extraOrigin');
+                    //echo "</div>";
+                    if ('superuser' == $this->request->getSession()->read('Auth.role')){
+                        echo "<div class='form-group right'>";
+                        echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries, 'label' => 'Dictionaries', 'style' => 'width:100%;display:block;', 'size' => '7']);
+                        echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
+                        echo "</div>";
+                    }
                     echo "<div class='form-group clear'>";
 
                     if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
@@ -258,6 +268,16 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect</p>";
                     echo "</div>";
+
+                    //echo "<div class='form-group left'>";
+                    //echo $this->Form->label('Add a Type');
+                    //echo $this->Form->text('extraType');
+                    //echo "</div>";
+
+                    //echo "<div class='form-group right'>";
+                    //echo $this->Form->label('Add a Region');
+                    //echo $this->Form->text('extraRegion');
+                    //echo "</div>";
 
                     echo "<div class='form-group clear'>";
                     if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
