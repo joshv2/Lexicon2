@@ -1992,14 +1992,14 @@ label[for="alternates-0-spelling"] {
 }
 
 [id^="play-pause-button-"]{
-	font-size: 50px;
+	font-size: 24px;
 	cursor: pointer;
 	text-decoration: none;
     color: black;
   }
 
   [id^="play-pause-button-"]:hover{
-	font-size: 50px;
+	font-size: 24px;
 	cursor: pointer;
 	text-decoration: none;
     color: black;
@@ -2008,3 +2008,4 @@ label[for="alternates-0-spelling"] {
 .audioplayers {
 	display: none;
 }
+
