@@ -39,12 +39,16 @@
 		</h3>
 		
 		<?php if(!empty($word->pronunciations)) : ?>
-			<h4>Pronunciations</h4>
-			<table>
+			<!--<h4>Pronunciations</h4>
+			<table>-->
 			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
 			<?php $i = 0; ?>
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php if(1 == $p->approved): ?>
+					<?php if (0 === $i){
+						 echo '<h4>Pronunciations</h4><table>';
+					} ?>
+					<? endif; ?>
 				<?php 
 					if ('' !== $p->sound_file){
 						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-play"></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
@@ -85,6 +89,9 @@
 			<?php foreach ($word->origins as $s): ?>
 			<li><?php echo $s->origin;?></li>
 			<?php endforeach; ?>
+			<?php if (count($word->origins) > 3): ?>
+				<li class="view-more-link"><a href="#">View More</a></li>
+			<?php endif; ?>
 		<?php endif;?>
 
 		<?php if(!empty($word->etymology)):?>
@@ -96,25 +103,36 @@
 		
 		<?php if(!empty($Types_type)):?>
 			<h4>Who Uses This</h4>
+			<ul class="multiple-items">
 			<?php foreach ($Types_type as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
-		<?php endif;?>
+			<?php if (count($Types_type) > 3): ?>
+				<li class="view-more-link"><a href="#">View More</a></li>
+			<?php endif; ?>
+		</ul><?php endif;?>
 		
 		<?php if(!empty($word->regions)):?>
 			<h4>Regions</h4>
 			<?php foreach ($word->regions as $s): ?>
 			<li><?php echo $s->region;?></li>
 			<?php endforeach; ?>
+			<?php if (count($word->regions) > 3): ?>
+				<li class="view-more-link"><a href="#">View More</a></li>
+			<?php endif; ?>
 		<?php endif;?>
 
 
 		<?php if(!empty($word->dictionaries)):?>
 			<h4>Dictionaries</h4>
+			<ul class="multiple-items">
 			<?php foreach ($word->dictionaries as $s): ?>
 			<li><?php echo $s->dictionary;?></li>
 			<?php endforeach; ?>
-		<?php endif;?>
+			<?php if (count($word->dictionaries) > 3): ?>
+				<li class="view-more-link"><a href="#">View More</a></li>
+			<?php endif; ?>
+		</ul><?php endif;?>
 
 		
 		
