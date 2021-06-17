@@ -157,7 +157,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                             
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['definitions'][$i][$arrayLocation]){
-                                $finalInsert = '{"ops":[{"insert":"' . str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['definitions'][$i]['definition'])) . '\n"}]}';
+                                $finalInsert = '{"ops":[{"insert":"' . str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['definitions'][$i]['definition']))) . '\n"}]}';
                             } else {
                                 $finalInsert = $wordData['definitions'][$i][$arrayLocation];
                             }
@@ -190,7 +190,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         while ($i < count($wordData['sentences'])){
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['sentences'][$i][$arrayLocation]){
-                                $finalInsert = '{"ops":[{"insert":"' . str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['sentences'][$i]['sentence'])) . '\n"}]}';
+                                $finalInsert = '{"ops":[{"insert":"' . str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['sentences'][$i]['sentence']))) . '\n"}]}';
                             } else {
                                 $finalInsert = $wordData['sentences'][$i][$arrayLocation];
                             }
@@ -228,7 +228,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         
                         //For entries with no presubmitted JSON
                         if ('' == $wordData['etymology_json']){
-                            $finalInsert = '{"ops":[{"insert":"' . str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['etymology'])) . '\n"}]}';
+                            $finalInsert = '{"ops":[{"insert":"' . str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['etymology']))) . '\n"}]}';
                         } else {
                             $finalInsert = $wordData[$arrayLocation];
                         }
@@ -270,7 +270,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
 
                         //For entries with no presubmitted JSON
                         if ('' == $wordData['notes_json']){
-                            $finalInsert = '{"ops":[{"insert":"' .  str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['notes'])) . '\n"}]}';
+                            $finalInsert = '{"ops":[{"insert":"' . str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['notes']))) . '\n"}]}';
                         } else {
                             $finalInsert = $wordData[$arrayLocation];
                         }
