@@ -103,12 +103,13 @@ class WordsController extends AppController
     public function view($id = null)
     {
         
-        $word = $this->Words->get($id, [
-            'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
+        //$word = $this->Words->get($id, [
+            //'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
         
         
-        //$word = $this->Words->get_word_for_view($id);
-        
+        $wordResult = $this->Words->get_word_for_view($id);
+        $word = $wordResult[0];
+        //debug($word);
        /*$this->Words->find()
                     ->where(['id' => $id])
                     ->contain('Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences')
@@ -378,9 +379,12 @@ class WordsController extends AppController
      */
     public function edit($id = null)
     {
-        $word = $this->Words->get($id, [
+        $wordResult = $this->Words->get_word_for_edit($id);
+        $word = $wordResult[0];
+        
+        /*$word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
-        ]);
+        ]);*/
 
         if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')){
             

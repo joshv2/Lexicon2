@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\Core\Configure;
 /**
  * Suggestions Controller
  *
@@ -61,8 +61,9 @@ class SuggestionsController extends AppController
             $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
         }
         $word = $this->Words->get($id);
+        $recaptcha_user = Configure::consume('recaptcha_user');
         //$users = $this->Suggestions->Users->find('list', ['limit' => 200]);
-        $this->set(compact('suggestion', 'word'));
+        $this->set(compact('suggestion', 'word', 'recaptcha_user'));
     }
 
     /**
@@ -78,11 +79,31 @@ class SuggestionsController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $suggestion = $this->Suggestions->patchEntity($suggestion, $this->request->getData());
-            if ($this->Suggestions->save($suggestion)) {
-                $this->Flash->success(__('The suggestion has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            //reCaptcha authentication
+            if (null == $this->request->getSession()->read('Auth.username')){
+                $recaptcha = $postData['g-recaptcha-response'];
+                $google_url = "https://www.google.com/recaptcha/api/siteverify";
+                $secret = Configure::consume('recaptcha_secret');
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
+                $http = new Client();
+
+                $res = $http->get($url);
+                $json = $res->getJson();
+                $validationSet = 'notloggedin';
+            } else {
+                $json['success'] = 'false';
+                $validationSet = 'default';
+            }
+
+            $suggestion = $this->Suggestions->patchEntity($suggestion, $this->request->getData());
+            if ($json['success'] == "true") {
+                if ($this->Suggestions->save($suggestion)) {
+                    $this->Flash->success(__('The suggestion has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
             }
             $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
         }

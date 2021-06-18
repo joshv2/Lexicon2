@@ -4,6 +4,17 @@
  * @var \App\Model\Entity\Pronunciation $pronunciation
  */
 ?>
+<?php function status_to_words($approved){
+	switch ($approved) {
+		case 0:
+			return "Pending";
+		case 1:
+			return "Approved";
+		case -1:
+			return "Denied";
+	}
+}
+?>
 <nav id="crumbs" class="group">
 	<?php echo $this->element('user_bar');?>
 </nav>
@@ -46,7 +57,7 @@
 <h2>Delete/Approve Pronunciations</h2>       
 <table>
 
-            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', '','', '']);
+            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','', '','', '']);
                 $i = 0; ?>
             
             <?php foreach ($requested_pronunciations as $p): ?>
@@ -61,6 +72,7 @@
                 <?php echo $this->Html->tableCells([[$p->spelling, 
                                                     $audioPlayer, 
                                                     $p->pronunciation, 
+                                                    status_to_words($p->approved),
                                                     $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
                                                     $this->Form->postLink(
                                                         '<i class="icon-trash"></i> Delete',

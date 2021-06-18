@@ -39,15 +39,13 @@
 		</h3>
 		
 		<?php if(!empty($word->pronunciations)) : ?>
-			<!--<h4>Pronunciations</h4>
-			<table>-->
+			<h4>Pronunciations</h4>
+			<table>
 			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
 			<?php $i = 0; ?>
 			<?php foreach ($word->pronunciations as $p): ?>
 				<?php if(1 == $p->approved): ?>
-					<?php if (0 === $i){
-						 echo '<h4>Pronunciations</h4><table>';
-					} ?>
+					
 				<?php 
 					if ('' !== $p->sound_file){
 						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-play"></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);

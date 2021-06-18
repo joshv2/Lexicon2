@@ -23,6 +23,7 @@
                     echo $this->Form->control('email');
                     echo $this->Form->hidden('status', ['value' => 'unread']);
                     echo $this->Form->control('suggestion');
+                    echo "<div class='g-recaptcha' data-sitekey='" . $recaptcha_user . "'></div>";
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
