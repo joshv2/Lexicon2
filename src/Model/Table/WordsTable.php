@@ -296,14 +296,28 @@ class WordsTable extends Table
 
     public function get_word_for_view($id){
         $query = $this->find()
-                    ->where(['id' => $id])
-                    ->contain('Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences')
+                    ->where(['words.id' => $id])
+                    ->contain(['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences'])
                     ->contain('Pronunciations', function (Query $q) {
                         return $q
                             ->where(['Pronunciations.approved' => 1])
                             ->order(['Pronunciations.display_order' => 'ASC']);
                     });
-        return $query[0];
+        $results = $query->all();
+        return $results->toArray();
+    }
+
+    public function get_word_for_edit($id){
+        $query = $this->find()
+                    ->where(['words.id' => $id])
+                    ->contain(['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations'])
+                    ->contain('Suggestions', function (Query $q) {
+                        return $q
+                            ->where(['Suggestions.status' => 'unread'])
+                            ->order(['Suggestions.created' => 'ASC']);
+                    });
+        $results = $query->all();
+        return $results->toArray();
     }
 
     public function get_pending_words() {
