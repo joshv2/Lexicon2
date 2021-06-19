@@ -309,7 +309,7 @@ class WordsTable extends Table
 
     public function get_word_for_edit($id){
         $query = $this->find()
-                    ->where(['words.id' => $id])
+                    ->where(['Words.id' => $id])
                     ->contain(['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations'])
                     ->contain('Suggestions', function (Query $q) {
                         return $q
