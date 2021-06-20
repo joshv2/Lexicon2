@@ -16,6 +16,9 @@ class TypesTable extends Table
 
     public function top_types(){
         $query = $this->find('list', ['valueField' => 'type', 'limit' => 12, 'order' => 'id']);
+        $query2 = $this->find('list', ['valueField' => 'type'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;

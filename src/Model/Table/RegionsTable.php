@@ -16,6 +16,9 @@ class RegionsTable extends Table
 
     public function top_regions(){
         $query = $this->find('list', ['valueField' => 'region', 'limit' => 4, 'order' => 'id']);
+        $query2 = $this->find('list', ['valueField' => 'region'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
