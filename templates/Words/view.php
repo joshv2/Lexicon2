@@ -32,7 +32,8 @@
 	<div class="page-header group2">
 	<?=$this->Html->link('Edit', '/words/edit/' .$word->id);?>
 	</div>
-	<div class="c word">
+	<div class='c'>
+	<div class="word">
 		<h3>
 			<?php echo $word->spelling; ?>
 
@@ -120,7 +121,7 @@
 				<li class="view-more-link"><a href="#">View More</a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
-
+			
 
 		<?php if(!empty($word->dictionaries)):?>
 			<h4>Dictionaries</h4>
@@ -131,7 +132,13 @@
 			<?php if (count($word->dictionaries) > 3): ?>
 				<li class="view-more-link"><a href="#">View More</a></li>
 			<?php endif; ?>
-		</ul><?php endif;?>
+			</ul>
+		<?php else: ?>
+			<h4>Dictionaries</h4>
+			<ul>
+			<li>None</li>
+			</ul>
+		<?php endif;?>
 
 		
 		
@@ -140,13 +147,16 @@
 			<h4>Alternative Spellings</h4>
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
 		<?php endif;?>
+		</div>
+		<div class='wnotes'>
 		<?php if(!empty($word->notes)):?>
 			<h4>Notes</h4>
 			<ul>
-				<li><?php echo $word->notes;?></li>
+				<li class='notesli'><?php echo $word->notes;?></li>
 			</ul>
 		<?php endif;?>
 	</div>
+		</div>
 	<div class="c wordedit">
 		<p class="m0">
 		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
