@@ -16,6 +16,9 @@ class OriginsTable extends Table
 
     public function top_origins(){
         $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
+        $query2 = $this->find('list', ['valueField' => 'origin'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;

@@ -139,10 +139,6 @@
 			<li>None</li>
 			</ul>
 		<?php endif;?>
-
-		
-		
-		
 		<?php if (!empty($word->alternates)): ?>
 			<h4>Alternative Spellings</h4>
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
@@ -157,6 +153,7 @@
 		<?php endif;?>
 	</div>
 		</div>
+
 	<div class="c wordedit">
 		<p class="m0">
 		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
