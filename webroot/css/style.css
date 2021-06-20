@@ -1246,16 +1246,16 @@ nav#browse
 /* Word Single
 -------------------------------------*/
 
-.word {
+.wnotes, .word {
 	font-size: 14px;
 }
 
-.word h3 {
+.wnotes h3, .word h3 {
 	font: normal 26px helvetica, arial, sans-serif;
 	margin: 0;
 }
 
-.word h4 {
+.wnotes h4, .word h4 {
 	margin: 20px 0 8px 0;
 	display: block;
 	color: #777;
@@ -1266,7 +1266,7 @@ nav#browse
 	padding: 0 0 1px 0;
 }
 
-.word ul {
+.wnotes ul, .word ul {
 	word-break: break-word;
 	margin: 0;
 	padding: 0;
@@ -1274,11 +1274,16 @@ nav#browse
 	list-style: none;
 }
 
-.word li, .word p {
+.wnotes li, .wnotes p, .word li, .word p {
 	margin: 0 0 10px 0;
 	padding: 0 10px;
 	line-height: 20px;
 	list-style: none;
+}
+
+.wnotes li p {
+	display: block;
+	padding: 0px;
 }
 
 .word li p:first-child {
@@ -2008,4 +2013,5 @@ label[for="alternates-0-spelling"] {
 .audioplayers {
 	display: none;
 }
+
 

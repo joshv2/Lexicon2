@@ -351,7 +351,7 @@ class WordsTable extends Table
                                 ORDER BY spellingmatch DESC, definitionmatch DESC, notesmatch DESC, spelling ASC
                             SQL;*/
         
-
+        $querystring = addslashes($querystring);
         $query = $this->find()->contain(['Definitions']);
         $query = $query->join([
                         'd' => [
