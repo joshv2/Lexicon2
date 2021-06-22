@@ -78,7 +78,7 @@ class PagesController extends AppController
 
     public function index(){
         $words = $this->getTableLocator()->get('Words');
-        $total_entries = $words->find()->count();
+        $total_entries = $words->find()->where(['approved' => 1])->count();
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']); //load Models so we can get for the homepage dropdown
         //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
         $origins = $this->Origins->top_origins();

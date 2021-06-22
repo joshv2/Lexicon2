@@ -47,6 +47,12 @@ class PronunciationsTable extends Table
             'foreignKey' => 'word_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->belongsTo('Users', [
+            'className' => 'CakeDC/Users.Users',
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -117,7 +123,7 @@ class PronunciationsTable extends Table
     public function get_pending_pronunciations(){
         $query = $this->find()
                     ->where(['Pronunciations.approved' => 0])
-                    ->contain(['Words'])
+                    ->contain(['Words', 'Users'])
                     ->order(['Pronunciations.created' => 'DESC']);
         return $query;
     }
