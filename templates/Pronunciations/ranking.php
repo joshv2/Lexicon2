@@ -57,7 +57,7 @@
 <h2>Delete/Approve Pronunciations</h2>       
 <table>
 
-            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','', '','', '']);
+            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','Username','', '','', '']);
                 $i = 0; ?>
             
             <?php foreach ($requested_pronunciations as $p): ?>
@@ -73,6 +73,7 @@
                                                     $audioPlayer, 
                                                     $p->pronunciation, 
                                                     status_to_words($p->approved),
+                                                    $p->user->username,
                                                     $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
                                                     $this->Form->postLink(
                                                         '<i class="icon-trash"></i> Delete',

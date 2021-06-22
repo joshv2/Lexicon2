@@ -205,7 +205,7 @@ class WordsTable extends Table
                     'type' => 'LEFT',
                     'conditions' => 'Words.id = d.word_id'
                 ]
-            ])->where(['d.word_id IS' => NULL, 'approved' => 1]);
+            ])->where(['d.word_id IS' => NULL, 'Words.approved' => 1]);
         return $query->count();
     }
 
@@ -301,6 +301,8 @@ class WordsTable extends Table
                     ->contain('Pronunciations', function (Query $q) {
                         return $q
                             ->where(['Pronunciations.approved' => 1])
+                            ->where(['OR' => [['Pronunciations.sound_file !=' => ''],
+                                            ['Pronunciations.pronunciation !=' => '']]])
                             ->order(['Pronunciations.display_order' => 'ASC']);
                     });
         $results = $query->all();

@@ -67,7 +67,7 @@
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>
 		<td><?php echo h($word['full_name']);?> (<?php echo h($word['email']);?>)</td>
-		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
 	</tr>
 <?php endforeach; ?>
@@ -97,10 +97,10 @@
 
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 		<td><?php echo status_to_words($word['approved']);?></td>
 		<td><?php if(1==$word['approved']) {
-			echo $this->Html->link('View Entry', ['controller' => 'words', 'action' => 'view', $word['id']]);
+			echo $this->Html->link('View Entry', ['prefix' => false, 'controller' => 'words', 'action' => 'view', $word['id']]);
 		 } ?></td>
 	</tr>
 <?php endforeach; ?>
@@ -131,7 +131,7 @@
 	<tr>
 		<td><?php echo h($word->word->spelling);?></td>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 
 		<td>
 			<?php if(1==$word->approved && 1 == $word->word->approved) {
@@ -166,7 +166,7 @@
 	<tr>
 		<td><?php echo h($word->word->spelling);?></td>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created']).')');?></td>
+		<td><?php echo h($this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles'));?></td>
 
 		<td>
 			<?php echo $this->Html->link('Manage', ['prefix' => false, 'controller' => 'pronunciations', 'action' => 'manage', $word->word->id]); ?>

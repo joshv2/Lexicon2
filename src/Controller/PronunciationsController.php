@@ -99,7 +99,7 @@ class PronunciationsController extends AppController
     {
         array_map([$this, 'loadModel'], ['Words']);
         $word =  $this->Words->get($wordid);
-        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->order(['display_order' => 'ASC']);
+        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->contain(['Users'])->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             $success = 0;
