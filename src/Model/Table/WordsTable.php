@@ -70,7 +70,7 @@ class WordsTable extends Table
         $this->belongsTo('Users', [
             'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
         ]);
         $this->hasMany('Alternates', [
             'foreignKey' => 'word_id',
