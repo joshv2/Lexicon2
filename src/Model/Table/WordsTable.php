@@ -381,11 +381,11 @@ class WordsTable extends Table
                                  'alternates'=> 'group_concat(a.spelling)', 
                                  'definitions' => 'group_concat(DISTINCT d.id)', 
                                  'spellingmatch' => $spellingmatch,
-                                 'notesmatch' => "MATCH(notes) AGAINST ('".$querystring."')",
+                                 'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
                                  'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"])
                         ->where(['OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         ["MATCH(notes) AGAINST ('".$querystring."')"],
+                                         ["MATCH(Words.notes) AGAINST ('".$querystring."')"],
                                          ["MATCH(d.definition) AGAINST ('".$querystring."')"],
                                          ['etymology LIKE' => '%'.$querystring.'%']], 'approved' => 1])
                         ->group(['Words.id'])
