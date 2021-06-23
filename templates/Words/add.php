@@ -157,7 +157,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                             
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['definitions'][$i][$arrayLocation]){
-                                $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['definitions'][$i]['definition'])))))) . '\n"}]}';
+                                $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $wordData['definitions'][$i]['definition']))))))) . '\n"}]}';
                             } else {
                                 $finalInsert = $wordData['definitions'][$i][$arrayLocation];
                             }
@@ -190,7 +190,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         while ($i < count($wordData['sentences'])){
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['sentences'][$i][$arrayLocation]){
-                                $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['sentences'][$i]['sentence'])))))) . '\n"}]}';
+                                $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $wordData['sentences'][$i]['sentence']))))))) . '\n"}]}';
                             } else {
                                 $finalInsert = $wordData['sentences'][$i][$arrayLocation];
                             }
@@ -238,7 +238,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         
                         //For entries with no presubmitted JSON
                         if ('' == $wordData['etymology_json']){
-                            $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['etymology'])))))) . '\n"}]}';
+                            $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $wordData['etymology']))))))) . '\n"}]}';
                         } else {
                             $finalInsert = $wordData[$arrayLocation];
                         }
@@ -291,7 +291,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         //For entries with no presubmitted JSON
                         if ('' == $wordData['notes_json']){
                             //$finalInsert = '{"ops":[{"insert":"' . str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['notes']))))) . '\n"}]}';
-                            $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', $wordData['notes'])))))) . '\n"}]}';
+                            $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $wordData['notes']))))))) . '\n"}]}';
                         } else {
                             $finalInsert = $wordData[$arrayLocation];
                         }
@@ -306,10 +306,13 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     echo "<div id='editor-notes'></div>";
                     echo "</div>";
 
-                    if ($this->Identity->isLoggedIn()){
+                    if ($this->Identity->isLoggedIn() && 'superuser' == $this->request->getSession()->read('Auth.role')){
                         echo $this->Form->hidden('user_id', ['value' => $this->Identity->get('id')]);
                         echo $this->Form->hidden('approved', ['value' => TRUE]);
-                    } else {
+                    } elseif ($this->Identity->isLoggedIn()) {
+                        echo $this->Form->hidden('user_id', ['value' => $this->Identity->get('id')]);
+                        echo $this->Form->hidden('approved', ['value' => FALSE]);
+                    }  else {
                         echo "<p class='m2'>Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the <a href='https://jel.jewish-languages.org/about' target='_new'>Top Word Contributors</a>. Other than that, you will <strong>NOT</strong> be contacted or placed on any email lists.</p>";
                         echo "<div class='form-group'>";
                         echo $this->Form->control('full_name', ['label' => ['text' => 'Your Name', 'class' => 'req']]);

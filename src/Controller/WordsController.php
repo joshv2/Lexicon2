@@ -303,7 +303,7 @@ class WordsController extends AppController
             }
 
 
-            if (null !== $this->request->getSession()->read('Auth.username')){
+            if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && !empty($postData['pronunciations'])){
                 $datefortimestamp = date('Y-m-d h:i:s', time());
                 $i = 0;
                 foreach ($postData['pronunciations'] as $p) {
