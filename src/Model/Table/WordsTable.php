@@ -365,6 +365,11 @@ class WordsTable extends Table
                             'table' => 'alternates',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = a.word_id'
+                        ],
+                        's' => [
+                            'table' => 'sentences',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = s.word_id'
                         ]
                     ]);
         $spellingmatch = $query->newExpr()
@@ -387,6 +392,7 @@ class WordsTable extends Table
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
                                          ["MATCH(Words.notes) AGAINST ('".$querystring."')"],
                                          ["MATCH(d.definition) AGAINST ('".$querystring."')"],
+                                         ["MATCH(s.sentence) AGAINST ('".$querystring."')"],
                                          ['etymology LIKE' => '%'.$querystring.'%']], 'approved' => 1])
                         ->group(['Words.id'])
                         ->order(['spellingmatch' => 'DESC', 'definitionmatch' => 'DESC', 'notesmatch' => 'DESC', 'Words.spelling' => 'ASC']);
