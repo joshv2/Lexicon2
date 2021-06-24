@@ -356,7 +356,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
             window.InitializeRecorder(recordButton);
         });
     </script>
-
+<?php if ('edit' !== $controllerName): ?>
 <script>
 $(function(){
     $('[name="spelling"]').blur(function(){
@@ -385,3 +385,4 @@ $(function(){
     });
 })
 </script>
+<?php endif ?>
