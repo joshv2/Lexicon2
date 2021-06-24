@@ -385,4 +385,4 @@ $(function(){
     });
 })
 </script>
-<?php endif ?>
+<?php endif; ?>
