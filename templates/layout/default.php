@@ -52,7 +52,6 @@
                                             'height' => 51])?></h1>
 			<nav>
 				<ul id="navbar_sub">
-					<li><?php echo $this->Html->link('Welcome', '/welcome');?></li>
 					<li><?php echo $this->Html->link('Home', '/');?></li>
 					<li><?php echo $this->Html->link('Add a Word', '/add');?></li>
 					<li><?php echo $this->Html->link('About Us', '/about');?></li>
@@ -81,7 +80,6 @@
 		</div>
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
-					<?php echo $this->Html->link('Welcome', '/welcome');?>
 					<?php echo $this->Html->link('Home', '/');?>
 					<?php echo $this->Html->link('Add a Word', '/add');?>
 					<?php echo $this->Html->link('About Us', '/about');?>
@@ -111,7 +109,6 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	<footer>
 		<div id="footer_inner">
 			<ul>
-				<li><?php echo $this->Html->link('Welcome', '/welcome');?></li>
 				<li><?php echo $this->Html->link('About', '/about');?></li>
 				<li><?php echo $this->Html->link('Notes', '/notes');?></li>
 				<li><a href="http://jewishlexicon.weebly.com" target="_blank">JEL Forum</a></li>

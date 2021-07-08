@@ -60,7 +60,7 @@ use Cake\Routing\RouteBuilder;
      */
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);
     $builder->connect('/add', ['controller' => 'Words', 'action' => 'add']);
-    $builder->connect('/welcome', ['controller' => 'Pages', 'action' => 'display', 'welcome']);
+    $builder->redirect('/welcome', ['controller' => 'Pages', 'action' => 'display', 'about']);
     $builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
     $builder->connect('/notes', ['controller' => 'Pages', 'action' => 'display', 'notes']);
     /*
