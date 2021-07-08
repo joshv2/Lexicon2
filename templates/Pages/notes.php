@@ -28,7 +28,7 @@
 
 		<h3>Who tends to use it</h3>
 
-		<p>A lexicon is more comprehensive when it includes sociolinguistic information. While any Jew or non-Jew might use any of the words in this lexicon, research has shown that certain types of people are more likely to use certain words (see <a href="http://www.bjpa.org/Publications/details.cfm?PublicationID=3874">Benor and Cohen’s 2009 survey results</a> and <a href="http://huc.edu/faculty/faculty/benor/LAC_421%5b1%5d%20Proofs%20October%202010.pdf">Benor’s 2011 academic paper</a>). The groups we included are based mostly on Benor and Cohen’s survey data:</p>
+		<p>A lexicon is more comprehensive when it includes sociolinguistic information. While any Jew or non-Jew might use any of the words in this lexicon, research has shown that certain types of people are more likely to use certain words (see <a href="http://www.bjpa.org/Publications/details.cfm?PublicationID=3874">Benor and Cohen’s 2009 survey results</a> and <a href="http://huc.edu/sites/default/files/people/pdf/benor/LAC_421%5B1%5D%20Proofs%20October%202010.pdf">Benor’s 2011 academic paper</a>). The groups we included are based mostly on Benor and Cohen’s survey data:</p>
 
 		<ul>
 			<li><b>Religious:</b> Jews who are engaged in religious observance and have some Jewish education</li>
@@ -46,6 +46,7 @@
 			<li><b>Persian</b>: Jews with recent ancestry in Iran</li>
 			<li><b>Russian</b>: Jews with recent Russian-speaking ancestry in Russia</li>
 			<li><b>Non-Jews:</b> (words that have spread outside of Jewish networks)</li>
+			<li><b>Chabad:</b> Jews affiliated with the Chabad Lubavitch movement</li>
 		</ul>
 
 		<p class="m3">These categories are not intended to represent all subdivisions of American Jews, and they are by no means mutually exclusive; some individuals are part of six or more of the groups. In the absence of research on most of the words in this lexicon, this column is based mostly on the impressions of the people who entered each word; feel free to edit as you see fit. As this column suggests, Jewish English is not a homogenous language but rather an umbrella category for English spoken by a diverse group of people.</p>
