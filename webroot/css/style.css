@@ -144,6 +144,12 @@ h4, h5, h6
 	margin: 0;
 }
 
+.staff {
+	list-style: none;
+    line-height: initial;
+}
+
+
 .c ul {
 	list-style: square;
 	margin: 0 0 10px 0;

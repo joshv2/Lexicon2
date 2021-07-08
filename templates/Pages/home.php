@@ -34,7 +34,7 @@ $(document).ready(function() {
 		</div>
     <div id="home2" class="c">
 		<div class="internal-home">
-		<p id="first_time_here">First time here? Read our <?php echo $this->Html->link('welcome', '/welcome');?> page</a>.</p>
+		<p id="first_time_here">First time here? Read our <?php echo $this->Html->link('welcome', '/about');?> page</a>.</p>
 		
 		<p class="m3 center">The lexicon currently has <?=$this->Html->link($total_entries, '/words');?> entries, including <br /><?=$this->Html->link($no_dict_entries, '/words?dictionary=none');?> entries that do not appear in any Jewish English dictionary.</p>
 		<hr class="m2" />
