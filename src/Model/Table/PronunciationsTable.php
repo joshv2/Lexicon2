@@ -53,6 +53,13 @@ class PronunciationsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
         ]);
+
+        $this->belongsTo('Users', [
+            'className' => 'CakeDC/Users.Users',
+            'foreignKey' => 'approving_user_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'approving_user'
+        ]);
     }
 
     /**
@@ -125,6 +132,12 @@ class PronunciationsTable extends Table
                     ->where(['Pronunciations.approved' => 0])
                     ->contain(['Words', 'Users'])
                     ->order(['Pronunciations.created' => 'DESC']);
+        return $query;
+    }
+
+    public function get_all_pronunciations(){
+        $query = $this->find()->contain(['Words', 'Users'])
+                   ->order(['Pronunciations.approved_date' => 'DESC']);
         return $query;
     }
 }
