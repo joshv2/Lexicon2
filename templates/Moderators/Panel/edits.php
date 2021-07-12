@@ -174,6 +174,59 @@
 		</td>
 	</tr>
 <?php endforeach; ?>
+</table>
+
+<h2>All Pronunciations</h2>
+	<table>
+	<tr>
+		<th>For Word</th>
+		<th>Pronunciation Spelling</th>
+		<th>Submitted On</th>
+		<th>Submitted By</th>
+		<th>Status</th>
+		<th>Last Change Date</th>
+		<th>Approved By</th>
+		<th></th>
+	</tr>
+
+<?php foreach ($allPronunciations as $word): ////$word = $word['Edit'];  ?> 
+
+	<tr>
+		<td><?php echo h($word->word->spelling);?></td>
+		<td><?php echo h($word['spelling']);?></td>
+		<td><?php echo h($this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles'));?></td>
+		<td><?php 
+			if(isset($word->user)){
+				echo h($word->user['first_name']) . ', ' . h($word->user['last_name']) . " (" . h($word->user['email']) . ")";
+			} else {
+				echo "Recording made anonymously";
+			} ?>
+		</td>
+		<td>
+			<?php if(1==$word->approved && 1 == $word->word->approved) {
+				echo "Approved: " . $this->Html->link('View Entry', ['prefix' => false, 'controller' => 'words', 'action' => 'view', $word->word->id]);	
+			} elseif (0 == $word->approved) {
+				echo "Pending Approval";
+			} elseif (-1 == $word->approved) {
+				echo "Denied" . $word->notes;
+			}
+			?>
+				
+		</td>
+		<td><?php echo h($this->Time->format($word['approved_date'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles'));?></td>
+		<td><?php 
+			if(isset($word->approving_user)){
+				echo h($word->approving_user['first_name']) . ', ' . h($word->approving_user['last_name']) . " (" . h($word->approving_user['email']) . ")";
+			} else {
+				echo "Not yet approved";
+			} ?>
+		</td>
+		<td>
+			<?php echo $this->Html->link('Manage', ['prefix' => false, 'controller' => 'pronunciations', 'action' => 'manage', $word->word->id]); ?>
+				
+		</td>
+	</tr>
+<?php endforeach; ?>
 
 </table>
 <?php endif;?>

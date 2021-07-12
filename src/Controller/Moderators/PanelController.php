@@ -17,9 +17,12 @@ class PanelController extends AppController {
             if('user' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
                 $pendingPronunciations = [];
+                $allPronunciations = [];
             } elseif ('superuser' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
                 $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
+                $allPronunciations = $this->Pronunciations->get_all_pronunciations();
+                //debug($allPronunciations);
             }
             $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'));
             $newWords = $this->Words->get_pending_words();
@@ -28,7 +31,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');

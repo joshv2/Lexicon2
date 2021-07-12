@@ -6,7 +6,7 @@
 <?php echo $this->Html->image('header3.jpg', ['height' => 200, 'width' => 900])?>
  </div>
  		<div class="page-header group">
-		<h2 class="left">About Us</h2>
+		<h2 class="left">Welcome</h2>
 		</div>  
         <div id="notes" class="c content">
 		<h3 class="m2">Welcome</h3>
@@ -15,7 +15,7 @@
 		<p>The words in this database stem from several languages of the Jewish past and present, including the Hebrew and Aramaic of ancient biblical and rabbinic texts, the Yiddish of centuries of Jewish life in Eastern Europe, and the Modern Hebrew of contemporary Israel. When Jews use words from this list within their English speech or writing, they indicate not only that they are Jewish but also that they are a certain type of Jew. Some are Yiddish lovers, some are engaged in religious life and learning, some have a strong connection to Israel, some have Sephardi heritage, and some are all of the above. Because Jewish and non-Jewish social networks overlap, these words are not used exclusively by Jews. Some are English words that certain Jews use in distinctive ways, and some are Yiddish-origin words that have become part of the English language.</p>
 
 		<p>JEL was started in 2007 as a class project in <a href="http://huc.edu/faculty/faculty/benor.shtml">Sarah Bunin Benor</a>'s course "American Jewish Language and Identity in Historical Context" at <a href="http://www.huc.edu/">Hebrew Union College – Jewish Institute of Religion</a> in Los Angeles. Students were asked to contribute words that they heard from their friends or read online or in print, as well as definitions, example sentences, and source languages. Many of the entries already appeared in one or more of the <?php echo $this->Html->link('published Jewish English Dictionaries', '/notes');?>, but many appear here for the first time, thanks to the 
-		<?php echo $this->Html->link('students and visitors like you', '/about');?>.</p>
+		students and visitors like you'.</p>
 
 		<p>By design, JEL is a work in progress. We hope you will help us build and refine it. If you notice a word missing, add it. If you want to suggest an edit to an existing entry, you can click the "edit" button on that entry. All changes are moderated. We invite you to experience the lexicon by browsing, searching, sorting, and, most importantly, adding new entries. Past contributors have reported that once they started paying attention, their eyes (and ears) were opened to a whole new world of Jewish English language.</p>
 
@@ -23,9 +23,11 @@
 		<?php echo $this->Html->link('Enter the Lexicon', '/', ['class' => 'button blue']);?>
 		
 	<!--</div>-->
-	
-	<h3 class="m2">About Us</h3>
-   
+</div>
+	<div class="page-header group">
+		<h2 class="left">About Us</h2>
+	</div>  
+	<div id="notes" class="c content">
 	<!--<div id="about" class="c content">-->
 		<p id="logo">
 		<?php echo $this->Html->image('JELlogo2021.png', 
@@ -43,10 +45,10 @@
 			<li>Intern: Matan Kruskal</li>
 			<li>Programmer: Josh Vogel</li>
 			<li>Logo Designer: Simone Klein</li>
-			<li>Many volunteers</li>
+			<li>Pronunciation recordings, entry submissions, etc.: Many volunteers</li>
 		</ul>
 		<div id="notes" class="c content">
-		<p>You can learn more about the team <?php echo $this->Html->link('here', 'https://www.jewishlanguages.org/jewish-language-project');?>.</p>
+		<p>You can learn more about the team <?php echo $this->Html->link('here', 'https://www.jewishlanguages.org/jewish-language-project');?>. If you're interested in contributing or volunteering, <?php echo $this->Html->link('please let us know', 'https://www.jewishlanguages.org/donate');?>.</p>
 
 		<p>Past team members: Isaac Bleaman, Noam Fields-Meyer, Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, Eliran Sobel, and David Voong.</p>
 		<p>Photo credits: <?php echo $this->Html->link('Bill Aron', 'http://www.billaron.com/');?> (1, 3, 4), <?php echo $this->Html->link('Kim Silverstein', 'http://www.silverliningphotosbykim.com/');?> (2), and Ra'anan Boustan (5). </p>
