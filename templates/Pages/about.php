@@ -9,7 +9,6 @@
 		<h2 class="left">Welcome</h2>
 		</div>  
         <div id="notes" class="c content">
-		<h3 class="m2">Welcome</h3>
 		<p>Welcome to JEL, a collaborative database of distinctive words that are used in the speech or writing of English-speaking Jews. Think of it as the Wikipedia or Urban Dictionary of Jewish language.</p>
 
 		<p>The words in this database stem from several languages of the Jewish past and present, including the Hebrew and Aramaic of ancient biblical and rabbinic texts, the Yiddish of centuries of Jewish life in Eastern Europe, and the Modern Hebrew of contemporary Israel. When Jews use words from this list within their English speech or writing, they indicate not only that they are Jewish but also that they are a certain type of Jew. Some are Yiddish lovers, some are engaged in religious life and learning, some have a strong connection to Israel, some have Sephardi heritage, and some are all of the above. Because Jewish and non-Jewish social networks overlap, these words are not used exclusively by Jews. Some are English words that certain Jews use in distinctive ways, and some are Yiddish-origin words that have become part of the English language.</p>
