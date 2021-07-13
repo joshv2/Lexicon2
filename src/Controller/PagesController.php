@@ -81,9 +81,9 @@ class PagesController extends AppController
         $total_entries = $words->find()->where(['approved' => 1])->count();
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']); //load Models so we can get for the homepage dropdown
         //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
-        $origins = $this->Origins->top_origins();
-        $regions = $this->Regions->top_regions();
-        $types = $this->Types->top_types();
+        $origins = $this->Origins->top_origins_for_home();
+        $regions = $this->Regions->top_regions_for_home();
+        $types = $this->Types->top_types_for_home();
         $dictionaries = $this->Dictionaries->top_dictionaries();
         $no_dict_entries = $this->Words->get_not_in_other_dictionary();
         

@@ -69,6 +69,7 @@ $(document).ready(function() {
 					<?php foreach ($origins as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?origin='.$id);?></li>
 					<?php endforeach;?>
+					<li><?php echo $this->Html->link('Other', '/words?origin=other');?></li>
 				</ul>
 			</li>
 			<li>
@@ -77,6 +78,7 @@ $(document).ready(function() {
 					<?php foreach ($regions as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?region='.$id);?></li>
 					<?php endforeach;?>
+					<li><?php echo $this->Html->link('Other', '/words?region=other');?></li>
 				</ul>
 			</li>
 			<li>
@@ -85,6 +87,7 @@ $(document).ready(function() {
 					<?php foreach ($types as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?use='.$id);?></li>
 					<?php endforeach;?>
+					<li><?php echo $this->Html->link('Other', '/words?use=other');?></li>
 				</ul>
 			</li>
 			<li>

@@ -32,11 +32,11 @@ class WordsController extends AppController
 
         //private function 
         
-        $origins = $this->Origins->top_origins();
+        $origins = $this->Origins->top_origins_for_home();
         $origins['other'] = 'Other';
-        $regions = $this->Regions->top_regions();
+        $regions = $this->Regions->top_regions_for_home();
         $regions['other'] = 'Other';
-        $types = $this->Types->top_types();
+        $types = $this->Types->top_types_for_home();
         $types['other'] = 'Other';
         $dictionaries = $this->Dictionaries->top_dictionaries();
         $dictionaries['other'] = 'Other';

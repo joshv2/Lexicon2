@@ -14,6 +14,16 @@ class TypesTable extends Table
         $this->belongsToMany('Words', ['joinTable' => 'words_types']);
     }
 
+    public function top_types_for_home(){
+        $query = $this->find('list', ['valueField' => 'type', 'limit' => 12, 'order' => 'id']);
+        $query3 = $this->find('list', ['valueField' => 'type'])
+                        ->where(['id' => 998]); //chabad
+        $query = $query->union($query3);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function top_types(){
         $query = $this->find('list', ['valueField' => 'type', 'limit' => 12, 'order' => 'id']);
         $query3 = $this->find('list', ['valueField' => 'type'])

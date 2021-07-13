@@ -14,6 +14,14 @@ class RegionsTable extends Table
         $this->belongsToMany('Words', ['joinTable' => 'words_regions']);
     }
 
+
+    public function top_regions_for_home(){
+        $query = $this->find('list', ['valueField' => 'region', 'limit' => 4, 'order' => 'id']);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function top_regions(){
         $query = $this->find('list', ['valueField' => 'region', 'limit' => 4, 'order' => 'id']);
         $query2 = $this->find('list', ['valueField' => 'region'])
