@@ -14,6 +14,14 @@ class OriginsTable extends Table
         $this->belongsToMany('Words', ['joinTable' => 'words_origins']);
     }
 
+    public function top_origins_for_home(){
+        $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
+
     public function top_origins(){
         $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
         $query2 = $this->find('list', ['valueField' => 'origin'])
