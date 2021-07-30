@@ -50,7 +50,7 @@
 		<p>You can learn more about the team <?php echo $this->Html->link('here', 'https://www.jewishlanguages.org/jewish-language-project');?>. If you're interested in contributing or volunteering, <?php echo $this->Html->link('please let us know', 'https://www.jewishlanguages.org/donate');?>.</p>
 
 		<p>Past team members: Isaac Bleaman, Noam Fields-Meyer, Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, Eliran Sobel, and David Voong.</p>
-		<p>Photo credits: <?php echo $this->Html->link('Bill Aron', 'http://www.billaron.com/');?> (1, 3, 4), <?php echo $this->Html->link('Kim Silverstein', 'http://www.silverliningphotosbykim.com/');?> (2), and Ra'anan Boustan (5). </p>
+		<p>Photo credits: <?php echo $this->Html->link('Bill Aron', 'http://www.billaron.com/');?> (1, 3), <?php echo $this->Html->link('Kim Silverstein', 'http://www.silverliningphotosbykim.com/');?> (2), Francine Zara Mathur/Sasha Aleiner/<?php echo $this->Html->link('Jews in ALL Hues', 'http://www.jewsinallhues.org/');?> (4), Ra'anan Boustan (5) and Mijal Bitton (6). </p>
 		<div class="clear m3"></div>
 		<h3>Top word contributors</h3>
 		
