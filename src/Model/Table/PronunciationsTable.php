@@ -48,13 +48,14 @@ class PronunciationsTable extends Table
             'joinType' => 'INNER',
         ]);
 
-        $this->belongsTo('Users', [
+        $this->belongsTo('RecordingUsers', [
             'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
+            'propertyName' => 'submitting_user'
         ]);
 
-        $this->belongsTo('Users', [
+        $this->belongsTo('ApprovingUsers', [
             'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'approving_user_id',
             'joinType' => 'LEFT',

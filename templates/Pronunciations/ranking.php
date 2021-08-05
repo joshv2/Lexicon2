@@ -73,7 +73,7 @@
                                                     $audioPlayer, 
                                                     $p->pronunciation, 
                                                     status_to_words($p->approved),
-                                                    (!empty($p->user->username)) ? $p->user->username : 'Submitted by Public',
+                                                    (!empty($p->submitting_user->username)) ? $p->submitting_user->username : 'Submitted by Public',
                                                     $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
                                                     $this->Form->postLink(
                                                         '<i class="icon-trash"></i> Delete',
