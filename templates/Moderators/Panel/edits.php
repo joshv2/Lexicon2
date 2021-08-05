@@ -196,8 +196,8 @@
 		<td><?php echo h($word['spelling']);?></td>
 		<td><?php echo h($this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles'));?></td>
 		<td><?php 
-			if(isset($word->user)){
-				echo h($word->user['first_name']) . ', ' . h($word->user['last_name']) . " (" . h($word->user['email']) . ")";
+			if(isset($word->submitting_user)){
+				echo h($word->submitting_user['first_name']) . ', ' . h($word->submitting_user['last_name']) . " (" . h($word->submitting_user['email']) . ")";
 			} else {
 				echo "Recording made anonymously";
 			} ?>
