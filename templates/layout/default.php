@@ -139,6 +139,14 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		  }
 		}
 	</script>
+	<script>
+		$('.expand-one').click(function(){
+			$('.sitesection').css({
+				overflow: 'visible',
+				height: '100%'
+			})
+		});
+	</script>
 </body>
 
 
