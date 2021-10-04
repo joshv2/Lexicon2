@@ -44,3 +44,5 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+deploymentchecklist.txt
+jvconsul_lexicon2prod.sql
