@@ -140,8 +140,17 @@
 			</ul>
 		<?php endif;?>
 		<?php if (!empty($word->alternates)): ?>
+			<?php if (strlen(implode(', ', $Alternates_spelling)) > 360):?>
+				<div class="sitesection">
+				<h4>Alternative Spellings</h4>	
+					<p class="content-one"><?php echo implode(', ', $Alternates_spelling); ?></p>
+					
+				</div>	 
+				<div class="expand-one"><a href="#">View More</a></div>
+			<?php else: ?>
 			<h4>Alternative Spellings</h4>
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
+			<?php endif; ?>
 		<?php endif;?>
 		</div>
 		<div class='wnotes'>

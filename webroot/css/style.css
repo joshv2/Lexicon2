@@ -1272,6 +1272,20 @@ nav#browse
 	padding: 0 0 1px 0;
 }
 
+.sitesection {
+	height: 100px;
+	overflow: hidden;
+}
+
+p.content-one {
+   
+}
+
+.expand-one a {
+	text-decoration: none;
+	color: #777;
+}
+
 .wnotes ul, .word ul {
 	word-break: break-word;
 	margin: 0;
