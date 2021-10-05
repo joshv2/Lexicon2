@@ -38,6 +38,7 @@
 	')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
 <?= $this->Html->script('recorder')."\n";?>
+<?= $this->Html->script('toggle')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
@@ -139,14 +140,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		  }
 		}
 	</script>
-	<script>
-		$('.expand-one').click(function(){
-			$('.sitesection').css({
-				overflow: 'visible',
-				height: '100%'
-			})
-		});
-	</script>
+
 </body>
 
 
