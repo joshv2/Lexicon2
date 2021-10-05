@@ -1272,18 +1272,11 @@ nav#browse
 	padding: 0 0 1px 0;
 }
 
-.sitesection {
-	height: 100px;
-	overflow: hidden;
+.morecontent span {
+    display: none;
 }
-
-p.content-one {
-   
-}
-
-.expand-one a {
-	text-decoration: none;
-	color: #777;
+.morelink {
+    display: block;
 }
 
 .wnotes ul, .word ul {
