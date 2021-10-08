@@ -15,9 +15,9 @@
                             <thead>
                                 <tr>
                                     <th style="width: 0;"></th>
-                                    <th style="text-align: left;">Pronuciation (Spelling)</th>
-                                    <th style="text-align: left;">Phonetic Spelling</th>
-                                    <th style="text-align: left;">Record</th>
+                                    <th style="text-align: left;"><?=__("Pronuciation (Spelling)")?></th>
+                                    <th style="text-align: left;"><?=__("Phonetic Spelling")?></th>
+                                    <th style="text-align: left;"><?=__("Record")?></th>
                                 </tr>
                             </thead>
                             <tbody>

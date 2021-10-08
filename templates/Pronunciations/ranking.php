@@ -21,7 +21,7 @@
 <div class="column-responsive column-80">
 <h2><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
     <div class="pronunciations form content">
-        <p>Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.</p>
+        <p><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
         <?= $this->Form->create() ?>
         <table>
 
@@ -54,7 +54,7 @@
         
         <hr/>
        
-<h2>Delete/Approve Pronunciations</h2>       
+<h2><?=__("Delete/Approve Pronunciations")?></h2>       
 <table>
 
             <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','Username','', '','', '']);
