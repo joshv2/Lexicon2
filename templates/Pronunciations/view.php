@@ -20,7 +20,7 @@
             <table>
                 <tr>
                     <th><?= __('Word') ?></th>
-                    <td><?= $pronunciation->has('word') ? $this->Html->link($pronunciation->word->id, ['controller' => 'Words', 'action' => 'view', $pronunciation->word->id]) : '' ?></td>
+                    <td><?= $pronunciation->has('word') ? $this->Html->link(__($pronunciation->word->id), ['controller' => 'Words', 'action' => 'view', $pronunciation->word->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Spelling') ?></th>

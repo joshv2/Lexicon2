@@ -13,8 +13,8 @@
                 <legend><?= __('Deny Pronunciation') ?></legend>
                 <?php
 
-                    echo $this->Form->control('notes', ['label' => 'Message for Recorder']);
-                    echo $this->Form->hidden('approved', ['value' => -1]);
+                    echo $this->Form->control(__('notes'), ['label' => 'Message for Recorder']);
+                    echo $this->Form->hidden(__('approved'), ['value' => -1]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

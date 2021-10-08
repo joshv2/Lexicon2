@@ -19,7 +19,7 @@
 		<p> <?= __("By design, JEL is a work in progress. We hope you will help us build and refine it. If you notice a word missing, add it. If you want to suggest an edit to an existing entry, you can click the \"edit\" button on that entry. All changes are moderated. We invite you to experience the lexicon by browsing, searching, sorting, and, most importantly, adding new entries. Past contributors have reported that once they started paying attention, their eyes (and ears) were opened to a whole new world of Jewish English language. ")?></p>
 
 		<p id="enterthelexicon">
-		<?php echo $this->Html->link('Enter the Lexicon', '/', ['class' => 'button blue']);?>
+		<?php echo $this->Html->link(__('Enter the Lexicon'), '/', ['class' => 'button blue']);?>
 		
 	<!--</div>-->
 </div>

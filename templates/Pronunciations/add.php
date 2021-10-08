@@ -7,7 +7,7 @@
 <div class="row">
     <div class="column-responsive column-80">
         <div class="pronunciations form content">
-            <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
+            <?= $this->Form->create($pronunciation), ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add Pronunciation for ' . $word->spelling) ?></legend>
                 <div class="form-group">
@@ -23,18 +23,18 @@
                             <tbody>
                                 <tr class="table-row" data-counter="0">
                                     <td style="width:0;">
-                                        <?=  $this->Form->control('id',['label' => FALSE, 'class' => 'muliplespid']);?>
+                                        <?=  $this->Form->control(__('id')_,['label' => FALSE, 'class' => 'muliplespid']);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control('spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        <?= $this->Form->control(__('spelling'), ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control('pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        <?= $this->Form->control(__('pronunciation'), ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                     </td>
                                     <td style="vertical-align: top;">
                                         <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
-                                        <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
-                                        <?= $this->Form->control('soundfile0', [
+                                        <?= $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']);?>
+                                        <?= $this->Form->control(__('soundfile0'), [
                                             'class' => 'recording-input',
                                             'type' => 'file',
                                             'style' => 'display:none',
@@ -46,7 +46,7 @@
                         </table>
                     </div>
                 <?php
-                    echo $this->Form->hidden('word_id', ['value' => $this->request->getParam('pass')[0]]);
+                    echo $this->Form->hidden(__('word_id'), ['value' => $this->request->getParam('pass')[0]]);
                     //echo $this->Form->control('word_id', ['options' => $words]);
                     //echo $this->Form->control('spelling');
                     //echo $this->Form->control('sound_file');
