@@ -3,12 +3,12 @@
 
 <section id="main">
 	<div class="page-header group">
-		<h2 class="left"><?php echo $word['Word']['spelling'];?> <small>- Editing</small></h2>
+		<h2 class="left"><?php echo $word['Word']['spelling'];?> <small>- <?=__("Editing")?></small></h2>
 	</div>
 
 	<div class="c word">
-	<h2>SUGGEST CHANGES FOR <?php echo $word['Word']['spelling'];?></h2>
-			<p class="notes">You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see <a href=" http://www.jewish-languages.org/jewish-english-lexicon/notes" target="_blank">Notes.</a> <br /><br />What edits would you like to suggest to this entry? Please be specific.</p>
+	<h2><?=__("SUGGEST CHANGES FOR ")?><?php echo $word['Word']['spelling'];?></h2>
+			<p class="notes"><?=__("You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see ")?><a href=" http://www.jewish-languages.org/jewish-english-lexicon/notes" target="_blank"><?=__("Notes.")?></a> <br /><br /><?=__("What edits would you like to suggest to this entry? Please be specific.")?></p>
 <?php
 echo $this->Form->create(false, array(
     'url' => array('controller' => 'add', 'action' => 'edit')));

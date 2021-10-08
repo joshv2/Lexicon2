@@ -6,9 +6,9 @@
 		<h2 class="left">Error</h2>
 	</div>
 	<div class="c">
-		<p>This word can not be found or has not yet been approved. 
+		<p><?=__("This word can not be found or has not yet been approved")?>. 
 		<?php 
-			echo "Add a " . $this->Html->link('word', ['controller' => 'Words', 'action' => 'add']) . ".";
+			echo "Add a " . $this->Html->link(__'word'), ['controller' => 'Words', 'action' => 'add']) . ".";
 
 			?>
 		</p>
