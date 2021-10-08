@@ -24,7 +24,7 @@
                 <?php foreach ($pronunciations as $pronunciation): ?>
                 <tr>
                     <td><?= $this->Number->format($pronunciation->id) ?></td>
-                    <td><?= $pronunciation->has('word') ? $this->Html->link($pronunciation->word->id, ['controller' => 'Words', 'action' => 'view', $pronunciation->word->id]) : '' ?></td>
+                    <td><?= $pronunciation->has('word') ? $this->Html->link(__($pronunciation->word->id), ['controller' => 'Words', 'action' => 'view', $pronunciation->word->id]) : '' ?></td>
                     <td><?= h($pronunciation->spelling) ?></td>
                     <td><?= h($pronunciation->sound_file) ?></td>
                     <td><?= h($pronunciation->pronunciation) ?></td>
