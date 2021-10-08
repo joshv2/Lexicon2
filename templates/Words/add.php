@@ -64,9 +64,9 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                             <thead>
                                 <tr>
                                     <th style="width: 0;"></th>
-                                    <th style="text-align: left;">Spelling</th>
-                                    <th style="text-align: left;">Phonetic Spelling <span class="tooltip" title="Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"><i class="icon-info-sign"></i></span></th>
-                                    <th style="text-align: left;">Record</th>
+                                    <th style="text-align: left;"><?=__("Spelling")?></th>
+                                    <th style="text-align: left;"><?=__("Phonetic Spelling ")?><span class="tooltip" title="Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"><i class="icon-info-sign"></i></span></th>
+                                    <th style="text-align: left;"><?=__("Record")?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,9 +130,9 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
 
                                 <tr>
                                     <td colspan="5">
-                                        <a class='add-row'><i class='icon-plus-sign'></i> Add an additional pronunciation</a>&nbsp;&nbsp;
-                                        <a class='remove-row disabled'><i class='icon-minus-sign'></i> Remove</a>
-                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link('Change Ranking', ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
+                                        <a class='add-row'><i class='icon-plus-sign'></i> <?=__("Add an additional pronunciation")?></a>&nbsp;&nbsp;
+                                        <a class='remove-row disabled'><i class='icon-minus-sign'></i> <?=__("Remove")?></a>
+                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -331,12 +331,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
             <?= $this->Form->end() ?>
             <?php 
                 if (isset($wordData) && 0 == $wordData['approved']) {
-                echo $this->AuthLink->postLink(
-                    'Approve Word',
+                echo $this->AuthLink->postLink(__(
+                    'Approve Word'),
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
                     ['confirm' => 'Are you sure?'])
-                 . ' ' . $this->AuthLink->postLink(
-                    'Delete Word',
+                 . ' ' . $this->AuthLink->postLink(__(
+                    'Delete Word'),
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $wordData['id']],
                     ['confirm' => 'Are you sure?', 'style' => 'color:red']);
                   } ?>

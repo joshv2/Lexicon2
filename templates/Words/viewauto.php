@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Language') ?></th>
-                    <td><?= $word->has('language') ? $this->Html->link($word->language->name, ['controller' => 'Languages', 'action' => 'view', $word->language->id]) : '' ?></td>
+                    <td><?= $word->has('language') ? $this->Html->link(__($word->language->name), ['controller' => 'Languages', 'action' => 'view', $word->language->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>

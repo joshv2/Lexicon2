@@ -2,7 +2,7 @@
 	<?php echo $this->element('user_bar');?>
 	<ul class="right">
 		<li>
-		<?=$this->Html->link('&larr; Back', '/words',
+		<?=$this->Html->link(__('&larr; Back'), '/words',
 										['class' => 'button grey', 'escape' => false]);?></li>
 	</ul>
 </nav>
@@ -13,24 +13,24 @@
 			<?php if ($this->Identity->isLoggedIn()):?>
 				<li>
 				<?php echo 
-			$this->AuthLink->postLink(
-                '<i class="icon-trash"></i> Delete',
+			$this->AuthLink->postlink(__(
+                '<i class="icon-trash"></i> Delete'),
                 ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
 				</li>
 				<li>
-				<?=$this->Html->link('<i class="fas fa-microphone"></i> Record a Pronunciation', '/pronunciations/add/' .$word->id,
+				<?=$this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 				</li>
 			<?php endif;?>
 			<li>
-			<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
+			<?=$this->Html->link(__('<i class="icon-edit"></i> Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 			</li>
 		</ul>
 	</div>
 	<div class="page-header group2">
-	<?=$this->Html->link('Edit', '/words/edit/' .$word->id);?>
+	<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
 	</div>
 	<div class='c'>
 	<div class="word">
@@ -67,7 +67,7 @@
         <li><?php echo $d;?></li>
       <?php endforeach; ?>
       <?php if (count($Definitions_definition) > 3): ?>
-        <li class="view-more-link"><a href="#">View More</a></li>
+        <li class="view-more-link"><a href="#"><?=__("<?=__("View More")?>")?></a></li>
       <?php endif; ?>
 		</ul><?php endif;?>
 
@@ -78,7 +78,7 @@
 				<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 			<?php if (count($Sentences_sentence) > 3): ?>
-				<li class="view-more-link"><a href="#">View More</a></li>
+				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
 
@@ -89,7 +89,7 @@
 			<li><?php echo $s->origin;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->origins) > 3): ?>
-				<li class="view-more-link"><a href="#">View More</a></li>
+				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
 
@@ -107,7 +107,7 @@
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 			<?php if (count($Types_type) > 3): ?>
-				<li class="view-more-link"><a href="#">View More</a></li>
+				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
 		
@@ -118,7 +118,7 @@
 			<li><?php echo $s->region;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->regions) > 3): ?>
-				<li class="view-more-link"><a href="#">View More</a></li>
+				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
 			
@@ -130,30 +130,30 @@
 			<li><?php echo $s->dictionary;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->dictionaries) > 3): ?>
-				<li class="view-more-link"><a href="#">View More</a></li>
+				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 			</ul>
 		<?php else: ?>
-			<h4>Dictionaries</h4>
+			<h4><?=__("Dictionaries")?></h4>
 			<ul>
-			<li>None</li>
+			<li><?=__("None")?></li>
 			</ul>
 		<?php endif;?>
 		<?php if (!empty($word->alternates)): ?>
 			<?php if (strlen(implode(', ', $Alternates_spelling)) > 360):?>
-				<h4>Alternative Spellings</h4>	
+				<h4><?=__("Alternative Spellings")?></h4>	
 					<p><span class="more" id='addsp'><?php echo implode(', ', $Alternates_spelling); ?></span></p>
 					
 				
 			<?php else: ?>
-			<h4>Alternative Spellings</h4>
+			<h4><?=__("Alternative Spellings")?></h4>
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
 			<?php endif; ?>
 		<?php endif;?>
 		</div>
 		<div class='wnotes'>
 		<?php if(!empty($word->notes)):?>
-			<h4>Notes</h4>
+			<h4><?=__("Notes")?></h4>
 			<ul>
 				<li class='notesli'><?php echo $word->notes;?></li>
 			</ul>
@@ -163,8 +163,8 @@
 
 	<div class="c wordedit">
 		<p class="m0">
-		<?=$this->Html->link('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id,
+		<?=$this->Html->link(__('<i class="icon-edit"></i> Edit', '/words/edit/' .$word->id),
 											['class' => 'button blue', 'escape' => false]);?>
-		&nbsp;&nbsp;&nbsp;&nbsp;See something you disagree with? Feel free to edit it. All changes will be moderated. </p>
+		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("See something you disagree with? Feel free to edit it. All changes will be moderated. ")?></p>
 	</div>
 </section>
