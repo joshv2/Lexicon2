@@ -58,7 +58,9 @@
 					<li><?php echo $this->Html->link('About Us', '/about');?></li>
 					<li><?php echo $this->Html->link('Notes', '/notes');?></li>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<li class="last"><a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a></li>
+					<li><a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a></li>
+					<li><a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a></li>
+					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a></li>
 				</ul>
 			</nav>
 			<form type="GET" action="/search">
@@ -87,6 +89,8 @@
 					<?php echo $this->Html->link('Notes', '/notes');?>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
 					<a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a>
+					<a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a>
+					<a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a>
 			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>
@@ -114,6 +118,8 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 				<li><?php echo $this->Html->link('Notes', '/notes');?></li>
 				<li><a href="http://jewishlexicon.weebly.com" target="_blank">JEL Forum</a></li>
 				<li><a href="http://jewish-languages.org" target="_blank">Jewish-Languages.org</a></li>
+				<li><a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a></li>
+				<li><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a></li>
 			</ul>
 			<ul>
 				<li class="first"><?php echo $this->Html->link('The Lexicon', '/');?></li>
