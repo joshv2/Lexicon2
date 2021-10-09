@@ -4,7 +4,7 @@
 	<?php echo $this->element('user_bar');?>
 	<ul class="right">
 		<li>
-		<?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
+		<?=$this->Html->link(__('<i class="icon-plus-sign"></i> Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?>
 		</li>
 	</ul>
@@ -13,7 +13,7 @@
 <section id="main">
 	<nav id="mobilealphabrowse">
 		<div id="alphabetical_list">
-			<h3 id="alphabrowseheader">Browse by Letter</h3>
+			<h3 id="alphabrowseheader"><?=__("Browse by Letter")?></h3>
 			<ul class="pagination group">
 			<?php
 			for ($i = 65; $i < 91; $i++)
@@ -24,7 +24,7 @@
 					echo '<li class="current">'.$uc.'</li>';
 				else
 					echo '<li>'. 
-					$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
+					$this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
 			}
 			?>
 			</ul>
@@ -44,7 +44,7 @@
 					echo '<li class="current">'.$uc.'</li>';
 				else
 				echo '<li>'. 
-				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
+				$this->Html->link(__(($uc, '/alphabetical//'. $lc)) . '</li>';
 			}
 			?>
 			</ul>
@@ -54,13 +54,13 @@
 	<div id="browse_info" class="group">
 		<p id="sort_info"><?php echo $letter;?></p>
 		<p id="paging_info">
-			Showing <b><?php echo count($words);?></b> words
+			<?=__("Showing ")?><b><?php echo count($words);?></b> <?=__("words")?>
 		</p>
 	</div>
 
 	<?php if (sizeof($words) == 0):?>
 	<div class="c content">
-		<p>No words were found.</p>
+		<p><?=__("No words were found.")?></p>
 	</div>
 	<?php else:?>
 
@@ -70,7 +70,7 @@
 			<div class="word-main">
 				<h3>
 				
-				<?php echo $this->Html->link($word->spelling, '/words//'.$word->id);?>
+				<?php echo $this->Html->link(__($word->spelling, '/words//'.$word->id));?>
 				<?php echo $this->Html->image('seefullentry.jpg', 
                                             ['url' => '/words//'.$word->id, 
                                             'width' => 111,
@@ -94,7 +94,7 @@
 				echo '<li class="current">'.$uc.'</li>';
 			else
 				echo '<li>'. 
-				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
+				$this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
 		}
 		?>
 	</ul>
