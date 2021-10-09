@@ -3,7 +3,7 @@
 <nav id="crumbs" class="group">
 	<?php echo $this->element('user_bar');?>
 	<ul class="right">
-		<li><?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
+		<li><?=$this->Html->link(__('<i class="icon-plus-sign"></i> Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?></li>
 	</ul>
 </nav>
@@ -133,7 +133,7 @@
 
 	<?php if (sizeof($words) == 0):?>
 		<div class="c content">
-			<p>No words were found. Refine your search options above.</p>
+			<p><?=__("No words were found. Refine your search options above.")?></p>
 		</div>
 	<?php else:?>
 
@@ -147,7 +147,7 @@
 		<?php foreach ($words as $word): ?>
 			<li class="group">
 				<div class="word-main">
-					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
+					<h3><?php echo $this->Html->link(__($word->spelling, '/words//'.$word->id)); ?>
 					<?php echo $this->Html->image('seefullentry.jpg', 
 												['url' => '/words//'.$word->id, 
 												'width' => 111,
