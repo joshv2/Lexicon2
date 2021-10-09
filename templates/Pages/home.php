@@ -34,11 +34,11 @@ $(document).ready(function() {
 		</div>
     <div id="home2" class="c">
 		<div class="internal-home">
-		<p id="first_time_here">First time here? Read our <?php echo $this->Html->link('welcome', '/about');?> page</a>.</p>
+		<p id="first_time_here"><?=__("First time here? Read our ")?><?php echo $this->Html->link(__d('welcome', '/about'));?><?=__("page")?></a>.</p>
 		
-		<p class="m3 center">The lexicon currently has <?=$this->Html->link($total_entries, '/words');?> entries, including <br /><?=$this->Html->link($no_dict_entries, '/words?dictionary=none');?> entries that do not appear in any Jewish English dictionary.</p>
+		<p class="m3 center"><?=__("The lexicon currently has ")?><?=$this->Html->link(__($total_entries), '/words');?> <?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
 		<hr class="m2" />
-			<h3 class="m1">BROWSE:</h3>
+			<h3 class="m1"><?=__("BROWSE:")?></h3>
 		<div class="browse">
 		<?php echo $this->Html->image('inorder.jpg', 
                                             ['url' => '/alphabetical', 
@@ -52,7 +52,7 @@ $(document).ready(function() {
 											'class' => 'button'])?>									
     	</div>
         <hr class="m2" />
-        <h3>SEARCH:</h3>
+        <h3><?=__("SEARCH:")?></h3>
 		<form id="home_search" class="group m3" type="GET" action="/search">
 				<input type="text" placeholder="Search" name="q" />
 				<a class="button blue" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
@@ -60,49 +60,49 @@ $(document).ready(function() {
 
         <hr class="m2" />
 		<h3 class="m1">ADVANCED SEARCH:</h3>
-		<p class="m2">(See the <?php echo $this->Html->link('NOTES', '/notes');?> for information about these languages, dictionaries, and types of people.)</p>
+		<p class="m2">(See the <?php echo $this->Html->link(__d('NOTES', '/notes'));?> <?=__("for information about these languages, dictionaries, and types of people.")?>)</p>
 
 		<ul id="home2_filters">
 			<li>
-				<h4><i class="icon-comments-alt"></i> Languages of origin</h4>
+				<h4><i class="icon-comments-alt"></i> <?=__("Languages of origin")?></h4>
 				<ul>
 					<?php foreach ($origins as $id => $o):?>
-						<li><?php echo $this->Html->link($o, '/words?origin='.$id);?></li>
+						<li><?php echo $this->Html->link(__($o), '/words?origin='.$id);?></li>
 					<?php endforeach;?>
-					<li><?php echo $this->Html->link('Other', '/words?origin=other');?></li>
+					<li><?php echo $this->Html->link(__d('Other', '/words?origin=other'));?></li>
 				</ul>
 			</li>
 			<li>
-				<h4><i class="icon-globe"></i> Regions in which the word is used</h4>
+				<h4><i class="icon-globe"></i> <?=__("Regions in which the word is used")?></h4>
 				<ul>
 					<?php foreach ($regions as $id => $o):?>
-						<li><?php echo $this->Html->link($o, '/words?region='.$id);?></li>
+						<li><?php echo $this->Html->link(__($o), '/words?region='.$id);?></li>
 					<?php endforeach;?>
-					<li><?php echo $this->Html->link('Other', '/words?region=other');?></li>
+					<li><?php echo $this->Html->link(__d('Other', '/words?region=other'));?></li>
 				</ul>
 			</li>
 			<li>
-				<h4><i class="icon-user"></i> Types of people who tend to use the word</h4>
+				<h4><i class="icon-user"></i> <?=__("Types of people who tend to use the word")?></h4>
 				<ul class="m3">
 					<?php foreach ($types as $id => $o):?>
-						<li><?php echo $this->Html->link($o, '/words?use='.$id);?></li>
+						<li><?php echo $this->Html->link(__($o), '/words?use='.$id);?></li>
 					<?php endforeach;?>
-					<li><?php echo $this->Html->link('Other', '/words?use=other');?></li>
+					<li><?php echo $this->Html->link(__d('Other', '/words?use=other'));?></li>
 				</ul>
 			</li>
 			<li>
-				<h4><i class="icon-book"></i> Dictionaries in which the word appears</h4>
+				<h4><i class="icon-book"></i> <?=__("Dictionaries in which the word appears")?></h4>
 				<ul>
 					<?php foreach ($dictionaries as $id => $o):?>
-						<li><?php echo $this->Html->link($o, '/words?dictionary='.$id);?></li>
+						<li><?php echo $this->Html->link(__($o), '/words?dictionary='.$id);?></li>
 					<?php endforeach;?>
-					<li><?php echo $this->Html->link('None', '/words?dictionary=none');?></li>
+					<li><?php echo $this->Html->link(__d('None', '/words?dictionary=none'));?></li>
 				</ul>
 			</li>
 		</ul>
 		<hr class="m2" />
-		<h3>CAN'T FIND A WORD?</h3>
-		<p class="m3">Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two.</p>
+		<h3><?=__("CAN'T FIND A WORD?")?></h3>
+		<p class="m3"><?=__("Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two.")?></p>
 		<div class="browse"><?php echo $this->Html->image('add_button.jpg', 
                                             ['url' => '/add', 
                                             'width' => 154,
