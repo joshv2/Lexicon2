@@ -24,7 +24,7 @@
 					echo '<li class="current">'.$uc.'</li>';
 				else
 					echo '<li>'. 
-					$this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
+					$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
 			}
 			?>
 			</ul>
@@ -44,7 +44,7 @@
 					echo '<li class="current">'.$uc.'</li>';
 				else
 				echo '<li>'. 
-				$this->Html->link(__(($uc, '/alphabetical//'. $lc)) . '</li>';
+				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
 			}
 			?>
 			</ul>
@@ -93,8 +93,7 @@
 			if ($letter == $uc || $letter == $lc)
 				echo '<li class="current">'.$uc.'</li>';
 			else
-				echo '<li>'. 
-				$this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
+				echo '<li>'. $this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
 		}
 		?>
 	</ul>

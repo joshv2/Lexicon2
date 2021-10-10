@@ -13,7 +13,7 @@
 
 		<p><?=__("The words in this database stem from several languages of the Jewish past and present, including the Hebrew and Aramaic of ancient biblical and rabbinic texts, the Yiddish of centuries of Jewish life in Eastern Europe, and the Modern Hebrew of contemporary Israel. When Jews use words from this list within their English speech or writing, they indicate not only that they are Jewish but also that they are a certain type of Jew. Some are Yiddish lovers, some are engaged in religious life and learning, some have a strong connection to Israel, some have Sephardi heritage, and some are all of the above. Because Jewish and non-Jewish social networks overlap, these words are not used exclusively by Jews. Some are English words that certain Jews use in distinctive ways, and some are Yiddish-origin words that have become part of the English language.")?></p>
 
-		<p><?= __("JEL was started in 2007 as a class project in") ?><a href="http://huc.edu/faculty/faculty/benor.shtml"><?=__("Sarah Bunin Benor")?></a><?=__('s course "American Jewish Language and Identity in Historical Context" at')?> <a href="http://www.huc.edu/"><?=__("Hebrew Union College – Jewish Institute of Religion")?></a> <?=__("in Los Angeles. Students were asked to contribute words that they heard from their friends or read online or in print, as well as definitions, example sentences, and source languages. Many of the entries already appeared in one or more of the ")?><?php echo $this->Html->link__(('published Jewish English Dictionaries', '/notes'))?>;,<?=__( "but many appear here for the first time, thanks to the 
+		<p><?= __("JEL was started in 2007 as a class project in") ?><a href="http://huc.edu/faculty/faculty/benor.shtml"><?=__("Sarah Bunin Benor")?></a><?=__('s course "American Jewish Language and Identity in Historical Context" at')?> <a href="http://www.huc.edu/"><?=__("Hebrew Union College – Jewish Institute of Religion")?></a> <?=__("in Los Angeles. Students were asked to contribute words that they heard from their friends or read online or in print, as well as definitions, example sentences, and source languages. Many of the entries already appeared in one or more of the ")?><?php echo $this->Html->link(__('published Jewish English Dictionaries'), '/notes')?><?=__( ", but many appear here for the first time, thanks to the 
 		students and visitors like you'.") ?> </p>
 
 		<p> <?= __("By design, JEL is a work in progress. We hope you will help us build and refine it. If you notice a word missing, add it. If you want to suggest an edit to an existing entry, you can click the \"edit\" button on that entry. All changes are moderated. We invite you to experience the lexicon by browsing, searching, sorting, and, most importantly, adding new entries. Past contributors have reported that once they started paying attention, their eyes (and ears) were opened to a whole new world of Jewish English language. ")?></p>
@@ -47,7 +47,7 @@
 			<li><?=__('Pronunciation recordings, entry submissions, etc.: Many volunteers?')?></li>
 		</ul>
 		<div id="notes" class="c content">
-		<p><?=__('You can learn more about the team')?> <?php echo $this->Html->link __('here', 'https://www.jewishlanguages.org/jewish-language-project');?>. <?=__("If you're interested in contributing or volunteering, ")?><?php echo $this->Html->link__('please let us know', 'https://www.jewishlanguages.org/donate');?>.</p>
+		<p><?=__('You can learn more about the team')?> <?php echo $this->Html->link(__('here.'), 'https://www.jewishlanguages.org/jewish-language-project');?><?=__("If you're interested in contributing or volunteering, ")?><?php echo $this->Html->link(__('please let us know.'), 'https://www.jewishlanguages.org/donate');?></p>
 
 		<p><?=__('Past team members: Isaac Bleaman, Noam Fields-Meyer, Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, Eliran Sobel, and David Voong.')?></p>
 		<p><?=__('Photo credits:')?> <?php echo $this->Html->link__('Bill Aron', 'http://www.billaron.com/');?> (1, 3), <?php echo $this->Html->link__('Kim Silverstein', 'http://www.silverliningphotosbykim.com/');?> <?=__("(2), Francine Zara Mathur/Sasha Aleiner/")?><?php echo $this->Html->link__('Jews in ALL Hues', 'http://www.jewsinallhues.org/');?> <?=__("(4), Ra'anan Boustan (5) and Mijal Bitton (6).")?> </p>
@@ -103,7 +103,7 @@
 	<p><?=__('To cite the Lexicon in general:')?></br>
 	<?=__('Benor, Sarah Bunin. 2012-present. "Jewish English Lexicon." Los Angeles: Jewish Language Project. https://jel.jewish-languages.org/.')?></p>
 
-<p><?=__To cite a particular entry:)?></br>
+<p><?=__('To cite a particular entry:')?></br>
 <?=__("Benor, Sarah Bunin. 2012-present. \"Tachlis, entry in Jewish English Lexicon.\" Los Angeles: Jewish Language Project. https://jel.jewish-languages.org/words/556. ")?> </p>
 	</div>
 <script>
