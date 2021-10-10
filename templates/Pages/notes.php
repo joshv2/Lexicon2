@@ -6,7 +6,7 @@
 	<?php echo $this->Html->image('header3.jpg', ['height' => 200, 'width' => 900])?>
  </div>
  <div class="page-header group">
-		<h2 class="left">Notes &amp; Disclaimers</h2>
+		<h2 class="left"><?= __('Notes & Disclaimers')?></h2>
 	</div>
      
 	<div id="notes" class="c content">
