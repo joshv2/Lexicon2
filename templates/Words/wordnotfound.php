@@ -3,12 +3,12 @@
 </nav>
 <section id="main">
     <div class="page-header group">
-		<h2 class="left">Error</h2>
+		<h2 class="left"><?= __('Error')?></h2>
 	</div>
 	<div class="c">
 		<p><?=__("This word can not be found or has not yet been approved")?>. 
 		<?php 
-			echo "Add a " . $this->Html->link(__'word'), ['controller' => 'Words', 'action' => 'add']) . ".";
+			echo $this->Html->link(__('Add a word'), ['controller' => 'Words', 'action' => 'add']) . ".";
 
 			?>
 		</p>

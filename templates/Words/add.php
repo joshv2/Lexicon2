@@ -5,12 +5,12 @@
  */
 
 if ('edit' == $controllerName){
-    $header = 'Edit';
+    $header = __('Edit');
 } else {
-    $header = 'New';
+    $header = __('New');
 }
 
-if (null !== $this->request->getData('spelling') || 'Edit' == $header){
+if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
     if(null !== $this->request->getData('spelling')){
         $wordData = $this->request->getData();
     } else {
@@ -24,21 +24,21 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
 <section id="main" class="main">
 	<div class="page-header group">
 
-        <h2 class="left"><?= $header ?> word</h2>
+        <h2 class="left"><?= $header ?> <?= __('word') ?></h2>
 	</div>
     <div class="c add">
             <?= $this->Form->create($word, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
 
                 <?php
                     echo "<div class='form-group'>";
-                    echo $this->Form->control('spelling', ['label' => ['text' => 'Most Common Spelling', 'class' => 'req'], 'required' => TRUE]);
+                    echo $this->Form->control('spelling', ['label' => ['text' => __('Most Common Spelling'), 'class' => 'req'], 'required' => TRUE]);
                     echo "</div>";
                     echo "<div id='wordexists' style='color:red'></div>";
 
                     //Alternate Spellings
                     echo "<div class='form-group'>";
-                    echo "<label>Alternate Spelling(s)</label>";
-                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['alternates']) > 0) {
+                    echo "<label>" . __('Alternate Spelling(s)') . "</label>";
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['alternates']) > 0) {
 
                         $i = 0;
 
@@ -51,8 +51,8 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo $this->Form->control('alternates.0.id', ['class' => 'muliplespid', 'data-counter' => '0']);
                         echo $this->Form->control('alternates.0.spelling', ['class' => 'multiple']);
                     }
-                    echo "<a class='add'><i class='icon-plus-sign'></i> Add an additional spelling</a>&nbsp;&nbsp;";
-				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i> Remove</a>";
+                    echo "<a class='add'><i class='icon-plus-sign'></i>" . __('Add an additional spelling') . "</a>&nbsp;&nbsp;";
+				    echo "<a class='remove disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     echo "</div>";
 
 
@@ -65,12 +65,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                 <tr>
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;"><?=__("Spelling")?></th>
-                                    <th style="text-align: left;"><?=__("Phonetic Spelling ")?><span class="tooltip" title="Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"><i class="icon-info-sign"></i></span></th>
+                                    <th style="text-align: left;"><?=__("Phonetic Spelling ")?><span class="tooltip" title="<?= __("Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'")?>"><i class="icon-info-sign"></i></span></th>
                                     <th style="text-align: left;"><?=__("Record")?></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['pronunciations']) > 0): ?>
+                                <?php if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['pronunciations']) > 0): ?>
                                     <?php $i = 0;
                                           while ($i < count($wordData['pronunciations'])){ ?>
                                           
@@ -86,8 +86,8 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                                 <?= $this->Form->control('pronunciations.' . $i . '.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                             </td>
                                             <td style="vertical-align: top;">
-                                                <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
-                                                <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
+                                                <span class="record-success" style="display: none;"> <?= __('Recorded') ?> <i class="icon-ok"></i></span>
+                                                <?= $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']);?>
                                                 <?= $this->Form->control('soundfile' . $i, [
                                                     'class' => 'recording-input',
                                                     'type' => 'file',
@@ -132,7 +132,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                                     <td colspan="5">
                                         <a class='add-row'><i class='icon-plus-sign'></i> <?=__("Add an additional pronunciation")?></a>&nbsp;&nbsp;
                                         <a class='remove-row disabled'><i class='icon-minus-sign'></i> <?=__("Remove")?></a>
-                                        <?php echo ('Edit' == $header && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
+                                        <?php echo ('edit' == $controllerName && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -142,8 +142,8 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     
                     //Definitions
                     echo "<div class='form-group'>";
-                    echo "<label>Definition(s)</label>";
-                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
+                    echo "<label>" . __('Definition(s)') . "</label>";
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'defintion';
 
@@ -171,14 +171,14 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
                     }
                     
-                    echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional definition</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
+                    echo "<a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a>&nbsp;&nbsp;";
+				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     echo  "</div>";
                     
                     //Sentences
                     echo "<div class='form-group'>";
-                    echo "<label>Example Sentence(s)</label>";
-                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && count($wordData['sentences']) > 0) { 
+                    echo "<label>" . __('Example Sentence(s)') . "</label>";
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['sentences']) > 0) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'sentence';
 
@@ -206,14 +206,14 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
                     }
                     
-                    echo "<a class='add-editor'><i class='icon-plus-sign'></i> Add an additional sentence</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i> Remove</a>";
+                    echo "<a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional sentence') . "</a>&nbsp;&nbsp;";
+				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     echo "</div>";
 
 
                     echo "<div class='form-group left'>";
-                    echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => 'Language(s) of Origin', 'style' => 'width:100%;display:block;', 'size' => '7']);
-                    echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
+                    echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => __('Language(s) of Origin'), 'style' => 'width:100%;display:block;', 'size' => '7']);
+                    echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
                     echo "</div>";
 
                     //echo "<div class='form-group left'>";
@@ -222,13 +222,13 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     //echo "</div>";
                     if ('superuser' == $this->request->getSession()->read('Auth.role')){
                         echo "<div class='form-group right'>";
-                        echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries, 'label' => 'Dictionaries', 'style' => 'width:100%;display:block;', 'size' => '7']);
-                        echo "<p class='mini'>Hold down Ctrl to select more than one option, Ctrl-click again to deselect</p>";
+                        echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries, 'label' => __('Dictionaries'), 'style' => 'width:100%;display:block;', 'size' => '7']);
+                        echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
                         echo "</div>";
                     }
                     echo "<div class='form-group clear'>";
 
-                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['etymology']) { 
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['etymology']) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'etymology';
 
@@ -260,13 +260,13 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     
                     
                     echo "<div class='form-group left'>";
-                    echo $this->Form->control('types._ids', ['options' => $types, 'label' => 'Who Uses This', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect</p>";
+                    echo $this->Form->control('types._ids', ['options' => $types, 'label' => __('Who Uses This'), 'style' => 'width:100%;display:block;']);
+                    echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
                     echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
-                    echo "<p class='mini'>Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect</p>";
+                    echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
 
                     //echo "<div class='form-group left'>";
@@ -280,7 +280,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                     //echo "</div>";
 
                     echo "<div class='form-group clear'>";
-                    if ((null !== $this->request->getData('spelling') || 'Edit' == $header) && '' != $wordData['notes']) { 
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['notes']) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'notes';
 
@@ -301,7 +301,7 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo $this->Form->hidden('notes', ['id' => 'notes']);
                         echo $this->Form->label('notes');
                     }
-                    echo "<p class='notes'>Anything else you want website visitors to know about this entry</p>";
+                    echo "<p class='notes'>" . __('Anything else you want website visitors to know about this entry') . "</p>";
                     // echo $this->Form->control('notes', ['label' => false]);
                     echo "<div id='editor-notes'></div>";
                     echo "</div>";
@@ -313,18 +313,18 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                         echo $this->Form->hidden('user_id', ['value' => $this->Identity->get('id')]);
                         echo $this->Form->hidden('approved', ['value' => FALSE]);
                     }  else {
-                        echo "<p class='m2'>Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the <a href='https://jel.jewish-languages.org/about' target='_new'>Top Word Contributors</a>. Other than that, you will <strong>NOT</strong> be contacted or placed on any email lists.</p>";
+                        echo "<p class='m2'>" . __('Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the <a href="https://jel.jewish-languages.org/about" target="_new">Top Word Contributors</a>. Other than that, you will <strong>NOT</strong> be contacted or placed on any email lists.') . "</p>";
                         echo "<div class='form-group'>";
-                        echo $this->Form->control('full_name', ['label' => ['text' => 'Your Name', 'class' => 'req']]);
+                        echo $this->Form->control('full_name', ['label' => ['text' => __('Your Name'), 'class' => 'req']]);
                         echo "</div>";
 
                         echo "<div class='form-group'>";
-                        echo $this->Form->control('email', ['label' => ['text' => 'Your Email Address', 'class' => 'req']]);
+                        echo $this->Form->control('email', ['label' => ['text' => __('Your Email Address'), 'class' => 'req']]);
                         echo "</div>";
                         echo $this->Form->hidden('approved', ['value' => FALSE]);
                         echo "<div class='g-recaptcha' data-sitekey='" . $recaptcha_user . "'></div>";
                     }
-                    echo "<p>Double check your submission!</p>";
+                    echo "<p>" . __('Double check your submission!') . "</p>";
                 ?>
 
             <?= $this->Form->button(__('Submit'), ['class' => "button blue", 'id'=> "submitbutton"]) ?>
@@ -338,12 +338,12 @@ if (null !== $this->request->getData('spelling') || 'Edit' == $header){
                  . ' ' . $this->AuthLink->postLink(__(
                     'Delete Word'),
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $wordData['id']],
-                    ['confirm' => 'Are you sure?', 'style' => 'color:red']);
+                    ['confirm' => __('Are you sure?'), 'style' => 'color:red']);
                   } ?>
     </div>
 </section>
 
-<?php if ('Edit' == $header){ 
+<?php if ('edit' == $controllerName){ 
     foreach ($wordData['suggestions'] as $suggestion) {
         echo "Suggestions:" . $suggestion['suggestion'];
     }
@@ -374,7 +374,7 @@ $(function(){
                 
                 //alert(newData.response.spelling);
                 if (newData.response.spelling == false) {
-                    $('#wordexists').text("This word already exists in the lexicon or is being evaluated.");
+                    $('#wordexists').text(<?= __("This word already exists in the lexicon or is being evaluated.") ?>);
                     $("#submitbutton").prop('disabled', true);
                 } else {
                     $('#wordexists').text("");

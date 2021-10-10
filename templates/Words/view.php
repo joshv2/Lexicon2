@@ -67,7 +67,7 @@
         <li><?php echo $d;?></li>
       <?php endforeach; ?>
       <?php if (count($Definitions_definition) > 3): ?>
-        <li class="view-more-link"><a href="#"><?=__("<?=__("View More")?>")?></a></li>
+        <li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
       <?php endif; ?>
 		</ul><?php endif;?>
 

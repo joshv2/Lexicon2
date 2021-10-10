@@ -9,7 +9,7 @@
 		<p><?=__("Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website.")?>
 		<?php 
 			if (isset($this->request->getParam('pass')[0])) {
-				echo "See your " . $this->Html->link(__('entry'), ['controller' => 'Words', 'action' => 'view', $this->request->getParam('pass')[0]]) . ".";
+				echo $this->Html->link(__('See your entry'), ['controller' => 'Words', 'action' => 'view', $this->request->getParam('pass')[0]]) . ".";
 			}
 			?>
 		</p>

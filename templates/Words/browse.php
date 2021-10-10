@@ -3,7 +3,7 @@
 <nav id="crumbs" class="group">
 	<?php echo $this->element('user_bar');?>
 	<ul class="right">
-		<li><?=$this->Html->link(__('<i class="icon-plus-sign"></i> Add a new word'), '/add',
+		<li><?=$this->Html->link('<i class="icon-plus-sign"></i>' . __('Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?></li>
 	</ul>
 </nav>
@@ -14,7 +14,7 @@
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['origin'])? 'All Origins' : '<b>Origin:</b> '. $origins[$current_condition['origin']]; ?></span>
+						<span><?php echo empty($current_condition['origin']) ? 'All Origins' : '<b>Origin:</b> '. $origins[$current_condition['origin']]; ?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -147,7 +147,7 @@
 		<?php foreach ($words as $word): ?>
 			<li class="group">
 				<div class="word-main">
-					<h3><?php echo $this->Html->link(__($word->spelling, '/words//'.$word->id)); ?>
+					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
 					<?php echo $this->Html->image('seefullentry.jpg', 
 												['url' => '/words//'.$word->id, 
 												'width' => 111,
