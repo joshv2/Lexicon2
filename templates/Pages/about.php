@@ -50,7 +50,7 @@
 		<p><?=__('You can learn more about the team')?> <?php echo $this->Html->link(__('here.'), 'https://www.jewishlanguages.org/jewish-language-project');?><?=__("If you're interested in contributing or volunteering, ")?><?php echo $this->Html->link(__('please let us know.'), 'https://www.jewishlanguages.org/donate');?></p>
 
 		<p><?=__('Past team members: Isaac Bleaman, Noam Fields-Meyer, Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, Eliran Sobel, and David Voong.')?></p>
-		<p><?=__('Photo credits:')?> <?php echo $this->Html->link__('Bill Aron', 'http://www.billaron.com/');?> (1, 3), <?php echo $this->Html->link__('Kim Silverstein', 'http://www.silverliningphotosbykim.com/');?> <?=__("(2), Francine Zara Mathur/Sasha Aleiner/")?><?php echo $this->Html->link__('Jews in ALL Hues', 'http://www.jewsinallhues.org/');?> <?=__("(4), Ra'anan Boustan (5) and Mijal Bitton (6).")?> </p>
+		<p><?=__('Photo credits:')?> <?php echo $this->Html->link(__('Bill Aron'), 'http://www.billaron.com/');?> (1, 3), <?php echo $this->Html->link(__('Kim Silverstein'), 'http://www.silverliningphotosbykim.com/');?> <?=__("(2), Francine Zara Mathur/Sasha Aleiner/")?><?php echo $this->Html->link('Jews in ALL Hues', 'http://www.jewsinallhues.org/');?> <?=__("(4), Ra'anan Boustan (5) and Mijal Bitton (6).")?> </p>
 		<div class="clear m3"></div>
 		<h3><?=__('Top word contributors')?></h3>
 		
@@ -73,7 +73,7 @@
 
 		<h3><?=__('Funding')?></h3>
 		
-		<p><?=__('The JEL is an initiative of the HUC-JIR ')?><?php echo $this->Html->link__('Jewish Language Project', 'https://www.jewishlanguages.org/jewish-language-project');?> <?=__('and is made possible by generous funding from:')?></p>
+		<p><?=__('The JEL is an initiative of the HUC-JIR ')?><?php echo $this->Html->link(__('Jewish Language Project'), 'https://www.jewishlanguages.org/jewish-language-project');?> <?=__('and is made possible by generous funding from:')?></p>
 
 		<ul>
 			<li><?=__('Hebrew Union College - Jewish Institute of Religion')?></li>
@@ -86,13 +86,13 @@
 			<li><?=__('Alicia')?></li>
 		</ul>
 
-		<p><?php echo $this->Html->link__('Donations', 'https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words');?> <?=__('are always welcome! If you contribute $360 or more, you will have the option of being listed here.')?></p>
+		<p><?php echo $this->Html->link(__('Donations'), 'https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words');?> <?=__('are always welcome! If you contribute $360 or more, you will have the option of being listed here.')?></p>
 		</div>
 		<div class="page-header group">
 		<h2 class="left"><?=__('Contact Us')?></h2>
 		</div>
 		<div id="about2" class="c content">
-		<p><?=__('You can add an entry to the lexicon ')?><?php echo $this->Html->link__('here', '/add');?>. <?=__('To edit an existing entry, click the Edit button in the full entry. If you have general questions or comments about the site, you can contact us ')?><a href="https://www.jewishlanguages.org/contact"><?=__('here')?></a>.</p>
+		<p><?=__('You can add an entry to the lexicon ')?><?php echo $this->Html->link(__('here'), '/add');?>. <?=__('To edit an existing entry, click the Edit button in the full entry. If you have general questions or comments about the site, you can contact us ')?><a href="https://www.jewishlanguages.org/contact"><?=__('here')?></a>.</p>
 		</div>
 
 	<div class="page-header group">
