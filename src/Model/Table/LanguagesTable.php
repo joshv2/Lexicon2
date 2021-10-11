@@ -72,6 +72,62 @@ class LanguagesTable extends Table
             ->requirePresence('subdomain', 'create')
             ->notEmptyString('subdomain');
 
+        $validator
+            ->scalar('HeaderImage')
+            ->maxLength('HeaderImage', 255)
+            ->requirePresence('HeaderImage', 'create')
+            ->notEmptyString('HeaderImage');
+
+        $validator
+            ->scalar('AboutSec1Header')
+            ->requirePresence('AboutSec1Header', 'create')
+            ->notEmptyString('AboutSec1Header');
+
+        $validator
+            ->scalar('AboutSec1Text')
+            ->requirePresence('AboutSec1Text', 'create')
+            ->notEmptyString('AboutSec1Text');
+
+        $validator
+            ->scalar('AboutSec2Header')
+            ->requirePresence('AboutSec2Header', 'create')
+            ->notEmptyString('AboutSec2Header');
+
+        $validator
+            ->scalar('AboutSec2Text')
+            ->requirePresence('AboutSec2Text', 'create')
+            ->notEmptyString('AboutSec2Text');
+
+        $validator
+            ->scalar('AboutSec3Header')
+            ->requirePresence('AboutSec3Header', 'create')
+            ->notEmptyString('AboutSec3Header');
+
+        $validator
+            ->scalar('AboutSec3Text')
+            ->requirePresence('AboutSec3Text', 'create')
+            ->notEmptyString('AboutSec3Text');
+
+        $validator
+            ->scalar('AboutSec4Header')
+            ->requirePresence('AboutSec4Header', 'create')
+            ->notEmptyString('AboutSec4Header');
+
+        $validator
+            ->scalar('AboutSec4Text')
+            ->requirePresence('AboutSec4Text', 'create')
+            ->notEmptyString('AboutSec4Text');
+
+        $validator
+            ->scalar('NotesSec1Header')
+            ->requirePresence('NotesSec1Header', 'create')
+            ->notEmptyString('NotesSec1Header');
+
+        $validator
+            ->scalar('NotesSec1Text')
+            ->requirePresence('NotesSec1Text', 'create')
+            ->notEmptyString('NotesSec1Text');
+
         return $validator;
     }
 }

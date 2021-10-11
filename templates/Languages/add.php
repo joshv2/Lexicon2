@@ -19,6 +19,17 @@
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('subdomain');
+                    echo $this->Form->control('HeaderImage');
+                    echo $this->Form->control('AboutSec1Header');
+                    echo $this->Form->control('AboutSec1Text');
+                    echo $this->Form->control('AboutSec2Header');
+                    echo $this->Form->control('AboutSec2Text');
+                    echo $this->Form->control('AboutSec3Header');
+                    echo $this->Form->control('AboutSec3Text');
+                    echo $this->Form->control('AboutSec4Header');
+                    echo $this->Form->control('AboutSec4Text');
+                    echo $this->Form->control('NotesSec1Header');
+                    echo $this->Form->control('NotesSec1Text');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

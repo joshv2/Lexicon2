@@ -20,7 +20,7 @@
 
 		<p id="enterthelexicon">
 		<?php echo $this->Html->link(__('Enter the Lexicon'), '/', ['class' => 'button blue']);?>
-		
+		</p>
 	<!--</div>-->
 </div>
 	<div class="page-header group">
