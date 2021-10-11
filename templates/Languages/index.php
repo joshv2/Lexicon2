@@ -14,6 +14,7 @@
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('subdomain') ?></th>
+                    <th><?= $this->Paginator->sort('HeaderImage') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td><?= $this->Number->format($language->id) ?></td>
                     <td><?= h($language->name) ?></td>
                     <td><?= h($language->subdomain) ?></td>
+                    <td><?= h($language->HeaderImage) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $language->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $language->id]) ?>
