@@ -17,6 +17,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\I18n\I18n;
+use Cake\ORM\Query;
+use Cake\ORM\Table;
 
 /**
  * Application Controller
@@ -37,6 +40,18 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    public function languageinfo(){
+        array_map([$this, 'loadModel'], ['Languages']);
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $urlparts1 = explode('//', $actual_link);
+        $urlparts2 = explode('.', $urlparts1[1]);
+        $reqsubdomain = $urlparts2[0];
+
+        $sitelangvalues = $this->Languages->get_language($reqsubdomain);
+        return $sitelangvalues;
+    }
+
     public function initialize(): void
     {
         parent::initialize();
@@ -68,6 +83,17 @@ class AppController extends Controller
             // log will default to the 'debug' value, matched rbac rules will be logged in debug.log by default when debug enabled
             'log' => false
         ];
+
+        $sitelang = $this->languageinfo();
+
+        switch($sitelang['name']){
+            case "English":
+                I18n::setLocale('en_US');
+                break;
+            case "Portuguese":
+                I18n::setLocale('pt');
+                break;
+            }
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');

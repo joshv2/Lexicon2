@@ -176,6 +176,12 @@ return [
         ],
         [
             'role' => '*',
+            'controller' => 'Languages',
+            'action' => ['about', 'notes'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => '*',
             'plugin' => 'DebugKit',
             'controller' => '*',
             'action' => '*',
