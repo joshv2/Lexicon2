@@ -23,6 +23,11 @@ class LanguagesController extends AppController
         $this->set(compact('languages'));
     }
 
+    public function about() {
+        $sitelang = $this->languageinfo();
+        $this->set(compact('sitelang'));
+    }
+
     /**
      * View method
      *
@@ -68,11 +73,31 @@ class LanguagesController extends AppController
      */
     public function edit($id = null)
     {
-        $language = $this->Languages->get($id, [
+        $sitelang = $this->languageinfo();
+        //$this->set(compact('sitelang'));
+        $language = $this->Languages->get($sitelang['id'], [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $language = $this->Languages->patchEntity($language, $this->request->getData());
+            $postData = $this->request->getData();
+            $quillFields = ['AboutSec1Text', 'AboutSec2Text','AboutSec3Text','AboutSec4Text','NotesSec1Text'];
+            foreach ($quillFields as $quillField) {
+                $original = $postData[$quillField];
+                $jsonFromOriginal = json_decode($original);
+                $postData[$quillField . '_json'] = json_encode($jsonFromOriginal);
+                $quill = new \DBlackborough\Quill\Render($postData[$quillField]);
+                $defresult = $quill->render();
+                $postData[$quillField] = $defresult;
+
+                if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillField])){
+                    unset($postData[$quillField]);
+                    unset($postData[$quillField . '_json']);
+                }
+                    
+            }
+            
+
+            $language = $this->Languages->patchEntity($language, $postData);
             if ($this->Languages->save($language)) {
                 $this->Flash->success(__('The language has been saved.'));
 
