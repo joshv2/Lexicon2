@@ -70,7 +70,7 @@
 			<div class="word-main">
 				<h3>
 				
-				<?php echo $this->Html->link(__($word->spelling, '/words//'.$word->id));?>
+				<?php echo $this->Html->link(__($word->spelling), '/words//'.$word->id);?>
 				<?php echo $this->Html->image('seefullentry.jpg', 
                                             ['url' => '/words//'.$word->id, 
                                             'width' => 111,
