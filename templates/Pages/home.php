@@ -25,7 +25,7 @@ $(document).ready(function() {
 </nav>
 <section id="main">
 <div id="header-image">
-<?php echo $this->Html->image('header3.jpg', ['height' => 200, 'width' => 900])?>
+<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
 
  </div>
 	

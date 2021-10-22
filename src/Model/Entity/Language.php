@@ -39,6 +39,8 @@ class Language extends Entity
     protected $_accessible = [
         'name' => true,
         'subdomain' => true,
+        'i18nspec' => true,
+        'translationfile' => true,
         'HeaderImage' => true,
         'AboutSec1Header' => true,
         'AboutSec1Text' => true,

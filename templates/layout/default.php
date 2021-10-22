@@ -47,10 +47,7 @@
 	<header>
 		<div class="headergroup">
 			<h1>
-            <?php echo $this->Html->image('Logo-hi-resscaled.jpg', 
-                                            ['url' => '/', 
-                                            'width' => 50,
-                                            'height' => 51])?></h1>
+            <?= $this->cell('Logo'); ?></h1>
 			<nav>
 				<ul id="navbar_sub">
 					<li><?php echo $this->Html->link('Home', '/');?></li>

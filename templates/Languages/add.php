@@ -13,13 +13,15 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="languages form content">
-            <?= $this->Form->create($language) ?>
+            <?= $this->Form->create($language, array('type' => 'file')) ?>
             <fieldset>
                 <legend><?= __('Add Language') ?></legend>
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('subdomain');
-                    echo $this->Form->control('HeaderImage');
+                    echo $this->Form->control('translationfile', ['type' => 'file']);
+                    echo $this->Form->control('HeaderImage', ['type' => 'file']);
+                    echo $this->Form->control('LogoImage', ['type' => 'file']);
                     echo $this->Form->control('AboutSec1Header');
                     echo $this->Form->control('AboutSec1Text');
                     echo $this->Form->control('AboutSec2Header');
