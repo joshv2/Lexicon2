@@ -53,7 +53,52 @@ class LanguagesController extends AppController
     {
         $language = $this->Languages->newEmptyEntity();
         if ($this->request->is('post')) {
-            $language = $this->Languages->patchEntity($language, $this->request->getData());
+            $postData = $this->request->getData();
+            $header_image = $postData['HeaderImage'];
+
+            if(!empty($header_image->getClientFilename())){ 
+                
+                $name = $header_image->getClientFilename();
+                
+                $targetPath = WWW_ROOT. 'img' . DS . $name;
+                $header_image->moveTo($targetPath);
+                $postData['HeaderImage'] = $name;
+            } else {
+                $this->Flash->error(__('Please include a header image.'));
+            }
+
+            $logo_image = $postData['LogoImage'];
+            if(!empty($logo_image->getClientFilename())){ 
+                
+                $name = $logo_image->getClientFilename();
+                
+                $targetPath = WWW_ROOT. 'img' . DS . $name;
+                $header_image->moveTo($targetPath);
+                $postData['LogoImage'] = $name;
+            } else {
+                $this->Flash->error(__('Please include a logo image.'));
+            }
+
+            $logo_image = $postData['translationfile'];
+            if(!empty($logo_image->getClientFilename())){ 
+                
+                $name = $logo_image->getClientFilename();
+                $finalname = 'default.po';
+                if (!is_dir(ROOT. 'resources' . DS . $postData['i18nspec'])){
+                    mkdir(ROOT. 'resources' . DS . $postData['i18nspec'], 0777, true);
+                }
+                $targetPath = ROOT. 'resources' . DS . $postData['i18nspec'] . DS . $finalname;
+                $header_image->moveTo($targetPath);
+                $postData['LogoImage'] = $name;
+            } else {
+                $this->Flash->error(__('Please include a translation file.'));
+            }
+
+
+            $language = $this->Languages->patchEntity($language, $postData);
+
+            
+
             if ($this->Languages->save($language)) {
                 $this->Flash->success(__('The language has been saved.'));
 
@@ -80,6 +125,34 @@ class LanguagesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
+            
+
+            
+            $header_image = $postData['HeaderImage'];
+
+            
+            if(!empty($header_image->getClientFilename())){ 
+                $name = $header_image->getClientFilename();
+                
+                $targetPath = WWW_ROOT. 'img' . DS . $name;
+                $header_image->moveTo($targetPath);
+                $postData['HeaderImage'] = $name;
+            } else {
+                $postData['HeaderImage'] = $sitelang['HeaderImage'];
+            }
+
+            $logo_image = $postData['LogoImage'];
+            if(!empty($logo_image->getClientFilename())){ 
+                
+                $name = $logo_image->getClientFilename();
+                
+                $targetPath = WWW_ROOT. 'img' . DS . $name;
+                $header_image->moveTo($targetPath);
+                $postData['LogoImage'] = $name;
+            } else {
+                $postData['LogoImage'] = $sitelang['LogoImage'];
+            }
+
             $quillFields = ['AboutSec1Text', 'AboutSec2Text','AboutSec3Text','AboutSec4Text','NotesSec1Text'];
             foreach ($quillFields as $quillField) {
                 $original = $postData[$quillField];

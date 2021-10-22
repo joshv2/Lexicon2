@@ -78,6 +78,7 @@ class PagesController extends AppController
 
     public function index(){
         $words = $this->getTableLocator()->get('Words');
+        $sitelang = $this->languageinfo();
         $total_entries = $words->find()->where(['approved' => 1])->count();
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']); //load Models so we can get for the homepage dropdown
         //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
@@ -89,7 +90,7 @@ class PagesController extends AppController
         
         //$total_entries = 200000;
         $title = 'Home';
-        $this->set(compact('total_entries', 'title', 'no_dict_entries', 'origins', 'regions', 'types', 'dictionaries'));
+        $this->set(compact('total_entries', 'title', 'no_dict_entries', 'origins', 'regions', 'types', 'dictionaries', 'sitelang'));
         $this->render('home');
     }
 

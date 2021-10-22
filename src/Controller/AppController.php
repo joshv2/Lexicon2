@@ -86,14 +86,21 @@ class AppController extends Controller
 
         $sitelang = $this->languageinfo();
 
-        switch($sitelang['name']){
+
+        if (null != $sitelang['i18nspec']) {
+            I18n::setLocale($sitelang['i18nspec']);
+        } else {
+            I18n::setLocale('en_US');
+        }
+
+        /*switch($sitelang['name']){
             case "English":
                 I18n::setLocale('en_US');
                 break;
             case "Portuguese":
                 I18n::setLocale('pt');
                 break;
-            }
+            }*/
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
