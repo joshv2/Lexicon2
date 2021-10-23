@@ -79,17 +79,17 @@ class LanguagesController extends AppController
                 $this->Flash->error(__('Please include a logo image.'));
             }
 
-            $logo_image = $postData['translationfile'];
-            if(!empty($logo_image->getClientFilename())){ 
+            $translation_file = $postData['translationfile'];
+            if(!empty($translation_file->getClientFilename())){ 
                 
-                $name = $logo_image->getClientFilename();
+                $name = $translation_file->getClientFilename();
                 $finalname = 'default.po';
-                if (!is_dir(ROOT. 'resources' . DS . $postData['i18nspec'])){
-                    mkdir(ROOT. 'resources' . DS . $postData['i18nspec'], 0777, true);
+                if (!is_dir(ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'])){
+                    mkdir(ROOT. DS .  'resources' . DS . 'locales' . DS .  $postData['i18nspec'], 0777, true);
                 }
-                $targetPath = ROOT. 'resources' . DS . $postData['i18nspec'] . DS . $finalname;
-                $header_image->moveTo($targetPath);
-                $postData['LogoImage'] = $name;
+                $targetPath = ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'] . DS . $finalname;
+                $translation_file->moveTo($targetPath);
+                $postData['translationfile'] = $name;
             } else {
                 $this->Flash->error(__('Please include a translation file.'));
             }
@@ -126,7 +126,20 @@ class LanguagesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             
-
+            $translation_file = $postData['translationfile'];
+            if(!empty($translation_file->getClientFilename())){ 
+                
+                $name = $translation_file->getClientFilename();
+                $finalname = 'default.po';
+                if (!is_dir(ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'])){
+                    mkdir(ROOT. DS .  'resources' . DS . 'locales' . DS .  $postData['i18nspec'], 0777, true);
+                }
+                $targetPath = ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'] . DS . $finalname;
+                $translation_file->moveTo($targetPath);
+                $postData['translationfile'] = $name;
+            } else {
+                $postData['translationfile'] = $sitelang['translationfile'];
+            }
             
             $header_image = $postData['HeaderImage'];
 
@@ -147,7 +160,7 @@ class LanguagesController extends AppController
                 $name = $logo_image->getClientFilename();
                 
                 $targetPath = WWW_ROOT. 'img' . DS . $name;
-                $header_image->moveTo($targetPath);
+                $logo_image->moveTo($targetPath);
                 $postData['LogoImage'] = $name;
             } else {
                 $postData['LogoImage'] = $sitelang['LogoImage'];
