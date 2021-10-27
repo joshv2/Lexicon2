@@ -41,8 +41,8 @@
                 <?php echo $this->Html->tableCells([[$p->spelling, 
                                                     $audioPlayer, 
                                                     $p->pronunciation, 
-                                                    $this->Form->hidden(__('pronunciations.' . $i . '.id', ['value' => $p->id]), 
-                                                    $this->Form->control(__('pronunciations.' . $i . '.display_order'), ['label' => false])
+                                                    $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
+                                                    $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false])
                                                    ]]); 
                         $i += 1; ?>
                 <?php endif; ?>
@@ -74,7 +74,7 @@
                                                     $p->pronunciation, 
                                                     status_to_words($p->approved),
                                                     (!empty($p->submitting_user->username)) ? $p->submitting_user->username : 'Submitted by Public',
-                                                    $this->Form->hidden(__('pronunciations.' . $i . '.id')), ['value' => $p->id]), 
+                                                    $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
                                                     $this->Form->postLink(__(
                                                         '<i class="icon-trash"></i> Delete'),
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 

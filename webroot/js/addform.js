@@ -86,6 +86,8 @@ $(function()
 	});
 
 	var mappedEditors = initializeEditors();
+	var newEditors2 = newEditors();
+	console.log(newEditors2);
   
 	$('#add_form').submit(function(e) {
 		mappedEditors.forEach((el) => {
@@ -151,6 +153,11 @@ function initializeEditors() {
 	return mappedEditors;
 }
 
+function newEditors() {
+	var newEditors = 0;
+	return newEditors;
+}
+
 function getToolbarOptions() {
 	return [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], ['link'], ['clean']];
 }
@@ -201,36 +208,55 @@ function addRow(el) {
 	lastRow.after(newRow);
 }
 
-function addEditorField(el, mappedEditors) {
+function addEditorField(el, mappedEditors, newEditors2) {
 	$(el).siblings("a.remove-editor").removeClass("disabled");
-	var hiddenInput = $(el).siblings('input[type="hidden"]').last().prev();
+	var hiddenInput = $('[id^=defeditor]').last();
+	//console.log(hiddenInput.attr('data-counter'));
 	var counter = hiddenInput.attr('data-counter');
+	//console.log(counter);
 	var nextCounter = parseInt(counter) + 1;
-	var hiddenInputClone = hiddenInput.clone();
-	updateAttribute(hiddenInputClone, 'name', counter, nextCounter);
-	updateAttribute(hiddenInputClone, 'id', counter, nextCounter);
-	hiddenInputClone.attr('data-counter', nextCounter);
-	hiddenInputClone.val('');
-	var editorClone = getNewEditor(el, counter, nextCounter);
-	var hiddenEditorInput = $(el).siblings('input[type="hidden"]').last();
-	var hiddenEditorInputClone = hiddenEditorInput.clone();
-	updateAttribute(hiddenEditorInputClone, 'name', counter, nextCounter);
-	updateAttribute(hiddenEditorInputClone, 'id', counter, nextCounter);
-	hiddenInputClone.insertBefore(el);
-	hiddenEditorInputClone.insertBefore(el);
-	var div = document.createElement('div');
 	
-	$(div).addClass('editor-container').append(editorClone);
-	$(div).insertBefore(el);
-	var quill = new Quill(editorClone[0], {
+	var hiddenInputClone = hiddenInput.clone();
+	//console.log($(el).closest('form-group'));
+	$('#pronunciationsgroup').append(hiddenInputClone);
+
+	//newBox = hiddenInputClone.children()[2];
+	//$(newBox).children()[0].remove();
+
+	var newQuill = $(hiddenInputClone.children()[2]);
+	var newQuillUpdateId = $(newQuill.children()[1]);
+	console.log(newQuillUpdateId);
+	updateAttribute(newQuillUpdateId, 'id', counter, nextCounter);
+	//console.log(newQuillUpdateId.attr('id'));
+
+	var quill = new Quill('#' + newQuillUpdateId.attr('id'), {
 		theme: 'snow',
 		modules: {
 			toolbar: getToolbarOptions()
 		}
 	});
 	quill.setContents([]);
-	mappedEditors.push({"id": $(editorClone).attr('id').replace('editor-', ''), "editor": quill});
+	mappedEditors.push({"id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill}); //
+	console.log(newEditors2);
+	newEditors2 += 1;
 	quill.focus();
+	
+	updateAttribute($(hiddenInputClone.children()[0]), 'name', counter, nextCounter);
+	updateAttribute($(hiddenInputClone.children()[0]), 'id', counter, nextCounter);
+	$(hiddenInputClone.children()[0]).attr('data-counter', nextCounter);
+	$(hiddenInputClone).attr('data-counter', nextCounter);
+	$(hiddenInputClone.children()[0]).val('');
+	$(hiddenInputClone.children()[1]).val('');
+	//var editorClone = getNewEditor($(hiddenInputClone.children()[2]), counter, nextCounter);
+	
+	var hiddenEditorInput = $(hiddenInputClone.children()[1]);
+	
+	updateAttribute(hiddenEditorInput, 'id', counter, nextCounter);
+	updateAttribute(hiddenEditorInput, 'name', counter, nextCounter);
+
+	newBox = hiddenInputClone.children()[2];
+	$(newBox).children()[0].remove();
+	
 }
 
 function removeRow(el) {
@@ -292,9 +318,10 @@ function setRecording(recordBtn, blob) {
 }
 
 function getNewEditor(el, counter, nextCounter) {
-	var editor = $(el).siblings('.editor-container').last().children().last(); //get the editor div
+	var editor = el; //get the editor div
+	//console.log(editor);
 	var editorClone = editor.clone();
-	updateAttribute(editorClone, 'id', counter, nextCounter);
+	updateAttribute(editor, 'id', counter, nextCounter);
 	return editorClone;
 }
 

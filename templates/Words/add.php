@@ -141,7 +141,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     <?php
                     
                     //Definitions
-                    echo "<div class='form-group'>";
+                    echo "<div class='form-group' id='pronunciationsgroup'>";
                     echo "<label>" . __('Definition(s)') . "</label>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
                         if(null !== $this->request->getData('spelling')){
@@ -153,7 +153,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                         
                         $i = 0;
                         while ($i < count($wordData['definitions'])){
-                            echo $this->Form->control('definitions.' . $i. '.id',['class' => 'muliplespid', 'data-counter' => $i]);
+                            echo "<div id='defeditor" . $wordData['definitions'][$i]['id'] . "' data-counter='". $i ."'>";
+                            echo $this->Form->control('definitions.' . $i. '.id',['class' => 'muliplespid']);
                             
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['definitions'][$i][$arrayLocation]){
@@ -163,17 +164,25 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                             }
                             echo $this->Form->hidden('definitions.' . $i. '.definition', ['id' => 'definition'. $i, 'value' => $finalInsert]);
                             echo "<div class='editor-container'><div id='editor-definition" . $i ."'></div></div>";
+                            
+
+                            echo "<a class='deletelink' id=def" .  $wordData['definitions'][$i]['id'] . "-" . $wordData['id'] . " href='#'>Delete Pronunciation</a></div>";
+                    
+
                             $i += 1;
+                            
                         }
                     } else {
+                        echo "<div id='defeditor0' data-counter='0'>";
                         echo $this->Form->control('definitions.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                         echo $this->Form->hidden('definitions.0.definition', ['id' => 'definition0']);
-                        echo "<div class='editor-container'><div id='editor-definition0'></div></div>";
+                        echo "<div class='editor-container'><div id='editor-definition0'></div></div></div>";
                     }
                     
-                    echo "<a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     echo  "</div>";
+                    echo "</br></br><a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a>&nbsp;&nbsp;";
+				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
+                    
                     
                     //Sentences
                     echo "<div class='form-group'>";
@@ -254,7 +263,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 
                     //echo $this->Form->control('approved');
                     //echo $this->Form->control('language_id');
-                    echo $this->Form->hidden('language_id', ['value' => 1]);
+                    echo $this->Form->hidden('language_id', ['value' => $sitelang->id]);
                     
                     //echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries]);
                     
@@ -343,6 +352,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
     </div>
 </section>
 
+
 <?php if ('edit' == $controllerName){ 
     foreach ($wordData['suggestions'] as $suggestion) {
         echo "Suggestions:" . $suggestion['suggestion'];
@@ -374,7 +384,7 @@ $(function(){
                 
                 //alert(newData.response.spelling);
                 if (newData.response.spelling == false) {
-                    $('#wordexists').text(<?= __("This word already exists in the lexicon or is being evaluated.") ?>);
+                    $('#wordexists').text('<?= __("This word already exists in the lexicon or is being evaluated.") ?>');
                     $("#submitbutton").prop('disabled', true);
                 } else {
                     $('#wordexists').text("");
@@ -383,6 +393,44 @@ $(function(){
             }
         })
     });
-})
+});
+
 </script>
 <?php endif; ?>
+<script>
+    $(function(){
+        $(".deletelink").click(function(event){
+            event.preventDefault();
+            if(confirm('Do you want to delete this pronunciation?')){
+                var defidstart = event.target.id;
+                var nodefprefix = defidstart.replace('def','');
+                var defid = nodefprefix.split("-");
+                console.log(defid[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/JEL2/definitions/ajaxdelete/" + defid[0],
+                    /*data: {
+                        spelling: $('[name="spelling"]').val()
+                    },*/
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
+                    },
+                    success: function(response) {
+                        var newData = response;
+                        
+                        //alert(newData.response.spelling);
+                        if (newData.response.success == 1) {
+                            console.log('value deleted');
+                            $('#defeditor' + defid[0]).remove();
+                        } else {
+                            console.log('value not deleted');
+                            console.log(newData.response);
+                        }
+                    }
+                })
+            } else {
+                console.log('No');
+            }
+        });
+    });
+</script>

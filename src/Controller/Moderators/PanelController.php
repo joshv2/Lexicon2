@@ -10,7 +10,7 @@ class PanelController extends AppController {
     public function index()
         {
             array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
-            
+            $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
             $userid = $this->request->getSession()->read('Auth.id');
             //debug($userid);
@@ -31,7 +31,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');
