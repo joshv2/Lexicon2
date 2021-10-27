@@ -200,6 +200,9 @@ class WordsController extends AppController
     public function add()
     {
         $word = $this->Words->newEmptyEntity();
+        
+        $sitelang = $this->languageinfo();
+        
         //debug($this->request->getAttribute('params'));
         $getRoute = explode("/", $this->request->getRequestTarget());
         $controllerName = $getRoute[1];
@@ -344,7 +347,7 @@ class WordsController extends AppController
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title'));
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang'));
     }
 
     public function checkforword(){
@@ -381,7 +384,7 @@ class WordsController extends AppController
     {
         $wordResult = $this->Words->get_word_for_edit($id);
         $word = $wordResult[0];
-        
+        $sitelang = $this->languageinfo();
         /*$word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
         ]);*/
@@ -400,8 +403,10 @@ class WordsController extends AppController
                 try {
                     foreach ($quillAssoc2 as $quillAssoc){
                         $idsToDelete = [];
-                        $i = 0;
-                        while ($i < count($postData[$quillAssoc])){
+                        //$i = 0;
+                        $quillKeys = array_keys($postData[$quillAssoc]);
+                        foreach ($quillKeys as $key => $i){
+                        //while ($i < count($postData[$quillAssoc])){
                             $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
                             $jsonFromOriginal = json_decode($original);
                             //debug($jsonFromOriginal->ops[0]->insert);
@@ -413,8 +418,9 @@ class WordsController extends AppController
                             //debug(preg_replace('/\s+/', '',$defresult));
 
                             if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillAssoc][$i][$processFields[$quillAssoc]])){
-                                array_push($idsToDelete, $postData[$quillAssoc][$i]['id']);
-                                if ($i > 0){
+                                //debug($postData[$quillAssoc][$i]);
+                                //array_push($idsToDelete, $postData[$quillAssoc][$i]['id']);
+                                if ($key > 0){
                                     unset($postData[$quillAssoc][$i]);
                                 }
                                 else {
@@ -423,17 +429,18 @@ class WordsController extends AppController
                                     unset($postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json']);
                                 }
                             }
-                            $i += 1;
+                            
+                            //$i += 1;
                         }
-                        //debug($idsToDelete);
-                        if(count($idsToDelete) > 0){
+                        //debug($postData[$quillAssoc]);
+                        /*if(count($idsToDelete) > 0){
                             $getDeleteTable = $this->getTableLocator()->get(ucfirst($quillAssoc));
                             //$present = (new Collection($entity->comments))->extract('id')->filter()->toList();
                             $getDeleteTable->deleteAll([
                                 'word_id' => $word->id,
                                 'id IN' => $idsToDelete,
                             ]);
-                        }
+                        }*/
 
                     }
                     $original = $postData['etymology'];
@@ -458,12 +465,12 @@ class WordsController extends AppController
                     echo $e->getMessage();
                 }
 
-                //account for non-subitted data
+                //account for non-submitted data
                 $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
                 $associatedforfilter =  ['Alternates', 'Definitions', 'Pronunciations', 'Sentences'];
                 foreach ($associatedforfilter as $assoc){
                     //debug($postData[strtolower($assoc)]);
-                    if (!array_filter($postData[strtolower($assoc)][0])) {
+                    if (0 == count($postData[strtolower($assoc)])) {
                         unset($postData[strtolower($assoc)]);  
                     }
                 }
@@ -504,7 +511,7 @@ class WordsController extends AppController
             $types = $this->Words->Types->find('list', ['limit' => 200]);
             //$alternates = $this->Words->Alternates->find('list');
             $title = 'Edit: ' . $word->spelling;
-            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title'));
+            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang'));
             $this->render('add');
         } else {
             return $this->redirect([
