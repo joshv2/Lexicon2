@@ -19,7 +19,7 @@
 	<?php echo $this->element('user_bar');?>
 </nav>
 <div class="column-responsive column-80">
-<h2><?php echo 'Order pronunciations for ' . $this->Html->link(__($word->spelling), ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
+<h2><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
     <div class="pronunciations form content">
         <p><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
         <?= $this->Form->create() ?>
@@ -79,10 +79,10 @@
                                                         '<i class="icon-trash"></i> Delete'),
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 
                                                         ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']),
-                                                    $this->Html->link(__('<i class="fas fa-times"></i> Deny'),
+                                                    $this->Html->link('<i class="fas fa-times"></i> Deny',
                                                     ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'edit', $p->id, $word->id], ['escape' => false, 'class' => 'button orange']),
-                                                    $this->Form->postLink(__(
-                                                        '<i class="fas fa-check"></i> Approve'),
+                                                    $this->Form->postLink(
+                                                        '<i class="fas fa-check"></i> Approve',
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'approve', $p->id, $word->id], 
                                                         ['confirm' => 'Are you sure you want to approve this pronunciation?', 'escape' => false, 'class' => 'button green'])
                                                    ]]); 
