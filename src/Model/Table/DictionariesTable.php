@@ -48,6 +48,11 @@ class DictionariesTable extends Table
             'targetForeignKey' => 'word_id',
             'joinTable' => 'dictionaries_words',
         ]);
+
+        $this->belongsTo('Languages', [
+            'foreignKey' => 'langauge_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -71,8 +76,9 @@ class DictionariesTable extends Table
         return $validator;
     }
 
-    public function top_dictionaries(){
-        $query = $this->find('list', ['valueField' => 'dictionary', 'limit' => 6, 'order' => 'id']);
+    public function top_dictionaries($langid){
+        $query = $this->find('list', ['valueField' => 'dictionary', 'order' => 'id']) #'limit' => 6,
+                        ->where(['top' => 1, 'language_id' => $langid]);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;

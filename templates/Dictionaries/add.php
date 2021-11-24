@@ -4,6 +4,9 @@
  * @var \App\Model\Entity\Dictionary $dictionary
  */
 ?>
+<nav id="crumbs" class="group">
+	<?php echo $this->element('user_bar');?>
+</nav>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -18,7 +21,9 @@
                 <legend><?= __('Add Dictionary') ?></legend>
                 <?php
                     echo $this->Form->control('dictionary');
-                    echo $this->Form->control('words._ids', ['options' => $words]);
+                    echo $this->Form->control('top');
+                    //echo $this->Form->control('words._ids', ['options' => $words]);
+                    echo $this->Form->hidden('language_id', ['value' => $sitelang->id]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

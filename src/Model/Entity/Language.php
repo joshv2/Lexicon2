@@ -57,6 +57,13 @@ class Language extends Entity
         'NotesSec1Header' => true,
         'NotesSec1Text' => true,
         'NotesSec1Text_json' => true,
+        'hasOrigins' => true,
+        'hasRegions' => true,
+        'hasTypes' => true,
+        'hasDictionaries' => true,
         'words' => true,
+        'UTFRangeStart' => true,
+        'UTFRangeEnd' => true,
+        'righttoleft' => true,
     ];
 }

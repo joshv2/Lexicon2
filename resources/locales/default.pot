@@ -1,0 +1,2290 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2021-11-21 18:05+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AlphabetAddendumsController.php:56
+#: Controller/AlphabetAddendumsController.php:81
+msgid "The alphabet addendum has been saved."
+msgstr ""
+
+#: Controller/AlphabetAddendumsController.php:60
+#: Controller/AlphabetAddendumsController.php:85
+msgid "The alphabet addendum could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/AlphabetAddendumsController.php:103
+msgid "The alphabet addendum has been deleted."
+msgstr ""
+
+#: Controller/AlphabetAddendumsController.php:105
+msgid "The alphabet addendum could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/AlphabetsController.php:56
+#: Controller/AlphabetsController.php:81
+msgid "The alphabet has been saved."
+msgstr ""
+
+#: Controller/AlphabetsController.php:60
+#: Controller/AlphabetsController.php:85
+msgid "The alphabet could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/AlphabetsController.php:103
+msgid "The alphabet has been deleted."
+msgstr ""
+
+#: Controller/AlphabetsController.php:105
+msgid "The alphabet could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/AlternatesController.php:56
+#: Controller/AlternatesController.php:81
+msgid "The alternate has been saved."
+msgstr ""
+
+#: Controller/AlternatesController.php:60
+#: Controller/AlternatesController.php:85
+msgid "The alternate could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/AlternatesController.php:103
+msgid "The alternate has been deleted."
+msgstr ""
+
+#: Controller/AlternatesController.php:105
+msgid "The alternate could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/DefinitionsController.php:56
+#: Controller/DefinitionsController.php:81
+msgid "The definition has been saved."
+msgstr ""
+
+#: Controller/DefinitionsController.php:60
+#: Controller/DefinitionsController.php:85
+msgid "The definition could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/DefinitionsController.php:104
+msgid "The definition has been deleted."
+msgstr ""
+
+#: Controller/DefinitionsController.php:106
+msgid "The definition could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/DictionariesController.php:58
+#: Controller/DictionariesController.php:84
+msgid "The dictionary has been saved."
+msgstr ""
+
+#: Controller/DictionariesController.php:62
+#: Controller/DictionariesController.php:88
+msgid "The dictionary could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/DictionariesController.php:107
+msgid "The dictionary has been deleted."
+msgstr ""
+
+#: Controller/DictionariesController.php:109
+msgid "The dictionary could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/LanguagesController.php:67
+msgid "Please include a header image."
+msgstr ""
+
+#: Controller/LanguagesController.php:79
+msgid "Please include a logo image."
+msgstr ""
+
+#: Controller/LanguagesController.php:94
+msgid "Please include a translation file."
+msgstr ""
+
+#: Controller/LanguagesController.php:103
+#: Controller/LanguagesController.php:188
+msgid "The language has been saved."
+msgstr ""
+
+#: Controller/LanguagesController.php:107
+#: Controller/LanguagesController.php:192
+msgid "The language could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/LanguagesController.php:209
+msgid "The language has been deleted."
+msgstr ""
+
+#: Controller/LanguagesController.php:211
+msgid "The language could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/OriginsController.php:59
+#: Controller/OriginsController.php:87
+msgid "The origin has been saved."
+msgstr ""
+
+#: Controller/OriginsController.php:63
+#: Controller/OriginsController.php:91
+msgid "The origin could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/OriginsController.php:110
+msgid "The origin has been deleted."
+msgstr ""
+
+#: Controller/OriginsController.php:112
+msgid "The origin could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PronunciationsController.php:88
+msgid "The pronunciation has been saved."
+msgstr ""
+
+#: Controller/PronunciationsController.php:92
+#: Controller/PronunciationsController.php:118
+#: Controller/PronunciationsController.php:156
+msgid "The pronunciation could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/PronunciationsController.php:123
+msgid "The rankings have been saved."
+msgstr ""
+
+#: Controller/PronunciationsController.php:152
+msgid "The pronunciation has been denied."
+msgstr ""
+
+#: Controller/PronunciationsController.php:175
+msgid "The pronunciation has been deleted."
+msgstr ""
+
+#: Controller/PronunciationsController.php:177
+msgid "The pronunciation could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/PronunciationsController.php:193
+#: Controller/WordsController.php:587
+msgid "The word has been approved."
+msgstr ""
+
+#: Controller/PronunciationsController.php:195
+#: Controller/WordsController.php:589
+msgid "The word could not be approved. Please, try again."
+msgstr ""
+
+#: Controller/RegionsController.php:58
+#: Controller/RegionsController.php:85
+msgid "The region has been saved."
+msgstr ""
+
+#: Controller/RegionsController.php:62
+#: Controller/RegionsController.php:89
+msgid "The region could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/RegionsController.php:108
+msgid "The region has been deleted."
+msgstr ""
+
+#: Controller/RegionsController.php:110
+msgid "The region could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/SentencesController.php:56
+#: Controller/SentencesController.php:81
+msgid "The sentence has been saved."
+msgstr ""
+
+#: Controller/SentencesController.php:60
+#: Controller/SentencesController.php:85
+msgid "The sentence could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/SentencesController.php:103
+msgid "The sentence has been deleted."
+msgstr ""
+
+#: Controller/SentencesController.php:105
+msgid "The sentence could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/SuggestionsController.php:57
+#: Controller/SuggestionsController.php:103
+msgid "The suggestion has been saved."
+msgstr ""
+
+#: Controller/SuggestionsController.php:61
+#: Controller/SuggestionsController.php:108
+msgid "The suggestion could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/SuggestionsController.php:127
+msgid "The suggestion has been deleted."
+msgstr ""
+
+#: Controller/SuggestionsController.php:129
+msgid "The suggestion could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/TypesController.php:58
+#: Controller/TypesController.php:85
+msgid "The type has been saved."
+msgstr ""
+
+#: Controller/TypesController.php:62
+#: Controller/TypesController.php:89
+msgid "The type could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TypesController.php:108
+msgid "The type has been deleted."
+msgstr ""
+
+#: Controller/TypesController.php:110
+msgid "The type could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/WordsController.php:354
+#: Controller/WordsController.php:522
+msgid "The word could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/WordsController.php:518
+msgid "The word has been saved."
+msgstr ""
+
+#: Controller/WordsController.php:555
+msgid "The word has been deleted."
+msgstr ""
+
+#: Controller/WordsController.php:557
+msgid "The word could not be deleted. Please, try again."
+msgstr ""
+
+#: Alphabets/add.php:10
+#: Alphabets/edit.php:10
+#: Alphabets/index.php:17
+#: Alphabets/view.php:10
+#: Alternates/add.php:10
+#: Alternates/edit.php:10
+#: Alternates/index.php:17
+#: Alternates/view.php:10
+#: Definitions/add.php:10
+#: Definitions/edit.php:10
+#: Definitions/index.php:16
+#: Definitions/view.php:10
+#: Dictionaries/add.php:13
+#: Dictionaries/edit.php:13
+#: Dictionaries/index.php:19
+#: Dictionaries/view.php:10
+#: Dictionaries/view.php:44
+#: Languages/add.php:10
+#: Languages/edit.php:10
+#: Languages/index.php:18
+#: Languages/view.php:10
+#: Languages/view.php:117
+#: Origins/add.php:13
+#: Origins/edit.php:13
+#: Origins/index.php:20
+#: Origins/view.php:10
+#: Origins/view.php:49
+#: Pronunciations/index.php:20
+#: Pronunciations/view.php:10
+#: Regions/add.php:13
+#: Regions/edit.php:13
+#: Regions/index.php:21
+#: Regions/view.php:13
+#: Regions/view.php:60
+#: Sentences/add.php:10
+#: Sentences/edit.php:10
+#: Sentences/index.php:16
+#: Sentences/view.php:10
+#: Sentences/view.php:45
+#: Suggestions/add.php:10
+#: Suggestions/edit.php:10
+#: Suggestions/index.php:21
+#: Suggestions/view.php:10
+#: Types/add.php:13
+#: Types/edit.php:13
+#: Types/index.php:21
+#: Types/view.php:10
+#: Types/view.php:57
+#: Words/index.php:20
+#: Words/viewauto.php:10
+#: Words/viewauto.php:70
+#: Words/viewauto.php:95
+#: Words/viewauto.php:120
+#: Words/viewauto.php:145
+#: Words/viewauto.php:171
+#: Words/viewauto.php:198
+#: Words/viewauto.php:225
+#: Words/viewauto.php:255
+msgid "Actions"
+msgstr ""
+
+#: Alphabets/add.php:11
+#: Alphabets/edit.php:16
+#: Alphabets/view.php:13
+msgid "List Alphabets"
+msgstr ""
+
+#: Alphabets/add.php:18
+msgid "Add Alphabet"
+msgstr ""
+
+#: Alphabets/add.php:24
+#: Alphabets/edit.php:29
+#: Alternates/add.php:24
+#: Alternates/edit.php:29
+#: Definitions/add.php:24
+#: Definitions/edit.php:29
+#: Dictionaries/add.php:29
+#: Dictionaries/edit.php:34
+#: Languages/add.php:54
+#: Languages/edit.php:78
+#: Origins/add.php:30
+#: Origins/edit.php:34
+#: Pronunciations/add.php:57
+#: Pronunciations/edit.php:20
+#: Pronunciations/ranking.php:51
+#: Regions/add.php:29
+#: Regions/edit.php:34
+#: Sentences/add.php:24
+#: Sentences/edit.php:29
+#: Suggestions/add.php:29
+#: Suggestions/edit.php:33
+#: Types/add.php:29
+#: Types/edit.php:34
+#: Words/add.php:346
+msgid "Submit"
+msgstr ""
+
+#: Alphabets/edit.php:12
+#: Alphabets/index.php:29
+#: Alternates/edit.php:12
+#: Alternates/index.php:29
+#: Definitions/edit.php:12
+#: Definitions/index.php:27
+#: Dictionaries/edit.php:15
+#: Dictionaries/index.php:30
+#: Dictionaries/view.php:59
+#: Languages/edit.php:12
+#: Languages/index.php:31
+#: Languages/view.php:137
+#: Origins/edit.php:15
+#: Origins/index.php:32
+#: Origins/view.php:69
+#: Pronunciations/index.php:35
+#: Regions/edit.php:15
+#: Regions/index.php:34
+#: Regions/view.php:80
+#: Sentences/edit.php:12
+#: Sentences/index.php:27
+#: Sentences/view.php:55
+#: Suggestions/edit.php:12
+#: Suggestions/index.php:37
+#: Types/edit.php:15
+#: Types/index.php:34
+#: Types/view.php:77
+#: Words/index.php:35
+#: Words/viewauto.php:79
+#: Words/viewauto.php:104
+#: Words/viewauto.php:129
+#: Words/viewauto.php:154
+#: Words/viewauto.php:181
+#: Words/viewauto.php:208
+#: Words/viewauto.php:235
+#: Words/viewauto.php:268
+msgid "Delete"
+msgstr ""
+
+#: Alphabets/edit.php:14
+#: Alphabets/index.php:29
+#: Alphabets/view.php:12
+#: Alternates/edit.php:14
+#: Alternates/index.php:29
+#: Alternates/view.php:12
+#: Definitions/edit.php:14
+#: Definitions/index.php:27
+#: Definitions/view.php:12
+#: Dictionaries/edit.php:17
+#: Dictionaries/index.php:30
+#: Dictionaries/view.php:12
+#: Dictionaries/view.php:59
+#: Languages/edit.php:14
+#: Languages/index.php:31
+#: Languages/view.php:12
+#: Languages/view.php:137
+#: Origins/edit.php:17
+#: Origins/index.php:32
+#: Origins/view.php:12
+#: Origins/view.php:69
+#: Pronunciations/index.php:35
+#: Pronunciations/view.php:12
+#: Regions/edit.php:17
+#: Regions/index.php:34
+#: Regions/view.php:15
+#: Regions/view.php:80
+#: Sentences/edit.php:14
+#: Sentences/index.php:27
+#: Sentences/view.php:12
+#: Sentences/view.php:55
+#: Suggestions/edit.php:14
+#: Suggestions/index.php:37
+#: Suggestions/view.php:12
+#: Types/edit.php:17
+#: Types/index.php:34
+#: Types/view.php:12
+#: Types/view.php:77
+#: Words/index.php:35
+#: Words/viewauto.php:12
+#: Words/viewauto.php:79
+#: Words/viewauto.php:104
+#: Words/viewauto.php:129
+#: Words/viewauto.php:154
+#: Words/viewauto.php:181
+#: Words/viewauto.php:208
+#: Words/viewauto.php:235
+#: Words/viewauto.php:268
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: Alphabets/edit.php:23
+#: Alphabets/view.php:11
+msgid "Edit Alphabet"
+msgstr ""
+
+#: Alphabets/index.php:8
+#: Alphabets/view.php:14
+msgid "New Alphabet"
+msgstr ""
+
+#: Alphabets/index.php:9
+msgid "Alphabets"
+msgstr ""
+
+#: Alphabets/index.php:27
+#: Alternates/index.php:27
+#: Definitions/index.php:25
+#: Dictionaries/index.php:28
+#: Dictionaries/view.php:57
+#: Languages/index.php:29
+#: Languages/view.php:135
+#: Origins/index.php:30
+#: Origins/view.php:67
+#: Pronunciations/index.php:33
+#: Regions/index.php:32
+#: Regions/view.php:78
+#: Sentences/index.php:25
+#: Sentences/view.php:53
+#: Suggestions/index.php:35
+#: Types/index.php:32
+#: Types/view.php:75
+#: Words/index.php:33
+#: Words/viewauto.php:77
+#: Words/viewauto.php:102
+#: Words/viewauto.php:127
+#: Words/viewauto.php:152
+#: Words/viewauto.php:179
+#: Words/viewauto.php:206
+#: Words/viewauto.php:233
+#: Words/viewauto.php:266
+msgid "View"
+msgstr ""
+
+#: Alphabets/index.php:28
+#: Alternates/index.php:28
+#: Definitions/index.php:26
+#: Dictionaries/index.php:29
+#: Dictionaries/view.php:58
+#: Languages/index.php:30
+#: Languages/view.php:136
+#: Origins/index.php:31
+#: Origins/view.php:68
+#: Pronunciations/index.php:34
+#: Regions/index.php:33
+#: Regions/view.php:79
+#: Sentences/index.php:26
+#: Sentences/view.php:54
+#: Suggestions/index.php:36
+#: Types/index.php:33
+#: Types/view.php:76
+#: Words/add.php:8
+#: Words/index.php:34
+#: Words/view.php:33
+#: Words/view.php:166
+#: Words/viewauto.php:78
+#: Words/viewauto.php:103
+#: Words/viewauto.php:128
+#: Words/viewauto.php:153
+#: Words/viewauto.php:180
+#: Words/viewauto.php:207
+#: Words/viewauto.php:234
+#: Words/viewauto.php:267
+msgid "Edit"
+msgstr ""
+
+#: Alphabets/index.php:38
+#: Alternates/index.php:38
+#: Definitions/index.php:36
+#: Dictionaries/index.php:39
+#: Languages/index.php:40
+#: Origins/index.php:41
+#: Pronunciations/index.php:44
+#: Regions/index.php:43
+#: Sentences/index.php:36
+#: Suggestions/index.php:46
+#: Types/index.php:43
+#: Words/index.php:44
+msgid "first"
+msgstr ""
+
+#: Alphabets/index.php:39
+#: Alternates/index.php:39
+#: Definitions/index.php:37
+#: Dictionaries/index.php:40
+#: Languages/index.php:41
+#: Origins/index.php:42
+#: Pronunciations/index.php:45
+#: Regions/index.php:44
+#: Search/results.php:36
+#: Sentences/index.php:37
+#: Suggestions/index.php:47
+#: Types/index.php:44
+#: Words/browse.php:169
+#: Words/index.php:45
+msgid "previous"
+msgstr ""
+
+#: Alphabets/index.php:41
+#: Alternates/index.php:41
+#: Definitions/index.php:39
+#: Dictionaries/index.php:42
+#: Languages/index.php:43
+#: Origins/index.php:44
+#: Pronunciations/index.php:47
+#: Regions/index.php:46
+#: Search/results.php:39
+#: Sentences/index.php:39
+#: Suggestions/index.php:49
+#: Types/index.php:46
+#: Words/browse.php:172
+#: Words/index.php:47
+msgid "next"
+msgstr ""
+
+#: Alphabets/index.php:42
+#: Alternates/index.php:42
+#: Definitions/index.php:40
+#: Dictionaries/index.php:43
+#: Languages/index.php:44
+#: Origins/index.php:45
+#: Pronunciations/index.php:48
+#: Regions/index.php:47
+#: Sentences/index.php:40
+#: Suggestions/index.php:50
+#: Types/index.php:47
+#: Words/index.php:48
+msgid "last"
+msgstr ""
+
+#: Alphabets/index.php:44
+#: Alternates/index.php:44
+#: Definitions/index.php:42
+#: Dictionaries/index.php:45
+#: Languages/index.php:46
+#: Origins/index.php:47
+#: Pronunciations/index.php:50
+#: Regions/index.php:49
+#: Sentences/index.php:42
+#: Suggestions/index.php:52
+#: Types/index.php:49
+#: Words/index.php:50
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr ""
+
+#: Alphabets/view.php:12
+msgid "Delete Alphabet"
+msgstr ""
+
+#: Alphabets/view.php:22
+#: Regions/view.php:29
+#: Types/view.php:26
+#: Words/viewauto.php:30
+msgid "Language"
+msgstr ""
+
+#: Alphabets/view.php:26
+msgid "UTF8value"
+msgstr ""
+
+#: Alphabets/view.php:30
+#: Alternates/view.php:30
+#: Definitions/view.php:26
+#: Dictionaries/view.php:26
+#: Dictionaries/view.php:36
+#: Languages/view.php:34
+#: Languages/view.php:104
+#: Origins/view.php:26
+#: Origins/view.php:36
+#: Pronunciations/view.php:42
+#: Regions/view.php:33
+#: Regions/view.php:47
+#: Sentences/view.php:26
+#: Sentences/view.php:42
+#: Suggestions/view.php:42
+#: Types/view.php:30
+#: Types/view.php:44
+#: Words/viewauto.php:34
+#: Words/viewauto.php:68
+#: Words/viewauto.php:93
+#: Words/viewauto.php:118
+#: Words/viewauto.php:143
+#: Words/viewauto.php:168
+#: Words/viewauto.php:195
+#: Words/viewauto.php:222
+#: Words/viewauto.php:249
+msgid "Id"
+msgstr ""
+
+#: Alternates/add.php:11
+#: Alternates/edit.php:16
+#: Alternates/view.php:13
+msgid "List Alternates"
+msgstr ""
+
+#: Alternates/add.php:18
+msgid "Add Alternate"
+msgstr ""
+
+#: Alternates/edit.php:23
+#: Alternates/view.php:11
+msgid "Edit Alternate"
+msgstr ""
+
+#: Alternates/index.php:8
+#: Alternates/view.php:14
+msgid "New Alternate"
+msgstr ""
+
+#: Alternates/index.php:9
+msgid "Alternates"
+msgstr ""
+
+#: Alternates/view.php:12
+msgid "Delete Alternate"
+msgstr ""
+
+#: Alternates/view.php:22
+#: Definitions/view.php:22
+#: Pronunciations/view.php:22
+#: Sentences/view.php:22
+#: Suggestions/view.php:22
+msgid "Word"
+msgstr ""
+
+#: Alternates/view.php:26
+#: Dictionaries/view.php:37
+#: Languages/view.php:105
+#: Origins/view.php:37
+#: Pages/notes.php:14
+#: Pronunciations/view.php:26
+#: Regions/view.php:48
+#: Types/view.php:45
+#: Words/add.php:67
+#: Words/viewauto.php:22
+#: Words/viewauto.php:170
+#: Words/viewauto.php:251
+msgid "Spelling"
+msgstr ""
+
+#: Definitions/add.php:11
+#: Definitions/edit.php:16
+#: Definitions/view.php:13
+msgid "List Definitions"
+msgstr ""
+
+#: Definitions/add.php:18
+msgid "Add Definition"
+msgstr ""
+
+#: Definitions/edit.php:23
+#: Definitions/view.php:11
+msgid "Edit Definition"
+msgstr ""
+
+#: Definitions/index.php:8
+#: Definitions/view.php:14
+msgid "New Definition"
+msgstr ""
+
+#: Definitions/index.php:9
+msgid "Definitions"
+msgstr ""
+
+#: Definitions/view.php:12
+msgid "Delete Definition"
+msgstr ""
+
+#: Definitions/view.php:31
+#: Words/viewauto.php:197
+msgid "Definition"
+msgstr ""
+
+#: Dictionaries/add.php:14
+#: Dictionaries/edit.php:19
+#: Dictionaries/view.php:13
+msgid "List Dictionaries"
+msgstr ""
+
+#: Dictionaries/add.php:21
+msgid "Add Dictionary"
+msgstr ""
+
+#: Dictionaries/edit.php:26
+#: Dictionaries/view.php:11
+msgid "Edit Dictionary"
+msgstr ""
+
+#: Dictionaries/index.php:11
+#: Dictionaries/view.php:14
+msgid "New Dictionary"
+msgstr ""
+
+#: Dictionaries/index.php:12
+#: Words/add.php:241
+#: Words/view.php:137
+msgid "Dictionaries"
+msgstr ""
+
+#: Dictionaries/view.php:12
+msgid "Delete Dictionary"
+msgstr ""
+
+#: Dictionaries/view.php:22
+#: Words/viewauto.php:69
+msgid "Dictionary"
+msgstr ""
+
+#: Dictionaries/view.php:31
+#: Languages/view.php:99
+#: Origins/view.php:31
+#: Regions/view.php:42
+#: Types/view.php:39
+msgid "Related Words"
+msgstr ""
+
+#: Dictionaries/view.php:38
+#: Languages/view.php:106
+#: Origins/view.php:38
+#: Regions/view.php:49
+#: Types/view.php:46
+#: Words/viewauto.php:51
+msgid "Etymology"
+msgstr ""
+
+#: Dictionaries/view.php:39
+#: Languages/view.php:108
+#: Origins/view.php:40
+#: Pronunciations/view.php:38
+#: Regions/view.php:51
+#: Types/view.php:48
+#: Words/view.php:156
+#: Words/viewauto.php:57
+#: Words/viewauto.php:254
+msgid "Notes"
+msgstr ""
+
+#: Dictionaries/view.php:40
+#: Languages/view.php:110
+#: Origins/view.php:42
+#: Regions/view.php:53
+#: Suggestions/view.php:46
+#: Types/view.php:50
+#: Words/viewauto.php:42
+msgid "Created"
+msgstr ""
+
+#: Dictionaries/view.php:41
+#: Languages/view.php:111
+#: Origins/view.php:43
+#: Regions/view.php:54
+#: Types/view.php:51
+#: Words/viewauto.php:46
+msgid "Approved"
+msgstr ""
+
+#: Dictionaries/view.php:42
+#: Languages/view.php:113
+#: Origins/view.php:45
+#: Regions/view.php:56
+#: Types/view.php:53
+#: Words/viewauto.php:38
+msgid "Language Id"
+msgstr ""
+
+#: Dictionaries/view.php:43
+#: Languages/view.php:114
+#: Origins/view.php:46
+#: Regions/view.php:57
+#: Types/view.php:54
+#: Words/viewauto.php:26
+msgid "User Id"
+msgstr ""
+
+#: Languages/about.php:12
+#: Pages/welcome.php:9
+msgid "Welcome"
+msgstr ""
+
+#: Languages/about.php:19
+#: Languages/about.php:24
+#: Pages/about.php:22
+msgid "Enter the Lexicon"
+msgstr ""
+
+#: Languages/about.php:22
+msgid "Coming Soon."
+msgstr ""
+
+#: Languages/about.php:35
+msgid "About Us"
+msgstr ""
+
+#: Languages/add.php:11
+#: Languages/edit.php:16
+#: Languages/view.php:13
+msgid "List Languages"
+msgstr ""
+
+#: Languages/add.php:12
+#: Languages/edit.php:17
+msgid "Return to Moderators Panel"
+msgstr ""
+
+#: Languages/add.php:20
+msgid "Add Language"
+msgstr ""
+
+#: Languages/add.php:38
+msgid "Add Origins"
+msgstr ""
+
+#: Languages/add.php:40
+msgid "Add Regions"
+msgstr ""
+
+#: Languages/add.php:42
+msgid "Add Types"
+msgstr ""
+
+#: Languages/add.php:44
+msgid "Add Dictionaries"
+msgstr ""
+
+#: Languages/add.php:49
+#: Languages/edit.php:74
+msgid "Add additional characters out of range"
+msgstr ""
+
+#: Languages/edit.php:25
+#: Languages/view.php:11
+msgid "Edit Language"
+msgstr ""
+
+#: Languages/index.php:8
+#: Languages/view.php:14
+msgid "New Language"
+msgstr ""
+
+#: Languages/index.php:9
+msgid "Languages"
+msgstr ""
+
+#: Languages/view.php:12
+msgid "Delete Language"
+msgstr ""
+
+#: Languages/view.php:22
+msgid "Name"
+msgstr ""
+
+#: Languages/view.php:26
+msgid "Subdomain"
+msgstr ""
+
+#: Languages/view.php:30
+msgid "HeaderImage"
+msgstr ""
+
+#: Languages/view.php:39
+msgid "AboutSec1Header"
+msgstr ""
+
+#: Languages/view.php:45
+msgid "AboutSec1Text"
+msgstr ""
+
+#: Languages/view.php:51
+msgid "AboutSec2Header"
+msgstr ""
+
+#: Languages/view.php:57
+msgid "AboutSec2Text"
+msgstr ""
+
+#: Languages/view.php:63
+msgid "AboutSec3Header"
+msgstr ""
+
+#: Languages/view.php:69
+msgid "AboutSec3Text"
+msgstr ""
+
+#: Languages/view.php:75
+msgid "AboutSec4Header"
+msgstr ""
+
+#: Languages/view.php:81
+msgid "AboutSec4Text"
+msgstr ""
+
+#: Languages/view.php:87
+msgid "NotesSec1Header"
+msgstr ""
+
+#: Languages/view.php:93
+msgid "NotesSec1Text"
+msgstr ""
+
+#: Languages/view.php:107
+#: Origins/view.php:39
+#: Regions/view.php:50
+#: Types/view.php:47
+msgid "Etymology Json"
+msgstr ""
+
+#: Languages/view.php:109
+#: Origins/view.php:41
+#: Regions/view.php:52
+#: Types/view.php:49
+msgid "Notes Json"
+msgstr ""
+
+#: Languages/view.php:112
+#: Origins/view.php:44
+#: Regions/view.php:55
+#: Types/view.php:52
+msgid "Approved Date"
+msgstr ""
+
+#: Languages/view.php:115
+#: Origins/view.php:47
+#: Regions/view.php:58
+#: Suggestions/view.php:30
+#: Types/view.php:55
+msgid "Full Name"
+msgstr ""
+
+#: Languages/view.php:116
+#: Origins/view.php:48
+#: Regions/view.php:59
+#: Suggestions/view.php:34
+#: Types/view.php:56
+msgid "Email"
+msgstr ""
+
+#: Origins/add.php:14
+#: Origins/edit.php:19
+#: Origins/view.php:13
+msgid "List Origins"
+msgstr ""
+
+#: Origins/add.php:21
+msgid "Add Origin"
+msgstr ""
+
+#: Origins/edit.php:26
+#: Origins/view.php:11
+msgid "Edit Origin"
+msgstr ""
+
+#: Origins/index.php:11
+#: Origins/view.php:14
+msgid "New Origin"
+msgstr ""
+
+#: Origins/index.php:12
+msgid "Origins"
+msgstr ""
+
+#: Origins/view.php:12
+msgid "Delete Origin"
+msgstr ""
+
+#: Origins/view.php:22
+#: Words/viewauto.php:94
+msgid "Origin"
+msgstr ""
+
+#: Pages/about.php:12
+#: Pages/welcome.php:13
+msgid "Welcome to JEL, a collaborative database of distinctive words that are used in the speech or writing of English-speaking Jews. Think of it as the Wikipedia or Urban Dictionary of Jewish language."
+msgstr ""
+
+#: Pages/about.php:14
+#: Pages/welcome.php:15
+msgid "The words in this database stem from several languages of the Jewish past and present, including the Hebrew and Aramaic of ancient biblical and rabbinic texts, the Yiddish of centuries of Jewish life in Eastern Europe, and the Modern Hebrew of contemporary Israel. When Jews use words from this list within their English speech or writing, they indicate not only that they are Jewish but also that they are a certain type of Jew. Some are Yiddish lovers, some are engaged in religious life and learning, some have a strong connection to Israel, some have Sephardi heritage, and some are all of the above. Because Jewish and non-Jewish social networks overlap, these words are not used exclusively by Jews. Some are English words that certain Jews use in distinctive ways, and some are Yiddish-origin words that have become part of the English language."
+msgstr ""
+
+#: Pages/about.php:16
+#: Pages/welcome.php:17
+msgid "JEL was started in 2007 as a class project in"
+msgstr ""
+
+#: Pages/about.php:16
+#: Pages/welcome.php:17
+msgid "Sarah Bunin Benor"
+msgstr ""
+
+#: Pages/about.php:16
+msgid "s course \"American Jewish Language and Identity in Historical Context\" at"
+msgstr ""
+
+#: Pages/about.php:16
+#: Pages/welcome.php:17
+msgid "Hebrew Union College – Jewish Institute of Religion"
+msgstr ""
+
+#: Pages/about.php:16
+msgid "in Los Angeles. Students were asked to contribute words that they heard from their friends or read online or in print, as well as definitions, example sentences, and source languages. Many of the entries already appeared in one or more of the "
+msgstr ""
+
+#: Pages/about.php:16
+msgid "published Jewish English Dictionaries"
+msgstr ""
+
+#: Pages/about.php:16
+msgid ", but many appear here for the first time, thanks to the \n\t\tstudents and visitors like you'."
+msgstr ""
+
+#: Pages/about.php:19
+msgid "By design, JEL is a work in progress. We hope you will help us build and refine it. If you notice a word missing, add it. If you want to suggest an edit to an existing entry, you can click the \"edit\" button on that entry. All changes are moderated. We invite you to experience the lexicon by browsing, searching, sorting, and, most importantly, adding new entries. Past contributors have reported that once they started paying attention, their eyes (and ears) were opened to a whole new world of Jewish English language. "
+msgstr ""
+
+#: Pages/about.php:38
+msgid "The goals of the Jewish English Lexicon (JEL) are to collect data on English spoken and written by Jews and to make it available to the public."
+msgstr ""
+
+#: Pages/about.php:40
+msgid "JEL Team"
+msgstr ""
+
+#: Pages/about.php:42
+msgid "Founding Director: Sarah Bunin Benor"
+msgstr ""
+
+#: Pages/about.php:43
+msgid "Managing Director: Hannah Kober"
+msgstr ""
+
+#: Pages/about.php:44
+msgid "Intern: Matan Kruskal"
+msgstr ""
+
+#: Pages/about.php:45
+msgid "Programmer: Josh Vogel"
+msgstr ""
+
+#: Pages/about.php:46
+msgid "Logo Designer: Simone Klein"
+msgstr ""
+
+#: Pages/about.php:47
+msgid "Pronunciation recordings, entry submissions, etc.: Many volunteers?"
+msgstr ""
+
+#: Pages/about.php:50
+msgid "You can learn more about the team"
+msgstr ""
+
+#: Pages/about.php:50
+msgid "here."
+msgstr ""
+
+#: Pages/about.php:50
+msgid "If you're interested in contributing or volunteering, "
+msgstr ""
+
+#: Pages/about.php:50
+msgid "please let us know."
+msgstr ""
+
+#: Pages/about.php:52
+msgid "Past team members: Isaac Bleaman, Noam Fields-Meyer, Leah Helfgott, Tsvi Sadan, Chaim Singer-Frankes, Eliran Sobel, and David Voong."
+msgstr ""
+
+#: Pages/about.php:53
+msgid "Photo credits:"
+msgstr ""
+
+#: Pages/about.php:53
+msgid "Bill Aron"
+msgstr ""
+
+#: Pages/about.php:53
+msgid "Kim Silverstein"
+msgstr ""
+
+#: Pages/about.php:53
+msgid "(2), Francine Zara Mathur/Sasha Aleiner/"
+msgstr ""
+
+#: Pages/about.php:53
+msgid "(4), Ra'anan Boustan (5) and Mijal Bitton (6)."
+msgstr ""
+
+#: Pages/about.php:55
+msgid "Top word contributors"
+msgstr ""
+
+#: Pages/about.php:57
+msgid "The people listed here contributed many entries to the JEL."
+msgstr ""
+
+#: Pages/about.php:60
+msgid "Mark Bunin Benor"
+msgstr ""
+
+#: Pages/about.php:61
+msgid "Isaac Bleaman"
+msgstr ""
+
+#: Pages/about.php:62
+msgid "Alexandra Casser"
+msgstr ""
+
+#: Pages/about.php:63
+msgid "Rabbi Jordana Chernow-Reader"
+msgstr ""
+
+#: Pages/about.php:64
+msgid "Noam Fields-Meyer"
+msgstr ""
+
+#: Pages/about.php:65
+msgid "Matan Kruskal"
+msgstr ""
+
+#: Pages/about.php:66
+msgid "Rabbi Lydia Bloom Medwin"
+msgstr ""
+
+#: Pages/about.php:67
+msgid "Rabbi Daniel Bloom Medwin"
+msgstr ""
+
+#: Pages/about.php:68
+msgid "Rabbi Joshua Samuels"
+msgstr ""
+
+#: Pages/about.php:69
+msgid "Eliran Sobel"
+msgstr ""
+
+#: Pages/about.php:72
+msgid "You too can be listed here! After you have added several entries, please let us know. Names will only be added with permission."
+msgstr ""
+
+#: Pages/about.php:74
+msgid "Funding"
+msgstr ""
+
+#: Pages/about.php:76
+msgid "The JEL is an initiative of the HUC-JIR "
+msgstr ""
+
+#: Pages/about.php:76
+msgid "Jewish Language Project"
+msgstr ""
+
+#: Pages/about.php:76
+msgid "and is made possible by generous funding from:"
+msgstr ""
+
+#: Pages/about.php:79
+msgid "Hebrew Union College - Jewish Institute of Religion"
+msgstr ""
+
+#: Pages/about.php:80
+msgid "Dorot Foundation"
+msgstr ""
+
+#: Pages/about.php:81
+msgid "American Academy for Jewish Research Special Initiatives Fund"
+msgstr ""
+
+#: Pages/about.php:82
+msgid "Concentration in Education and Jewish Studies at Stanford University"
+msgstr ""
+
+#: Pages/about.php:83
+msgid "Jack, Joseph and Morton Mandel Center for Studies in Jewish Education at Brandeis University"
+msgstr ""
+
+#: Pages/about.php:84
+msgid "Mark David"
+msgstr ""
+
+#: Pages/about.php:85
+msgid "Elyssa Elbaz"
+msgstr ""
+
+#: Pages/about.php:86
+msgid "Alicia"
+msgstr ""
+
+#: Pages/about.php:89
+msgid "Donations"
+msgstr ""
+
+#: Pages/about.php:89
+msgid "are always welcome! If you contribute $360 or more, you will have the option of being listed here."
+msgstr ""
+
+#: Pages/about.php:92
+msgid "Contact Us"
+msgstr ""
+
+#: Pages/about.php:95
+msgid "You can add an entry to the lexicon "
+msgstr ""
+
+#: Pages/about.php:95
+msgid "here"
+msgstr ""
+
+#: Pages/about.php:95
+msgid "To edit an existing entry, click the Edit button in the full entry. If you have general questions or comments about the site, you can contact us "
+msgstr ""
+
+#: Pages/about.php:99
+msgid "Citation"
+msgstr ""
+
+#: Pages/about.php:103
+msgid "To cite the Lexicon in general:"
+msgstr ""
+
+#: Pages/about.php:104
+msgid "Benor, Sarah Bunin. 2012-present. \"Jewish English Lexicon.\" Los Angeles: Jewish Language Project. https://jel.jewish-languages.org/."
+msgstr ""
+
+#: Pages/about.php:106
+msgid "To cite a particular entry:"
+msgstr ""
+
+#: Pages/about.php:107
+msgid "Benor, Sarah Bunin. 2012-present. \"Tachlis, entry in Jewish English Lexicon.\" Los Angeles: Jewish Language Project. https://jel.jewish-languages.org/words/556. "
+msgstr ""
+
+#: Pages/home.php:37
+msgid "First time here? Read our "
+msgstr ""
+
+#: Pages/home.php:37
+msgid "welcome "
+msgstr ""
+
+#: Pages/home.php:37
+msgid "page"
+msgstr ""
+
+#: Pages/home.php:39
+msgid "The lexicon currently has "
+msgstr ""
+
+#: Pages/home.php:41
+msgid "entries, including "
+msgstr ""
+
+#: Pages/home.php:41
+msgid "entries that do not appear in any Jewish English dictionary."
+msgstr ""
+
+#: Pages/home.php:43
+msgid "entries."
+msgstr ""
+
+#: Pages/home.php:46
+msgid "BROWSE:"
+msgstr ""
+
+#: Pages/home.php:60
+msgid "SEARCH:"
+msgstr ""
+
+#: Pages/home.php:68
+msgid "NOTES"
+msgstr ""
+
+#: Pages/home.php:68
+msgid "for information about these languages, dictionaries, and types of people."
+msgstr ""
+
+#: Pages/home.php:73
+#: Pages/notes.php:17
+msgid "Languages of origin"
+msgstr ""
+
+#: Pages/home.php:78
+#: Pages/home.php:89
+#: Pages/home.php:100
+msgid "Other"
+msgstr ""
+
+#: Pages/home.php:84
+msgid "Regions in which the word is used"
+msgstr ""
+
+#: Pages/home.php:95
+msgid "Types of people who tend to use the word"
+msgstr ""
+
+#: Pages/home.php:106
+msgid "Dictionaries in which the word appears"
+msgstr ""
+
+#: Pages/home.php:111
+#: Words/view.php:139
+msgid "None"
+msgstr ""
+
+#: Pages/home.php:117
+msgid "CAN'T FIND A WORD?"
+msgstr ""
+
+#: Pages/home.php:118
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
+msgstr ""
+
+#: Pages/notes.php:9
+msgid "Notes & Disclaimers"
+msgstr ""
+
+#: Pages/notes.php:15
+msgid "In English writing, Hebrew and Yiddish words can be spelled in many different ways. Some publishers use the Library of Congress system for Hebrew and the YIVO system for Yiddish. But, as we explain below, words used in English often come from both Hebrew and Yiddish, and visitors might think it was strange to see one system or the other (“Five Books of Moses” and “Jewish law” would be either khumesh and halokhe or ḥumash and halakha). Another option was to go with spellings provided in Jewish English dictionaries, but they have diverse spellings too. Instead, we appealed to a higher authority:"
+msgstr ""
+
+#: Pages/notes.php:15
+msgid "Google"
+msgstr ""
+
+#: Pages/notes.php:15
+msgid "Whichever spelling had the most hits in English at the time it was entered is listed in the primary spot. For example, “al regel achat” had 8,540 hits, while “al regel ahat” had only 5,860. At the same time, we want to make sure that visitors searching for a specific word could find it, so we offer alternative spellings too, including Ashkenazi, Israeli, and Sephardi/Mizrahi variants. The list of attested spellings is by no means exhaustive, and, as with the rest of the database, we count on visitors like you to add more."
+msgstr ""
+
+#: Pages/notes.php:18
+msgid "It is often difficult to determine a word’s language of origin. Many of the words that derive originally from textual Hebrew or Aramaic were also incorporated into Yiddish and are now used in English with Yiddish influences in meaning and pronunciation. Many words are used in English today because speakers encounter them in the biblical and rabbinic texts that are so central to Jewish religious life. Israeli Hebrew also provides some pronunciation norms and several new words (for details, see Benor’s "
+msgstr ""
+
+#: Pages/notes.php:18
+msgid "2000 paper"
+msgstr ""
+
+#: Pages/notes.php:18
+#: Pages/notes.php:31
+msgid "and"
+msgstr ""
+
+#: Pages/notes.php:18
+msgid "2012 book"
+msgstr ""
+
+#: Pages/notes.php:18
+msgid "Despite this overlap, we include source language information due to popular demand. Here is a guide to our language names:"
+msgstr ""
+
+#: Pages/notes.php:20
+msgid "English:"
+msgstr ""
+
+#: Pages/notes.php:20
+msgid "Words of English stock used distinctly by Jews, some because of Yiddish or Hebrew influence, others based on context."
+msgstr ""
+
+#: Pages/notes.php:21
+msgid "Textual Hebrew:"
+msgstr ""
+
+#: Pages/notes.php:21
+msgid " Hebrew in the Bible, ancient or medieval rabbinic literature like the Talmud and responsa, and liturgy."
+msgstr ""
+
+#: Pages/notes.php:22
+msgid "Aramaic:"
+msgstr ""
+
+#: Pages/notes.php:22
+msgid "Judeo-Aramaic, especially as it appears in the Talmud and some liturgy."
+msgstr ""
+
+#: Pages/notes.php:23
+msgid "Yiddish:"
+msgstr ""
+
+#: Pages/notes.php:23
+msgid "Eastern Yiddish (a German-based language with Hebrew/Aramaic, Slavic, and Romance influences) spoken by Ashkenazi Jews in Eastern Europe (Poland, Lithuania, Hungary, etc.)"
+msgstr ""
+
+#: Pages/notes.php:24
+msgid "Modern Hebrew:"
+msgstr ""
+
+#: Pages/notes.php:24
+msgid "Words used in contemporary Israeli Hebrew and/or coined in the modern era."
+msgstr ""
+
+#: Pages/notes.php:25
+msgid "Ladino:"
+msgstr ""
+
+#: Pages/notes.php:25
+msgid "Ottoman Judezmo/Judeo-Spanish (a Spanish-based language with Turkish, Greek, Arabic and Balkan influences) spoken by Sephardim especially in the Ottoman Empire."
+msgstr ""
+
+#: Pages/notes.php:26
+msgid "Arabic:"
+msgstr ""
+
+#: Pages/notes.php:26
+msgid "Arabic and Judeo-Arabic spoken in Arab lands. Some Arabic words entered English through Modern Hebrew, and others through the Judeo-Arabic and Ladino of immigrants to English-speaking countries from Muslim lands."
+msgstr ""
+
+#: Pages/notes.php:29
+msgid "Who tends to use it"
+msgstr ""
+
+#: Pages/notes.php:31
+msgid "A lexicon is more comprehensive when it includes sociolinguistic information. While any Jew or non-Jew might use any of the words in this lexicon, research has shown that certain types of people are more likely to use certain words (see "
+msgstr ""
+
+#: Pages/notes.php:31
+msgid "Benor and Cohen’s 2009 survey results"
+msgstr ""
+
+#: Pages/notes.php:31
+msgid "Benor’s 2011 academic paper"
+msgstr ""
+
+#: Pages/notes.php:31
+msgid "). The groups we included are based mostly on Benor and Cohen’s survey data:"
+msgstr ""
+
+#: Pages/notes.php:34
+msgid "Religious:"
+msgstr ""
+
+#: Pages/notes.php:34
+msgid "Jews who are engaged in religious observance and have some Jewish education"
+msgstr ""
+
+#: Pages/notes.php:35
+msgid "Orthodox:"
+msgstr ""
+
+#: Pages/notes.php:35
+msgid "Jews who identify as Orthodox and observe halacha (Jewish law)"
+msgstr ""
+
+#: Pages/notes.php:36
+msgid "Organizations:"
+msgstr ""
+
+#: Pages/notes.php:36
+msgid "People involved in a professional or volunteer capacity with Jewish nonprofit organizations"
+msgstr ""
+
+#: Pages/notes.php:37
+msgid "Jews:"
+msgstr ""
+
+#: Pages/notes.php:37
+msgid "Jews of diverse religious backgrounds and organizational involvements"
+msgstr ""
+
+#: Pages/notes.php:38
+msgid "Camp:"
+msgstr ""
+
+#: Pages/notes.php:38
+msgid "Jews who attend or work at a Jewish overnight summer camp"
+msgstr ""
+
+#: Pages/notes.php:39
+msgid "Israel:"
+msgstr ""
+
+#: Pages/notes.php:39
+msgid "Diaspora Jews who feel connected to Israel and have spent time there"
+msgstr ""
+
+#: Pages/notes.php:40
+msgid "Ethnic:"
+msgstr ""
+
+#: Pages/notes.php:40
+msgid "Jews whose Jewish identity is primarily ethnic"
+msgstr ""
+
+#: Pages/notes.php:41
+msgid "Older:"
+msgstr ""
+
+#: Pages/notes.php:41
+msgid "Jews who are middle-aged and older"
+msgstr ""
+
+#: Pages/notes.php:42
+msgid "Younger:"
+msgstr ""
+
+#: Pages/notes.php:42
+msgid "Jews in their 30s or younger"
+msgstr ""
+
+#: Pages/notes.php:43
+msgid "Ashkenazim:"
+msgstr ""
+
+#: Pages/notes.php:43
+msgid "Jews with Ashkenazi heritage"
+msgstr ""
+
+#: Pages/notes.php:44
+msgid "Sephardim:"
+msgstr ""
+
+#: Pages/notes.php:44
+msgid "Jews with Sephardi or Mizrahi heritage"
+msgstr ""
+
+#: Pages/notes.php:45
+msgid "Syrian"
+msgstr ""
+
+#: Pages/notes.php:45
+msgid "Jews with recent ancestry in Syria"
+msgstr ""
+
+#: Pages/notes.php:46
+msgid "Persian"
+msgstr ""
+
+#: Pages/notes.php:46
+msgid "Jews with recent ancestry in Iran"
+msgstr ""
+
+#: Pages/notes.php:47
+msgid "Russian"
+msgstr ""
+
+#: Pages/notes.php:47
+msgid "Jews with recent Russian-speaking ancestry in Russia"
+msgstr ""
+
+#: Pages/notes.php:48
+msgid "Non-Jews:"
+msgstr ""
+
+#: Pages/notes.php:48
+msgid "(words that have spread outside of Jewish networks)"
+msgstr ""
+
+#: Pages/notes.php:49
+msgid "Chabad:"
+msgstr ""
+
+#: Pages/notes.php:49
+msgid "Jews affiliated with the Chabad Lubavitch movement"
+msgstr ""
+
+#: Pages/notes.php:52
+msgid "These categories are not intended to represent all subdivisions of American Jews, and they are by no means mutually exclusive; some individuals are part of six or more of the groups. In the absence of research on most of the words in this lexicon, this column is based mostly on the impressions of the people who entered each word; feel free to edit as you see fit. As this column suggests, Jewish English is not a homogenous language but rather an umbrella category for English spoken by a diverse group of people."
+msgstr ""
+
+#: Pages/notes.php:54
+msgid "Jewish English Dictionaries cited in the database"
+msgstr ""
+
+#: Pages/notes.php:56
+msgid "The New Joys of Yiddish"
+msgstr ""
+
+#: Pages/notes.php:56
+msgid ", by Leo Rosten and Lawrence Bush (New York, 2003[1968])."
+msgstr ""
+
+#: Pages/notes.php:57
+msgid "Yiddish and English: A Century of Yiddish in America"
+msgstr ""
+
+#: Pages/notes.php:57
+msgid ", by Sol Steinmetz (Tuscaloosa, 1986)."
+msgstr ""
+
+#: Pages/notes.php:58
+msgid "The Joys of Hebrew"
+msgstr ""
+
+#: Pages/notes.php:58
+msgid ", by Lewis Glinert (New York, 1992)."
+msgstr ""
+
+#: Pages/notes.php:59
+msgid "Frumspeak: The First Dictionary of Yeshivish"
+msgstr ""
+
+#: Pages/notes.php:59
+msgid ", by Chaim Weiser (Northvale, 1995)."
+msgstr ""
+
+#: Pages/notes.php:60
+msgid "The JPS Dictionary of Jewish Words"
+msgstr ""
+
+#: Pages/notes.php:60
+msgid ", by Joyce Eisenberg and Ellen Scolnic, (Philadelphia, 2001)."
+msgstr ""
+
+#: Pages/notes.php:61
+msgid "Dictionary of Jewish Usage: A Guide to the Use of Jewish Terms"
+msgstr ""
+
+#: Pages/notes.php:61
+msgid ", by Sol Steinmetz (Lanham, MD, 2005)."
+msgstr ""
+
+#: Pages/welcome.php:17
+msgid "'s course \"American Jewish Language and Identity in Historical Context\" at"
+msgstr ""
+
+#: Pages/welcome.php:17
+msgid "in Los Angeles. Students were asked to contribute words that they heard from their friends or read online or in print, as well as definitions, example sentences, and source languages. Many of the entries already appeared in one or more of the"
+msgstr ""
+
+#: Pages/welcome.php:17
+msgid ", but many appear here for the first time, thanks to the "
+msgstr ""
+
+#: Pages/welcome.php:20
+msgid "By design, JEL is a work in progress. We hope you will help us build and refine it. If you notice a word missing, add it. If you disagree with a definition or want to add notes, please click the edit button on that entry. All changes are moderated. We invite you to experience the lexicon by browsing, searching, sorting, participating in conversations on the"
+msgstr ""
+
+#: Pages/welcome.php:20
+msgid "JEL forum"
+msgstr ""
+
+#: Pages/welcome.php:20
+msgid ", and, most importantly, adding new entries. Past contributors have reported that once they started paying attention, their eyes (and ears) were opened to a whole new world of Jewish English language."
+msgstr ""
+
+#: Pages/welcome.php:24
+msgid "JEL is made possible by grants from the American Academy for Jewish Research Special Initiatives Fund and the Dorot Foundation."
+msgstr ""
+
+#: Pronunciations/add.php:12
+msgid "Add Pronunciation for "
+msgstr ""
+
+#: Pronunciations/add.php:18
+msgid "Pronuciation (Spelling)"
+msgstr ""
+
+#: Pronunciations/add.php:19
+msgid "Phonetic Spelling"
+msgstr ""
+
+#: Pronunciations/add.php:20
+#: Pronunciations/add.php:36
+#: Words/add.php:69
+#: Words/add.php:90
+msgid "Record"
+msgstr ""
+
+#: Pronunciations/add.php:29
+msgid "spelling"
+msgstr ""
+
+#: Pronunciations/add.php:32
+msgid "pronunciation"
+msgstr ""
+
+#: Pronunciations/add.php:37
+msgid "soundfile0"
+msgstr ""
+
+#: Pronunciations/add.php:49
+msgid "word_id"
+msgstr ""
+
+#: Pronunciations/edit.php:13
+msgid "Deny Pronunciation"
+msgstr ""
+
+#: Pronunciations/edit.php:16
+msgid "notes"
+msgstr ""
+
+#: Pronunciations/edit.php:17
+msgid "approved"
+msgstr ""
+
+#: Pronunciations/index.php:8
+#: Pronunciations/view.php:14
+msgid "New Pronunciation"
+msgstr ""
+
+#: Pronunciations/index.php:9
+msgid "Pronunciations"
+msgstr ""
+
+#: Pronunciations/ranking.php:24
+msgid "Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only."
+msgstr ""
+
+#: Pronunciations/ranking.php:57
+msgid "Delete/Approve Pronunciations"
+msgstr ""
+
+#: Pronunciations/ranking.php:78
+#: Words/view.php:16
+msgid "<i class=\"icon-trash\"></i> Delete"
+msgstr ""
+
+#: Pronunciations/ranking.php:82
+msgid "<i class=\"fas fa-times\"></i> Deny"
+msgstr ""
+
+#: Pronunciations/ranking.php:84
+msgid "<i class=\"fas fa-check\"></i> Approve"
+msgstr ""
+
+#: Pronunciations/view.php:11
+msgid "Edit Pronunciation"
+msgstr ""
+
+#: Pronunciations/view.php:12
+msgid "Delete Pronunciation"
+msgstr ""
+
+#: Pronunciations/view.php:13
+msgid "List Pronunciations"
+msgstr ""
+
+#: Pronunciations/view.php:30
+#: Sentences/view.php:44
+#: Words/viewauto.php:252
+msgid "Sound File"
+msgstr ""
+
+#: Pronunciations/view.php:34
+#: Words/viewauto.php:253
+msgid "Pronunciation"
+msgstr ""
+
+#: Regions/add.php:14
+#: Regions/edit.php:19
+#: Regions/view.php:16
+msgid "List Regions"
+msgstr ""
+
+#: Regions/add.php:21
+msgid "Add Region"
+msgstr ""
+
+#: Regions/edit.php:26
+#: Regions/view.php:14
+msgid "Edit Region"
+msgstr ""
+
+#: Regions/index.php:11
+#: Regions/view.php:17
+msgid "New Region"
+msgstr ""
+
+#: Regions/index.php:12
+msgid "Regions"
+msgstr ""
+
+#: Regions/view.php:15
+msgid "Delete Region"
+msgstr ""
+
+#: Regions/view.php:25
+#: Words/viewauto.php:119
+msgid "Region"
+msgstr ""
+
+#: Regions/view.php:37
+#: Types/view.php:34
+msgid "Top"
+msgstr ""
+
+#: Regions/view.php:38
+#: Types/view.php:35
+#: Words/viewauto.php:47
+msgid "Yes"
+msgstr ""
+
+#: Regions/view.php:38
+#: Types/view.php:35
+#: Words/viewauto.php:47
+msgid "No"
+msgstr ""
+
+#: Search/results.php:9
+msgid "Your search for"
+msgstr ""
+
+#: Search/results.php:9
+msgid "returned"
+msgstr ""
+
+#: Search/results.php:9
+msgid "results."
+msgstr ""
+
+#: Search/results.php:14
+msgid "That word is not yet in the database. Try searching with a different spelling."
+msgstr ""
+
+#: Search/results.php:15
+msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
+msgstr ""
+
+#: Search/results.php:27
+#: Words/alphabetical.php:89
+#: Words/browse.php:159
+#: Words/random.php:24
+msgid "See full entry"
+msgstr ""
+
+#: Sentences/add.php:11
+#: Sentences/edit.php:16
+#: Sentences/view.php:13
+msgid "List Sentences"
+msgstr ""
+
+#: Sentences/add.php:18
+msgid "Add Sentence"
+msgstr ""
+
+#: Sentences/edit.php:23
+#: Sentences/view.php:11
+msgid "Edit Sentence"
+msgstr ""
+
+#: Sentences/index.php:8
+#: Sentences/view.php:14
+msgid "New Sentence"
+msgstr ""
+
+#: Sentences/index.php:9
+msgid "Sentences"
+msgstr ""
+
+#: Sentences/view.php:12
+msgid "Delete Sentence"
+msgstr ""
+
+#: Sentences/view.php:31
+#: Words/viewauto.php:224
+msgid "Sentence"
+msgstr ""
+
+#: Sentences/view.php:37
+msgid "Related Sentence Recordings"
+msgstr ""
+
+#: Sentences/view.php:43
+msgid "Sentence Id"
+msgstr ""
+
+#: Suggestions/add.php:11
+#: Suggestions/edit.php:16
+#: Suggestions/view.php:13
+msgid "List Suggestions"
+msgstr ""
+
+#: Suggestions/add.php:18
+msgid "Add Suggestion for "
+msgstr ""
+
+#: Suggestions/edit.php:23
+#: Suggestions/view.php:11
+msgid "Edit Suggestion"
+msgstr ""
+
+#: Suggestions/index.php:8
+#: Suggestions/view.php:14
+msgid "New Suggestion"
+msgstr ""
+
+#: Suggestions/index.php:9
+msgid "Suggestions"
+msgstr ""
+
+#: Suggestions/view.php:12
+msgid "Delete Suggestion"
+msgstr ""
+
+#: Suggestions/view.php:26
+msgid "User"
+msgstr ""
+
+#: Suggestions/view.php:38
+msgid "Status"
+msgstr ""
+
+#: Suggestions/view.php:51
+msgid "Suggestion"
+msgstr ""
+
+#: Types/add.php:14
+#: Types/edit.php:19
+#: Types/view.php:13
+msgid "List Types"
+msgstr ""
+
+#: Types/add.php:21
+msgid "Add Type"
+msgstr ""
+
+#: Types/edit.php:26
+#: Types/view.php:11
+msgid "Edit Type"
+msgstr ""
+
+#: Types/index.php:11
+#: Types/view.php:14
+msgid "New Type"
+msgstr ""
+
+#: Types/index.php:12
+msgid "Types"
+msgstr ""
+
+#: Types/view.php:12
+msgid "Delete Type"
+msgstr ""
+
+#: Types/view.php:22
+#: Words/viewauto.php:144
+msgid "Type"
+msgstr ""
+
+#: Words/add.php:10
+msgid "New"
+msgstr ""
+
+#: Words/add.php:27
+msgid "word"
+msgstr ""
+
+#: Words/add.php:34
+msgid "Most Common Spelling"
+msgstr ""
+
+#: Words/add.php:40
+msgid "Alternate Spelling(s)"
+msgstr ""
+
+#: Words/add.php:54
+msgid "Add an additional spelling"
+msgstr ""
+
+#: Words/add.php:55
+#: Words/add.php:134
+msgid "Remove"
+msgstr ""
+
+#: Words/add.php:68
+msgid "Phonetic Spelling "
+msgstr ""
+
+#: Words/add.php:68
+msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+msgstr ""
+
+#: Words/add.php:89
+msgid "Recorded"
+msgstr ""
+
+#: Words/add.php:133
+msgid "Add an additional pronunciation"
+msgstr ""
+
+#: Words/add.php:135
+msgid "Change Ranking"
+msgstr ""
+
+#: Words/add.php:145
+msgid "Definition(s)"
+msgstr ""
+
+#: Words/add.php:183
+msgid "Add an additional definition"
+msgstr ""
+
+#: Words/add.php:189
+msgid "Example Sentence(s)"
+msgstr ""
+
+#: Words/add.php:225
+msgid "Add an additional sentence"
+msgstr ""
+
+#: Words/add.php:231
+msgid "Language(s) of Origin"
+msgstr ""
+
+#: Words/add.php:232
+#: Words/add.php:242
+msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
+msgstr ""
+
+#: Words/add.php:279
+msgid "Who Uses This"
+msgstr ""
+
+#: Words/add.php:280
+#: Words/add.php:285
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
+msgstr ""
+
+#: Words/add.php:320
+msgid "Anything else you want website visitors to know about this entry"
+msgstr ""
+
+#: Words/add.php:332
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the <a href=\"https://jel.jewish-languages.org/about\" target=\"_new\">Top Word Contributors</a>. Other than that, you will <strong>NOT</strong> be contacted or placed on any email lists."
+msgstr ""
+
+#: Words/add.php:334
+msgid "Your Name"
+msgstr ""
+
+#: Words/add.php:338
+msgid "Your Email Address"
+msgstr ""
+
+#: Words/add.php:343
+msgid "Double check your submission!"
+msgstr ""
+
+#: Words/add.php:350
+msgid "Approve Word"
+msgstr ""
+
+#: Words/add.php:354
+#: Words/viewauto.php:12
+msgid "Delete Word"
+msgstr ""
+
+#: Words/add.php:357
+msgid "Are you sure?"
+msgstr ""
+
+#: Words/add.php:395
+msgid "This word already exists in the lexicon or is being evaluated."
+msgstr ""
+
+#: Words/alphabetical.php:7
+msgid "<i class=\"icon-plus-sign\"></i> Add a new word"
+msgstr ""
+
+#: Words/alphabetical.php:16
+msgid "Browse by Letter"
+msgstr ""
+
+#: Words/alphabetical.php:73
+msgid "Showing "
+msgstr ""
+
+#: Words/alphabetical.php:73
+msgid "words"
+msgstr ""
+
+#: Words/alphabetical.php:78
+msgid "No words were found."
+msgstr ""
+
+#: Words/browse.php:6
+msgid "Add a new word"
+msgstr ""
+
+#: Words/browse.php:144
+msgid "No words were found. Refine your search options above."
+msgstr ""
+
+#: Words/edit.php:6
+msgid "Editing"
+msgstr ""
+
+#: Words/edit.php:10
+msgid "SUGGEST CHANGES FOR "
+msgstr ""
+
+#: Words/edit.php:11
+msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
+msgstr ""
+
+#: Words/edit.php:11
+msgid "Notes."
+msgstr ""
+
+#: Words/edit.php:11
+msgid "What edits would you like to suggest to this entry? Please be specific."
+msgstr ""
+
+#: Words/index.php:8
+#: Words/viewauto.php:14
+msgid "New Word"
+msgstr ""
+
+#: Words/index.php:9
+msgid "Words"
+msgstr ""
+
+#: Words/random.php:8
+#: Words/random.php:14
+#: Words/random.php:33
+msgid "<i class=\"icon-refresh\"></i> Refresh"
+msgstr ""
+
+#: Words/random.php:14
+msgid "random words retrieved"
+msgstr ""
+
+#: Words/success.php:6
+msgid "Thank you"
+msgstr ""
+
+#: Words/success.php:9
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr ""
+
+#: Words/success.php:12
+msgid "See your entry"
+msgstr ""
+
+#: Words/view.php:5
+msgid "&larr; Back"
+msgstr ""
+
+#: Words/view.php:22
+msgid "<i class=\"fas fa-microphone\"></i> Record a Pronunciation"
+msgstr ""
+
+#: Words/view.php:27
+msgid "<i class=\"icon-edit\"></i> Edit"
+msgstr ""
+
+#: Words/view.php:70
+#: Words/view.php:81
+#: Words/view.php:92
+#: Words/view.php:110
+#: Words/view.php:121
+#: Words/view.php:133
+msgid "View More"
+msgstr ""
+
+#: Words/view.php:144
+#: Words/view.php:149
+msgid "Alternative Spellings"
+msgstr ""
+
+#: Words/view.php:168
+msgid "See something you disagree with? Feel free to edit it. All changes will be moderated. "
+msgstr ""
+
+#: Words/viewauto.php:11
+msgid "Edit Word"
+msgstr ""
+
+#: Words/viewauto.php:13
+msgid "List Words"
+msgstr ""
+
+#: Words/viewauto.php:63
+msgid "Related Dictionaries"
+msgstr ""
+
+#: Words/viewauto.php:88
+msgid "Related Origins"
+msgstr ""
+
+#: Words/viewauto.php:113
+msgid "Related Regions"
+msgstr ""
+
+#: Words/viewauto.php:138
+msgid "Related Types"
+msgstr ""
+
+#: Words/viewauto.php:163
+msgid "Related Alternates"
+msgstr ""
+
+#: Words/viewauto.php:169
+#: Words/viewauto.php:196
+#: Words/viewauto.php:223
+#: Words/viewauto.php:250
+msgid "Word Id"
+msgstr ""
+
+#: Words/viewauto.php:190
+msgid "Related Definitions"
+msgstr ""
+
+#: Words/viewauto.php:217
+msgid "Related Sentences"
+msgstr ""
+
+#: Words/viewauto.php:244
+msgid "Related Pronunciations"
+msgstr ""
+
+#: Words/wordnotfound.php:6
+msgid "Error"
+msgstr ""
+
+#: Words/wordnotfound.php:9
+msgid "This word can not be found or has not yet been approved"
+msgstr ""
+
+#: Words/wordnotfound.php:11
+msgid "Add a word"
+msgstr ""
+
+#: layout/error.php:38
+msgid "Back"
+msgstr ""
+

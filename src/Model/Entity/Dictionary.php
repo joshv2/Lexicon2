@@ -27,5 +27,7 @@ class Dictionary extends Entity
     protected $_accessible = [
         'dictionary' => true,
         'words' => true,
+        'language_id' => true,
+        'top' => true,
     ];
 }

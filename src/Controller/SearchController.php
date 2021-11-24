@@ -14,6 +14,7 @@ class SearchController extends AppController {
 	public function index()
     {
         array_map([$this, 'loadModel'], ['Words']);
+        $sitelang = $this->languageinfo();
         $q = $this->request->getQuery('q');
 
         $this->paginate = [
@@ -24,7 +25,7 @@ class SearchController extends AppController {
                 'Types',
                 'Dictionaries'
             ]];
-		$words = $this->Paginator->paginate($this->Words->search_results($q));
+		$words = $this->Paginator->paginate($this->Words->search_results($q, $sitelang->id));
 
         $this->set(compact('words', 'q'));
         $this->render('results');

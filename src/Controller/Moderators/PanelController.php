@@ -24,8 +24,8 @@ class PanelController extends AppController {
                 $allPronunciations = $this->Pronunciations->get_all_pronunciations();
                 //debug($allPronunciations);
             }
-            $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'));
-            $newWords = $this->Words->get_pending_words();
+            $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
+            $newWords = $this->Words->get_pending_words($sitelang->id);
 
             $pendingSuggestions = $this->Suggestions->find('all')
                 ->where(['status =' => 'unread'])

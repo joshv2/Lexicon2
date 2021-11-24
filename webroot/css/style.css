@@ -56,6 +56,17 @@ hr {
 	margin: 0 auto;
 }
 
+.noborder {
+	background-color: #0d417d;
+    color: white;
+    display: inline;
+    font-size: 12px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-decoration: underline;
+    font: normal 12px Helvetica, Arial, sans-serif;
+}
+
 #enterthelexicon {
 	text-align: center;
 	text-indent: 0 !important;

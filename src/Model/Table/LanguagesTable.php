@@ -7,6 +7,14 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableLocator;
+use Cake\ORM\Rule\IsUnique;
+// Include use statements at the top of your file.
+use Cake\Event\EventInterface;
+use ArrayObject;
+//use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Languages Model
@@ -44,6 +52,25 @@ class LanguagesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('Words', [
+            'foreignKey' => 'language_id',
+        ]);
+        $this->hasMany('Alphabets', [
+            'foreignKey' => 'language_id',
+        ]);
+
+        $this->hasMany('Dictionaries', [
+            'foreignKey' => 'language_id',
+        ]);
+
+        $this->hasMany('Origins', [
+            'foreignKey' => 'language_id',
+        ]);
+
+        $this->hasMany('Regions', [
+            'foreignKey' => 'language_id',
+        ]);
+
+        $this->hasMany('Types', [
             'foreignKey' => 'language_id',
         ]);
     }
@@ -145,7 +172,10 @@ class LanguagesTable extends Table
     public function get_language($subdomain){
         //need to add logic around approved words
         $query = $this->find()
-                    ->where(['subdomain' => $subdomain]);
+                    ->where(['subdomain' => $subdomain])
+                    ->contain(['Alphabets']);
         return $query->first();
     }
+
+    
 }

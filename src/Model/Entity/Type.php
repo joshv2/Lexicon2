@@ -6,15 +6,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * AlphabetAddendum Entity
+ * Dictionary Entity
  *
  * @property int $id
- * @property int $language_id
- * @property int $UTF8value
+ * @property string $dictionary
  *
- * @property \App\Model\Entity\Language $language
+ * @property \App\Model\Entity\Word[] $words
  */
-class AlphabetAddendum extends Entity
+class Type extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,9 +25,9 @@ class AlphabetAddendum extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => true,
+        'type' => true,
+        'words' => true,
         'language_id' => true,
-        'UTF8value' => true,
-        'language' => true,
+        'top' => true,
     ];
 }

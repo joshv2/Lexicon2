@@ -6,13 +6,13 @@
 			</form>
 	</nav>
 	<div id="browse_info">
-		<p class="m0">Your search for <b><?php echo h($q);?></b> returned <?php echo $this->Paginator->counter('{{count}}');?> results.</p>
+		<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b><?= __('returned'); ?> <?php echo $this->Paginator->counter('{{count}}');?><?= __('results.');?></p>
 	</div>
 	<?php if ($this->Paginator->counter('{{count}}') <= 0):?>
 
 		<div class="c content">
-			<p>That word is not yet in the database. Try searching with a different spelling.</p>
-			<p>If you still don't find it, please help to make this lexicon more complete by adding it:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
+			<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
+			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
 										['class' => 'button blue', 'escape' => false]);?></p>
 		</div>
 
@@ -24,11 +24,8 @@
 				<div class="num"><?php echo $i;?></div>
 				<div class="word-main">
 				<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
-						<?php echo $this->Html->image('seefullentry.jpg', 
-													['url' => '/words//'.$word->id, 
-													'width' => 111,
-													'height' => 20,
-													'class' => 'seefullentrybutton'])?></h3>
+				<?php echo $this->Html->link(__('See full entry') . "►", '/words//'.$word->id, ['class' => 'noborder']); ?>
+				</h3>
 						<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
 				</div>
 			</li>

@@ -18,7 +18,11 @@ class DictionariesController extends AppController
      */
     public function index()
     {
-        $dictionaries = $this->paginate($this->Dictionaries);
+        $sitelang = $this->languageinfo();
+        $this->paginate = [
+            'contain' => ['Languages']
+        ];
+        $origins = $this->paginate($this->Dictionaries->find('all')->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('dictionaries'));
     }
@@ -33,7 +37,7 @@ class DictionariesController extends AppController
     public function view($id = null)
     {
         $dictionary = $this->Dictionaries->get($id, [
-            'contain' => ['Words'],
+            'contain' => ['Languages', 'Words'],
         ]);
 
         $this->set(compact('dictionary'));
@@ -46,6 +50,7 @@ class DictionariesController extends AppController
      */
     public function add()
     {
+        $sitelang = $this->languageinfo();
         $dictionary = $this->Dictionaries->newEmptyEntity();
         if ($this->request->is('post')) {
             $dictionary = $this->Dictionaries->patchEntity($dictionary, $this->request->getData());
@@ -57,7 +62,7 @@ class DictionariesController extends AppController
             $this->Flash->error(__('The dictionary could not be saved. Please, try again.'));
         }
         $words = $this->Dictionaries->Words->find('list', ['limit' => 200]);
-        $this->set(compact('dictionary', 'words'));
+        $this->set(compact('dictionary', 'words', 'sitelang'));
     }
 
     /**
@@ -69,6 +74,7 @@ class DictionariesController extends AppController
      */
     public function edit($id = null)
     {
+        $sitelang = $this->languageinfo();
         $dictionary = $this->Dictionaries->get($id, [
             'contain' => ['Words'],
         ]);
@@ -81,8 +87,9 @@ class DictionariesController extends AppController
             }
             $this->Flash->error(__('The dictionary could not be saved. Please, try again.'));
         }
+        $languages = $this->Dictionaries->Languages->find('list', ['limit' => 200]);
         $words = $this->Dictionaries->Words->find('list', ['limit' => 200]);
-        $this->set(compact('dictionary', 'words'));
+        $this->set(compact('dictionary', 'words', 'languages', 'sitelang'));
     }
 
     /**

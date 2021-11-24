@@ -29,16 +29,16 @@ class WordsController extends AppController
     public function index()
     {
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
-
+        $sitelang = $this->languageinfo();
         //private function 
         
-        $origins = $this->Origins->top_origins_for_home();
+        $origins = $this->Origins->top_origins_for_home($sitelang->id);
         $origins['other'] = 'Other';
-        $regions = $this->Regions->top_regions_for_home();
+        $regions = $this->Regions->top_regions_for_home($sitelang->id);
         $regions['other'] = 'Other';
-        $types = $this->Types->top_types_for_home();
+        $types = $this->Types->top_types_for_home($sitelang->id);
         $types['other'] = 'Other';
-        $dictionaries = $this->Dictionaries->top_dictionaries();
+        $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
         $dictionaries['other'] = 'Other';
         $dictionaries['none'] = 'None';
 
@@ -67,7 +67,7 @@ class WordsController extends AppController
                 'Dictionaries'
             ]];
         
-        $words = $this->Paginator->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue));
+        $words = $this->Paginator->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id));
         $title = 'Home';
 
         $this->set(compact('words', 'current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title'));
@@ -75,7 +75,8 @@ class WordsController extends AppController
     }
 
     public function random() {
-        $words = $this->Paginator->paginate($this->Words->get_random_words());
+        $sitelang = $this->languageinfo();
+        $words = $this->Paginator->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
         $this->set(compact('words', 'title'));
 
@@ -83,12 +84,27 @@ class WordsController extends AppController
 
     public function alphabetical()
     {
-        
+        $sitelang = $this->languageinfo();
         $letter = $this->request->getParam('pass')[0];
         
-        $words = $this->Words->get_words_starting_with_letter($letter);
+        $language = $this->getTableLocator()->get('Languages');
+        foreach(range(hexdec($sitelang->UTFRangeStart), hexdec($sitelang->UTFRangeEnd)) as $letter2) {
+            //echo $letter;
+            $alphabet[] = html_entity_decode("&#$letter2;", ENT_COMPAT, "UTF-8");
+            //print_r($alphabet);
+        }
+        
+        foreach($sitelang->alphabets as $k => $v){
+            $letter3 = hexdec($v['UTF8value']);
+            $alphabet[] = html_entity_decode("&#$letter3;", ENT_COMPAT, "UTF-8");
+        }
+        
+        if($sitelang->righttoleft){
+            $alphabet = array_reverse($alphabet);
+        }
+        $words = $this->Words->get_words_starting_with_letter($letter, $sitelang->id);
         $title = 'Alphabetical Listing';
-        $this->set(compact('letter', 'words', 'title'));
+        $this->set(compact('letter', 'words', 'title', 'sitelang', 'alphabet'));
     }
     
     
@@ -340,10 +356,10 @@ class WordsController extends AppController
 
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
-        $origins = $this->Origins->top_origins();
-        $regions = $this->Regions->top_regions();
-        $types = $this->Types->top_types();
-        $dictionaries = $this->Dictionaries->top_dictionaries();
+        $origins = $this->Origins->top_origins($sitelang->id);
+        $regions = $this->Regions->top_regions($sitelang->id);
+        $types = $this->Types->top_types($sitelang->id);
+        $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
@@ -351,13 +367,14 @@ class WordsController extends AppController
     }
 
     public function checkforword(){
+        $sitelang = $this->languageinfo();
         $this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         if( $this->request->is('post') ) {
             $data = $this->request->getData();
             //$doeswordexist = $data['spelling'];
-            $doeswordexist = $this->Words->findWithSpelling($data['spelling']);
+            $doeswordexist = $this->Words->findWithSpelling($data);
             //debug($data);
             $response['spelling'] = $doeswordexist;
             //debug($response['spelling']);

@@ -73,7 +73,8 @@ use Cake\Routing\RouteBuilder;
     $builder->connect('/alphabetical', ['controller' => 'Words', 'action' => 'alphabetical', 'a']);
     $builder->connect('/alphabetical/{letter}', 
         ['controller' => 'Words', 'action' => 'alphabetical'],
-        ['letter' => '[a-zA-Z]', 'pass' => ['letter']]);
+        ['pass' => ['letter']]
+    );
 
     $builder->connect('/words/{id}', 
         ['controller' => 'Words', 'action' => 'view'],

@@ -16,7 +16,15 @@
 			<h3 id="alphabrowseheader"><?=__("Browse by Letter")?></h3>
 			<ul class="pagination group">
 			<?php
-			for ($i = 65; $i < 91; $i++)
+			foreach($alphabet as $k => $v){
+				if ($letter == $v){
+					echo '<li class="current">'.$v.'</li>';
+				} else {
+					echo '<li>'. 
+					$this->Html->link($v, '/alphabetical//'. $v) . '</li>';
+				}
+			}
+			/*for ($i = 65; $i < 91; $i++)
 			{
 				$uc = chr($i);
 				$lc = chr($i + 32);
@@ -25,7 +33,7 @@
 				else
 					echo '<li>'. 
 					$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
-			}
+			}*/
 			?>
 			</ul>
 		</div>
@@ -36,7 +44,15 @@
 			
 			<ul class="pagination group">
 			<?php
-			for ($i = 65; $i < 91; $i++)
+			foreach($alphabet as $k => $v){
+				if ($letter == $v){
+					echo '<li class="current">'.$v.'</li>';
+				} else {
+					echo '<li>'. 
+					$this->Html->link($v, '/alphabetical//'. $v) . '</li>';
+				}
+			}
+			/*for ($i = 65; $i < 91; $i++)
 			{
 				$uc = chr($i);
 				$lc = chr($i + 32);
@@ -45,7 +61,7 @@
 				else
 				echo '<li>'. 
 				$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
-			}
+			}*/
 			?>
 			</ul>
 		</div>
@@ -57,7 +73,6 @@
 			<?=__("Showing ")?><b><?php echo count($words);?></b> <?=__("words")?>
 		</p>
 	</div>
-
 	<?php if (sizeof($words) == 0):?>
 	<div class="c content">
 		<p><?=__("No words were found.")?></p>
@@ -70,12 +85,14 @@
 			<div class="word-main">
 				<h3>
 				
-				<?php echo $this->Html->link(__($word->spelling, '/words//'.$word->id));?>
-				<?php echo $this->Html->image('seefullentry.jpg', 
+				<?php echo $this->Html->link($word->spelling, '/words//'.$word->id);?>
+				<?php echo $this->Html->link(__('See full entry') . "►", '/words//'.$word->id, ['class' => 'noborder']); ?>
+				
+				<!--<?php echo $this->Html->image('seefullentry.jpg', 
                                             ['url' => '/words//'.$word->id, 
                                             'width' => 111,
                                             'height' => 20,
-											'class' => 'seefullentrybutton'])?></h3>
+											'class' => 'seefullentrybutton'])?>--></h3>
 				<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
 				
 			</div>
@@ -86,7 +103,15 @@
 	<div class="pagination">
 	<ul class="pagination group">
 		<?php
-		for ($i = 65; $i < 91; $i++)
+		foreach($alphabet as $k => $v){
+			if ($letter == $v){
+				echo '<li class="current">'.$v.'</li>';
+			} else {
+				echo '<li>'. 
+				$this->Html->link($v, '/alphabetical//'. $v) . '</li>';
+			}
+		}
+		/*for ($i = 65; $i < 91; $i++)
 		{
 			$uc = chr($i);
 			$lc = chr($i + 32);
@@ -94,7 +119,7 @@
 				echo '<li class="current">'.$uc.'</li>';
 			else
 				echo '<li>'. $this->Html->link(__($uc, '/alphabetical//'. $lc)) . '</li>';
-		}
+		}*/
 		?>
 	</ul>
 	<div class="clear"></div>

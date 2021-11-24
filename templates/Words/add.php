@@ -180,12 +180,12 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     }
                     
                     echo  "</div>";
-                    echo "</br></br><a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
+                    echo "</br><a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a></br>&nbsp;&nbsp;";
+				    //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     
                     
                     //Sentences
-                    echo "<div class='form-group'>";
+                    echo "<div class='form-group' id='sentencesgroup'>";
                     echo "<label>" . __('Example Sentence(s)') . "</label>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['sentences']) > 0) { 
                         if(null !== $this->request->getData('spelling')){
@@ -197,27 +197,34 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                         
                         $i = 0;
                         while ($i < count($wordData['sentences'])){
+                            echo "<div id='senteditor" . $wordData['sentences'][$i]['id'] . "' data-counter='". $i ."'>";
+                            echo $this->Form->control('sentences.' . $i. '.id',['class' => 'muliplespid']);
+                            
                             //For entries with no presubmitted JSON
                             if ('' == $wordData['sentences'][$i][$arrayLocation]){
                                 $finalInsert = '{"ops":[{"insert":"' . str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $wordData['sentences'][$i]['sentence']))))))) . '\n"}]}';
                             } else {
                                 $finalInsert = $wordData['sentences'][$i][$arrayLocation];
                             }
-                            echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
+                            //echo $this->Form->control('sentences.' . $i . '.id',['class' => 'muliplespid', 'data-counter' => $i]);
                             echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i, 'value' => $finalInsert]);
                             echo "<div class='editor-container'><div id='editor-sentences" . $i . "'></div></div>";
                             
+                            echo "<a class='deletelink' id=sent" .  $wordData['sentences'][$i]['id'] . "-" . $wordData['id'] . " href='#'>Delete Sentence</a></div>";
+
                             $i += 1;
                         }
                     } else {
+                        echo "<div id='senteditor0' data-counter='0'>";
                         echo $this->Form->control('sentences.0.id',['class' => 'muliplespid', 'data-counter' => '0']);
                         echo $this->Form->hidden('sentences.0.sentence', ['id' => 'sentences0']);
-                        echo "<div class='editor-container'><div id='editor-sentences0'></div></div>";
+                        echo "<div class='editor-container'><div id='editor-sentences0'></div></div></div>";
                     }
                     
-                    echo "<a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional sentence') . "</a>&nbsp;&nbsp;";
-				    echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
-                    echo "</div>";
+                    echo  "</div>";
+                    echo "</br></br><a class='add-editor2'><i class='icon-plus-sign'></i>" . __('Add an additional sentence') . "</a></br>";
+				    //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
+                    //echo "</div>";
 
 
                     echo "<div class='form-group left'>";
@@ -374,7 +381,8 @@ $(function(){
             type: "POST",
             url: "/words/checkforword",
             data: {
-                spelling: $('[name="spelling"]').val()
+                spelling: $('[name="spelling"]').val(),
+                language_id: $('[name="language_id"]').val()
             },
             headers: {
                 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')

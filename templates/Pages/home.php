@@ -36,7 +36,12 @@ $(document).ready(function() {
 		<div class="internal-home">
 		<p id="first_time_here"><?=__("First time here? Read our ")?><?php echo $this->Html->link(__('welcome '), '/about');?><?=__("page")?></a>.</p>
 		
-		<p class="m3 center"><?=__("The lexicon currently has ")?><?=$this->Html->link(__($total_entries), '/words');?> <?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
+		<p class="m3 center"><?=__("The lexicon currently has ")?><?=$this->Html->link(__($total_entries), '/words');?> 
+		<?php if($sitelang->hasDictionaries): ?>
+			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
+		<?php else: ?>
+			<?=__("entries.") ?>
+		<?php endif; ?>
 		<hr class="m2" />
 			<h3 class="m1"><?=__("BROWSE:")?></h3>
 		<div class="browse">
@@ -63,6 +68,7 @@ $(document).ready(function() {
 		<p class="m2">(See the <?php echo $this->Html->link(__('NOTES'), '/notes');?> <?=__("for information about these languages, dictionaries, and types of people.")?>)</p>
 
 		<ul id="home2_filters">
+		<?php if($sitelang->hasOrigins): ?>
 			<li>
 				<h4><i class="icon-comments-alt"></i> <?=__("Languages of origin")?></h4>
 				<ul>
@@ -72,6 +78,8 @@ $(document).ready(function() {
 					<li><?php echo $this->Html->link(__('Other'), '/words?origin=other');?></li>
 				</ul>
 			</li>
+		<?php endif; ?>
+		<?php if($sitelang->hasRegions): ?>
 			<li>
 				<h4><i class="icon-globe"></i> <?=__("Regions in which the word is used")?></h4>
 				<ul>
@@ -81,6 +89,8 @@ $(document).ready(function() {
 					<li><?php echo $this->Html->link(__('Other'), '/words?region=other');?></li>
 				</ul>
 			</li>
+		<?php endif; ?>
+		<?php if($sitelang->hasTypes): ?>
 			<li>
 				<h4><i class="icon-user"></i> <?=__("Types of people who tend to use the word")?></h4>
 				<ul class="m3">
@@ -90,6 +100,8 @@ $(document).ready(function() {
 					<li><?php echo $this->Html->link(__('Other'), '/words?use=other');?></li>
 				</ul>
 			</li>
+		<?php endif; ?>
+		<?php if($sitelang->hasDictionaries): ?>
 			<li>
 				<h4><i class="icon-book"></i> <?=__("Dictionaries in which the word appears")?></h4>
 				<ul>
@@ -99,6 +111,7 @@ $(document).ready(function() {
 					<li><?php echo $this->Html->link(__('None'), '/words?dictionary=none');?></li>
 				</ul>
 			</li>
+		<?php endif; ?>
 		</ul>
 		<hr class="m2" />
 		<h3><?=__("CAN'T FIND A WORD?")?></h3>
