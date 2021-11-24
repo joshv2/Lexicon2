@@ -68,6 +68,10 @@ $(function()
 		addEditorField(this, mappedEditors);
 	});
 
+	$("a.add-editor2").click(function() {
+		addEditorField2(this, mappedEditors);
+	});
+
 	$("a.remove-editor").click(function() {
 		removeEditorField(this, mappedEditors);
 	});
@@ -247,6 +251,59 @@ function addEditorField(el, mappedEditors, newEditors2) {
 	$(hiddenInputClone).attr('data-counter', nextCounter);
 	$(hiddenInputClone.children()[0]).val('');
 	$(hiddenInputClone.children()[1]).val('');
+	$(hiddenInputClone.children()[3]).remove();
+	//var editorClone = getNewEditor($(hiddenInputClone.children()[2]), counter, nextCounter);
+	
+	var hiddenEditorInput = $(hiddenInputClone.children()[1]);
+	
+	updateAttribute(hiddenEditorInput, 'id', counter, nextCounter);
+	updateAttribute(hiddenEditorInput, 'name', counter, nextCounter);
+
+	newBox = hiddenInputClone.children()[2];
+	$(newBox).children()[0].remove();
+	
+}
+
+function addEditorField2(el, mappedEditors, newEditors2) {
+	$(el).siblings("a.remove-editor").removeClass("disabled");
+	var hiddenInput = $('[id^=senteditor]').last();
+	//console.log(hiddenInput.attr('data-counter'));
+	var counter = hiddenInput.attr('data-counter');
+	//console.log(counter);
+	var nextCounter = parseInt(counter) + 1;
+	
+	var hiddenInputClone = hiddenInput.clone();
+	//console.log($(el).closest('form-group'));
+	$('#sentencesgroup').append(hiddenInputClone);
+
+	//newBox = hiddenInputClone.children()[2];
+	//$(newBox).children()[0].remove();
+
+	var newQuill = $(hiddenInputClone.children()[2]);
+	var newQuillUpdateId = $(newQuill.children()[1]);
+	console.log(newQuillUpdateId);
+	updateAttribute(newQuillUpdateId, 'id', counter, nextCounter);
+	//console.log(newQuillUpdateId.attr('id'));
+
+	var quill = new Quill('#' + newQuillUpdateId.attr('id'), {
+		theme: 'snow',
+		modules: {
+			toolbar: getToolbarOptions()
+		}
+	});
+	quill.setContents([]);
+	mappedEditors.push({"id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill}); //
+	console.log(newEditors2);
+	newEditors2 += 1;
+	quill.focus();
+	
+	updateAttribute($(hiddenInputClone.children()[0]), 'name', counter, nextCounter);
+	updateAttribute($(hiddenInputClone.children()[0]), 'id', counter, nextCounter);
+	$(hiddenInputClone.children()[0]).attr('data-counter', nextCounter);
+	$(hiddenInputClone).attr('data-counter', nextCounter);
+	$(hiddenInputClone.children()[0]).val('');
+	$(hiddenInputClone.children()[1]).val('');
+	$(hiddenInputClone.children()[3]).remove();
 	//var editorClone = getNewEditor($(hiddenInputClone.children()[2]), counter, nextCounter);
 	
 	var hiddenEditorInput = $(hiddenInputClone.children()[1]);

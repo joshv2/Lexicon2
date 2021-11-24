@@ -79,18 +79,38 @@ class PagesController extends AppController
     public function index(){
         $words = $this->getTableLocator()->get('Words');
         $sitelang = $this->languageinfo();
-        $total_entries = $words->find()->where(['approved' => 1])->count();
+        $total_entries = $words->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']); //load Models so we can get for the homepage dropdown
         //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
-        $origins = $this->Origins->top_origins_for_home();
-        $regions = $this->Regions->top_regions_for_home();
-        $types = $this->Types->top_types_for_home();
-        $dictionaries = $this->Dictionaries->top_dictionaries();
-        $no_dict_entries = $this->Words->get_not_in_other_dictionary();
+        $tagging = [];
+        if($sitelang->hasOrigins) {
+            $origins = $this->Origins->top_origins_for_home($sitelang->id);
+            $tagging['origins'] = $origins;
+        }
+        if($sitelang->hasRegions) {
+            $regions = $this->Regions->top_regions_for_home($sitelang->id);
+            $tagging['regions'] = $regions;
+        }
+        if($sitelang->hasTypes) {
+            $types = $this->Types->top_types_for_home($sitelang->id);
+            $tagging['types'] = $types;
+        }
+        if($sitelang->hasDictionaries) {
+            $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
+            $no_dict_entries = $this->Words->get_not_in_other_dictionary($sitelang->id);
+            $tagging['no_dict_entries'] = $no_dict_entries;
+            $tagging['dictionaries'] = $dictionaries;
+        }
+        
         
         //$total_entries = 200000;
         $title = 'Home';
-        $this->set(compact('total_entries', 'title', 'no_dict_entries', 'origins', 'regions', 'types', 'dictionaries', 'sitelang'));
+        $tagging['title'] = $title;
+        $tagging['total_entries'] = $total_entries;
+        //$tagging['no_dict_entries'] = $no_dict_entries;
+        $tagging['sitelang'] = $sitelang;
+
+        $this->set($tagging); //compact('total_entries', 'title', 'no_dict_entries', $tags, 'sitelang')
         $this->render('home');
     }
 

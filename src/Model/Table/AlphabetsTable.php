@@ -9,25 +9,25 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * AlphabetAddendums Model
+ * Alphabets Model
  *
  * @property \App\Model\Table\LanguagesTable&\Cake\ORM\Association\BelongsTo $Languages
  *
- * @method \App\Model\Entity\AlphabetAddendum newEmptyEntity()
- * @method \App\Model\Entity\AlphabetAddendum newEntity(array $data, array $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\AlphabetAddendum get($primaryKey, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\AlphabetAddendum|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\AlphabetAddendum[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Alphabet newEmptyEntity()
+ * @method \App\Model\Entity\Alphabet newEntity(array $data, array $options = [])
+ * @method \App\Model\Entity\Alphabet[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Alphabet get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Alphabet findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Alphabet patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Alphabet[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Alphabet|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Alphabet saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Alphabet[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Alphabet[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Alphabet[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Alphabet[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class AlphabetAddendumsTable extends Table
+class AlphabetsTable extends Table
 {
     /**
      * Initialize method
@@ -39,7 +39,9 @@ class AlphabetAddendumsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('alphabet_addendums');
+        $this->setTable('alphabets');
+        $this->setDisplayField('language_id');
+        $this->setPrimaryKey('id');
 
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',

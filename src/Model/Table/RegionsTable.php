@@ -11,19 +11,26 @@ class RegionsTable extends Table
         //$this->addBehavior('Timestamp');
         $this->setDisplayField('region');
         $this->setPrimaryKey('id');
-        $this->belongsToMany('Words', ['joinTable' => 'words_regions']);
+        $this->belongsToMany('Words');
+        $this->belongsTo('Languages', [
+            'foreignKey' => 'language_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
 
-    public function top_regions_for_home(){
-        $query = $this->find('list', ['valueField' => 'region', 'limit' => 4, 'order' => 'id']);
+    public function top_regions_for_home($langid){
+        $query = $this->find('list', ['valueField' => 'region', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
+
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
     }
 
-    public function top_regions(){
-        $query = $this->find('list', ['valueField' => 'region', 'limit' => 4, 'order' => 'id']);
+    public function top_regions($langid){
+        $query = $this->find('list', ['valueField' => 'region', 'order' => 'id'])
+                    ->where(['top' => 1, 'language_id' => $langid]);
         $query2 = $this->find('list', ['valueField' => 'region'])
                         ->where(['id' => 999]);
         $query = $query->union($query2);

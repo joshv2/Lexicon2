@@ -7,7 +7,7 @@
 <div class="row">
     <div class="column-responsive column-80">
         <div class="pronunciations form content">
-            <?= $this->Form->create($pronunciation), ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
+            <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add Pronunciation for ' . $word->spelling) ?></legend>
                 <div class="form-group">
@@ -23,7 +23,7 @@
                             <tbody>
                                 <tr class="table-row" data-counter="0">
                                     <td style="width:0;">
-                                        <?=  $this->Form->control(__('id')_,['label' => FALSE, 'class' => 'muliplespid']);?>
+                                        <?=  $this->Form->control('id',['label' => FALSE, 'class' => 'muliplespid']);?>
                                     </td>
                                     <td>
                                         <?= $this->Form->control(__('spelling'), ['label' => FALSE, 'class' => 'muliplespsp']);?>

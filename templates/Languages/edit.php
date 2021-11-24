@@ -14,6 +14,8 @@
                 ['confirm' => __('Are you sure you want to delete # {0}?', $language->id), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('List Languages'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Return to Moderators Panel'), ['controller' => 'moderators', 'action' => 'index'], ['class' => 'side-nav-item']) ?>
+            
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -61,6 +63,16 @@
                     echo "<div id='langeditor-NotesSec1Text'></div>";
                     
                     //echo $this->Form->control('NotesSec1Text');
+                    echo $this->Form->control('hasOrigins');
+                    echo $this->Form->control('hasRegions');
+                    echo $this->Form->control('hasTypes');
+                    echo $this->Form->control('hasDictionaries');
+                    echo "<div class='utf8'>";
+                    echo $this->Form->control('UTFRangeStart');
+                    echo "<div><a href='https://www.fileformat.info/info/charset/UTF-8'>List of UTF 8 Characters</a></div></div>";
+                    echo $this->Form->control('UTFRangeEnd');
+                    echo $this->Html->link(__('Add additional characters out of range'), ['controller' => 'alphabets', 'action' => 'add']);
+                    echo $this->Form->control('righttoleft');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

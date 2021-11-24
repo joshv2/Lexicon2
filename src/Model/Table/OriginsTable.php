@@ -11,19 +11,26 @@ class OriginsTable extends Table
         //$this->addBehavior('Timestamp');
         $this->setDisplayField('origin');
         $this->setPrimaryKey('id');
-        $this->belongsToMany('Words', ['joinTable' => 'words_origins']);
+        $this->belongsToMany('Words'); #, ['joinTable' => 'words_origins']
+        $this->belongsTo('Languages', [
+            'foreignKey' => 'language_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
-    public function top_origins_for_home(){
-        $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
+    public function top_origins_for_home($langid){
+        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
     }
 
 
-    public function top_origins(){
-        $query = $this->find('list', ['valueField' => 'origin', 'limit' => 7, 'order' => 'id']);
+    public function top_origins($langid){
+        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
+
         $query2 = $this->find('list', ['valueField' => 'origin'])
                         ->where(['id' => 999]);
         $query = $query->union($query2);

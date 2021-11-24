@@ -11,11 +11,16 @@ class TypesTable extends Table
         //$this->addBehavior('Timestamp');
         $this->setDisplayField('type');
         $this->setPrimaryKey('id');
-        $this->belongsToMany('Words', ['joinTable' => 'words_types']);
+        $this->belongsToMany('Words');
+        $this->belongsTo('Languages', [
+            'foreignKey' => 'language_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
-    public function top_types_for_home(){
-        $query = $this->find('list', ['valueField' => 'type', 'limit' => 12, 'order' => 'id']);
+    public function top_types_for_home($langid){
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
         $query3 = $this->find('list', ['valueField' => 'type'])
                         ->where(['id' => 998]); //chabad
         $query = $query->union($query3);
@@ -24,8 +29,9 @@ class TypesTable extends Table
         return $data;
     }
 
-    public function top_types(){
-        $query = $this->find('list', ['valueField' => 'type', 'limit' => 12, 'order' => 'id']);
+    public function top_types($langid){
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
         $query3 = $this->find('list', ['valueField' => 'type'])
                         ->where(['id' => 998]); //chabad
         $query2 = $this->find('list', ['valueField' => 'type'])

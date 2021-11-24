@@ -21,11 +21,8 @@
 			<div class="num"><?php echo $i;?></div>
 			<div class="word-main">
 			<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
-					<?php echo $this->Html->image('seefullentry.jpg', 
-												['url' => '/words//'.$word->id, 
-												'width' => 111,
-												'height' => 20,
-												'class' => 'seefullentrybutton'])?></h3>
+			<?php echo $this->Html->link(__('See full entry') . "►", '/words//'.$word->id, ['class' => 'noborder']); ?>
+			</h3>
 					<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
 			</div>
 		</li>
