@@ -14,14 +14,6 @@ class PreSingleSite extends AbstractMigration
      */
     public function up()
     {
-
-        $this->table('words')
-            ->changeColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
-                'limit' => null,
-                'null' => false,
-            ])
-            ->update();
         $this->table('alphabets', ['id' => false])
             ->addColumn('id', 'integer', [
                 'autoIncrement' => true,
