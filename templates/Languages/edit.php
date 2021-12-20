@@ -24,12 +24,12 @@
             <fieldset>
                 <legend><?= __('Edit Language') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
+                    /*echo $this->Form->control('name');
                     echo $this->Form->control('subdomain');
                     echo $this->Form->control('i18nspec');
                     echo $this->Form->control('translationfile', ['type' => 'file']);
                     echo $this->Form->control('HeaderImage', ['type' => 'file']);
-                    echo $this->Form->control('LogoImage', ['type' => 'file']);
+                    echo $this->Form->control('LogoImage', ['type' => 'file']);*/
                     echo $this->Form->control('AboutSec1Header', array('type' => 'text'));
                     echo "<label>Text for About Section 1</label>";
                     echo "<input type='hidden' name='AboutSec1Text'/>";
@@ -63,7 +63,7 @@
                     echo "<div id='langeditor-NotesSec1Text'></div>";
                     
                     //echo $this->Form->control('NotesSec1Text');
-                    echo $this->Form->control('hasOrigins');
+                    /*echo $this->Form->control('hasOrigins');
                     echo $this->Form->control('hasRegions');
                     echo $this->Form->control('hasTypes');
                     echo $this->Form->control('hasDictionaries');
@@ -72,7 +72,7 @@
                     echo "<div><a href='https://www.fileformat.info/info/charset/UTF-8'>List of UTF 8 Characters</a></div></div>";
                     echo $this->Form->control('UTFRangeEnd');
                     echo $this->Html->link(__('Add additional characters out of range'), ['controller' => 'alphabets', 'action' => 'add']);
-                    echo $this->Form->control('righttoleft');
+                    echo $this->Form->control('righttoleft');*/
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

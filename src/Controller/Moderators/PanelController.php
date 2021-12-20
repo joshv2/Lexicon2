@@ -16,10 +16,12 @@ class PanelController extends AppController {
             //debug($userid);
             if('user' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $noPronunciations = $this->Words->get_words_with_no_pronunciations($sitelang->id);
                 $pendingPronunciations = [];
                 $allPronunciations = [];
             } elseif ('superuser' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $noPronunciations = $this->Words->get_words_with_no_pronunciations($sitelang->id);
                 $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
                 $allPronunciations = $this->Pronunciations->get_all_pronunciations();
                 //debug($allPronunciations);
@@ -31,7 +33,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');
@@ -40,7 +42,7 @@ class PanelController extends AppController {
             
         }
 
-        public function logs()
+    public function logs()
         {
             $userid = $this->request->getSession()->read('Auth.id');
             $file = new File(LOGS.'events.log');
@@ -66,4 +68,37 @@ class PanelController extends AppController {
             $this->set(compact('wordLogs', 'pronunciationLogs', 'userid'));
             $this->viewBuilder()->setLayout('moderators');
         }
-    }
+
+    public function me()
+        {
+            array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
+            $sitelang = $this->languageinfo();
+            $userLevel = $this->request->getSession()->read('Auth.role');
+            $userid = $this->request->getSession()->read('Auth.id');
+            //debug($userid);
+            if('user' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = [];
+                $allPronunciations = [];
+            } elseif ('superuser' == $userLevel){
+                $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
+                $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
+                $allPronunciations = $this->Pronunciations->get_all_pronunciations();
+                //debug($allPronunciations);
+            }
+            $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
+            $newWords = $this->Words->get_pending_words($sitelang->id);
+
+            $pendingSuggestions = $this->Suggestions->find('all')
+                ->where(['status =' => 'unread'])
+                ->contain(['Words']);
+
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
+            
+            
+            $this->viewBuilder()->setLayout('moderators');
+            //$this->render('edits');
+
+            
+        }
+}

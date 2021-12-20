@@ -25,15 +25,36 @@
                     echo $this->Form->control('HeaderImage', ['type' => 'file']);
                     echo $this->Form->control('LogoImage', ['type' => 'file']);
                     echo $this->Form->control('AboutSec1Header');
-                    echo $this->Form->control('AboutSec1Text');
-                    echo $this->Form->control('AboutSec2Header');
-                    echo $this->Form->control('AboutSec2Text');
-                    echo $this->Form->control('AboutSec3Header');
-                    echo $this->Form->control('AboutSec3Text');
-                    echo $this->Form->control('AboutSec4Header');
-                    echo $this->Form->control('AboutSec4Text');
-                    echo $this->Form->control('NotesSec1Header');
-                    echo $this->Form->control('NotesSec1Text');
+                    echo "<label>Text for About Section 1</label>";
+                    echo "<input type='hidden' name='AboutSec1Text'/>";
+                    echo "<div id='langeditor-AboutSec1Text'></div>";
+                    //echo $this->Form->control('AboutSec1Text');
+                    echo $this->Form->control('AboutSec2Header', array('type' => 'text'));
+
+                    echo "<label>Text for About Section 2</label>";
+                    echo "<input type='hidden' name='AboutSec2Text'/>";
+                    echo "<div id='langeditor-AboutSec2Text'></div>";
+
+                    //echo $this->Form->control('AboutSec2Text');
+                    echo $this->Form->control('AboutSec3Header', array('type' => 'text'));
+                    
+                    echo "<label>Text for About Section 3</label>";
+                    echo "<input type='hidden' name='AboutSec3Text'/>";
+                    echo "<div id='langeditor-AboutSec3Text'></div>";
+
+                    //echo $this->Form->control('AboutSec3Text');
+                    echo $this->Form->control('AboutSec4Header', array('type' => 'text'));
+                    
+                    echo "<label>Text for About Section 4</label>";
+                    echo "<input type='hidden' name='AboutSec4Text'/>";
+                    echo "<div id='langeditor-AboutSec4Text'></div>";
+                    
+                    //echo $this->Form->control('AboutSec4Text');
+                    echo $this->Form->control('NotesSec1Header', array('type' => 'text'));
+                    
+                    echo "<label>Text for Notes Section 1</label>";
+                    echo "<input type='hidden' name='NotesSec1Text'/>";
+                    echo "<div id='langeditor-NotesSec1Text'></div>";
                     echo $this->Form->control('hasOrigins');
                     echo $this->Html->link(__('Add Origins'), ['controller' => 'origins', 'action' => 'add'], ['target' => '_blank']);
                     echo $this->Form->control('hasRegions');
