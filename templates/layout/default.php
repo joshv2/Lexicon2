@@ -41,6 +41,8 @@
 <?= $this->Html->script('toggle')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="container">

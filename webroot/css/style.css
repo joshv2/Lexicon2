@@ -492,6 +492,7 @@ a.disabled, a.disabled:hover {
 
 .form-group {
 	margin: 0 0 20px 0;
+	overflow: auto;
 }
 
 label {
@@ -2038,4 +2039,27 @@ label[for="alternates-0-spelling"] {
 	display: none;
 }
 
+[id^="defeditor"]{
+	display: block;
+	margin-top: 10px;
+	clear: both;
+}
 
+.editor-container{
+	float: left;
+	width: 75%;
+}
+
+.delete2 {
+	width: 20%;
+	float: right;
+	margin-top: 30px;
+}
+
+#sentencesgroup{
+	clear: both;
+}
+
+[class^="add-editor"] {
+	float: right;
+}

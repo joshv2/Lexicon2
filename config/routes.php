@@ -50,6 +50,7 @@ use Cake\Routing\RouteBuilder;
         // will be required when generating URLs for these routes
         $routes->connect('/', ['controller' => 'Panel', 'action' => 'index']);
         $routes->connect('/logs', ['controller' => 'Panel', 'action' => 'logs']);
+        $routes->connect('/me', ['controller' => 'Panel', 'action' => 'me']);
         $routes->fallbacks(DashedRoute::class);
     });
     $routes->scope('/', function (RouteBuilder $builder) {

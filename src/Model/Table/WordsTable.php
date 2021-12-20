@@ -209,6 +209,18 @@ class WordsTable extends Table
         return $query->count();
     }
 
+    public function get_words_with_no_pronunciations($langid){
+        $query = $this->find()
+            ->join([
+                'p' => [
+                    'table' => 'pronunciations',
+                    'type' => 'LEFT',
+                    'conditions' => 'Words.id = p.word_id'
+                ]
+            ])->where(['Words.approved' => 1, 'language_id' => $langid, 'p.word_id IS' => NULL]);
+        return $query;
+    }
+
     public function get_words_starting_with_letter($letter, $langid){
         //need to add logic around approved words
         $query = $this->find()

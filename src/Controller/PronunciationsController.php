@@ -182,19 +182,25 @@ class PronunciationsController extends AppController
 
     public function approve($id = null, $wordid){
         $this->request->allowMethod(['post']);
+        array_map([$this, 'loadModel'], ['Words']);
+        $word =  $this->Words->get($wordid);
+
         $datefortimestamp = date('Y-m-d h:i:s', time());
         $pronunciation = $this->Pronunciations->get($id);
         $pronunciation->approved = 1;
         $pronunciation->approved_date = $datefortimestamp;
         $pronunciation->approving_user_id = $this->request->getSession()->read('Auth.id');
         $pronunciation->notes = '';
-        if ($this->Pronunciations->save($pronunciation)) {
-            Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
-            $this->Flash->success(__('The word has been approved.'));
+        if (1 == $word->approved) {
+            if ($this->Pronunciations->save($pronunciation)) {
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
+                $this->Flash->success(__('The pronunciation has been approved.'));
+            } else {
+                $this->Flash->error(__('The pronunciation could not be approved. Please, try again.'));
+            }
         } else {
-            $this->Flash->error(__('The word could not be approved. Please, try again.'));
+            $this->Flash->error(__('The word for this pronunciation needs to be approved prior to the pronuinciation being approved.'));
         }
-
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 

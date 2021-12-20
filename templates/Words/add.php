@@ -139,10 +139,11 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                         </table>
                     </div>
                     <?php
-                    
+                    echo "<hr>";
                     //Definitions
                     echo "<div class='form-group' id='pronunciationsgroup'>";
                     echo "<label>" . __('Definition(s)') . "</label>";
+                    echo "<a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'defintion';
@@ -166,7 +167,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                             echo "<div class='editor-container'><div id='editor-definition" . $i ."'></div></div>";
                             
 
-                            echo "<a class='deletelink' id=def" .  $wordData['definitions'][$i]['id'] . "-" . $wordData['id'] . " href='#'>Delete Pronunciation</a></div>";
+                            echo "<div class='delete2'><a class='deletelink button red' id=def" .  $wordData['definitions'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i>Delete Definition</a></div></div>";
                     
 
                             $i += 1;
@@ -180,13 +181,15 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     }
                     
                     echo  "</div>";
-                    echo "</br><a class='add-editor'><i class='icon-plus-sign'></i>" . __('Add an additional definition') . "</a></br>&nbsp;&nbsp;";
+                    
 				    //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     
+                    echo "<hr>";
                     
                     //Sentences
                     echo "<div class='form-group' id='sentencesgroup'>";
                     echo "<label>" . __('Example Sentence(s)') . "</label>";
+                    echo "<a class='add-editor2'><i class='icon-plus-sign'></i>" . __('Add an additional sentence') . "</a>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['sentences']) > 0) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'sentence';
@@ -210,7 +213,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                             echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i, 'value' => $finalInsert]);
                             echo "<div class='editor-container'><div id='editor-sentences" . $i . "'></div></div>";
                             
-                            echo "<a class='deletelink' id=sent" .  $wordData['sentences'][$i]['id'] . "-" . $wordData['id'] . " href='#'>Delete Sentence</a></div>";
+                            echo "<div class='delete2'><a class='deletelink button red' id=sent" .  $wordData['sentences'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i> Delete Sentence</a></div></div>";
 
                             $i += 1;
                         }
@@ -222,7 +225,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     }
                     
                     echo  "</div>";
-                    echo "</br></br><a class='add-editor2'><i class='icon-plus-sign'></i>" . __('Add an additional sentence') . "</a></br>";
+                    echo "<hr>";
 				    //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     //echo "</div>";
 
