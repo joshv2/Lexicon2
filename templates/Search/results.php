@@ -6,7 +6,7 @@
 			</form>
 	</nav>
 	<div id="browse_info">
-		<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b><?= __('returned'); ?> <?php echo $this->Paginator->counter('{{count}}');?><?= __('results.');?></p>
+		<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b> <?= __('returned'); ?> <?php echo $this->Paginator->counter('{{count}}');?> <?= __('results.');?></p>
 	</div>
 	<?php if ($this->Paginator->counter('{{count}}') <= 0):?>
 

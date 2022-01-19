@@ -126,7 +126,7 @@ class LanguagesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             
-            $translation_file = $postData['translationfile'];
+            /*$translation_file = $postData['translationfile'];
             if(!empty($translation_file->getClientFilename())){ 
                 
                 $name = $translation_file->getClientFilename();
@@ -138,7 +138,7 @@ class LanguagesController extends AppController
                 $translation_file->moveTo($targetPath);
                 $postData['translationfile'] = $name;
             } else {
-                $postData['translationfile'] = $sitelang['translationfile'];
+                $postData['translationfile'] = $language['translationfile'];
             }
             
             $header_image = $postData['HeaderImage'];
@@ -151,7 +151,7 @@ class LanguagesController extends AppController
                 $header_image->moveTo($targetPath);
                 $postData['HeaderImage'] = $name;
             } else {
-                $postData['HeaderImage'] = $sitelang['HeaderImage'];
+                $postData['HeaderImage'] = $language['HeaderImage'];
             }
 
             $logo_image = $postData['LogoImage'];
@@ -163,8 +163,8 @@ class LanguagesController extends AppController
                 $logo_image->moveTo($targetPath);
                 $postData['LogoImage'] = $name;
             } else {
-                $postData['LogoImage'] = $sitelang['LogoImage'];
-            }
+                $postData['LogoImage'] = $language['LogoImage'];
+            }*/
 
             $quillFields = ['AboutSec1Text', 'AboutSec2Text','AboutSec3Text','AboutSec4Text','NotesSec1Text'];
             foreach ($quillFields as $quillField) {
