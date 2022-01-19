@@ -167,7 +167,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                             echo "<div class='editor-container'><div id='editor-definition" . $i ."'></div></div>";
                             
 
-                            echo "<div class='delete2'><a class='deletelink button red' id=def" .  $wordData['definitions'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i>Delete Definition</a></div></div>";
+                            echo "<div class='delete2'><a class='deletelink button red' id=def" .  $wordData['definitions'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i> Delete Definition</a></div></div>";
                     
 
                             $i += 1;
