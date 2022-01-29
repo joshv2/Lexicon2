@@ -66,6 +66,7 @@ use Cake\Routing\RouteBuilder;
     //$builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
     $builder->connect('/about', ['controller' => 'Languages', 'action' => 'about']);
     $builder->connect('/notes', ['controller' => 'Pages', 'action' => 'display', 'notes']);
+    $builder->connect('/googleadspage', ['controller' => 'Pages', 'action' => 'googleadspage']);
     /*
      * ...and connect the rest of 'Pages' controller's URLs.
      */
