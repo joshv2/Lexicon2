@@ -141,8 +141,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		  }
 		}
 	</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
-     crossorigin="anonymous"></script>
+
 </body>
 
 
