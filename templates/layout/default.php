@@ -41,8 +41,7 @@
 <?= $this->Html->script('toggle')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
-     crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div id="container">
@@ -145,7 +144,8 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		  }
 		}
 	</script>
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
+     crossorigin="anonymous"></script>
 </body>
 
 
