@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 <head>
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width" />
