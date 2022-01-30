@@ -132,7 +132,7 @@ class PronunciationsTable extends Table
         $query = $this->find()
                     ->where(['Pronunciations.approved' => 0])
                     ->contain(['Words' => function (Query $q) {
-                        return $q->where(['approved' => 1]);
+                        return $q->where(['Words.approved' => 1]);
                     }, 'RecordingUsers', 'ApprovingUsers'])
                     ->order(['Pronunciations.created' => 'DESC']);
         return $query;
