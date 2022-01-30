@@ -39,10 +39,6 @@ jobs:
         fi
         composer run-script post-install-cmd --no-interaction
 
-    - name: Run PHPUnit
-      run: |
-          vendor/bin/phpunit
-
   coding-standard:
     name: Coding Standard
     runs-on: ubuntu-18.04
