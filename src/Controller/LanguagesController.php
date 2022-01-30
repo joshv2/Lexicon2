@@ -28,6 +28,11 @@ class LanguagesController extends AppController
         $this->set(compact('sitelang'));
     }
 
+    public function notes() {
+        $sitelang = $this->languageinfo();
+        $this->set(compact('sitelang'));
+    }
+
     /**
      * View method
      *

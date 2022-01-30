@@ -71,12 +71,4 @@
 	</div>
 <?php endif;?>
 
-<script>
-var sc_project=7851936;
-var sc_invisible=1;
-var sc_security="d9e1dc98";
-</script>
-<script src="http://www.statcounter.com/counter/counter.js"></script>
-<noscript><a class="statcounter" href="http://statcounter.com/"><img class="statcounter" src="http://c.statcounter.com/7851936/0/d9e1dc98/1/" alt="StatCounter" /></a></noscript>
-
 </section>

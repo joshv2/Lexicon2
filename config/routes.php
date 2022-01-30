@@ -62,10 +62,10 @@ use Cake\Routing\RouteBuilder;
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);
     //$builder->connect('/', ['controller' => 'Languages', 'action' => 'index']);
     $builder->connect('/add', ['controller' => 'Words', 'action' => 'add']);
-    $builder->redirect('/welcome', ['controller' => 'Pages', 'action' => 'display', 'about']);
+    $builder->redirect('/welcome', ['controller' => 'Languages', 'action' => 'about']);
     //$builder->connect('/about', ['controller' => 'Pages', 'action' => 'display', 'about']);
     $builder->connect('/about', ['controller' => 'Languages', 'action' => 'about']);
-    $builder->connect('/notes', ['controller' => 'Pages', 'action' => 'display', 'notes']);
+    $builder->connect('/notes', ['controller' => 'Languages', 'action' => 'notes']);
     $builder->connect('/googleadspage', ['controller' => 'Pages', 'action' => 'googleadspage']);
     /*
      * ...and connect the rest of 'Pages' controller's URLs.
