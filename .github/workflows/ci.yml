@@ -58,9 +58,6 @@ jobs:
     - name: composer install
       run: composer install
 
-    - name: Run PHP CodeSniffer
-      run: composer cs-check
-
   static-analysis:
     name: Static Analysis
     runs-on: ubuntu-18.04
@@ -79,6 +76,3 @@ jobs:
 
     - name: composer install
       run: composer require --dev phpstan/phpstan:^0.12
-
-    - name: Run phpstan
-      run: vendor/bin/phpstan.phar analyse
