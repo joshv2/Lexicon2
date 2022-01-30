@@ -131,7 +131,9 @@ class PronunciationsTable extends Table
     public function get_pending_pronunciations(){
         $query = $this->find()
                     ->where(['Pronunciations.approved' => 0])
-                    ->contain(['Words', 'RecordingUsers', 'ApprovingUsers'])
+                    ->contain(['Words' => function (Query $q) {
+                        return $q->where(['approved' => 1]);
+                    }, 'RecordingUsers', 'ApprovingUsers'])
                     ->order(['Pronunciations.created' => 'DESC']);
         return $query;
     }
