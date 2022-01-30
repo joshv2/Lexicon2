@@ -7,7 +7,7 @@
 </div>
 <div class="page-header group">
 	<?php if ('' !== $sitelang->NotesSec1Header): ?>	
-		<h2 class="left"><?= $sitelang->AboutSec1Header ?></h2>
+		<h2 class="left"><?= $sitelang->NotesSec1Header ?></h2>
 	<?php else: ?>
 		<h2 class="left"><?= __('Notes'); ?></h2>
 	<?php endif; ?>
