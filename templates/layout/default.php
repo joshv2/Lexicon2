@@ -3,6 +3,8 @@
 <head>
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width" />
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
+     crossorigin="anonymous"></script>
 	<?php echo $this->Html->meta([
 		'rel' => 'preload',
 		'href' => $this->Url->assetUrl(
@@ -101,8 +103,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	</div>-->
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
-     crossorigin="anonymous"></script>
+	
 	</div>
 	<div class="cfooter"></div>
 </div>
