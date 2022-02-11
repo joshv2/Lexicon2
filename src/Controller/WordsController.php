@@ -65,12 +65,12 @@ class WordsController extends AppController
                 'Regions',
                 'Types',
                 'Dictionaries'
-            ]];
+            ], 'limit' => 100];
         
-        $words = $this->Paginator->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id));
+        $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id)));
         $title = 'Home';
 
-        $this->set(compact('words', 'current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title'));
+        $this->set(compact('current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title', 'sitelang'));
         $this->render('browse');
     }
 

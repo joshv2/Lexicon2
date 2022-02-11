@@ -67,10 +67,7 @@
 		<div class="mobile-header">
 		<div id="headerlogo">
 			<h1>
-			<?php echo $this->Html->image('logo.jpg', 
-                                            ['url' => '/', 
-                                            'width' => 58,
-                                            'height' => 40])?>
+			<?= $this->cell('Logo'); ?></h1>
 			</h1>
 		</div>
 		<div id="searchform">
@@ -105,7 +102,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
     <?= $this->fetch('content') ?>
 	
 	</div>
-	<div class="cfooter"></div>
+	<!--<div class="cfooter"></div>-->
 </div>
 
 
