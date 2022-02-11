@@ -110,6 +110,10 @@ hr {
     height: 6px;
 }
 
+#homepagesearch {
+    margin-top: unset;
+}
+
 #results_search {
     margin: 6px 0 0 10px;
 }

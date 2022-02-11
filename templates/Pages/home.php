@@ -63,7 +63,7 @@ $(document).ready(function() {
         <h3><?=__("SEARCH:")?></h3>
 		<form id="home_search" class="group m3" type="GET" action="/search">
 				<input type="text" placeholder="Search" name="q" />
-				<a class="button blue" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
+				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
 			</form>
 
         <hr class="m2" />
