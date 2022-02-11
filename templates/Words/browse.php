@@ -80,6 +80,7 @@
 
 	<nav id="browse">
 		<ul class="browse_nav group left">
+		<?php if($sitelang->hasOrigins): ?>	
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
@@ -95,6 +96,8 @@
 					</div>
 				</div>
 			</li>
+			<?php endif; ?>
+			<?php if($sitelang->hasDictionaries): ?>
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
@@ -109,6 +112,8 @@
 					</div>
 				</div>
 			</li>
+			<?php endif; ?>
+			<?php if($sitelang->hasTypes): ?>
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
@@ -122,6 +127,8 @@
 					</div>
 				</div>
 			</li>
+			<?php endif; ?>
+			<?php if($sitelang->hasRegions): ?>
 			<li class="main last">
 				<div class="dropdown">
 					<a class="main">
@@ -135,6 +142,7 @@
 					</div>
 				</div>
 			</li>
+			<?php endif; ?>
 		</ul>
 	</nav>
 	
@@ -155,10 +163,10 @@
 		<?php foreach ($words as $word): ?>
 			<li class="group">
 				<div class="word-main">
-					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?>
-					<?php echo $this->Html->link(__('See full entry') . "►", '/words//'.$word->id, ['class' => 'noborder']); ?>
-					</h3>
-					<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>
+					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?></h3>
+					<?php echo $this->Html->link(__('See full entry') . ' <i class="fas fa-arrow-down"></i>', '/words//'.$word->id, ['class' => 'noborder', 'escape' => false]); ?>
+					
+					<!--<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>-->
 				</div>
 			</li>
 		<?php endforeach; ?>

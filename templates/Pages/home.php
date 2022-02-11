@@ -20,9 +20,12 @@ $(document).ready(function() {
 	<ul class="right">
 	</ul>
 </nav>-->
+<?php //$loggedIn = false;
+	if ($this->Identity->isLoggedIn()):?>
 <nav id="crumbs" class="group">
 	<?php echo $this->element('user_bar');?>
 </nav>
+<?php endif;?>
 <section id="main">
 <div id="header-image">
 <?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
