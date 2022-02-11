@@ -49,7 +49,7 @@
 					
 				<?php 
 					if ('' !== $p->sound_file){
-						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-play"></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
+						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-volume-up"> <span id="listen">listen</span></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
 					} else {
 						$audioPlayer = '';
 					}

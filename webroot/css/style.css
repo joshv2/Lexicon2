@@ -125,6 +125,12 @@ hr {
     margin: 0 4px 0 0;
 }
 
+#listen {
+    font-size: 16px;
+    text-decoration: underline;
+    color: blue;
+}
+
 #results_search a {
     text-align: center;
     width: 18px;
