@@ -163,7 +163,7 @@
 
 	<div class="c wordedit">
 		<p class="m0">
-		<?=$this->Html->link('<i class="icon-edit"></i>' . __('Edit'), '/words/edit/' .$word->id,
+		<?=$this->Html->link('<i class="icon-edit"></i>' . __(' Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("See something you disagree with? Feel free to edit it. All changes will be moderated. ")?></p>
 	</div>
