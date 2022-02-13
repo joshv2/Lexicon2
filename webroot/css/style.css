@@ -460,6 +460,18 @@ a.disabled:hover {
     margin-right: 10px;
 }
 
+.button.blue.nl {
+    color: #fff;
+    padding: 10px;
+    border: 1px #0071E0 solid;
+    background: #0079FF;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+    background: -moz-linear-gradient(center top, #0096FF, #005DFF);
+    margin-top: unset;
+    margin-right: 10px;
+}
+
 .button.red {
     color: #fff;
     padding: 10px;
@@ -785,7 +797,7 @@ input#search {
     border: 1px #fff solid;
     font-size: 12px;
     width: 120px;
-    margin: 0;
+    margin-top: 3px;
     float: left;
     padding: 3px 7px;
     border-radius: 15px;
@@ -799,7 +811,7 @@ input#search {
 }
 
 input#search:focus {
-    width: 180px;
+    /*width: 180px;*/
     background: #fff;
     border: 1px #09f solid;
 }
@@ -839,7 +851,7 @@ header form input#go:hover {
 footer {
     display: inline-block;
     padding: 30px 0;
-    height: 170px;
+    /*height: 170px;*/
     color: #ccc;
     min-width: 960px;
     width: 100%;
@@ -1062,27 +1074,44 @@ nav#browse {
     border-radius: 5px 5px 0 0;
     color: #fff;
     padding: 0 20px;
+    padding-bottom: 11px;
 }
 
-.page-header h2 {
+.page-header2 {
+    margin: 0;
+    border-bottom: 1px #ccc solid;
+    background: #0A3C78;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 0 20px;
+    padding-bottom: 6px;
+}
+
+.page-header h2,
+.page-header2 h2 {
     font-size: 14px;
     margin: 0;
-    margin: 10px 0;
+    /*margin: 10px 0;*/
+    padding-top: 14px;
+    font-size: 22px;
     text-transform: uppercase;
     letter-spacing: .1em;
 }
 
-.page-header h2.left {
+.page-header h2.left,
+.page-header2 h2.left {
     float: left;
 }
 
-.page-header ul {
+.page-header ul,
+.page-header2 ul {
     list-style: none;
     float: right;
     margin: 6px 0 0 0;
 }
 
-.page-header li {
+.page-header li,
+.page-header2 li {
     float: left;
     margin: 0 0 0 12px;
 }
@@ -1158,6 +1187,7 @@ nav#browse {
     background: #f1f1f1;
     padding: 10px;
     border-bottom: 1px #ccc solid;
+    overflow: auto;
 }
 
 #sort_info {
@@ -1419,7 +1449,7 @@ seefullentrybutton {
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 14px 11px;
     text-decoration: none;
     font-size: 17px;
 }
@@ -1551,6 +1581,8 @@ textarea {
     .page-header h2 {
         font: normal 1.625em Helvetica, Arial, sans-serif;
         font-weight: bold;
+        padding-top: unset;
+        padding-top: 9px;
     }
     #home2 h3 {
         font: normal 1.375em Helvetica, Arial, sans-serif;
@@ -1859,6 +1891,7 @@ textarea {
     .topnav a.icon {
         float: right;
         display: block;
+        margin-top: 3px;
     }
     .topnav.responsive {
         position: absolute;
@@ -1887,6 +1920,16 @@ textarea {
         display: block;
         width: 100%;
         text-align: left;
+    }
+    .page-header h2,
+    .page-header2 h2 {
+        font-size: 14px;
+        margin: 0;
+        /* margin: 10px 0; */
+        padding-top: 8px;
+        font-size: 22px;
+        text-transform: uppercase;
+        letter-spacing: .1em;
     }
     .page-header ul {
         list-style: none;

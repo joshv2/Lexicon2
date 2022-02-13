@@ -7,7 +7,7 @@
 	</ul>
 </nav>
 <section id="main">
-	<div class="page-header group">
+	<div class="page-header2 group">
 		<h2 class="left"><?php echo $word->spelling;?></h2>
 		<ul class="editbuttons">
 			<?php if ($this->Identity->isLoggedIn()):?>
@@ -25,7 +25,7 @@
 			<?php endif;?>
 			<li>
 			<?=$this->Html->link(__('<i class="icon-edit"></i> Edit'), '/words/edit/' .$word->id,
-											['class' => 'button blue', 'escape' => false]);?>
+											['class' => 'button blue nl', 'escape' => false]);?>
 			</li>
 		</ul>
 	</div>
@@ -34,10 +34,10 @@
 	</div>
 	<div class='c'>
 	<div class="word">
-		<h3>
+		<!--<h3>
 			<?php echo $word->spelling; ?>
 
-		</h3>
+		</h3>-->
 		
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
