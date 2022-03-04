@@ -64,8 +64,9 @@ return [
                 'socialEmail',
                 'verify',
                 // RegisterTrait
-                //'register',
+                'register',
                 'validateEmail',
+                'postregister',
                 // PasswordManagementTrait used in RegisterTrait
                 'changePassword',
                 'resetPassword',
@@ -102,7 +103,7 @@ return [
             'action' => '*',
         ],
         [
-            'role' => 'user',
+            'role' => ['user'],
             'prefix' => 'Moderators',
             'controller' => 'Panel',
             'action' => ['index'],

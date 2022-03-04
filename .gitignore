@@ -2,6 +2,7 @@
 ##########################
 /config/app_local.php
 /config/.env
+/config/Migrations/schema-dump-default.lock
 /logs/*
 /tmp/*
 /vendor/*
@@ -46,3 +47,4 @@ nbproject/*
 .sass-cache/
 deploymentchecklist.txt
 jvconsul_lexicon2prod.sql
+config/Migrations/schema-dump-default.lock

@@ -6,6 +6,7 @@ $(function() {
         if ($(this).hasClass('fa-volume-up')) {
             $(this).removeClass('fa-volume-up');
             $(this).addClass('fa-pause');
+            console.log($("#audioplayer" + playernumber).get(0));
             $("#audioplayer" + playernumber).get(0).play();
         } else {
             $(this).removeClass('fa-pause');

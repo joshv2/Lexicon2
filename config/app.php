@@ -232,24 +232,19 @@ return [
      * You can add custom transports (or override existing transports) by adding the
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
-     */
+     *
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
-            /*
-             * The keys host, port, timeout, username, password, client and tls
-             * are used in SMTP transports
-             */
-            'host' => 'localhost',
-            'port' => 25,
+            'className' => 'Smtp',
+        
+            'host' => 'a2ss41.a2hosting.com',
+            'port' => 587,
             'timeout' => 30,
-            /*
-             * It is recommended to set these options through your environment or app_local.php
-             */
-            //'username' => null,
-            //'password' => null,
+
+            'username' => 'registration@jewish-languages.org',
+            'password' => ']fp]E&cpt}nl',
             'client' => null,
-            'tls' => false,
+            'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
@@ -266,7 +261,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            'from' => 'lexicon@jewish-languages.org',
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
              */

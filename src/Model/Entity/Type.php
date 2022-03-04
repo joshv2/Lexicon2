@@ -29,5 +29,6 @@ class Type extends Entity
         'words' => true,
         'language_id' => true,
         'top' => true,
+        'users' => true,
     ];
 }
