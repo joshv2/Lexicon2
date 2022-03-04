@@ -12,6 +12,7 @@ class TypesTable extends Table
         $this->setDisplayField('type');
         $this->setPrimaryKey('id');
         $this->belongsToMany('Words');
+        $this->belongsToMany('Users');
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',
             'joinType' => 'INNER',

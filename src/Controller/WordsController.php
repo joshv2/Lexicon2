@@ -275,7 +275,7 @@ class WordsController extends AppController
                 echo $e->getMessage();
             }
 
-            //account for non-subitted data
+            //account for non-submitted data
             $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
             $associatedforfilter =  ['Alternates', 'Pronunciations']; //'Definitions', 'Sentences'
             foreach ($associatedforfilter as $assoc){
