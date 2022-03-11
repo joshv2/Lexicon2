@@ -337,9 +337,17 @@ class WordsTable extends Table
                             ->where(['Suggestions.status' => 'unread'])
                             ->order(['Suggestions.created' => 'ASC']);
                     });
+        //$results = $query->all();
+        return $query;
+    }
+
+    /*public function get_sentences_for_word($id){
+        $query = $this->find()
+                    ->where(['Words.id' => $id, 'Words.approved' => 1])
+                    ->contain(['Sentences']);
         $results = $query->all();
         return $results->toArray();
-    }
+    }*/
 
     public function get_pending_words($langid) {
         $query = $this->find()->where(['approved' => 0, 'language_id' => $langid])->order(['created' => 'DESC']);

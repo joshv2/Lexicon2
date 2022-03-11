@@ -41,24 +41,31 @@
 		
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
-			<table>
-			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
-			<?php $i = 0; ?>
-			<?php foreach ($word->pronunciations as $p): ?>
-				<?php if(1 == $p->approved): ?>
-					
-				<?php 
-					if ('' !== $p->sound_file){
-						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-volume-up"> <span id="listen">listen</span></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
-					} else {
-						$audioPlayer = '';
-					}
-					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
-				<?php endif; ?>
-				<?php $i += 1; ?>
-			<?php endforeach; ?>
-			</table>
+			<div class='section-container'>
+			<div class='table-container'>
+				<table>
+				<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
+				<?php $i = 0; ?>
+				<?php foreach ($word->pronunciations as $p): ?>
+					<?php if(1 == $p->approved): ?>
+						
+					<?php 
+						if ('' !== $p->sound_file){
+							$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-volume-up"> <span id="listen">listen</span></a>' . $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
+						} else {
+							$audioPlayer = '';
+						}
+						?>
+					<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
+					<?php endif; ?>
+					<?php $i += 1; ?>
+				<?php endforeach; ?>
+				</table>
+			</div>
+			<div class='delete3'><div class='vertical-center'>
+				<p>Test button</p>
+			</div></div>
+		</div>
 		<?php endif; ?>
 		<?php if (!empty($Definitions_definition)): ?>
 		<h4>Definitions</h4>
@@ -73,15 +80,35 @@
 
 		<?php if (!empty($Sentences_sentence)): ?>
 			<h4>Example Sentences</h4>
-			<ul class="sentences multiple-items">
-			<?php foreach ($Sentences_sentence as $s): ?>
-				<li><?php echo $s;?></li>
-			<?php endforeach; ?>
-			<?php if (count($Sentences_sentence) > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
-		</ul><?php endif;?>
-
+			<div class='section-container'>
+				<div class='table-container'>
+				<ul class="sentences multiple-items">
+				<?php foreach ($Sentences_sentence as $s): ?>
+					<li><?php echo $s;?></li>
+				<?php endforeach; ?>
+				<?php if (count($Sentences_sentence) > 3): ?>
+					<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
+				<?php endif; ?>
+				</ul>
+				</div>
+		
+			<div class='delete3'><div class='vertical-center'>
+				<p><?php 
+				if ($this->Identity->isLoggedIn()) {
+					if (count($Sentences_sentence) == 1){
+					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+											['class' => 'button blue', 'escape' => false]);
+					} else {
+						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
+					}
+				} else {
+					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login',
+											['class' => 'button blue', 'escape' => false]);
+				}?></p>
+			</div></div>
+		</div>
+		<?php endif;?>
 		<?php if(!empty($word->origins)):?>
 			<h4>Languages of Origin</h4>
 			<ul class="multiple-items">
@@ -168,3 +195,6 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("See something you disagree with? Feel free to edit it. All changes will be moderated. ")?></p>
 	</div>
 </section>
+
+<script>
+$(function(){
