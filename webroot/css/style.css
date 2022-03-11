@@ -2068,10 +2068,37 @@ label[for="alternates-0-spelling"] {
     width: 75%;
 }
 
+.table-container {
+    float: left;
+    width: 75%;
+}
+
+.section-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
 .delete2 {
     width: 20%;
     float: right;
     margin-top: 30px;
+}
+
+.delete3 {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.vertical-center {
+    margin: 0;
+    top: 50%;
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 #sentencesgroup {
