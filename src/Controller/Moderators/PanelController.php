@@ -9,6 +9,7 @@ use Cake\Filesystem\File;
 class PanelController extends AppController {
     public function index()
         {
+            $remainingcredits = $this->getremainingcredits();
             array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
@@ -33,7 +34,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang', 'remainingcredits')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');
@@ -71,6 +72,7 @@ class PanelController extends AppController {
 
     public function me()
         {
+            $remainingcredits = $this->getremainingcredits();
             array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
@@ -93,7 +95,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'sitelang')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'sitelang', 'remainingcredits')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');

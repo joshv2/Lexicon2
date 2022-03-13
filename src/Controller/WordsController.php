@@ -318,6 +318,10 @@ class WordsController extends AppController
                         }
                     }
                 }
+                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role')){
+                    $this->converttomp3($finalname);
+                }
+
                 $i++;
             }
 
@@ -571,6 +575,8 @@ class WordsController extends AppController
         $pronunciations = array();
         foreach ($word->pronunciations as $p){
             //debug(['id' => $p->id, 'appproved' => 1, 'approved_date' => $datefortimestamp]);
+            $this->converttomp3($p->sound_file);
+            
             array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
         }
         $data = ['approved' => 1,

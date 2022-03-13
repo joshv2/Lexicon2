@@ -40,6 +40,7 @@
 					<li><?php echo $this->AuthLink->link('My Contributions', '/moderators/me');?></li>
 					<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
 					<li><?php echo $this->Html->link('Change Password', '/Users/change-password/' . $userid);?></li>
+					<li><?php echo 'There are ' . $remainingcredits . ' remaining MP3 conversion credits'; ?></li>
 				</ul>
 			</div>
 		</div>
