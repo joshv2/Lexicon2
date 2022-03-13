@@ -191,8 +191,10 @@ class PronunciationsController extends AppController
         $pronunciation->approved_date = $datefortimestamp;
         $pronunciation->approving_user_id = $this->request->getSession()->read('Auth.id');
         $pronunciation->notes = '';
+        
         if (1 == $word->approved) {
             if ($this->Pronunciations->save($pronunciation)) {
+                $this->converttomp3($pronunciation->sound_file);
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been approved.'));
             } else {

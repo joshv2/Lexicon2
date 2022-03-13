@@ -60,6 +60,10 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 
                     <!--Pronunciations-->
                     <div class="form-group">
+                        <?php if('edit' == $controllerName) {
+                            echo '<p style="color:red">Do not add pronunciations on this page, please use ' . $this->Html->link('Add a Pronunciation', '/pronunciations/add/' . $word->id) . '</p>';
+                        } ?>
+                    
                         <table>
                             <thead>
                                 <tr>
