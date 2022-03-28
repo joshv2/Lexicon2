@@ -86,4 +86,11 @@ class SentencesTable extends Table
 
         return $rules;
     }
+
+    public function get_sentences($id){
+        $query = $this->find()
+                    ->where(['id' => $id]);
+        $results = $query->all();
+        return $results->toArray();
+    }
 }

@@ -460,6 +460,17 @@ a.disabled:hover {
     margin-right: 10px;
 }
 
+.button.blue2 {
+    color: #fff;
+    padding: 10px;
+    border: 1px #0071E0 solid;
+    background: #0079FF;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+    background: -moz-linear-gradient(center top, #0096FF, #005DFF);
+    margin-top: 6px;
+}
+
 .button.blue.nl {
     color: #fff;
     padding: 10px;
@@ -564,6 +575,7 @@ form .notes .key {
 
 input[type=text],
 input[type=email],
+input[type=password],
 textarea {
     display: block;
     font: normal 18px helvetica, arial, sans-serif;
@@ -577,6 +589,48 @@ textarea {
     -webkit-transition: border-color 0.2s;
     -moz-transition: border-color 0.2s;
     transition: border-color 0.2s;
+}
+
+#loginemail,
+#loginpassword {
+    display: unset;
+}
+
+#loginfieldset {
+    text-align: center;
+    border-width: 0px;
+}
+
+#centeredform {
+    text-align: center;
+    padding: 30px;
+}
+
+.message.success {
+    text-align: center;
+    padding-top: 15px;
+    color: red;
+}
+
+label p {
+    display: inline;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: none;
+    color: #000;
+}
+
+.readingSentence {
+    text-align: center;
+    font-size: 25px;
+}
+
+.readingSentence2 {
+    text-align: center;
+}
+
+#exConfirmPromiseWrap {
+    top: 33%;
 }
 
 input[type=text]:focus,
@@ -2068,10 +2122,37 @@ label[for="alternates-0-spelling"] {
     width: 75%;
 }
 
+.table-container {
+    float: left;
+    width: 75%;
+}
+
+.section-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
 .delete2 {
     width: 20%;
     float: right;
     margin-top: 30px;
+}
+
+.delete3 {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.vertical-center {
+    margin: 0;
+    top: 50%;
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 #sentencesgroup {
