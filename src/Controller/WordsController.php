@@ -404,7 +404,7 @@ class WordsController extends AppController
     public function edit($id = null)
     {
         $wordResult = $this->Words->get_word_for_edit($id);
-        $word = $wordResult[0];
+        $word = $wordResult;
         $sitelang = $this->languageinfo();
         /*$word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],

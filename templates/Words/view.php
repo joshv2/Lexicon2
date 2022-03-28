@@ -73,15 +73,35 @@
 
 		<?php if (!empty($Sentences_sentence)): ?>
 			<h4>Example Sentences</h4>
-			<ul class="sentences multiple-items">
-			<?php foreach ($Sentences_sentence as $s): ?>
-				<li><?php echo $s;?></li>
-			<?php endforeach; ?>
-			<?php if (count($Sentences_sentence) > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
-		</ul><?php endif;?>
-
+			<div class='section-container'>
+				<div class='table-container'>
+				<ul class="sentences multiple-items">
+				<?php foreach ($Sentences_sentence as $s): ?>
+					<li><?php echo $s;?></li>
+				<?php endforeach; ?>
+				<?php if (count($Sentences_sentence) > 3): ?>
+					<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
+				<?php endif; ?>
+				</ul>
+				</div>
+		
+			<div class='delete3'><div class='vertical-center'>
+				<p><?php 
+				if ($this->Identity->isLoggedIn()) {
+					if (count($Sentences_sentence) == 1){
+					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+											['class' => 'button blue', 'escape' => false]);
+					} else {
+						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
+											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
+					}
+				} else {
+					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login',
+											['class' => 'button blue', 'escape' => false]);
+				}?></p>
+			</div></div>
+		</div>
+		<?php endif;?>
 		<?php if(!empty($word->origins)):?>
 			<h4>Languages of Origin</h4>
 			<ul class="multiple-items">
@@ -168,3 +188,6 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("See something you disagree with? Feel free to edit it. All changes will be moderated. ")?></p>
 	</div>
 </section>
+
+<script>
+$(function(){

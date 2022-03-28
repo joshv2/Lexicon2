@@ -66,7 +66,7 @@
 
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['full_name']);?> (<?php echo h($word['email']);?>)</td>
+		<td><?php echo h($word['full_name']) . h($word['user']['first_name']) . ' ' . h($word['user']['last_name']);?> (<?php echo h($word['email']) . h($word['user']['email']);?>)</td>
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
 	</tr>
@@ -127,7 +127,7 @@
 
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['full_name']);?> (<?php echo h($word['email']);?>)</td>
+		<td><?php echo h($word['full_name']) . h($word['user']['first_name']) . ' ' . h($word['user']['last_name']);?> (<?php echo h($word['email']) . h($word['user']['email']);?>)</td>
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
 	</tr>
