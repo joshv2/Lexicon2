@@ -99,7 +99,7 @@
 					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
 					} else {
-						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
 				} else {

@@ -5,28 +5,31 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Sentence Recordings'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
     <div class="column-responsive column-80">
         <div class="sentenceRecordings form content">
-            <?= $this->Form->create($sentenceRecording) ?>
+            <?= $this->Form->create($sentenceRecording, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
-                <legend><?= __('Add Sentence Recording') ?></legend>
-                <ul>
-                <?php foreach ($sentences as $s): ?>
-                    <li><?php echo $s->sentence; ?></li>
-                <?php endforeach ?>
-                </ul>
-                <?php
-                    echo $this->Form->control('sentence_id', ['options' => $sentences]);
-                    echo $this->Form->control('sound_file');
-                ?>
+                <legend><?= __('Add Sentence Recording for') ?></legend>
+                
+                    <?php echo "<div class='readingSentence'>" . strip_tags($sentences[0]->sentence) . 
+                    $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']) .
+                    $this->Form->control(__('soundfile0'), [
+                        'class' => 'recording-input',
+                        'type' => 'file',
+                        'style' => 'display:none',
+                        'label' => FALSE
+                    ]) .
+                    "</div>"; ?>
+                    <div class='readingSentence2'>
+                    <br/><br/>
+                    <p>When you are finished recording, please press submit.</p>
+                    </div>
+
+
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <div class='readingSentence2'>
+            <?= $this->Form->button(__('Submit'), ['class' => 'button blue2']) ?>
+            </div>
             <?= $this->Form->end() ?>
         </div>
     </div>
