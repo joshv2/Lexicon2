@@ -217,7 +217,8 @@ class WordsTable extends Table
                     'type' => 'LEFT',
                     'conditions' => 'Words.id = p.word_id'
                 ]
-            ])->where(['Words.approved' => 1, 'language_id' => $langid, 'p.word_id IS' => NULL]);
+            ])->where(['Words.approved' => 1, 'language_id' => $langid, 'p.word_id IS' => NULL])
+            ->contain(['Users']);
         return $query;
     }
 
@@ -338,7 +339,7 @@ class WordsTable extends Table
                             ->order(['Suggestions.created' => 'ASC']);
                     });
         //$results = $query->all();
-        return $query;
+        return $query->first();
     }
 
     /*public function get_sentences_for_word($id){
@@ -350,7 +351,9 @@ class WordsTable extends Table
     }*/
 
     public function get_pending_words($langid) {
-        $query = $this->find()->where(['approved' => 0, 'language_id' => $langid])->order(['created' => 'DESC']);
+        $query = $this->find()
+                       ->where(['approved' => 0, 'language_id' => $langid])->order(['Words.created' => 'DESC'])
+                       ->contain(['Users']);
         return $query;
     }
 

@@ -109,4 +109,17 @@ class SentenceRecordingsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function choose($id = null)
+    {
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            $this->redirect('/sentenceRecordings/add/'.$data['sentenceToRecord']);
+        } else {
+        array_map([$this, 'loadModel'], ['Words', 'Sentences']);
+        $wordResult = $this->Words->get_word_for_view($id);
+        $word = $wordResult[0];
+        $this->set(compact('word'));
+        }
+    }
 }

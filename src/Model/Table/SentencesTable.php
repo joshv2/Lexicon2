@@ -89,7 +89,7 @@ class SentencesTable extends Table
 
     public function get_sentences($id){
         $query = $this->find()
-                    ->where(['Sentences.word_id' => $id]);
+                    ->where(['id' => $id]);
         $results = $query->all();
         return $results->toArray();
     }
