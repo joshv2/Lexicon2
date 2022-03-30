@@ -84,12 +84,14 @@
 			<div class='section-container'>
 				<div class='table-container'>
 				<ul class="sentences multiple-items">
+				<?php $j = count($word->pronunciations) + 1;
+					?>
 				<?php foreach ($word['sentences'] as $s): ?>
+					<?php $k = 1; ?>
 					<li class="pronunciationtr2"><?php echo $s['sentence'];
 					if (count($s['sentence_recordings']) > 0) {
 						echo "Listen to recordings of this sentence: (";
-						$j = count($word->pronunciations) + 1;
-						$k = 1;
+						
 						$linkArray = [];
 						foreach ($s['sentence_recordings'] as $r) {
 							if($r['approved'] == 1){
