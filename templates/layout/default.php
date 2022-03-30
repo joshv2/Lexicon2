@@ -58,7 +58,7 @@
 			<nav>
 				<ul id="navbar_sub">
 					<li><?php echo $this->Html->link('Home', '/');?></li>
-					<li><?php echo $this->Html->link('Add a Word', '/add');?></li>
+					<li><?php echo $this->Html->link('Add a Word/Recording', '/add');?></li>
 					<li><?php echo $this->Html->link('About Us', '/about');?></li>
 					<li><?php echo $this->Html->link('Notes', '/notes');?></li>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
@@ -85,7 +85,7 @@
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
 					<?php echo $this->Html->link('Home', '/');?>
-					<?php echo $this->Html->link('Add a Word', '/add');?>
+					<?php echo $this->Html->link('Add a Word/Recording', '/add');?>
 					<?php echo $this->Html->link('About Us', '/about');?>
 					<?php echo $this->Html->link('Notes', '/notes');?>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
@@ -100,6 +100,9 @@
 		
 	</header>
 	<section id="main">
+	
+	<?php echo $this->element('user_bar');?>
+
 	<!--<div id="frdiv">
 	<p id="fundraiser">The Jewish Language Project is proud to announce that we are adding pronunciation recordings to all entries, based on the requests of many visitors. We invite you to support this important initiative by donating funds, volunteering to record entries, and sharing the crowdfunding campaign:
 </br><a id="frlink" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Help Newcomers Pronounce Jewish Words!</a></br>

@@ -1,6 +1,3 @@
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
 <section id="main">
 	<div id="header-image">
 	<?php echo $this->Html->image('header3.jpg', ['height' => 200, 'width' => 900])?>

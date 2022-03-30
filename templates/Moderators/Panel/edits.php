@@ -136,3 +136,24 @@
 </table>
 
 <?php endif;?>
+
+<h3>Pending Sentence Recordings</h3>
+<table>
+	<tr>
+		<th>Word</th>
+		<th>Sentence</th>
+		<th># Pending</th>
+		<th></th>
+	</tr>
+
+<?php 
+$alreadyDisplayed = [];
+foreach ($pendingSentenceRecordings as $sentence){
+	if (!in_array($sentence['id'], $alreadyDisplayed)) {
+		echo "<tr>";
+		echo "<td>" . $sentence['word']['spelling'] . "</td><td>" . strip_tags($sentence['sentence']) . "</td><td align='right'>" . count($sentence['sentence_recordings']) . "</td><td>" . $this->Html->link('Manage', ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $sentence['word_id'] , $sentence['id']]) . "</td>";
+		array_push($alreadyDisplayed, $sentence['id']);
+		echo "</tr>";
+	}
+	
+} ?>

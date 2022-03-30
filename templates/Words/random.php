@@ -1,6 +1,3 @@
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
 <section id="main">
 	<nav id="browse" class="group">
 		<ul class="browse_nav">

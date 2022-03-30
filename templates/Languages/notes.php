@@ -1,6 +1,3 @@
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
 <section id="main">
 <div id="header-image">
 	<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
@@ -21,6 +18,6 @@
 	<?php endif; ?>
 	<!--</div>-->
 </div>
-
+<a id="bottom"></a>
 
 </section>

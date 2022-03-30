@@ -30,6 +30,17 @@ class TypesTable extends Table
         return $data;
     }
 
+    public function top_types_for_registration($langid){
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
+                        ->where(['top' => 1, 'language_id' => $langid]);
+        $query3 = $this->find('list', ['valueField' => 'type'])
+                        ->where(['id IN' => [998,16,19,20]]); //chabad
+        $query = $query->union($query3);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function top_types($langid){
         $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
                         ->where(['top' => 1, 'language_id' => $langid]);

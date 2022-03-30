@@ -22,7 +22,7 @@
                     "</div>"; ?>
                     <div class='readingSentence2'>
                     <br/><br/>
-                    <p>When you are finished recording, please press submit.</p>
+                    <p>When you are finished recording, please press submit. <a href="/notes/#bottom">View tips on making a high-quality recording.</a></p>
                     </div>
 
 

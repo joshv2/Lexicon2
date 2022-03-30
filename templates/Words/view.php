@@ -1,11 +1,3 @@
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-	<ul class="right">
-		<li>
-		<?=$this->Html->link(__('&larr; Back'), '/words',
-										['class' => 'button grey', 'escape' => false]);?></li>
-	</ul>
-</nav>
 <section id="main">
 	<div class="page-header2 group">
 		<h2 class="left"><?php echo $word->spelling;?></h2>
@@ -19,8 +11,9 @@
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
 				</li>
 				<li>
-				<?=$this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
-											['class' => 'button blue', 'escape' => false]);?>
+				<?php 
+				if(count($word->pronunciations) == 0) {echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+											['class' => 'nomargin button blue', 'escape' => false]);}?>
 				</li>
 			<?php endif;?>
 			<li>
@@ -41,6 +34,8 @@
 		
 		<?php if(!empty($word->pronunciations)) : ?>
 			<h4>Pronunciations</h4>
+			<div class='section-container'>
+			<div class='table-container'>
 			<table>
 			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
 			<?php $i = 0; ?>
@@ -54,11 +49,24 @@
 						$audioPlayer = '';
 					}
 					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]]); ?>
+				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]], ['class' => 'pronunciationtr']); ?>
 				<?php endif; ?>
 				<?php $i += 1; ?>
 			<?php endforeach; ?>
 			</table>
+				</div>
+			<div class='delete3'><div class='vertical-center'>
+				<p><?php 
+				if ($this->Identity->isLoggedIn() && count($word->pronunciations) > 0) {
+						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+						['class' => 'button blue', 'escape' => false]);
+					
+						} elseif  (count($word->pronunciations) > 0){
+							echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/login',
+													['class' => 'button blue ', 'escape' => false]);
+						}?></p>
+			</div></div>
+			</div>
 		<?php endif; ?>
 		<?php if (!empty($Definitions_definition)): ?>
 		<h4>Definitions</h4>
@@ -71,24 +79,39 @@
       <?php endif; ?>
 		</ul><?php endif;?>
 
-		<?php if (!empty($Sentences_sentence)): ?>
+		<?php if (!empty($word['sentences'])): ?>
 			<h4>Example Sentences</h4>
 			<div class='section-container'>
 				<div class='table-container'>
 				<ul class="sentences multiple-items">
-				<?php foreach ($Sentences_sentence as $s): ?>
-					<li><?php echo $s;?></li>
+				<?php foreach ($word['sentences'] as $s): ?>
+					<li class="pronunciationtr2"><?php echo $s['sentence'];
+					if (count($s['sentence_recordings']) > 0) {
+						echo "Listen to recordings of this sentence: (";
+						$j = count($word->pronunciations) + 1;
+						$k = 1;
+						$linkArray = [];
+						foreach ($s['sentence_recordings'] as $r) {
+							if($r['approved'] == 1){
+							array_push($linkArray, '<a id="play-pause-button-' . $j . '" class="fa fa-volume-up"> <span id="listen">Recording ' . $k  . '</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $r['sound_file']), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $j]));
+							$j += 1;
+							$k += 1;
+						}}
+					echo implode($linkArray) . ")";
+				}
+					
+					?></li>
 				<?php endforeach; ?>
-				<?php if (count($Sentences_sentence) > 3): ?>
+				<?php if (count($word['sentences']) > 3): ?>
 					<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 				<?php endif; ?>
 				</ul>
 				</div>
 		
-			<div class='delete3'><div class='vertical-center'>
+			<div class='delete4'><div class='vertical-center'>
 				<p><?php 
 				if ($this->Identity->isLoggedIn()) {
-					if (count($Sentences_sentence) == 1){
+					if (count($word['sentences']) == 1){
 					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
 					} else {
