@@ -90,7 +90,7 @@
 					<?php $k = 1; ?>
 					<li class="pronunciationtr2"><?php echo $s['sentence'];
 					if (count($s['sentence_recordings']) > 0) {
-						echo "Listen to recordings of this sentence: (";
+						echo "<span id='recodinglist'>Listen to recordings of this sentence: (";
 						
 						$linkArray = [];
 						foreach ($s['sentence_recordings'] as $r) {
@@ -99,7 +99,7 @@
 							$j += 1;
 							$k += 1;
 						}}
-					echo implode($linkArray) . ")";
+					echo implode($linkArray) . ")</span>";
 				}
 					
 					?></li>
