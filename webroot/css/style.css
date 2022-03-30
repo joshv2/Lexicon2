@@ -2189,6 +2189,10 @@ label[for="alternates-0-spelling"] {
     min-height: 35px;
 }
 
+.recordinglist {
+    margin-left: 20px;
+}
+
 #sentencesgroup {
     clear: both;
 }
