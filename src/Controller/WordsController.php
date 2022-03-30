@@ -318,7 +318,7 @@ class WordsController extends AppController
                         }
                     }
                 }
-                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role')){
+                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && '' !== $name){
                     $this->converttomp3($finalname);
                 }
 
