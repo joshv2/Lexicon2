@@ -45,6 +45,8 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <a href="/notes/#bottom">View tips on making a high-quality recording.</a>
                 <?php
                     echo $this->Form->hidden(__('word_id'), ['value' => $this->request->getParam('pass')[0]]);
                     //echo $this->Form->control('word_id', ['options' => $words]);

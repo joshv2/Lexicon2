@@ -320,6 +320,11 @@ class WordsTable extends Table
                                             ['Pronunciations.pronunciation !=' => '']]])
                             ->order(['Pronunciations.display_order' => 'ASC']);
                     })
+                    ->contain('Sentences.SentenceRecordings', function (Query $q) {
+                        return $q
+                            ->where(['SentenceRecordings.approved' => 1])
+                            ->order(['SentenceRecordings.display_order' => 'ASC']);
+                    })
                     ->contain('Alternates', function (Query $q) {
                         return $q
                             ->where(['Alternates.spelling !=' => '']);
@@ -460,4 +465,17 @@ class WordsTable extends Table
         $query = $this->find()->where(['user_id' => $userid, 'language_id' => $langid])->order(['created' => 'DESC']);
         return $query;
     }
+
+    public function get_sentences_with_pending_recordings(){
+        $query = $this->find()
+                    ->distinct()
+                    ->where(['Words.approved' => 1])
+                    ->contain(['Sentences', 'Sentences.SentenceRecordings.RecordingUsers', 
+                    'Sentences.SentenceRecordings.ApprovingUsers']) 
+                    ->matching('Sentences.SentenceRecordings', function ($q) {
+                        return $q->where(['SentenceRecordings.approved' => 0]);
+                    });
+        return $query;
+    }
+
 }

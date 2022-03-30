@@ -10,7 +10,7 @@ class PanelController extends AppController {
     public function index()
         {
             $remainingcredits = $this->getremainingcredits();
-            array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
+            array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations', 'Sentences', 'SentenceRecordings']);
             $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
             $userid = $this->request->getSession()->read('Auth.id');
@@ -20,11 +20,15 @@ class PanelController extends AppController {
                 $noPronunciations = $this->Words->get_words_with_no_pronunciations($sitelang->id);
                 $pendingPronunciations = [];
                 $allPronunciations = [];
+                $pendingSentenceRecordings = [];
             } elseif ('superuser' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
                 $noPronunciations = $this->Words->get_words_with_no_pronunciations($sitelang->id);
                 $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
                 $allPronunciations = $this->Pronunciations->get_all_pronunciations();
+                $pendingSentenceRecordings = $this->Sentences->get_sentences_with_pending_recordings();
+                
+
                 //debug($allPronunciations);
             }
             $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
@@ -34,7 +38,7 @@ class PanelController extends AppController {
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 
-            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang', 'remainingcredits')); //, 'newEdits', 'pendingSuggestions'
+            $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang', 'remainingcredits', 'pendingSentenceRecordings')); //, 'newEdits', 'pendingSuggestions'
             
             
             $this->viewBuilder()->setLayout('moderators');

@@ -38,7 +38,7 @@ class SentenceRecordingsTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-
+        $this->addBehavior('Timestamp');
         $this->setTable('sentence_recordings');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
@@ -46,6 +46,20 @@ class SentenceRecordingsTable extends Table
         $this->belongsTo('Sentences', [
             'foreignKey' => 'sentence_id',
             'joinType' => 'INNER',
+        ]);
+
+        $this->belongsTo('RecordingUsers', [
+            'className' => 'CakeDC/Users.Users',
+            'foreignKey' => 'user_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'submitting_user'
+        ]);
+
+        $this->belongsTo('ApprovingUsers', [
+            'className' => 'CakeDC/Users.Users',
+            'foreignKey' => 'approving_user_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'approving_user'
         ]);
     }
 
@@ -82,5 +96,13 @@ class SentenceRecordingsTable extends Table
         $rules->add($rules->existsIn(['sentence_id'], 'Sentences'), ['errorField' => 'sentence_id']);
 
         return $rules;
+    }
+
+    public function get_recordings($sentenceid){
+        $query = $this->find()
+                    ->where(['sentence_id' => $sentenceid])
+                    ->contain(['RecordingUsers', 'ApprovingUsers'])
+                    ->order('display_order');
+        return $query;
     }
 }

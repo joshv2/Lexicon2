@@ -80,10 +80,12 @@ class PronunciationsController extends AppController
                 $postData['approved'] = 1;
                 $postData['approved_date'] = $datefortimestamp;
                 $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+                $this->converttomp3($postData['sound_file']);
             }
 
             $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
+                
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a pronunciation for ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been saved.'));
 
@@ -115,7 +117,7 @@ class PronunciationsController extends AppController
                     //return $this->redirect(['action' => 'index']);
                     $success += 1;
                 } else {
-                    $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
+                    $this->Flash->error(__('The pronunciation order could not be saved. Please, try again.'));
                 }
             }
             if ($success == count($postData['pronunciations'])) {

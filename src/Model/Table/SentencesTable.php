@@ -93,4 +93,28 @@ class SentencesTable extends Table
         $results = $query->all();
         return $results->toArray();
     }
+
+
+    /*public function get_sentences_with_pending_recordings(){
+        $query = $this->find()
+                    ->where(['Words.approved' => 1])
+                    ->contain(['Sentences', 'Sentences.SentenceRecordings.RecordingUsers', 
+                    'Sentences.SentenceRecordings.ApprovingUsers']) 
+                    ->matching('Sentences.SentenceRecordings', function ($q) {
+                        return $q->where(['SentenceRecordings.approved' => 0]);
+                    });
+        return $query;
+    }*/
+
+    public function get_sentences_with_pending_recordings(){
+        $query = $this->find()
+                    //->where(['SentenceRecordings.approved' => 0])
+                    
+                    ->contain(['Words'])
+                    ->contain(['SentenceRecordings.RecordingUsers', 'SentenceRecordings.ApprovingUsers']) 
+                    ->matching('SentenceRecordings' , function (Query $query) {
+                        return $query->distinct()->where(['SentenceRecordings.approved' => 0]);
+                    });
+        return $query;
+    }
 }

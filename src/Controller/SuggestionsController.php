@@ -124,11 +124,10 @@ class SuggestionsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $suggestion = $this->Suggestions->get($id);
         if ($this->Suggestions->delete($suggestion)) {
-            $this->Flash->success(__('The suggestion has been deleted.'));
         } else {
             $this->Flash->error(__('The suggestion could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

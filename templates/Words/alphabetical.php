@@ -1,15 +1,4 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
-
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-	<ul class="right">
-		<li>
-		<?=$this->Html->link(__('<i class="icon-plus-sign"></i> Add a new word'), '/add',
-										['class' => 'button blue', 'escape' => false]);?>
-		</li>
-	</ul>
-</nav>
-
 <section id="main">
 	<nav id="mobilealphabrowse">
 		<div id="alphabetical_list">

@@ -182,6 +182,18 @@ return [
             'bypassAuth' => true,
         ],
         [
+            'role' => ['contributor'],
+            'controller' => 'SentenceRecordings',
+            'action' => ['add', 'choose'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => ['user', 'superuser'],
+            'controller' => 'SentenceRecordings',
+            'action' => '*',
+            'bypassAuth' => true,
+        ],
+        [
             'role' => '*',
             'plugin' => 'DebugKit',
             'controller' => '*',
