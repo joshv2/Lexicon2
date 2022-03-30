@@ -2186,7 +2186,7 @@ label[for="alternates-0-spelling"] {
 }
 
 .pronunciationtr2 {
-    height: 35px;
+    min-height: 35px;
 }
 
 #sentencesgroup {
