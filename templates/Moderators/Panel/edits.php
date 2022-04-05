@@ -85,6 +85,7 @@
 	<tr>
 		<th>For Word</th>
 		<th>Pronunciation Spelling</th>
+		<th>Submitted By</th>
 		<th>Submitted On</th>
 		<th></th>
 	</tr>
@@ -94,6 +95,7 @@
 	<tr>
 		<td><?php echo h($word->word->spelling);?></td>
 		<td><?php echo h($word['spelling']);?></td>
+		<td><?php echo h($word['submitting_user']['first_name']) . " " . h($word['submitting_user']['last_name']) . " (" . h($word['submitting_user']['email']);?>)</td>
 		<td><?php echo h($this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles'));?></td>
 
 		<td>
@@ -118,8 +120,6 @@
 <table>
 	<tr>
 		<th>Word</th>
-		<th>Submitted By</th>
-		<th>Submitted On</th>
 		<th></th>
 	</tr>
 
@@ -127,8 +127,6 @@
 
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['full_name']) . h($word['user']['first_name']) . ' ' . h($word['user']['last_name']);?> (<?php echo h($word['email']) . h($word['user']['email']);?>)</td>
-		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], null, 'America/Los_Angeles').')');?></td>
 		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
 	</tr>
 <?php endforeach; ?>
@@ -136,7 +134,7 @@
 </table>
 
 <?php endif;?>
-
+<?php if ('superuser' == $userLevel):?>
 <h3>Pending Sentence Recordings</h3>
 <table>
 	<tr>
@@ -157,3 +155,4 @@ foreach ($pendingSentenceRecordings as $sentence){
 	}
 	
 } ?>
+<?php endif; ?>

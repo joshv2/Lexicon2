@@ -58,7 +58,7 @@
 			<nav>
 				<ul id="navbar_sub">
 					<li><?php echo $this->Html->link('Home', '/');?></li>
-					<li><?php echo $this->Html->link('Add a Word/Recording', '/add');?></li>
+					<li><?php echo $this->Html->link('Add a Word', '/add');?></li>
 					<li><?php echo $this->Html->link('About Us', '/about');?></li>
 					<li><?php echo $this->Html->link('Notes', '/notes');?></li>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
@@ -85,7 +85,7 @@
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
 					<?php echo $this->Html->link('Home', '/');?>
-					<?php echo $this->Html->link('Add a Word/Recording', '/add');?>
+					<?php echo $this->Html->link('Add a Word', '/add');?>
 					<?php echo $this->Html->link('About Us', '/about');?>
 					<?php echo $this->Html->link('Notes', '/notes');?>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->

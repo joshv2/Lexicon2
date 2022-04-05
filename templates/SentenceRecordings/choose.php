@@ -1,5 +1,5 @@
 <section id="main">
-<h4>Choose a Sentence to Record</h4>
+<h4>Choose a sentence to record</h4>
 <?= $this->Form->create() ?>
 <?php
 $radioOptions = [];

@@ -9,7 +9,7 @@
         <div class="sentenceRecordings form content">
             <?= $this->Form->create($sentenceRecording, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
-                <legend><?= __('Add Sentence Recording for') ?></legend>
+                <legend><?= __('Add a recording of this sentence:') ?></legend>
                 
                     <?php echo "<div class='readingSentence'>" . strip_tags($sentences[0]->sentence) . 
                     $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']) .
@@ -22,7 +22,7 @@
                     "</div>"; ?>
                     <div class='readingSentence2'>
                     <br/><br/>
-                    <p>When you are finished recording, please press submit. <a href="/notes/#bottom">View tips on making a high-quality recording.</a></p>
+                    <p>When you are finished recording, please press submit. <a href="/SentenceRecordings/tips">View tips on making a high-quality recording.</a></p>
                     </div>
 
 

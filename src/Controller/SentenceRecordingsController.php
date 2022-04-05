@@ -221,4 +221,7 @@ class SentenceRecordingsController extends AppController
     public function success(){
 
     }
+
+    public function tips() {
+    }
 }
