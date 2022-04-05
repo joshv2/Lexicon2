@@ -62,7 +62,7 @@
 						['class' => 'button blue', 'escape' => false]);
 					
 						} elseif  (count($word->pronunciations) > 0){
-							echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/login',
+							echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
 													['class' => 'button blue ', 'escape' => false]);
 						}?></p>
 			</div></div>
@@ -121,8 +121,13 @@
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
 				} else {
-					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login',
+					if (count($word['sentences']) == 1){
+						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
+					} else {
+					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/choose/' . $word->id,
+											['class' => 'button blue', 'escape' => false]);
+					}
 				}?></p>
 			</div></div>
 		</div>
@@ -210,7 +215,7 @@
 		<p class="m0">
 		<?=$this->Html->link('<i class="icon-edit"></i>' . __(' Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
-		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("See something you disagree with? Feel free to edit it. All changes will be moderated. ")?></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("Something missing from this entry? Inaccurate? Feel free to suggest an edit.")?></p>
 	</div>
 </section>
 
