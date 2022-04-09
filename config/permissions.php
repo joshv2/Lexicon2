@@ -103,7 +103,7 @@ return [
             'action' => '*',
         ],
         [
-            'role' => ['user'],
+            'role' => ['superuser', 'user'],
             'prefix' => 'Moderators',
             'controller' => 'Panel',
             'action' => ['index'],
@@ -117,11 +117,6 @@ return [
             'role' => 'superuser',
             'controller' => 'Words',
             'action' => ['approve'],
-        ],
-        [
-            'role' => 'user',
-            'controller' => 'Pronunciations',
-            'action' => ['add', 'manage', 'delete'],
         ],
         [
             'role' => 'superuser',
@@ -184,7 +179,19 @@ return [
         [
             'role' => ['contributor'],
             'controller' => 'SentenceRecordings',
-            'action' => ['add', 'choose'],
+            'action' => ['add', 'choose', 'success'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => ['contributor','user','superuser'],
+            'controller' => 'Pronunciations',
+            'action' => ['add'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role' => ['user','superuser'],
+            'controller' => 'Pronunciations',
+            'action' => '*',
             'bypassAuth' => true,
         ],
         [
