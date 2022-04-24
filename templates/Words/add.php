@@ -353,14 +353,14 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
             <?= $this->Form->button(__('Submit'), ['class' => "button blue", 'id'=> "submitbutton"]) ?>
             <?= $this->Form->end() ?>
             <?php 
-                if (isset($wordData) && 0 == $wordData['approved']) {
-                echo $this->AuthLink->postLink(__(
+                if (isset($wordData) && 0 == $wordData['approved'] && in_array($this->request->getSession()->read('Auth.role'), ['superuser', 'moderator'])) {
+                echo $this->Form->postLink(__(
                     'Approve Word'),
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
                     ['confirm' => 'Are you sure?'])
-                 . ' ' . $this->AuthLink->postLink(__(
+                 . ' ' . $this->Form->postLink(__(
                     'Delete Word'),
-                    ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $wordData['id']],
+                    ['prefix' => false, 'action' => 'delete', $wordData['id']],
                     ['confirm' => __('Are you sure?'), 'style' => 'color:red']);
                   } ?>
     </div>

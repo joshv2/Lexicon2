@@ -129,6 +129,7 @@ hr {
     font-size: 16px;
     text-decoration: underline;
     color: blue;
+    font: normal 14px Helvetica, Arial, sans-serif;
 }
 
 #results_search a {
@@ -835,7 +836,7 @@ header nav {
     padding: 0;
     line-height: 50px;
     height: 50px;
-    margin-left: 28px;
+    margin-left: 55px;
 }
 
 #navbar_sub li {
@@ -1608,6 +1609,13 @@ textarea {
     .page-header.group2 {
         display: none;
     }
+    .delete4 {
+        height: 100%;
+        width: 23%;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -2041,6 +2049,13 @@ textarea {
         color: #333335;
         text-decoration: underline;
     }
+    .delete4 {
+        height: 100%;
+        width: 32%;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
 
 
@@ -2165,13 +2180,14 @@ label[for="alternates-0-spelling"] {
     top: 0;
 }
 
-.delete4 {
+
+/*.delete4 {
     height: 100%;
     width: 23%;
     position: absolute;
     right: 0;
     top: 0;
-}
+}*/
 
 .vertical-center {
     margin: 0;

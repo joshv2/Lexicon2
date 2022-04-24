@@ -318,7 +318,7 @@ class WordsController extends AppController
                         }
                     }
                 }
-                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && '' !== $name){
+                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && ('' !== $name || null != $name)){
                     $this->converttomp3($finalname);
                 }
 
@@ -573,17 +573,20 @@ class WordsController extends AppController
             'contain' => ['Pronunciations']
         ]);
         $pronunciations = array();
-        foreach ($word->pronunciations as $p){
-            //debug(['id' => $p->id, 'appproved' => 1, 'approved_date' => $datefortimestamp]);
-            $this->converttomp3($p->sound_file);
-            
-            array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
+        if (count($word->pronunciations) > 0) {
+            foreach ($word->pronunciations as $p){
+                //debug(['id' => $p->id, 'appproved' => 1, 'approved_date' => $datefortimestamp]);
+                if ('' !== $p->sound_file || null != $p->sound_file){
+                    $this->converttomp3($p->sound_file);
+                }
+                array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
+            }
+            $data = ['approved' => 1,
+                    'approved_date' => $datefortimestamp,
+                    'user_id' => $this->request->getSession()->read('Auth.id'),
+                    'pronunciations' => $pronunciations];
         }
-        $data = ['approved' => 1,
-                 'approved_date' => $datefortimestamp,
-                 'user_id' => $this->request->getSession()->read('Auth.id'),
-                 'pronunciations' => $pronunciations];
-        
+            
         
         //$word['pronunciations'] = $pronunciations;
         //debug($data);

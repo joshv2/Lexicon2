@@ -116,7 +116,7 @@ return [
         [
             'role' => 'superuser',
             'controller' => 'Words',
-            'action' => ['approve'],
+            'action' => ['approve', 'delete'],
         ],
         [
             'role' => 'superuser',

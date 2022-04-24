@@ -28,6 +28,11 @@
 	</div>
 	<div class="page-header group2">
 	<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
+				</br>
+	<?php 
+	if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id);}
+	elseif (count($word->pronunciations) == 0) {echo $this->Html->link(__('Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id);}
+											?>
 	</div>
 	<div class='c'>
 	<div class="word">
@@ -223,5 +228,3 @@
 	</div>
 </section>
 
-<script>
-$(function(){
