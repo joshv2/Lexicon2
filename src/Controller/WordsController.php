@@ -344,10 +344,9 @@ class WordsController extends AppController
                 if ($this->Words->save($word)) {
                     //$this->Flash->success(__('The word has been saved.'));
                     //Log::info('A word was added', ['scope' => ['events']]);
-                    if (null !== $this->request->getSession()->read('Auth.username')) {
+                    if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')) {
                         Log::info('Word \/\/ ' . $word->spelling. ' was added by ' .  $this->request->getSession()->read('Auth.username') . ' \/\/ ' . $word->id, ['scope' => ['events']]);
-                        return $this->redirect(['action' => 'view' ,
-                         $word->id]);
+                        return $this->redirect(['action' => 'view' , $word->id]);
                     } else {
                         Log::info($word->spelling. ' was added by ' . $word->full_name . ' (' . $word->email . ')', ['scope' => ['events']]);
                         return $this->redirect(['action' => 'success']);
