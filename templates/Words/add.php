@@ -118,7 +118,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                         <td>
                                             <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
                                         </td>
-                                        <td style="vertical-align: top;">
+                                        <td style="vertical-align: top;" id="recordcell">
                                             <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
                                             <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
                                             <?= $this->Form->control('soundfile0', [
@@ -449,3 +449,9 @@ $(function(){
         });
     });
 </script>
+<script type="text/javascript">
+	if(iOS() == true){
+		$("#recordcell").empty();
+        $("#recordcell").append("Please use <a href='itms-apps://appstore.com/apps/chrome'>Chrome Browser</a> to record. Pronunciations can be submitted without recordings.")
+	}
+</script>   

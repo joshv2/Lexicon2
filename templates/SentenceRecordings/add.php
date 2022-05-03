@@ -34,3 +34,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+	if(iOS() == true){
+		$(".readingSentence").empty();
+        $(".readingSentence").append("Please use <a href='itms-apps://appstore.com/apps/chrome'>Chrome Browser</a> to record.")
+	}
+	</script>   

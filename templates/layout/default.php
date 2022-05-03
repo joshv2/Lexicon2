@@ -40,12 +40,12 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 	<?= $this->Html->script('addform')."\n";?>
-	<?= $this->Html->script('audioplayback
-	')."\n";?>
+	<?= $this->Html->script('audioplayback')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
 <?= $this->Html->script('recorder')."\n";?>
 <?= $this->Html->script('toggle')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<?= $this->Html->script('detectios')."\n";?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
@@ -151,7 +151,6 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 		  }
 		}
 	</script>
-
 </body>
 
 
