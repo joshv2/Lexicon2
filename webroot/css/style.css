@@ -1514,7 +1514,7 @@ seefullentrybutton {
     background-color: #0A3C78;
     z-index: 1;
     right: 0;
-    position: absolute;
+    /*position: absolute;*/
 }
 
 .topnav a {
