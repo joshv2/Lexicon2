@@ -64,6 +64,6 @@
 <script type="text/javascript">
 	if(iOS() == true){
 		$("#recordcell").empty();
-        $("#recordcell").append("Please use <a href='itms-apps://appstore.com/apps/chrome'>Chrome Browser</a> to record. Pronunciations can be submitted without recordings.")
+        $("#recordcell").append("Please use <a href='itms-apps://apps.apple.com/us/app/google-chrome/id535886823'>Chrome Browser</a> to record. Pronunciations can be submitted without recordings.")
 	}
 	</script>   
