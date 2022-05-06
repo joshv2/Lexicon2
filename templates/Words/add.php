@@ -20,6 +20,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 
 ?>
 
+<p class="landscape">This form is best viewed in landscape mode.</p>
 
 <section id="main" class="main">
 	<div class="page-header group">

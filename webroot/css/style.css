@@ -1616,6 +1616,18 @@ textarea {
         right: 0;
         top: 0;
     }
+    .delete3 {
+        height: 100%;
+        width: 27%;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .landscape {
+        display: none;
+        text-align: center;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -2056,6 +2068,18 @@ textarea {
         right: 0;
         top: 0;
     }
+    .delete3 {
+        height: 100%;
+        width: 37%;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .landscape {
+        text-align: center;
+        width: 100%;
+        color: red;
+    }
 }
 
 
@@ -2170,14 +2194,6 @@ label[for="alternates-0-spelling"] {
     width: 20%;
     float: right;
     margin-top: 30px;
-}
-
-.delete3 {
-    height: 100%;
-    width: 27%;
-    position: absolute;
-    right: 0;
-    top: 0;
 }
 
 

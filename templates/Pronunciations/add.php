@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Pronunciation $pronunciation
  */
 ?>
+
+<p class="landscape">This form is best viewed in landscape mode.</p>
 <div class="row">
     <div class="column-responsive column-80">
         <div class="pronunciations form content">

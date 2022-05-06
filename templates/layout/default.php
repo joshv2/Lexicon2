@@ -134,7 +134,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 				<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
 			</ul>
 			<div class="right">
-				<p>Jewish English Lexicon - (C) 2012-present, Sarah Bunin Benor, shared with a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License.</a></p>
+				<p>Jewish English Lexicon - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
 			</div>
 			<div class="clear"></div>
 		</div>

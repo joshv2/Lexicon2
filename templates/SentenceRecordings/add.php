@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\SentenceRecording $sentenceRecording
  */
 ?>
+
+
 <div class="row">
     <div class="column-responsive column-80">
         <div class="sentenceRecordings form content">
@@ -22,7 +24,7 @@
                     "</div>"; ?>
                     <div class='readingSentence2'>
                     <br/><br/>
-                    <p>When you are finished recording, please press submit. <a href="/SentenceRecordings/tips">View tips on making a high-quality recording.</a></p>
+                    <p>When you are finished recording, please press submit. <a href="/notes/#bottom">View tips on making a high-quality recording.</a></p>
                     </div>
 
 
@@ -35,7 +37,7 @@
     </div>
 </div>
 <script type="text/javascript">
-	if(iOS() == true){
+	if((iOS() == true) && (isSafari = true)){
 		$(".readingSentence").empty();
         $(".readingSentence").append("Please use <a href='itms-apps://apps.apple.com/us/app/google-chrome/id535886823'>Chrome Browser</a> to record.")
 	}
