@@ -11,3 +11,5 @@ function iOS() {
         ||
         (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
+
+var isSafari = /constructor/i.test(window.HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
