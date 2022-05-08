@@ -37,8 +37,8 @@
     </div>
 </div>
 <script type="text/javascript">
-	if((iOS() == true) && (isSafari = true)){
+	if((iOS() == true)){
 		$(".readingSentence").empty();
-        $(".readingSentence").append("Please use <a href='itms-apps://apps.apple.com/us/app/google-chrome/id535886823'>Chrome Browser</a> to record.")
+        $(".readingSentence").append("Recording is not available on iOS at this time.")
 	}
 	</script>   
