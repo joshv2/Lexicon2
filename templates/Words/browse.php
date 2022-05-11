@@ -1,7 +1,6 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
 
 <nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
 	<ul class="right">
 		<li><?=$this->Html->link('<i class="icon-plus-sign"></i>' . __('Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?></li>

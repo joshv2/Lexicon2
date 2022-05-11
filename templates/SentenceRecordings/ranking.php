@@ -15,8 +15,9 @@
 	}
 }
 ?>
+<h1>Current Word is: <?= $this->Html->link($assocWord->spelling,  ['controller' => 'Words', 'action' => 'view', $assocWord->id], ['escape' => false]) ?></h1>
 <div class="column-responsive column-80">
-<h2><?php echo 'Order sentences for ' . $this->Html->link(strip_tags($assocSentence['sentence']), ['controller' => 'Words', 'action' => 'view', $assocWord->id], ['escape' => false]); ?></h2>
+<h2><?php echo 'Order sentences for ' . strip_tags($assocSentence['sentence']); ?></h2>
     <div class="pronunciations form content">
         <p><?=__("Sentences are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
         <?= $this->Form->create() ?>

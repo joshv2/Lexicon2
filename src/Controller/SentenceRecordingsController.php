@@ -49,6 +49,8 @@ class SentenceRecordingsController extends AppController
      */
     public function add($id = null)
     {
+        array_map([$this, 'loadModel'], ['Sentences']);
+        $sentences = $this->Sentences->get_sentences($id);
         $sentenceRecording = $this->SentenceRecordings->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
@@ -82,18 +84,17 @@ class SentenceRecordingsController extends AppController
                 $postData['sentence_id'] = $id;
                 $postData['approved'] = 0;
             }
-
+            
             $sentenceRecording = $this->SentenceRecordings->patchEntity($sentenceRecording, $postData);
             if ($this->SentenceRecordings->save($sentenceRecording)) {
-                Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a sentence recoding for sentence ID ' . $id, ['scope' => ['events']]);
+                Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a sentence recoding for sentence ID ' . $id . ' \/\/ '. $sentences[0]->word_id . ' \/\/ ' . $id, ['scope' => ['events']]);
                 $this->Flash->success(__('The sentence recording has been saved.'));
                 
                 return $this->redirect(['action' => 'success']);
             }
             $this->Flash->error(__('The sentence recording could not be saved. Please, try again.'));
         }
-        array_map([$this, 'loadModel'], ['Sentences']);
-        $sentences = $this->Sentences->get_sentences($id);
+        
         //$sentences = $this->SentenceRecordings->Sentences->find('list', ['limit' => 200]);
         $this->set(compact('sentenceRecording', 'sentences'));
     }
@@ -142,7 +143,9 @@ class SentenceRecordingsController extends AppController
         //$word =  $this->Words->get($wordid);
 
         $datefortimestamp = date('Y-m-d h:i:s', time());
-        $sentenceRec = $this->SentenceRecordings->get($id);
+        $sentenceRec = $this->SentenceRecordings->get($id, [
+            'contain' => ['Sentences']
+        ]);
         $sentenceRec->approved = 1;
         $sentenceRec->approved_date = $datefortimestamp;
         $sentenceRec->approving_user_id = $this->request->getSession()->read('Auth.id');
@@ -151,7 +154,7 @@ class SentenceRecordingsController extends AppController
         
         if ($this->SentenceRecordings->save($sentenceRec)) {
             $this->converttomp3($sentenceRec->sound_file);
-            Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $sentenceRec->sentence, ['scope' => ['events']]);
+            Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . strip_tags($sentenceRec->sentence->sentence) . ' \/\/ '. $sentenceRec->sentence->word_id . ' \/\/ ' . $sentenceRec->sentence->id, ['scope' => ['events']]);
             $this->Flash->success(__('The recording has been approved.'));
         } else {
             $this->Flash->error(__('The recording could not be approved. Please, try again.'));
