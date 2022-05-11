@@ -146,10 +146,17 @@
 
 <?php 
 $alreadyDisplayed = [];
+
 foreach ($pendingSentenceRecordings as $sentence){
+	$i = 0;
+	foreach($sentence['sentence_recordings'] as $sentRec){
+		if ($sentRec['approved'] == 0) {
+			$i = $i +1;
+		}
+	}
 	if (!in_array($sentence['id'], $alreadyDisplayed)) {
 		echo "<tr>";
-		echo "<td>" . $sentence['word']['spelling'] . "</td><td>" . strip_tags($sentence['sentence']) . "</td><td align='right'>" . count($sentence['sentence_recordings']) . "</td><td>" . $this->Html->link('Manage', ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $sentence['word_id'] , $sentence['id']]) . "</td>";
+		echo "<td>" . $sentence['word']['spelling'] . "</td><td>" . strip_tags($sentence['sentence']) . "</td><td align='right'>" . $i . "</td><td>" . $this->Html->link('Manage', ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $sentence['word_id'] , $sentence['id']]) . "</td>";
 		array_push($alreadyDisplayed, $sentence['id']);
 		echo "</tr>";
 	}

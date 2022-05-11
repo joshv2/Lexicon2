@@ -12,7 +12,7 @@ class TypesTable extends Table
         $this->setDisplayField('type');
         $this->setPrimaryKey('id');
         $this->belongsToMany('Words');
-        $this->belongsToMany('Users');
+        $this->belongsToMany('Users', ['className' => 'CakeDC/Users.Users']);
         $this->belongsTo('Languages', [
             'foreignKey' => 'language_id',
             'joinType' => 'INNER',

@@ -111,7 +111,11 @@
 					echo implode($linkArray) . ")</span>";
 				}
 					
-					?></li>
+					?> 
+				<?php if ($this->Identity->isLoggedIn()):?>
+					<?php echo $this->AuthLink->link(__(' Manage Recordings'), ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $word['id'], $s['id']] ); ?>
+				<?php endif; ?>	
+				</li>
 				<?php endforeach; ?>
 				<?php if (count($word['sentences']) > 3): ?>
 					<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>

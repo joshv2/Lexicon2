@@ -49,12 +49,16 @@ class PanelController extends AppController {
 
     public function logs()
         {
+            $remainingcredits = $this->getremainingcredits();
             $userid = $this->request->getSession()->read('Auth.id');
+            $sitelang = $this->languageinfo();
+            $userLevel = $this->request->getSession()->read('Auth.role');
             $file = new File(LOGS.'events.log');
             $eventfile = $file->read();
             $filerows = explode("\n", $eventfile);
             $wordLogs = [];
             $pronunciationLogs = [];
+            $sentenceRecordingLogs = [];
             foreach ($filerows as $row){
                 $findFirstInfo = strpos($row, "Info:");
                 $eventTime = substr($row, 0, 19);
@@ -68,9 +72,11 @@ class PanelController extends AppController {
                     array_unshift($wordLogs, $logDataParsed);
                 } elseif ('Pronunciation' == trim($logDataParsed[1])) {
                     array_unshift($pronunciationLogs, $logDataParsed);
+                } elseif ('Sentence Recording' == trim($logDataParsed[1])) {
+                    array_unshift($sentenceRecordingLogs, $logDataParsed);
                 }
             }
-            $this->set(compact('wordLogs', 'pronunciationLogs', 'userid'));
+            $this->set(compact('wordLogs', 'pronunciationLogs', 'sentenceRecordingLogs', 'userid', 'sitelang', 'userLevel', 'remainingcredits'));
             $this->viewBuilder()->setLayout('moderators');
         }
 

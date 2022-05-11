@@ -61,3 +61,29 @@
 </table>
 
 <?php endif;?>
+
+<?php if (empty($sentenceRecordingLogs)):?>
+
+<p>Logs are empty.</p>
+
+<?php else: ?>
+    <h3>Pronunciation Events</h3>
+<table>
+	<tr>
+		<th>Timestamp</th>
+		<th>Event Description</th>
+		<th>View Word (current state, if applicable)</th>
+	</tr>
+
+<?php foreach ($sentenceRecordingLogs as $pLog): //$word = $word['Edit']; ?>
+
+	<tr>
+		<td><?php echo $this->Time->format($pLog[0]);?></td>
+		<td><?php echo $pLog[2]; ?></td>
+		<td><?php echo ($pLog[3] ? '<a href="/SentenceRecordings/manage/' . trim($pLog[3]) . '/' . trim($pLog[4]) . '">Manage Recordings</a>' : "No word ID provided") ;?></td>
+	</tr>
+<?php endforeach; ?>
+
+</table>
+
+<?php endif;?>

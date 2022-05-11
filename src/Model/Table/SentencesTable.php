@@ -115,6 +115,6 @@ class SentencesTable extends Table
                     ->matching('SentenceRecordings' , function (Query $query) {
                         return $query->distinct()->where(['SentenceRecordings.approved' => 0]);
                     });
-        return $query;
+        return $query->toArray();
     }
 }
