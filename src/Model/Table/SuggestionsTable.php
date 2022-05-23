@@ -110,4 +110,15 @@ class SuggestionsTable extends Table
 
         return $rules;
     }
+
+    public function get_pending_suggestions($langid) {
+            $query = $this->find('all')
+                        ->where(['status =' => 'unread'])
+                        ->contain(['Words' => function (Query $q) use ($langid) {
+                            return $q->where(['Words.language_id' => $langid]);
+                        }]);
+            return $query;
+            }
+
+
 }

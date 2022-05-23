@@ -128,18 +128,20 @@ class PronunciationsTable extends Table
         return $query;
     }
 
-    public function get_pending_pronunciations(){
+    public function get_pending_pronunciations($langid){
         $query = $this->find()
                     ->where(['Pronunciations.approved' => 0])
-                    ->contain(['Words' => function (Query $q) {
-                        return $q->where(['Words.approved' => 1]);
+                    ->contain(['Words' => function (Query $q) use ($langid) {
+                        return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
                     }, 'RecordingUsers', 'ApprovingUsers'])
                     ->order(['Pronunciations.created' => 'DESC']);
         return $query;
     }
 
-    public function get_all_pronunciations(){
-        $query = $this->find()->contain(['Words', 'RecordingUsers', 'ApprovingUsers'])
+    public function get_all_pronunciations($langid){
+        $query = $this->find()->contain(['Words' => function (Query $q) use ($langid) {
+            return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
+        }, 'RecordingUsers', 'ApprovingUsers'])
                    ->order(['Pronunciations.approved_date' => 'DESC']);
         return $query;
     }

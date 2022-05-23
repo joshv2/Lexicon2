@@ -24,7 +24,7 @@
 	<!-- Include stylesheet -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <?php echo $this->Html->css('style');?>
-	<title><?php echo (isset($title)) ? $title . ' - Jewish English Lexicon' : 'Jewish English Lexicon'; ?></title>
+	<title><?php echo (isset($title)) ? $title . ' - ' . $sitelang->name : $sitelang->name; ?></title>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -57,18 +57,18 @@
             <?= $this->cell('Logo'); ?></h1>
 			<nav>
 				<ul id="navbar_sub">
-					<li><?php echo $this->Html->link('Home', '/');?></li>
-					<li><?php echo $this->Html->link('Add a Word', '/add');?></li>
-					<li><?php echo $this->Html->link('About Us', '/about');?></li>
-					<li><?php echo $this->Html->link('Notes', '/notes');?></li>
+					<li><?php echo $this->Html->link(__('Home'), '/');?></li>
+					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
+					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
+					<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<li><a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a></li>
-					<li><a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a></li>
-					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a></li>
+					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
+					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
+					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
 				</ul>
 			</nav>
 			<form type="GET" action="/search">
-				<input type="text" results="5" placeholder="Search..." name="q" id="search">
+				<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
 			</form>
 		</div>
 		<div class="mobile-header">
@@ -79,19 +79,19 @@
 		</div>
 		<div id="searchform">
 			<form type="GET" action="/search">
-				<input type="text" results="5" placeholder="Search..." name="q" id="search" />
+			<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
 			</form>
 		</div>
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
-					<?php echo $this->Html->link('Home', '/');?>
-					<?php echo $this->Html->link('Add a Word', '/add');?>
-					<?php echo $this->Html->link('About Us', '/about');?>
-					<?php echo $this->Html->link('Notes', '/notes');?>
+			<li><?php echo $this->Html->link(__('Home'), '/');?></li>
+					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
+					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
+					<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<a href="http://www.jewish-languages.org" target="_blank">Jewish Languages</a>
-					<a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a>
-					<a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a>
+					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
+					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
+					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
 			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>
@@ -119,22 +119,22 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	<footer>
 		<div id="footer_inner">
 			<ul>
-				<li><?php echo $this->Html->link('About', '/about');?></li>
-				<li><?php echo $this->Html->link('Notes', '/notes');?></li>
-				<li><a href="http://jewishlexicon.weebly.com" target="_blank">JEL Forum</a></li>
+				<li><?php echo $this->Html->link(__('About'), '/about');?></li>
+				<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
+				<li><a href="http://jewishlexicon.weebly.com" target="_blank"><?= __('JEL Forum') ?></a></li>
 				<li><a href="http://jewish-languages.org" target="_blank">Jewish-Languages.org</a></li>
-				<li><a href="https://www.jewishlanguages.org/lexicon-recording">Volunteer</a></li>
-				<li><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate</a></li>
+				<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
+				<li><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
 			</ul>
 			<ul>
-				<li class="first"><?php echo $this->Html->link('The Lexicon', '/');?></li>
-				<li><?php echo $this->Html->link('Home', '/');?></li>
-				<li><?php echo $this->Html->link('Alphabetical', '/alphabetical');?></li>
-				<li><?php echo $this->Html->link('Random', '/random');?></li>
-				<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
+				<li class="first"><?php echo $this->Html->link(__('The Lexicon'), '/');?></li>
+				<li><?php echo $this->Html->link(__('Home'), '/');?></li>
+				<li><?php echo $this->Html->link(__('Alphabetical'), '/alphabetical');?></li>
+				<li><?php echo $this->Html->link(__('Random'), '/random');?></li>
+				<li><?php echo $this->Html->link(__('Add a New Word'), '/add');?></li>
 			</ul>
 			<div class="right">
-				<p>Jewish English Lexicon - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
+				<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
 			</div>
 			<div class="clear"></div>
 		</div>

@@ -104,7 +104,7 @@ class PagesController extends AppController
         
         
         //$total_entries = 200000;
-        $title = 'Home';
+        $title = __('Home');
         $tagging['title'] = $title;
         $tagging['total_entries'] = $total_entries;
         //$tagging['no_dict_entries'] = $no_dict_entries;

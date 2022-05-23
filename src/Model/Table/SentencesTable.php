@@ -106,11 +106,13 @@ class SentencesTable extends Table
         return $query;
     }*/
 
-    public function get_sentences_with_pending_recordings(){
+    public function get_sentences_with_pending_recordings($langid){
         $query = $this->find()
                     //->where(['SentenceRecordings.approved' => 0])
                     
-                    ->contain(['Words'])
+                    ->contain(['Words' => function (Query $q) use ($langid) {
+                        return $q->where(['Words.language_id' => $langid]);
+                    }])
                     ->contain(['SentenceRecordings.RecordingUsers', 'SentenceRecordings.ApprovingUsers']) 
                     ->matching('SentenceRecordings' , function (Query $query) {
                         return $query->distinct()->where(['SentenceRecordings.approved' => 0]);

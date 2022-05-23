@@ -67,11 +67,11 @@
 			<div class='delete3'><div class='vertical-center'>
 				<p><?php 
 				if ($this->Identity->isLoggedIn() && count($word->pronunciations) > 0) {
-						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
 						['class' => 'button blue', 'escape' => false]);
 					
 						} elseif  (count($word->pronunciations) > 0){
-							echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
+							echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
 													['class' => 'button blue ', 'escape' => false]);
 						}?></p>
 			</div></div>
@@ -99,12 +99,12 @@
 					<?php $k = 1; ?>
 					<li class="pronunciationtr2"><?php echo $s['sentence'];
 					if (count($s['sentence_recordings']) > 0) {
-						echo "<span class='recordinglist'>Listen to recordings of this sentence: (";
+						echo "<span class='recordinglist'>" . __('Listen to recordings of this sentence') . ": (";
 						
 						$linkArray = [];
 						foreach ($s['sentence_recordings'] as $r) {
 							if($r['approved'] == 1){
-							array_push($linkArray, '<a id="play-pause-button-' . $j . '" class="fa fa-volume-up"> <span id="listen">Recording ' . $k  . '</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $r['sound_file']), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $j]));
+							array_push($linkArray, '<a id="play-pause-button-' . $j . '" class="fa fa-volume-up"> <span id="listen">' . __('Recording') . ' ' . $k  . '</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $r['sound_file']), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $j]));
 							$j += 1;
 							$k += 1;
 						}}
@@ -127,10 +127,10 @@
 				<p><?php 
 				if ($this->Identity->isLoggedIn()) {
 					if (count($word['sentences']) == 1){
-					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
 					} else {
-						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
+						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
 				} else {
