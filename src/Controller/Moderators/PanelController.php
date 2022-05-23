@@ -24,19 +24,17 @@ class PanelController extends AppController {
             } elseif ('superuser' == $userLevel){
                 $submittedPronunciations = $this->Pronunciations->get_user_pronunciations($this->request->getSession()->read('Auth.id'));
                 $noPronunciations = $this->Words->get_words_with_no_pronunciations($sitelang->id);
-                $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations();
-                $allPronunciations = $this->Pronunciations->get_all_pronunciations();
-                $pendingSentenceRecordings = $this->Sentences->get_sentences_with_pending_recordings();
+                $pendingPronunciations = $this->Pronunciations->get_pending_pronunciations($sitelang->id);
+                $allPronunciations = $this->Pronunciations->get_all_pronunciations($sitelang->id);
+                $pendingSentenceRecordings = $this->Sentences->get_sentences_with_pending_recordings($sitelang->id);
                 
 
                 //debug($allPronunciations);
             }
             $submittedWords = $this->Words->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
             $newWords = $this->Words->get_pending_words($sitelang->id);
-
-            $pendingSuggestions = $this->Suggestions->find('all')
-                ->where(['status =' => 'unread'])
-                ->contain(['Words']);
+            $langid = $sitelang->id;
+            $pendingSuggestions = $this->Suggestions->get_pending_suggestions($sitelang->id);
 
             $this->set(compact('userid', 'newWords', 'pendingSuggestions', 'submittedPronunciations', 'submittedWords', 'userLevel', 'pendingPronunciations', 'allPronunciations', 'noPronunciations', 'sitelang', 'remainingcredits', 'pendingSentenceRecordings')); //, 'newEdits', 'pendingSuggestions'
             

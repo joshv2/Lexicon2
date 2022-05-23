@@ -34,7 +34,7 @@ $(document).ready(function() {
 		<div class="internal-home">
 		<p id="first_time_here"><?=__("First time here? Read our ")?><?php echo $this->Html->link(__('welcome '), '/about');?><?=__("page")?></a>.</p>
 		
-		<p class="m3 center"><?=__("The lexicon currently has ")?><?=$this->Html->link(__($total_entries), '/words');?> 
+		<p class="m3 center"><?=__("The lexicon currently has ")?><?php echo ($total_entries > 0) ? $this->Html->link(__($total_entries), '/words') : '0';?> 
 		<?php if($sitelang->hasDictionaries): ?>
 			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
 		<?php else: ?>
@@ -57,13 +57,13 @@ $(document).ready(function() {
         <hr class="m2" />
         <h3><?=__("SEARCH:")?></h3>
 		<form id="home_search" class="group m3" type="GET" action="/search">
-				<input type="text" placeholder="Search" name="q" />
+				<?php echo '<input type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
 				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
 			</form>
 
         <hr class="m2" />
-		<h3 class="m1">ADVANCED SEARCH:</h3>
-		<p class="m2">(See the <?php echo $this->Html->link(__('NOTES'), '/notes');?> <?=__("for information about these languages, dictionaries, and types of people.")?>)</p>
+		<h3 class="m1"><?=__("ADVANCED SEARCH:")?></h3>
+		<p class="m2">(<?=__("See the") ?> <?php echo $this->Html->link(__('NOTES'), '/notes');?> <?=__("for information about these languages, dictionaries, and types of people.")?>)</p>
 
 		<ul id="home2_filters">
 		<?php if($sitelang->hasOrigins): ?>

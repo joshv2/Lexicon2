@@ -78,7 +78,7 @@ class WordsController extends AppController
         $sitelang = $this->languageinfo();
         $words = $this->Paginator->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
-        $this->set(compact('words', 'title'));
+        $this->set(compact('words', 'title', 'sitelang'));
 
     }
 
@@ -122,7 +122,7 @@ class WordsController extends AppController
         //$word = $this->Words->get($id, [
             //'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
         
-        
+        $sitelang = $this->languageinfo();
         $wordResult = $this->Words->get_word_for_view($id);
         $word = $wordResult[0];
         //debug($word);
@@ -149,34 +149,35 @@ class WordsController extends AppController
         
         if (null == $this->request->getSession()->read('Auth.username')){
             if (1 == $word->approved){
-            $arraysforcompact = [];
-            foreach ($contain as $assoc){ //for each association
-                $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
-                //debug($lowerassoc);
-                foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
-                    //debug($assoc. '_' . $arrayname);
-                    $finalarrayname = $assoc . '_' . $arrayname;
-                    $$finalarrayname = array();
-                
-                    foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
-                        //debug($toplevelassoc);
-                        if (!empty($toplevelassoc)) {
-                            $$finalarrayname[] = $toplevelassoc->$arrayname;
+                $arraysforcompact = [];
+                foreach ($contain as $assoc){ //for each association
+                    $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
+                    //debug($lowerassoc);
+                    foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
+                        //debug($assoc. '_' . $arrayname);
+                        $finalarrayname = $assoc . '_' . $arrayname;
+                        $$finalarrayname = array();
+                    
+                        foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
+                            //debug($toplevelassoc);
+                            if (!empty($toplevelassoc)) {
+                                $$finalarrayname[] = $toplevelassoc->$arrayname;
+                            }
+                            
                         }
-                        
+                        //debug($finalarrayname);
+                        //debug($$finalarrayname);
+                        $arraysforcompact[$finalarrayname] = $$finalarrayname;
                     }
-                    //debug($finalarrayname);
-                    //debug($$finalarrayname);
-                    $arraysforcompact[$finalarrayname] = $$finalarrayname;
                 }
+                $arraysforcompact['word'] = $word;
+                $arraysforcompact['title'] = $word->spelling;
+                $arraysforcompact['sitelang'] = $sitelang;
+                //debug($arraysforcompact);
+                $this->set($arraysforcompact);
+            } else {
+                return $this->redirect(['action' => 'wordnotfound']);
             }
-            $arraysforcompact['word'] = $word;
-            $arraysforcompact['title'] = $word->spelling;
-            //debug($arraysforcompact);
-            $this->set($arraysforcompact);
-        } else {
-            return $this->redirect(['action' => 'wordnotfound']);
-        }
         } elseif (!null == $this->request->getSession()->read('Auth.username')){
             $arraysforcompact = [];
             foreach ($contain as $assoc){ //for each association
@@ -201,6 +202,7 @@ class WordsController extends AppController
             }
             $arraysforcompact['word'] = $word;
             $arraysforcompact['title'] = $word->spelling;
+            $arraysforcompact['sitelang'] = $sitelang;
             //debug($arraysforcompact);
             $this->set($arraysforcompact);
         } else {

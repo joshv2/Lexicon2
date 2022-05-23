@@ -11,7 +11,7 @@
         <div class="pronunciations form content">
             <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
-                <legend><?= __('Add Pronunciation for ' . $word->spelling) ?></legend>
+                <legend><?= __('Add Pronunciation for ') . $word->spelling ?></legend>
                 <div class="form-group">
                         <table>
                             <thead>

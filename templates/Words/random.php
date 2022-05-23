@@ -2,7 +2,7 @@
 	<nav id="browse" class="group">
 		<ul class="browse_nav">
 			<li class="first main">
-			<?=$this->Html->link(__('<i class="icon-refresh"></i> Refresh'), '/random',
+			<?=$this->Html->link('<i class="icon-refresh"></i>' . __('Refresh'), '/random',
 											['class' => 'main', 'escape' => false]);?>
 			<div class="clear"></div>
 		</ul>
@@ -27,9 +27,9 @@
 	</ol>
 	<div class="pagination">
 		<ul class="pagination group">
-			<li class="prev"><?=$this->Html->link(__('<i class="icon-refresh"></i> Refresh'), '/random',
+			<li class="prev"><?=$this->Html->link('<i class="icon-refresh"></i>' . __('Refresh'), '/random',
 											['escape' => false]);?></li>
-			<li class="next"><a href="#"><i class="icon-arrow-up"></i> Top</a></li>
+			<li class="next"><a href="#"><i class="icon-arrow-up"></i><?= __('Top') ?></a></li>
 		</ul>
 		<div class="clear"></div>
 	</div>
