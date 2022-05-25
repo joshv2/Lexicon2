@@ -70,6 +70,9 @@ $(document).ready(function() {
 			<li>
 				<h4><i class="icon-comments-alt"></i> <?=__("Languages of origin")?></h4>
 				<ul>
+				<?php foreach ($origins as &$neworigin){
+                        $neworigin = __($neworigin);
+                    } ?>
 					<?php foreach ($origins as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?origin='.$id);?></li>
 					<?php endforeach;?>
@@ -81,7 +84,11 @@ $(document).ready(function() {
 			<li>
 				<h4><i class="icon-globe"></i> <?=__("Regions in which the word is used")?></h4>
 				<ul>
-					<?php foreach ($regions as $id => $o):?>
+					
+				<?php foreach ($regions as &$newregion){
+                        $newregion = __($newregion);
+                    } ?>
+				<?php foreach ($regions as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?region='.$id);?></li>
 					<?php endforeach;?>
 					<li><?php echo $this->Html->link(__('Other'), '/words?region=other');?></li>
@@ -92,6 +99,9 @@ $(document).ready(function() {
 			<li>
 				<h4><i class="icon-user"></i> <?=__("Types of people who tend to use the word")?></h4>
 				<ul class="m3">
+					<?php foreach ($types as &$newtype){
+                        $newtype = __($newtype);
+                    } ?>
 					<?php foreach ($types as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?use='.$id);?></li>
 					<?php endforeach;?>

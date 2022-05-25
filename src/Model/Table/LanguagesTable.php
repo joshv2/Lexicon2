@@ -62,16 +62,16 @@ class LanguagesTable extends Table
             'foreignKey' => 'language_id',
         ]);
 
-        $this->hasMany('Origins', [
-            'foreignKey' => 'language_id',
+        $this->belongsToMany('Origins', [
+            'through' => 'OriginsLanguages'
         ]);
 
-        $this->hasMany('Regions', [
-            'foreignKey' => 'language_id',
+        $this->belongsToMany('Regions', [
+            'through' => 'OriginsLanguages'
         ]);
 
-        $this->hasMany('Types', [
-            'foreignKey' => 'language_id',
+        $this->belongsToMany('Types', [
+            'through' => 'OriginsLanguages'
         ]);
     }
 
