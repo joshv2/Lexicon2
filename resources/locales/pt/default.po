@@ -1,2 +1,5 @@
 msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
 msgstr "Como outros sites colaborativos, como Wikipedia e Urban Dictionary, o Jewish English Lexicon é possibilitado pela participação do visitante. Reserve alguns minutos para adicionar uma ou duas palavras."
+
+msgid "Textual Hebrew"
+msgstr "Testing Testing"

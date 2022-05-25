@@ -13,15 +13,16 @@ class TypesTable extends Table
         $this->setPrimaryKey('id');
         $this->belongsToMany('Words');
         $this->belongsToMany('Users', ['className' => 'CakeDC/Users.Users']);
-        $this->belongsTo('Languages', [
-            'foreignKey' => 'language_id',
-            'joinType' => 'INNER',
+        $this->belongsToMany('Languages', [
+            'through' => 'TypesLanguages'
         ]);
     }
 
     public function top_types_for_home($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'types.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         $query3 = $this->find('list', ['valueField' => 'type'])
                         ->where(['id' => 998]); //chabad
         $query = $query->union($query3);
