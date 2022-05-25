@@ -12,16 +12,17 @@ class RegionsTable extends Table
         $this->setDisplayField('region');
         $this->setPrimaryKey('id');
         $this->belongsToMany('Words');
-        $this->belongsTo('Languages', [
-            'foreignKey' => 'language_id',
-            'joinType' => 'INNER',
+        $this->belongsToMany('Languages', [
+            'through' => 'RegionsLanguages'
         ]);
     }
 
 
     public function top_regions_for_home($langid){
-        $query = $this->find('list', ['valueField' => 'region', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
+        $query = $this->find('list', ['valueField' => 'region', 'order' => 'regions.id'])
+                                ->contain(['Languages'])
+                                ->matching('Languages')
+                                ->where(['RegionsLanguages.top' => 1, 'RegionsLanguages.language_id' => $langid]);
 
         //$query->disableHydration();
         $data = $query->toArray();
@@ -29,8 +30,10 @@ class RegionsTable extends Table
     }
 
     public function top_regions($langid){
-        $query = $this->find('list', ['valueField' => 'region', 'order' => 'id'])
-                    ->where(['top' => 1, 'language_id' => $langid]);
+        $query =$this->find('list', ['valueField' => 'region', 'order' => 'regions.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['RegionsLanguages.top' => 1, 'RegionsLanguages.language_id' => $langid]);
         $query2 = $this->find('list', ['valueField' => 'region'])
                         ->where(['id' => 999]);
         $query = $query->union($query2);

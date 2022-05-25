@@ -12,15 +12,16 @@ class OriginsTable extends Table
         $this->setDisplayField('origin');
         $this->setPrimaryKey('id');
         $this->belongsToMany('Words'); #, ['joinTable' => 'words_origins']
-        $this->belongsTo('Languages', [
-            'foreignKey' => 'language_id',
-            'joinType' => 'INNER',
+        $this->belongsToMany('Languages', [
+            'through' => 'OriginsLanguages'
         ]);
     }
 
     public function top_origins_for_home($langid){
-        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
+        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'origins.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
@@ -28,8 +29,10 @@ class OriginsTable extends Table
 
 
     public function top_origins($langid){
-        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
+        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'origins.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
 
         $query2 = $this->find('list', ['valueField' => 'origin'])
                         ->where(['id' => 999]);
