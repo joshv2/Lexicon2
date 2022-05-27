@@ -43,7 +43,11 @@ $(document).ready(function() {
 		<hr class="m2" />
 			<h3 class="m1"><?=__("BROWSE:")?></h3>
 		<div class="browse">
-		<?php echo $this->Html->image('inorder.jpg', 
+		<p>
+		<p id="enterthelexicon"><?php echo	$this->Html->link(__('See full lexicon in alphabetical order'), '/alphabetical', ["class" => "button blue"]);?></p>
+		<p id="enterthelexicon"><?php echo	$this->Html->link(__('See a random list of words'), '/alphabetical', ["class" => "button blue"]);?></p>
+		</p>
+		<!-- Deprecated 5/27 - <?php echo $this->Html->image('inorder.jpg', 
                                             ['url' => '/alphabetical', 
                                             'width' => 239,
                                             'height' => 60,
@@ -52,7 +56,7 @@ $(document).ready(function() {
                                             ['url' => '/random', 
                                             'width' => 239,
                                             'height' => 60,
-											'class' => 'button'])?>									
+											'class' => 'button'])?>	-->								
     	</div>
         <hr class="m2" />
         <h3><?=__("SEARCH:")?></h3>
