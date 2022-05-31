@@ -346,7 +346,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                         echo $this->Form->hidden('user_id', ['value' => $this->Identity->get('id')]);
                         echo $this->Form->hidden('approved', ['value' => FALSE]);
                     }  else {
-                        echo "<p class='m2'>" . __('Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the <a href="https://jel.jewish-languages.org/about" target="_new">Top Word Contributors</a>. Other than that, you will <strong>NOT</strong> be contacted or placed on any email lists.') . "</p>";
+                        echo "<p class='m2'>" . __('Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the') . '<a href="/about" target="_new">' . __('Top Word Contributors') . "</a>." . __('Other than that, you will') . "<strong>" . __('NOT') . "</strong>" . __('be contacted or placed on any email lists') . ".</p>";
                         echo "<div class='form-group'>";
                         echo $this->Form->control('full_name', ['label' => ['text' => __('Your Name'), 'class' => 'req']]);
                         echo "</div>";
