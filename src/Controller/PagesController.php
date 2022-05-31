@@ -62,9 +62,9 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-
+        $sitelang = $this->languageinfo();
         $title = ucfirst($page);
-        $this->set(compact('page', 'subpage', 'title'));
+        $this->set(compact('page', 'subpage', 'title', 'sitelang'));
 
         try {
             return $this->render(implode('/', $path));
