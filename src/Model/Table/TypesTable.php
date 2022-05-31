@@ -41,7 +41,9 @@ class TypesTable extends Table
 
     public function top_types($langid){
         $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         $query2 = $this->find('list', ['valueField' => 'type'])
                         ->where(['id' => 999]);
         $query = $query->union($query2);
