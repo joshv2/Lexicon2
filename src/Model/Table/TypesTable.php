@@ -29,11 +29,10 @@ class TypesTable extends Table
     }
 
     public function top_types_for_registration($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
-                        ->where(['top' => 1, 'language_id' => $langid]);
-        $query3 = $this->find('list', ['valueField' => 'type'])
-                        ->where(['id IN' => [998,16,19,20]]); //chabad
-        $query = $query->union($query3);
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
