@@ -909,7 +909,7 @@ msgstr "Veja uma palavra aleatória"
 msgid "Random"
 msgstr ""
 
-msgid "Other (please describe in notes section)"
+msgid "Other (please describe in Notes section)"
 msgstr "Outros (por favor coloque a descrição na seção de notas)"
 
 msgid "Save"
