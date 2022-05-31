@@ -1,6 +1,6 @@
 <section id="main">
 <div id="header-image">
-<?php echo $this->Html->image('header3.jpg', ['height' => 200, 'width' => 900])?>
+<?php echo $this->Html->image($sitelang->LogoImage, ['height' => 200, 'width' => 900])?>
  </div>
  		<div class="page-header group">
 		<h2 class="left">Welcome</h2>
