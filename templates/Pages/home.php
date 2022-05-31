@@ -45,7 +45,7 @@ $(document).ready(function() {
 		<div class="browse">
 		<p>
 		<p id="enterthelexicon"><?php echo	$this->Html->link(__('See full lexicon in alphabetical order'), '/alphabetical', ["class" => "button blue"]);?></p>
-		<p id="enterthelexicon"><?php echo	$this->Html->link(__('See a random list of words'), '/alphabetical', ["class" => "button blue"]);?></p>
+		<p id="enterthelexicon"><?php echo	$this->Html->link(__('See a random list of words'), '/random', ["class" => "button blue"]);?></p>
 		</p>
 		<!-- Deprecated 5/27 - <?php echo $this->Html->image('inorder.jpg', 
                                             ['url' => '/alphabetical', 

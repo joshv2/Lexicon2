@@ -988,4 +988,4 @@ msgid "NOT"
 msgstr "não"
 
 msgid "be contacted or placed on any email lists"
-msgstr "será contactado ou colocado em qualquer lista de e-mails. Se você for um grande contribuinte de verbetes, você pode constar como CONTRIBUINTE TOP, se quiser."
+msgstr "será contactado ou colocado em qualquer lista de e-mails. Se você for um grande contribuinte de verbetes, você pode constar como CONTRIBUINTE TOP, se quiser"
