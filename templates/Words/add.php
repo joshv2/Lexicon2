@@ -298,7 +298,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     foreach ($regions as &$newregion){
                         $newregion = __($newregion);
                     }
-                    echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => 'Regions in Which the Word is Used', 'style' => 'width:100%;display:block;']);
+                    echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => __('Regions in Which the Word is Used'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
 
