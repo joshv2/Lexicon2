@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= $sitelang->i18nspec ?>">
 <head>
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width" />
