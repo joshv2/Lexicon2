@@ -23,9 +23,6 @@ class TypesTable extends Table
                         ->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
-        $query3 = $this->find('list', ['valueField' => 'type'])
-                        ->where(['id' => 998]); //chabad
-        $query = $query->union($query3);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
