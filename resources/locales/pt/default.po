@@ -972,7 +972,7 @@ msgstr "Ashkenazim"
 msgid "Sephardim: Jews with Sephardi or Mizrahi heritage"
 msgstr "Sefaradim"
 
-msgid "REGIONS IN WHICH THE WORD IS USED"
+msgid "Regions in Which the Word is Used"
 msgstr "REGIÕES ONDE ESTE VERBETE É USADO"
 
 msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
