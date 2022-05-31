@@ -679,7 +679,7 @@ msgstr "Exemplo de frases"
 
 #: Words/add.php:225
 msgid "Add an additional sentence"
-msgstr ""Adicione mais uma frase"
+msgstr "Adicione mais uma frase"
 
 #: Words/add.php:231
 msgid "Language(s) of Origin"
@@ -971,3 +971,21 @@ msgstr "Ashkenazim"
 
 msgid "Sephardim: Jews with Sephardi or Mizrahi heritage"
 msgstr "Sefaradim"
+
+msgid "REGIONS IN WHICH THE WORD IS USED"
+msgstr "REGIÕES ONDE ESTE VERBETE É USADO"
+
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
+msgstr "Seu nome e e-mail não vão aparecer no site. "
+
+msgid "Top Word Contributors"
+msgstr "Porém pedimos estas informações caso haja alguma dúvida durante a revisão do verbete;"
+
+msgid "Other than that, you will"
+msgstr "caso não haja perguntas, você"
+
+msgid "NOT"
+msgstr "não"
+
+msgid "be contacted or placed on any email lists"
+msgstr "será contactado ou colocado em qualquer lista de e-mails. Se você for um grande contribuinte de verbetes, você pode constar como CONTRIBUINTE TOP, se quiser."
