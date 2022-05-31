@@ -40,7 +40,7 @@ class TypesTable extends Table
     }
 
     public function top_types($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'id'])
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
                         ->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
