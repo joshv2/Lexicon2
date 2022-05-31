@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width" />
 	<link rel="icon" 
       type="image/ico" 
-      href="img/<?= $sitelang->i18nspec ?>/favicon.ico" />
+      href="/img/<?= $sitelang->i18nspec ?>/favicon.ico" />
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
      crossorigin="anonymous"></script>
 	<script>
