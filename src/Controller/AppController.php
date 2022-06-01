@@ -21,6 +21,7 @@ use Cake\Core\Configure;
 use Cake\I18n\I18n;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
+use Cake\Event\EventInterface;
 use \CloudConvert\CloudConvert;
 use \CloudConvert\Models\Job;
 use \CloudConvert\Models\Task;
@@ -116,6 +117,11 @@ class AppController extends Controller
         return $jsonArrayResponse->data->credits;
     }
 
+    public function beforeFilter(EventInterface $event){
+        #$sitelang = $this->languageinfo();
+        $this->set('sitelang', $this->languageinfo());
+    }
+    
     public function initialize(): void
     {
         parent::initialize();
@@ -177,4 +183,6 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+    
 }
