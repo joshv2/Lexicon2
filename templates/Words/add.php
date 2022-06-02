@@ -236,10 +236,11 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 
 
                     echo "<div class='form-group left'>";
-                    foreach ($origins as &$neworigin){
-                        $neworigin = __($neworigin);
+                    $neworigins = [];
+                    foreach ($origins as $origin){
+                        $neworigins[] = __($origin);
                     }
-                    echo $this->Form->control('origins._ids', ['options' => $origins, 'label' => __('Language(s) of Origin'), 'style' => 'width:100%;display:block;', 'size' => '7']);
+                    echo $this->Form->control('origins._ids', ['options' => $neworigins, 'label' => __('Language(s) of Origin'), 'style' => 'width:100%;display:block;', 'size' => '7']);
                     echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
                     echo "</div>";
 
@@ -287,18 +288,20 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     
                     
                     echo "<div class='form-group left'>";
-                    foreach ($types as &$newtype){
-                        $newtype = __($newtype);
+                    $newtypes = [];
+                    foreach ($types as $type){
+                        $newtypes[] = __($type);
                     }
-                    echo $this->Form->control('types._ids', ['options' => $types, 'label' => __('Who Uses This'), 'style' => 'width:100%;display:block;']);
+                    echo $this->Form->control('types._ids', ['options' => $newtypes, 'label' => __('Who Uses This'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
                     
                     echo "<div class='form-group right'>";
-                    foreach ($regions as &$newregion){
-                        $newregion = __($newregion);
+                    $newregions = [];
+                    foreach ($regions as $region){
+                        $newregions[] = __($region);
                     }
-                    echo $this->Form->control('regions._ids', ['options' => $regions, 'label' => __('Regions in Which the Word is Used'), 'style' => 'width:100%;display:block;']);
+                    echo $this->Form->control('regions._ids', ['options' => $newregions, 'label' => __('Regions in Which the Word is Used'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
 
