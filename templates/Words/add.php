@@ -237,8 +237,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 
                     echo "<div class='form-group left'>";
                     $neworigins = [];
-                    foreach ($origins as $origin){
-                        $neworigins[] = __($origin);
+                    foreach ($origins as $key => $origin){
+                        $neworigins[$key] = __($origin);
                     }
                     echo $this->Form->control('origins._ids', ['options' => $neworigins, 'label' => __('Language(s) of Origin'), 'style' => 'width:100%;display:block;', 'size' => '7']);
                     echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
@@ -289,8 +289,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     
                     echo "<div class='form-group left'>";
                     $newtypes = [];
-                    foreach ($types as $type){
-                        $newtypes[] = __($type);
+                    foreach ($types as $key => $type){
+                        $newtypes[$key] = __($type);
                     }
                     echo $this->Form->control('types._ids', ['options' => $newtypes, 'label' => __('Who Uses This'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
@@ -298,8 +298,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     
                     echo "<div class='form-group right'>";
                     $newregions = [];
-                    foreach ($regions as $region){
-                        $newregions[] = __($region);
+                    foreach ($regions as $key => $region){
+                        $newregions[$key] = __($region);
                     }
                     echo $this->Form->control('regions._ids', ['options' => $newregions, 'label' => __('Regions in Which the Word is Used'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
