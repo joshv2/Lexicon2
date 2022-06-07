@@ -460,7 +460,7 @@ msgstr "verbetes."
 
 #: Pages/home.php:46
 msgid "BROWSE:"
-msgstr "NAGEGUE:"
+msgstr "NAVEGUE:"
 
 #: Pages/home.php:60
 msgid "SEARCH:"
@@ -857,6 +857,10 @@ msgstr "Este verbete não foi encontrado ou ainda não foi aprovado"
 msgid "Add a word"
 msgstr "Adicione um verbete"
 
+#: Words/wordnotfound.php:11
+msgid "Add a Word"
+msgstr "Adicione um Verbete"
+
 #: layout/error.php:38
 msgid "Back"
 msgstr "Voltar"
@@ -868,10 +872,10 @@ msgid "Jewish Languages"
 msgstr ""
 
 msgid "Volunteer"
-msgstr ""
+msgstr "Voluntariado"
 
 msgid "Donate"
-msgstr ""
+msgstr "Doe"
 
 msgid "Search"
 msgstr "Pesquisar"
@@ -894,11 +898,14 @@ msgstr ""
 msgid "Alphabetical"
 msgstr ""
 
-msgid "ADVANCED SEARCH"
-msgstr "PESQUISA AVANÇADA"
+msgid "ADVANCED SEARCH:"
+msgstr "PESQUISA AVANÇADA:"
 
 msgid "Add an Entry"
 msgstr "Adicione Um Verbete"
+
+msgid "Add an entry"
+msgstr "Adicione um verbete"
 
 msgid "See full lexicon in alphabetical order"
 msgstr "Veja o conteúdo completo do léxico em ordem alfabética"
