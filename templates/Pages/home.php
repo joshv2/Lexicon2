@@ -128,11 +128,7 @@ $(document).ready(function() {
 		<hr class="m2" />
 		<h3><?=__("CAN'T FIND A WORD?")?></h3>
 		<p class="m3"><?=__("Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two.")?></p>
-		<div class="browse"><?php echo $this->Html->image('add_button.jpg', 
-                                            ['url' => '/add', 
-                                            'width' => 154,
-                                            'height' => 60,
-											'class' => 'button'])?>	</div>
+		<div class="browse"><p id="enterthelexicon"><?php echo $this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> ' . __('Add an entry'), '/add', ["class" => "button blue", 'escape' => false]);?></p>	</div>
 		<p>&nbsp;</p>
 		</div>
 	</div>
