@@ -87,14 +87,14 @@
 		</div>
 		<div id="navigation">
 			<div class="topnav" id="myTopnav">
-			<li><?php echo $this->Html->link(__('Home'), '/');?></li>
-					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
-					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
-					<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
+			<?php echo $this->Html->link(__('Home'), '/');?>
+					<?php echo $this->Html->link(__('Add a Word'), '/add');?>
+					<?php echo $this->Html->link(__('About Us'), '/about');?>
+					<?php echo $this->Html->link(__('Notes'), '/notes');?>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
-					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
-					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
+					<a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a>
+					<a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a>
+					<a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a>
 			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>
