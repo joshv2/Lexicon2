@@ -32,14 +32,24 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-71563013-2"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalytics ?>"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', '<?= $sitelang->googleAnalytics ?>');
+	</script>
+	
+	<!--<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalytics ?>"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
 
-	  gtag('config', 'UA-71563013-2');
-	</script>
+	  gtag('config', '<?= $sitelang->googleAnalytics ?>');
+	</script>-->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 	<?= $this->Html->script('addform')."\n";?>
