@@ -41,7 +41,7 @@
 
 	gtag('config', '<?= $sitelang->googleAnalytics ?>');
 	</script>
-	
+	<?php if ('' != $sitelang->googleAnalyticsOld):?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalyticsOld ?>"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -50,6 +50,7 @@
 
 	  gtag('config', '<?= $sitelang->googleAnalyticsOld ?>');
 	</script>
+	<?php endif; ?>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 	<?= $this->Html->script('addform')."\n";?>
