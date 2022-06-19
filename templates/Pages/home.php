@@ -23,8 +23,9 @@ $(document).ready(function() {
 
 <section id="main">
 <div id="header-image">
+<?php if ('' != $sitelang->HeaderImage):?>
 <?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
-
+<?php endif ?>
  </div>
 	
 	<div class="page-header group">
