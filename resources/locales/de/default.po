@@ -1,0 +1,861 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2021-11-21 18:05+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+
+#: Controller/AlternatesController.php:56
+#: Controller/AlternatesController.php:81
+msgid "The alternate has been saved."
+msgstr "Die Variante wurde gespeichert."
+
+#: Controller/AlternatesController.php:60
+#: Controller/AlternatesController.php:85
+msgid "The alternate could not be saved. Please, try again."
+msgstr "Die Variante konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/AlternatesController.php:103
+msgid "The alternate has been deleted."
+msgstr "Die Variante wurde gelöscht."
+
+#: Controller/AlternatesController.php:105
+msgid "The alternate could not be deleted. Please, try again."
+msgstr "Die Variante konnte nicht gelöscht werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/DefinitionsController.php:56
+#: Controller/DefinitionsController.php:81
+msgid "The definition has been saved."
+msgstr "Die Definition wurde gespeichert."
+
+#: Controller/DefinitionsController.php:60
+#: Controller/DefinitionsController.php:85
+msgid "The definition could not be saved. Please, try again."
+msgstr "Die Definition konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/DefinitionsController.php:104
+msgid "The definition has been deleted."
+msgstr "Die Definition wurde gelöscht."
+
+#: Controller/DefinitionsController.php:106
+msgid "The definition could not be deleted. Please, try again."
+msgstr "Die Definition konnte nicht gelöscht werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/PronunciationsController.php:88
+msgid "The pronunciation has been saved."
+msgstr "Die Aussprache wurde gespeichert."
+
+#: Controller/PronunciationsController.php:92
+#: Controller/PronunciationsController.php:118
+#: Controller/PronunciationsController.php:156
+msgid "The pronunciation could not be saved. Please, try again."
+msgstr "Die Aussprache konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/SentencesController.php:56
+#: Controller/SentencesController.php:81
+msgid "The sentence has been saved."
+msgstr "Der Satz wurde gespeichert."
+
+#: Controller/SentencesController.php:60
+#: Controller/SentencesController.php:85
+msgid "The sentence could not be saved. Please, try again."
+msgstr "Der Satz konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/SuggestionsController.php:57
+#: Controller/SuggestionsController.php:103
+msgid "The suggestion has been saved."
+msgstr "Der Vorschlag wurde gespeichert."
+
+#: Controller/SuggestionsController.php:61
+#: Controller/SuggestionsController.php:108
+msgid "The suggestion could not be saved. Please, try again."
+msgstr "Der Vorschlag konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/WordsController.php:354
+#: Controller/WordsController.php:522
+msgid "The word could not be saved. Please, try again."
+msgstr "Das Wort konnte nicht gespeichert werden. Bitte versuchen Sie es noch einmal."
+
+#: Controller/WordsController.php:518
+msgid "The word has been saved."
+msgstr "Das Wort wurde gespeichert."
+
+
+#: Alphabets/add.php:24
+#: Alphabets/edit.php:29
+#: Alternates/add.php:24
+#: Alternates/edit.php:29
+#: Definitions/add.php:24
+#: Definitions/edit.php:29
+#: Dictionaries/add.php:29
+#: Dictionaries/edit.php:34
+#: Languages/add.php:54
+#: Languages/edit.php:78
+#: Origins/add.php:30
+#: Origins/edit.php:34
+#: Pronunciations/add.php:57
+#: Pronunciations/edit.php:20
+#: Pronunciations/ranking.php:51
+#: Regions/add.php:29
+#: Regions/edit.php:34
+#: Sentences/add.php:24
+#: Sentences/edit.php:29
+#: Suggestions/add.php:29
+#: Suggestions/edit.php:33
+#: Types/add.php:29
+#: Types/edit.php:34
+#: Words/add.php:346
+msgid "Submit"
+msgstr "Senden"
+
+#: Alphabets/edit.php:12
+#: Alphabets/index.php:29
+#: Alternates/edit.php:12
+#: Alternates/index.php:29
+#: Definitions/edit.php:12
+#: Definitions/index.php:27
+#: Dictionaries/edit.php:15
+#: Dictionaries/index.php:30
+#: Dictionaries/view.php:59
+#: Languages/edit.php:12
+#: Languages/index.php:31
+#: Languages/view.php:137
+#: Origins/edit.php:15
+#: Origins/index.php:32
+#: Origins/view.php:69
+#: Pronunciations/index.php:35
+#: Regions/edit.php:15
+#: Regions/index.php:34
+#: Regions/view.php:80
+#: Sentences/edit.php:12
+#: Sentences/index.php:27
+#: Sentences/view.php:55
+#: Suggestions/edit.php:12
+#: Suggestions/index.php:37
+#: Types/edit.php:15
+#: Types/index.php:34
+#: Types/view.php:77
+#: Words/index.php:35
+#: Words/viewauto.php:79
+#: Words/viewauto.php:104
+#: Words/viewauto.php:129
+#: Words/viewauto.php:154
+#: Words/viewauto.php:181
+#: Words/viewauto.php:208
+#: Words/viewauto.php:235
+#: Words/viewauto.php:268
+msgid "Delete"
+msgstr "Löschen"
+
+#: Alphabets/edit.php:14
+#: Alphabets/index.php:29
+#: Alphabets/view.php:12
+#: Alternates/edit.php:14
+#: Alternates/index.php:29
+#: Alternates/view.php:12
+#: Definitions/edit.php:14
+#: Definitions/index.php:27
+#: Definitions/view.php:12
+#: Dictionaries/edit.php:17
+#: Dictionaries/index.php:30
+#: Dictionaries/view.php:12
+#: Dictionaries/view.php:59
+#: Languages/edit.php:14
+#: Languages/index.php:31
+#: Languages/view.php:12
+#: Languages/view.php:137
+#: Origins/edit.php:17
+#: Origins/index.php:32
+#: Origins/view.php:12
+#: Origins/view.php:69
+#: Pronunciations/index.php:35
+#: Pronunciations/view.php:12
+#: Regions/edit.php:17
+#: Regions/index.php:34
+#: Regions/view.php:15
+#: Regions/view.php:80
+#: Sentences/edit.php:14
+#: Sentences/index.php:27
+#: Sentences/view.php:12
+#: Sentences/view.php:55
+#: Suggestions/edit.php:14
+#: Suggestions/index.php:37
+#: Suggestions/view.php:12
+#: Types/edit.php:17
+#: Types/index.php:34
+#: Types/view.php:12
+#: Types/view.php:77
+#: Words/index.php:35
+#: Words/viewauto.php:12
+#: Words/viewauto.php:79
+#: Words/viewauto.php:104
+#: Words/viewauto.php:129
+#: Words/viewauto.php:154
+#: Words/viewauto.php:181
+#: Words/viewauto.php:208
+#: Words/viewauto.php:235
+#: Words/viewauto.php:268
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Wollen Sie # {0} wirklich löschen?"
+
+#: Alphabets/index.php:27
+#: Alternates/index.php:27
+#: Definitions/index.php:25
+#: Dictionaries/index.php:28
+#: Dictionaries/view.php:57
+#: Languages/index.php:29
+#: Languages/view.php:135
+#: Origins/index.php:30
+#: Origins/view.php:67
+#: Pronunciations/index.php:33
+#: Regions/index.php:32
+#: Regions/view.php:78
+#: Sentences/index.php:25
+#: Sentences/view.php:53
+#: Suggestions/index.php:35
+#: Types/index.php:32
+#: Types/view.php:75
+#: Words/index.php:33
+#: Words/viewauto.php:77
+#: Words/viewauto.php:102
+#: Words/viewauto.php:127
+#: Words/viewauto.php:152
+#: Words/viewauto.php:179
+#: Words/viewauto.php:206
+#: Words/viewauto.php:233
+#: Words/viewauto.php:266
+msgid "View"
+msgstr "Ansehen"
+
+#: Alphabets/index.php:28
+#: Alternates/index.php:28
+#: Definitions/index.php:26
+#: Dictionaries/index.php:29
+#: Dictionaries/view.php:58
+#: Languages/index.php:30
+#: Languages/view.php:136
+#: Origins/index.php:31
+#: Origins/view.php:68
+#: Pronunciations/index.php:34
+#: Regions/index.php:33
+#: Regions/view.php:79
+#: Sentences/index.php:26
+#: Sentences/view.php:54
+#: Suggestions/index.php:36
+#: Types/index.php:33
+#: Types/view.php:76
+#: Words/add.php:8
+#: Words/index.php:34
+#: Words/view.php:33
+#: Words/view.php:166
+#: Words/viewauto.php:78
+#: Words/viewauto.php:103
+#: Words/viewauto.php:128
+#: Words/viewauto.php:153
+#: Words/viewauto.php:180
+#: Words/viewauto.php:207
+#: Words/viewauto.php:234
+#: Words/viewauto.php:267
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: Alphabets/index.php:38
+#: Alternates/index.php:38
+#: Definitions/index.php:36
+#: Dictionaries/index.php:39
+#: Languages/index.php:40
+#: Origins/index.php:41
+#: Pronunciations/index.php:44
+#: Regions/index.php:43
+#: Sentences/index.php:36
+#: Suggestions/index.php:46
+#: Types/index.php:43
+#: Words/index.php:44
+msgid "first"
+msgstr "erster"
+
+#: Alphabets/index.php:39
+#: Alternates/index.php:39
+#: Definitions/index.php:37
+#: Dictionaries/index.php:40
+#: Languages/index.php:41
+#: Origins/index.php:42
+#: Pronunciations/index.php:45
+#: Regions/index.php:44
+#: Search/results.php:36
+#: Sentences/index.php:37
+#: Suggestions/index.php:47
+#: Types/index.php:44
+#: Words/browse.php:169
+#: Words/index.php:45
+msgid "previous"
+msgstr "vorheriger"
+
+#: Alphabets/index.php:41
+#: Alternates/index.php:41
+#: Definitions/index.php:39
+#: Dictionaries/index.php:42
+#: Languages/index.php:43
+#: Origins/index.php:44
+#: Pronunciations/index.php:47
+#: Regions/index.php:46
+#: Search/results.php:39
+#: Sentences/index.php:39
+#: Suggestions/index.php:49
+#: Types/index.php:46
+#: Words/browse.php:172
+#: Words/index.php:47
+msgid "next"
+msgstr "nächster"
+
+#: Alphabets/index.php:42
+#: Alternates/index.php:42
+#: Definitions/index.php:40
+#: Dictionaries/index.php:43
+#: Languages/index.php:44
+#: Origins/index.php:45
+#: Pronunciations/index.php:48
+#: Regions/index.php:47
+#: Sentences/index.php:40
+#: Suggestions/index.php:50
+#: Types/index.php:47
+#: Words/index.php:48
+msgid "last"
+msgstr "letzter"
+
+#: Alphabets/index.php:44
+#: Alternates/index.php:44
+#: Definitions/index.php:42
+#: Dictionaries/index.php:45
+#: Languages/index.php:46
+#: Origins/index.php:47
+#: Pronunciations/index.php:50
+#: Regions/index.php:49
+#: Sentences/index.php:42
+#: Suggestions/index.php:52
+#: Types/index.php:49
+#: Words/index.php:50
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Seite {{page}} von {{pages}} zeigt {{current}} Ergebnis(se) von insgesamt {{count}}"
+
+#: Alternates/view.php:22
+#: Definitions/view.php:22
+#: Pronunciations/view.php:22
+#: Sentences/view.php:22
+#: Suggestions/view.php:22
+msgid "Word"
+msgstr "Wort"
+
+#: Alternates/view.php:26
+#: Dictionaries/view.php:37
+#: Languages/view.php:105
+#: Origins/view.php:37
+#: Pages/notes.php:14
+#: Pronunciations/view.php:26
+#: Regions/view.php:48
+#: Types/view.php:45
+#: Words/add.php:67
+#: Words/viewauto.php:22
+#: Words/viewauto.php:170
+#: Words/viewauto.php:251
+msgid "Spelling"
+msgstr "Schreibweise"
+
+#: Dictionaries/view.php:31
+#: Languages/view.php:99
+#: Origins/view.php:31
+#: Regions/view.php:42
+#: Types/view.php:39
+msgid "Related Words"
+msgstr "Verwandte Wörter"
+
+#: Dictionaries/view.php:38
+#: Languages/view.php:106
+#: Origins/view.php:38
+#: Regions/view.php:49
+#: Types/view.php:46
+#: Words/viewauto.php:51
+msgid "Etymology"
+msgstr "Etymologie"
+
+#: Dictionaries/view.php:39
+#: Languages/view.php:108
+#: Origins/view.php:40
+#: Pronunciations/view.php:38
+#: Regions/view.php:51
+#: Types/view.php:48
+#: Words/view.php:156
+#: Words/viewauto.php:57
+#: Words/viewauto.php:254
+msgid "Notes"
+msgstr "Hinweise"
+
+#: Dictionaries/view.php:40
+#: Languages/view.php:110
+#: Origins/view.php:42
+#: Regions/view.php:53
+#: Suggestions/view.php:46
+#: Types/view.php:50
+#: Words/viewauto.php:42
+msgid "Created"
+msgstr "Erstellt"
+
+#: Dictionaries/view.php:41
+#: Languages/view.php:111
+#: Origins/view.php:43
+#: Regions/view.php:54
+#: Types/view.php:51
+#: Words/viewauto.php:46
+msgid "Approved"
+msgstr "Genehmigt"
+
+#: Languages/about.php:12
+#: Pages/welcome.php:9
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: Languages/about.php:19
+#: Languages/about.php:24
+#: Pages/about.php:22
+msgid "Enter the Lexicon"
+msgstr "Wörterbuch öffnen"
+
+#: Languages/about.php:22
+msgid "Coming Soon."
+msgstr "Demnächst"
+
+#: Languages/about.php:35
+msgid "About Us"
+msgstr "Über uns"
+
+#: Pages/home.php:37
+msgid "First time here? Read our "
+msgstr "Zum ersten mal hier? Lesen Sie unser "
+
+#: Pages/home.php:37
+msgid "welcome "
+msgstr "Willkommen "
+
+#: Pages/home.php:37
+msgid "page"
+msgstr "Seite"
+
+#: Pages/home.php:39
+msgid "The lexicon currently has "
+msgstr "Das Wörterbuch hat zur Zeit "
+
+#: Pages/home.php:43
+msgid "entries."
+msgstr "Einträge."
+
+#: Pages/home.php:46
+msgid "BROWSE:"
+msgstr "STÖBERN"
+
+#: Pages/home.php:60
+msgid "SEARCH:"
+msgstr "SUCHE"
+
+#: Pages/home.php:68
+msgid "NOTES"
+msgstr "HINWEISE"
+
+#: Pages/home.php:68
+msgid "for information about these languages, dictionaries, and types of people."
+msgstr "für Informationen zu diesen Sprachen, Wörterbüchern und Personengruppen."
+
+#: Pages/home.php:73
+#: Pages/notes.php:17
+msgid "Languages of origin"
+msgstr "Herkunftssprachen"
+
+#: Pages/home.php:78
+#: Pages/home.php:89
+#: Pages/home.php:100
+msgid "Other"
+msgstr "Sonstige"
+
+#: Pages/home.php:84
+msgid "Regions in which the word is used"
+msgstr "Regionen, in denen das Wort verwendet wird"
+
+#: Pages/home.php:95
+msgid "Types of people who tend to use the word"
+msgstr "Personengruppen, die das Wort verwenden"
+
+#: Pages/home.php:106
+msgid "Dictionaries in which the word appears"
+msgstr "Wörterbücher, in denen das Wort enthalten ist"
+
+#: Pages/home.php:111
+#: Words/view.php:139
+msgid "None"
+msgstr "In keinem Wörterbuch"
+
+#: Pages/home.php:117
+msgid "CAN'T FIND A WORD?"
+msgstr "FEHLT EIN WORT?"
+
+#: Pages/home.php:118
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
+msgstr "Wie bei anderen gemeinschaftlich erstellten Seiten wie z.B. Wikipedia, lebt das Jüdisch-Deutsche Wörterbuch von Ihrer Beteiligung. Bitte nehmen Sie sich ein paar Minuten Zeit, um ein paar Wörter hinzuzufügen."
+
+#: Pronunciations/add.php:12
+msgid "Add Pronunciation for "
+msgstr "Aussprache für   hinzufügen"
+
+#: Pronunciations/add.php:18
+msgid "Pronuciation (Spelling)"
+msgstr "Aussprache (Schreibweise)"
+
+#: Pronunciations/add.php:19
+msgid "Phonetic Spelling"
+msgstr "Phonetische Schreibweise"
+
+#: Pronunciations/add.php:20
+#: Pronunciations/add.php:36
+#: Words/add.php:69
+#: Words/add.php:90
+msgid "Record"
+msgstr "Aufnehmen"
+
+#: Pronunciations/add.php:29
+msgid "spelling"
+msgstr "Schreibweise"
+
+#: Pronunciations/add.php:32
+msgid "pronunciation"
+msgstr "Aussprache"
+
+#: Pronunciations/index.php:8
+#: Pronunciations/view.php:14
+msgid "New Pronunciation"
+msgstr "Neue Aussprache"
+
+#: Pronunciations/index.php:9
+msgid "Pronunciations"
+msgstr "Aussprachevarianten"
+
+#: Pronunciations/view.php:34
+#: Words/viewauto.php:253
+msgid "Pronunciation"
+msgstr "Aussprache"
+
+#: Regions/view.php:25
+#: Words/viewauto.php:119
+msgid "Region"
+msgstr "Region"
+
+#: Regions/view.php:37
+#: Types/view.php:34
+msgid "Top"
+msgstr "Nach oben"
+
+#: Regions/view.php:38
+#: Types/view.php:35
+#: Words/viewauto.php:47
+msgid "Yes"
+msgstr "Ja"
+
+#: Regions/view.php:38
+#: Types/view.php:35
+#: Words/viewauto.php:47
+msgid "No"
+msgstr "Nein"
+
+#: Search/results.php:9
+msgid "Your search for"
+msgstr "Ihre Suche nach"
+
+#: Search/results.php:9
+msgid "returned"
+msgstr "ergab"
+
+#: Search/results.php:9
+msgid "results."
+msgstr "Ergebnisse."
+
+#: Search/results.php:14
+msgid "That word is not yet in the database. Try searching with a different spelling."
+msgstr "Diese Wort ist noch nicht in der Datenbank. Bitte versuchen Sie es mit einer anderen Schreibweise."
+
+#: Search/results.php:15
+msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
+msgstr "Wenn Sie es immer noch nicht finden können, helfen Sie uns, das Wörtbuch zu vervollständigen und fügen Sie es hinzu."
+
+#: Search/results.php:27
+#: Words/alphabetical.php:89
+#: Words/browse.php:159
+#: Words/random.php:24
+msgid "See full entry"
+msgstr "Den ganzen Eintrag ansehen"
+
+#: Sentences/index.php:9
+msgid "Sentences"
+msgstr "Sätze"
+
+#: Sentences/view.php:31
+#: Words/viewauto.php:224
+msgid "Sentence"
+msgstr "Satz"
+
+#: Suggestions/add.php:18
+msgid "Add Suggestion for "
+msgstr "Ergänzen Sie einen Vorschlag für "
+
+#: Suggestions/index.php:8
+#: Suggestions/view.php:14
+msgid "New Suggestion"
+msgstr "Neuer Vorschlag"
+
+#: Suggestions/index.php:9
+msgid "Suggestions"
+msgstr "Vorschläge"
+
+#: Words/add.php:10
+msgid "New"
+msgstr "Neu"
+
+#: Words/add.php:27
+msgid "word"
+msgstr "Wort"
+
+#: Words/add.php:34
+msgid "Most Common Spelling"
+msgstr "Üblichste Schreibweise"
+
+#: Words/add.php:40
+msgid "Alternate Spelling(s)"
+msgstr "Alternative Schreibweise(n)"
+
+#: Words/add.php:54
+msgid "Add an additional spelling"
+msgstr "zusätzliche Schreibweise hinzufügen"
+
+#: Words/add.php:55
+#: Words/add.php:134
+msgid "Remove"
+msgstr "Entfernen"
+
+#: Words/add.php:68
+msgid "Phonetic Spelling "
+msgstr "Phonetische Schreibweise"
+
+#: Words/add.php:68
+msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+msgstr "Die Verwendung von Bindestrichen und Großbuchstaben markiert Silben und Betonung, z.B. 'te-SCHU-we' vs. 'tschu-WA'"
+
+#: Words/add.php:89
+msgid "Recorded"
+msgstr "Aufgenommen"
+
+#: Words/add.php:133
+msgid "Add an additional pronunciation"
+msgstr "Aussprachvariante hinzufügen"
+
+#: Words/add.php:145
+msgid "Definition(s)"
+msgstr "Definition(en)"
+
+#: Words/add.php:183
+msgid "Add an additional definition"
+msgstr "zusätzliche Definition hinzufügen"
+
+#: Words/add.php:189
+msgid "Example Sentence(s)"
+msgstr "Beispiel Satz/Sätze"
+
+#: Words/add.php:225
+msgid "Add an additional sentence"
+msgstr "zusätzlichen Satz hinzufügen"
+
+#: Words/add.php:231
+msgid "Language(s) of Origin"
+msgstr "Herkunftssprache(n)"
+
+#: Words/add.php:232
+#: Words/add.php:242
+msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
+msgstr "Drücken Sie strg, um mehr als eine Option auszuwählen, durch wiederholtes Drücken heben Sie die Auswahl wieder auf"
+
+#: Words/add.php:279
+msgid "Who Uses This"
+msgstr "Wer verwendet das"
+
+#: Words/add.php:280
+#: Words/add.php:285
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
+msgstr "Drücken Sie strg (cmd bei Mac), um mehr als eine Option auszuwählen, durch wiederholtes Drücken heben Sie die Auswahl wieder auf"
+
+#: Words/add.php:320
+msgid "Anything else you want website visitors to know about this entry"
+msgstr "Gibt es noch etwas, was Besucher dieser Webseite zu diesem Eintrag wissen sollten"
+
+#: Words/add.php:332
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the Top Word Contributors. Other than that, you will NOT be contacted or placed on any email lists."
+msgstr "Ihr Name und Ihre Email-Adresse werden nicht auf der Webseite erscheinen. Wir benötigen beides nur im Fall von Rückfragen zu Ihrem Eintrag. Wenn Sie viele Wörter zum Wörterbuch beisteuern, haben Sie die Möglichkeit, als eine*r der Hauptbeitragenden zu diesem Wörterbuch erwähnt zu werden. Darüber hinaus werden Sie NICHT kontaktiert und auch NICHT in einen Mailverteiler aufgenommen."
+
+#: Words/add.php:334
+msgid "Your Name"
+msgstr "Ihr Name"
+
+#: Words/add.php:338
+msgid "Your Email Address"
+msgstr "Ihre Email-Adresse"
+
+#: Words/add.php:343
+msgid "Double check your submission!"
+msgstr "Bitte überprüfen Sie Ihre Eingabe noch einmal!"
+
+#: Words/add.php:350
+msgid "Approve Word"
+msgstr "Wort bestätigen"
+
+#: Words/add.php:354
+#: Words/viewauto.php:12
+msgid "Delete Word"
+msgstr "Wort löschen"
+
+#: Words/add.php:357
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+#: Words/add.php:395
+msgid "This word already exists in the lexicon or is being evaluated."
+msgstr "Dieses Wort ist bereits im Wörterbuch oder es wird zur Zeit redaktionell geprüft."
+
+#: Words/alphabetical.php:7
+msgid "Add a new word"
+msgstr "neues Wort hinzufügen"
+
+#: Words/alphabetical.php:16
+msgid "Browse by Letter"
+msgstr "nach Anfangsbuchstaben durchsuchen"
+
+#: Words/alphabetical.php:73
+msgid "Showing "
+msgstr "wird angezeigt"
+
+#: Words/alphabetical.php:73
+msgid "words"
+msgstr "Wörter"
+
+#: Words/alphabetical.php:78
+msgid "No words were found."
+msgstr "Es wurden keine Wörter gefunden."
+
+#: Words/browse.php:6
+msgid "Add a new word"
+msgstr "neues Wort hinzufügen"
+
+#: Words/browse.php:144
+msgid "No words were found. Refine your search options above."
+msgstr "Es wurden keine Wörter gefunden. Bitte verfeinern Sie Ihre Suchkriterien oben."
+
+#: Words/edit.php:6
+msgid "Editing"
+msgstr "Bearbeiten"
+
+#: Words/edit.php:10
+msgid "SUGGEST CHANGES FOR "
+msgstr "ÄNDERUNGEN FÜR    VORSCHLAGEN"
+
+#: Words/edit.php:11
+msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
+msgstr "Sie geben gerade Änderungen für diesen Eintrag ein. Antworten auf Fragen zu Herkunftssprachen, Schreibweise oder Personengruppen,die dies verwenden, finden Sie unter "
+
+#: Words/edit.php:11
+msgid "Notes."
+msgstr "Hinweise"
+
+#: Words/edit.php:11
+msgid "What edits would you like to suggest to this entry? Please be specific."
+msgstr "Welche Änderungen möchten Sie für diesen Eintrag vorschlagen? Bitte machen Sie genaue Angaben."
+
+#: Words/index.php:8
+#: Words/viewauto.php:14
+msgid "New Word"
+msgstr "Neues Wort"
+
+#: Words/index.php:9
+msgid "Words"
+msgstr "Wörter"
+
+#: Words/random.php:8
+#: Words/random.php:14
+#: Words/random.php:33
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: Words/random.php:14
+msgid "random words retrieved"
+msgstr "Zufallsauswahl von Wörtern"
+
+#: Words/success.php:6
+msgid "Thank you"
+msgstr "Vielen Dank"
+
+#: Words/success.php:9
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr "Vielen Dank für Ihren Eintrag im Jüdisch-Deutschen Wörterbuch. In etwa eine Woche können Sie Ihren Eintrag auf dieser Webseite finden."
+
+#: Words/success.php:12
+msgid "See your entry"
+msgstr "Eintrag ansehen"
+
+#: Words/view.php:5
+msgid "Back"
+msgstr "Zurück"
+
+#: Words/view.php:22
+msgid "Record a Pronunciation"
+msgstr "Aussprache aufnehmen"
+
+#: Words/view.php:27
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: Words/view.php:70
+#: Words/view.php:81
+#: Words/view.php:92
+#: Words/view.php:110
+#: Words/view.php:121
+#: Words/view.php:133
+msgid "View More"
+msgstr "Mehr"
+
+#: Words/view.php:144
+#: Words/view.php:149
+msgid "Alternative Spellings"
+msgstr "andere Schreibweisen"
+
+#: Words/view.php:168
+msgid "See something you disagree with? Feel free to edit it. All changes will be moderated. "
+msgstr "Gibt es Einträge, mit denen Sie nicht einverstanden sind? Geben Sie gerne Änderungen ein. Alle Änderungen werden redaktionell überprüft."
+
+#: Words/wordnotfound.php:6
+msgid "Error"
+msgstr "Fehler"
+
+#: Words/wordnotfound.php:9
+msgid "This word can not be found or has not yet been approved"
+msgstr "Dieses Wort kann nicht gefunden werden oder wurde noch nicht redaktionell überprüft"
+
+#: Words/wordnotfound.php:11
+msgid "Add a word"
+msgstr "Wort hinzufügen"
+
+#: layout/error.php:38
+msgid "Back"
+msgstr "Zurück"
+
