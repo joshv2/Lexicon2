@@ -235,7 +235,7 @@ class WordsTable extends Table
 
         if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
             $query = $this->find()
-                        ->where(['language_id' => $langid])
+                        ->where(['language_id' => $langid, 'approved' => 1])
                         ->contain(['Definitions']);
         } else {
 

@@ -527,10 +527,12 @@ class WordsController extends AppController
                 $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
             
-            $dictionaries = $this->Words->Dictionaries->find('list', ['limit' => 200]);
-            $origins = $this->Words->Origins->find('list', ['limit' => 200]);
-            $regions = $this->Words->Regions->find('list', ['limit' => 200]);
-            $types = $this->Words->Types->find('list', ['limit' => 200]);
+            array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+
+            $origins = $this->Origins->top_origins($sitelang->id);
+            $regions = $this->Regions->top_regions($sitelang->id);
+            $types = $this->Types->top_types($sitelang->id);
+            $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
             //$alternates = $this->Words->Alternates->find('list');
             $title = 'Edit: ' . $word->spelling;
             $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang'));

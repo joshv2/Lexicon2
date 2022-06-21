@@ -146,10 +146,15 @@
 		</div>
 		<?php endif;?>
 		<?php if(!empty($word->origins)):?>
+			<?php $neworigins = [];
+			foreach ($word->origins as $key => $origin){
+				$neworigins[$key] = __($origin->origin);
+			} 
+			?>
 			<h4>Languages of Origin</h4>
 			<ul class="multiple-items">
-			<?php foreach ($word->origins as $s): ?>
-			<li><?php echo $s->origin;?></li>
+			<?php foreach ($neworigins as $s): ?>
+			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->origins) > 3): ?>
 				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
@@ -164,9 +169,14 @@
 		<?php endif;?>
 		
 		<?php if(!empty($Types_type)):?>
+			<?php $newtypes = [];
+			foreach ($Types_type as $key => $type){
+				$newtypes[$key] = __($type);
+			} ?>
+			
 			<h4>Who Uses This</h4>
 			<ul class="multiple-items">
-			<?php foreach ($Types_type as $s): ?>
+			<?php foreach ($newtypes as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 			<?php if (count($Types_type) > 3): ?>
@@ -175,10 +185,15 @@
 		</ul><?php endif;?>
 		
 		<?php if(!empty($word->regions)):?>
+			<?php $newregions = [];
+			foreach ($word->regions as $key => $region){
+				$newregions[$key] = __($region->region);
+			} ?>
+			
 			<h4>Regions</h4>
 			<ul class="multiple-items">
-			<?php foreach ($word->regions as $s): ?>
-			<li><?php echo $s->region;?></li>
+			<?php foreach ($newregions as $s): ?>
+			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 			<?php if (count($word->regions) > 3): ?>
 				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
