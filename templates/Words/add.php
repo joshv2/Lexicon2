@@ -234,7 +234,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
 				    //echo "<a class='remove-editor disabled'><i class='icon-minus-sign'></i>" . __('Remove') . "</a>";
                     //echo "</div>";
 
-
+                    if (1 == $sitelang->hasOrigins){
                     echo "<div class='form-group left'>";
                     $neworigins = [];
                     foreach ($origins as $key => $origin){
@@ -243,12 +243,12 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo $this->Form->control('origins._ids', ['options' => $neworigins, 'label' => __('Language(s) of Origin'), 'style' => 'width:100%;display:block;', 'size' => '7']);
                     echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
                     echo "</div>";
-
+                    }
                     //echo "<div class='form-group left'>";
                     //echo $this->Form->label('Add an Origin');
                     //echo $this->Form->text('extraOrigin');
                     //echo "</div>";
-                    if ('superuser' == $this->request->getSession()->read('Auth.role')){
+                    if ('superuser' == $this->request->getSession()->read('Auth.role') && 1 == $sitelang->hasDictionaries){
                         echo "<div class='form-group right'>";
                         echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries, 'label' => __('Dictionaries'), 'style' => 'width:100%;display:block;', 'size' => '7']);
                         echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
@@ -286,7 +286,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     
                     //echo $this->Form->control('dictionaries._ids', ['options' => $dictionaries]);
                     
-                    
+                    if (1 == $sitelang->hasTypes){
                     echo "<div class='form-group left'>";
                     $newtypes = [];
                     foreach ($types as $key => $type){
@@ -295,7 +295,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo $this->Form->control('types._ids', ['options' => $newtypes, 'label' => __('Who Uses This'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
-                    
+                    }
+                    if (1 == $sitelang->hasRegions){
                     echo "<div class='form-group right'>";
                     $newregions = [];
                     foreach ($regions as $key => $region){
@@ -304,7 +305,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo $this->Form->control('regions._ids', ['options' => $newregions, 'label' => __('Regions in Which the Word is Used'), 'style' => 'width:100%;display:block;']);
                     echo "<p class='mini'>" . __('Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect') . "</p>";
                     echo "</div>";
-
+                    }
                     //echo "<div class='form-group left'>";
                     //echo $this->Form->label('Add a Type');
                     //echo $this->Form->text('extraType');

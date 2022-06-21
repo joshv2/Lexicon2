@@ -440,7 +440,7 @@ msgstr "Sobre nós"
 
 #: Pages/home.php:37
 msgid "First time here? Read our "
-msgstr "É sua primeira vez? Leia sobre nós."
+msgstr "É sua primeira vez? Leia sobre nós. "
 
 #: Pages/home.php:37
 msgid "welcome "
