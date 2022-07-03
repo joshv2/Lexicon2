@@ -243,19 +243,19 @@ class WordsTable extends Table
             if (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
             } elseif ('other' == $originvalue) {
-                $params['o.origin_id NOT IN'] = [1,2,3,4,5,6,7];
+                $params['o.origin_id ='] = 999;
             }
 
             if (!is_null($regionvalue) && 'other' !== $regionvalue){
                 $params['r.region_id IN'] = $regionvalue;
             } elseif ('other' == $regionvalue) {
-                $params['r.region_id NOT IN'] = [1,2,3,4];
+                $params['r.region_id ='] = 999;
             }
 
             if (!is_null($typevalue) && 'other' !== $typevalue){
                 $params['t.type_id IN'] = $typevalue;
             } elseif ('other' == $typevalue) {
-                $params['t.type_id NOT IN'] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+                $params['t.type_id ='] = 999;
             }
 
             if (!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue){
@@ -290,7 +290,7 @@ class WordsTable extends Table
                                 'conditions' => 'Words.id = o.word_id'
                             ]
                         ])
-                        ->where($params)
+                        ->where([$params, 'language_id' => $langid])
                         ->contain(['Definitions'])
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
