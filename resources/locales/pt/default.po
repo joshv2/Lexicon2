@@ -638,7 +638,7 @@ msgstr "Grafia mais usada"
 
 #: Words/add.php:40
 msgid "Alternate Spelling(s)"
-msgstr "Oura(s) grafia(s)"
+msgstr "Outra(s) grafia(s)"
 
 #: Words/add.php:54
 msgid "Add an additional spelling"
