@@ -400,7 +400,7 @@ $(function(){
     $('[name="spelling"]').blur(function(){
         $.ajax({
             type: "POST",
-            url: "/words/checkforword",
+            url: "words/checkforword",
             data: {
                 spelling: $('[name="spelling"]').val(),
                 language_id: $('[name="language_id"]').val()
@@ -411,7 +411,7 @@ $(function(){
             success: function(response) {
                 var newData = response;
                 
-                //alert(newData.response.spelling);
+                //alert(newData.response);
                 if (newData.response.spelling == false) {
                     $('#wordexists').text('<?= __("This word already exists in the lexicon or is being evaluated.") ?>');
                     $("#submitbutton").prop('disabled', true);

@@ -446,14 +446,17 @@ class WordsTable extends Table
 
         $wordspellingquery = $this->find()
                                 ->select(['spelling'])
-                                ->where(['spelling =' => $wordtosearch, 'approved' => 1, 'language_id' => $spelling["language_id"]]);
+                                ->where(['spelling =' => $wordtosearch, 'approved' => 1, 'language_id' => $spelling["language_id"]
+                            ]);
 
         $altspellingquery = $alternates->find()
                                 ->select(['spelling'])
-                                ->where(['spelling =' => $wordtosearch]);
+                                ->contain('Words'
+                                        )
+                                ->where(['Alternates.spelling =' => $wordtosearch, 'Words.language_id' => $spelling["language_id"]]);
 
         $finalquery = $altspellingquery->union($wordspellingquery);
-        //debug($finalquery);
+        //return $finalquery->toArray();
         if ($finalquery->count() > 0) {
             return FALSE;
         } else {
