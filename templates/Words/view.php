@@ -195,9 +195,6 @@
 			<?php foreach ($newregions as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
-			<?php if (count($word->regions) > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
 		</ul><?php endif;?>
 			
 
