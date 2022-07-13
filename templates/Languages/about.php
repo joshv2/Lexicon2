@@ -1,7 +1,8 @@
 <section id="main">
 <div id="header-image">
-	<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
-</div>
+<?php if ('' != $sitelang->HeaderImage):?>
+<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
+<?php endif; ?></div>
 <div class="page-header group">
 	<?php if ('' !== $sitelang->AboutSec1Header): ?>	
 		<h2 class="left"><?= $sitelang->AboutSec1Header ?></h2>
