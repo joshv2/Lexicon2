@@ -740,6 +740,9 @@ msgstr "Este verbete já consta no léxico ou está sendo avaliado."
 msgid "Add a new word"
 msgstr "Adicione um verbete"
 
+msgid "Add a New Word"
+msgstr "Adicione um Verbete"
+
 #: Words/alphabetical.php:16
 msgid "Browse by Letter"
 msgstr "Busque por letra"
@@ -866,10 +869,10 @@ msgid "Back"
 msgstr "Voltar"
 
 msgid "Home"
-msgstr ""
+msgstr "Página Inicial"
 
 msgid "Jewish Languages"
-msgstr ""
+msgstr "Línguas Judaicas"
 
 msgid "Volunteer"
 msgstr "Voluntariado"
@@ -890,13 +893,13 @@ msgid "About"
 msgstr ""
 
 msgid "JEL Forum"
-msgstr ""
+msgstr "Fórum de JEL"
 
 msgid "The Lexicon"
 msgstr ""
 
 msgid "Alphabetical"
-msgstr ""
+msgstr "Alfabético"
 
 msgid "ADVANCED SEARCH:"
 msgstr "PESQUISA AVANÇADA:"
@@ -914,7 +917,7 @@ msgid "See a random list of words"
 msgstr "Veja uma palavra aleatória"
 
 msgid "Random"
-msgstr ""
+msgstr "Palavra Aleatória"
 
 msgid "Other (please describe in Notes section)"
 msgstr "Outros (por favor coloque a descrição na seção de notas)"

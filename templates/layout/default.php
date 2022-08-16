@@ -133,7 +133,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	<footer>
 		<div id="footer_inner">
 			<ul>
-				<li><?php echo $this->Html->link(__('About'), '/about');?></li>
+				<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
 				<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
 				<li><a href="http://jewishlexicon.weebly.com" target="_blank"><?= __('JEL Forum') ?></a></li>
 				<li><a href="http://jewish-languages.org" target="_blank">Jewish-Languages.org</a></li>
