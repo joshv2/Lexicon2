@@ -148,7 +148,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 				<li><?php echo $this->Html->link(__('Add a New Word'), '/add');?></li>
 			</ul>
 			<div class="right">
-			<?php echo $this->Html->image("joint_logo.jpg");?>
+			<?php echo $this->Html->image("joint_logo.jpg", ['id' => 'jointlogo']);?>
 			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
 			</div>
 			<div class="clear"></div>
