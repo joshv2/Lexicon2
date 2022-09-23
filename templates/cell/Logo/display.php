@@ -1,4 +1,4 @@
 <?php echo $this->Html->image($logofilename, 
                                             ['url' => '/', 
-                                            'width' => 50,
+                                            'width' => 110,
                                             'height' => 51])?>
