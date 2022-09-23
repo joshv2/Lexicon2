@@ -25,13 +25,13 @@
 	</div>  
 	<div id="notes" class="c content">
 	<!--<div id="about" class="c content">-->
-		<p id="logo">
+		<!--<p id="logo">
 		<?php echo $this->Html->image($sitelang->LogoImage, 
                                             ['width' => 200,
                                             'height' => 204,
 											'align' => 'left',
 											'style' => 'margin-right:10px'])?>
-		</p>
+		</p>-->
 		<p> <?=__("The goals of the Jewish English Lexicon (JEL) are to collect data on English spoken and written by Jews and to make it available to the public.") ?></p>
 		</div>
 		<h4> <?=__('JEL Team')?></h4>
