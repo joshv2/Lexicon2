@@ -35,13 +35,6 @@
 <?php endif; ?>
 
 <div id="notes" class="c content about">
-	<p id="logo">
-	<?php echo $this->Html->image($sitelang->LogoImage, 
-										['width' => 200,
-										'height' => 204,
-										'align' => 'left',
-										'style' => 'margin-right:10px'])?>
-	</p>
 	<?php if ('' !== $sitelang->AboutSec2Text): ?>
 		<?= $sitelang->AboutSec2Text ?>
 	<?php endif; ?>
