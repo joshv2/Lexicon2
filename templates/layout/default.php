@@ -67,10 +67,12 @@
 <div id="container">
 	<header>
 		<div class="headergroup">
-			<h1>
-            <?= $this->cell('Logo'); ?></h1>
-			<nav>
-				<ul id="navbar_sub">
+		<div class="flex"> 	<span>
+		<h1>
+            <?= $this->cell('Logo'); ?></h1></span></div>
+			<nav class="flex"> <span>
+			<div id="navbar_subdiv">
+			<ul id="navbar_sub">
 					<li><?php echo $this->Html->link(__('Home'), '/');?></li>
 					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
 					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
@@ -79,11 +81,13 @@
 					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
 					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
 					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
-				</ul>
+				</ul><div></span>
 			</nav>
+			<div class="flex"><span>
 			<form type="GET" action="/search">
 				<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
-			</form>
+			</form></span>
+			</div>
 		</div>
 		<div class="mobile-header">
 		<div id="headerlogo">
