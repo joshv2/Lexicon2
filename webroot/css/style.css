@@ -737,6 +737,26 @@ header {
 header .headergroup {
     width: 900px;
     margin: 0 auto;
+    display: flex;
+}
+
+.flex {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.flex>div {
+    height: 50px;
+    text-align: center;
+}
+
+.flex:first-child>span {
+    margin-right: auto;
+}
+
+.flex:last-child>span {
+    margin-left: auto;
 }
 
 header h1 {
@@ -829,26 +849,31 @@ header nav {
     box-shadow: inset 0 0 15px #000;
 }
 
-#navbar_sub {
-    float: left;
+#navbar_subdiv {
+    padding-top: 15px;
+    width: 652px;
+    padding-left: 0px;
     list-style: none;
-    margin: 0;
-    padding: 0;
-    line-height: 50px;
     height: 50px;
-    margin-left: 27px;
+}
+
+#navbar_sub {
+    padding-left: 0px;
+    list-style: none;
+    display: table;
+    margin: 0 auto;
 }
 
 #navbar_sub li {
     float: left;
-    margin: 0 12px 0 0;
+    margin: 0 4px 0 4px;
 }
 
 #navbar_sub a {
     font-weight: bold;
     color: #eee;
     border-right: 1px #114583 solid;
-    padding: 0 18px 0 0;
+    padding: 0 9px 0 0;
     font-size: 12px;
 }
 
@@ -863,7 +888,7 @@ header nav {
 
 header form {
     float: right;
-    margin: 12px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 input#search {
