@@ -66,6 +66,7 @@
 <body>
 <div id="container">
 	<header>
+	<div id="desktop">	
 		<div class="headergroup">
 		<div class="flex"> 	<span>
 		<h1>
@@ -89,6 +90,7 @@
 			</form></span>
 			</div>
 		</div>
+	</div>
 		<div class="mobile-header">
 		<div id="headerlogo">
 			<h1>

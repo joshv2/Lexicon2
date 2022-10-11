@@ -1538,7 +1538,6 @@ seefullentrybutton {
 
 #headerlogo {
     display: table-cell;
-    width: 58px;
 }
 
 .topnav {
@@ -1755,7 +1754,10 @@ textarea {
     .browse {
         text-align: center;
     }
-    .headergroup {
+    #desktop {
+        display: none;
+    }
+    #navbar_sub {
         display: none;
     }
     .mobile-header {
@@ -1979,7 +1981,6 @@ textarea {
     }
     header h1 a img {
         height: 40px;
-        width: 40px;
         padding: 2px 5px 0 5px;
         margin: 3px 0 0 0;
         border: 0;
