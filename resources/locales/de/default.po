@@ -859,3 +859,47 @@ msgstr "Wort hinzufügen"
 msgid "Back"
 msgstr "Zurück"
 
+msgid "Yiddish"
+msgstr "Jiddisch"
+
+msgid "Modern Hebrew"
+msgstr "Hebräisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Aramaic"
+msgstr "Aramäisch"
+
+msgid "Arabic / Judeo-Arabic"
+msgstr "Arabisch"
+
+msgid "Younger: Jews in their 30s or younger"
+msgstr "jüngere Jüdinnen und Juden"
+
+msgid "Older: Jews who are middle-aged and older"
+msgstr "ältere Jüdinnen und Juden"
+
+msgid "Eastern European Jews"
+msgstr "osteuropäische Jüdinnen und Juden"
+
+msgid "Russian: Jews with recent Russian-speaking ancestry in Russia"
+msgstr "russische Jüdinnen und Juden"
+
+msgid "Orthodox: Jews who identify as Orthodox and observe halacha (Jewish law)"
+msgstr "orthodoxe Jüdinnen und Juden"
+
+msgid "Religious"
+msgstr "religiöse Jüdinnen und Juden"
+
+msgid "Non-Jews: (words that have spread outside of Jewish networks)"
+msgstr "Machane-Teilnehmerinnen und Teilnehmer"
+
+msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
+msgstr "nicht-jüdische Sprecherinnen und Sprecher"
