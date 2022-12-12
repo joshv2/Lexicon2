@@ -288,16 +288,18 @@ class WordsController extends AppController
             }
 
             $processedOrigins = [];
-            foreach ($postData['origins']['_ids'] as $originid){
-                array_push($processedOrigins, array('id' => $originid));
+            if($postData['origins']['_ids'] !== ''){
+                foreach ($postData['origins']['_ids'] as $originid){
+                    array_push($processedOrigins, array('id' => $originid));
+                }
+                
+                if ($postData['origin_other_entry'] !== ''){
+                    array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
+                    unset($postData['origin_other_entry']);
+                }
+                unset($postData['origins']['_ids']);
+                $postData['origins'] = $processedOrigins;
             }
-            
-            if ($postData['origin_other_entry'] !== ''){
-                array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
-                unset($postData['origin_other_entry']);
-            }
-            unset($postData['origins']['_ids']);
-            $postData['origins'] = $processedOrigins;
 
             //reCaptcha authentication
             if (null == $this->request->getSession()->read('Auth.username')){
@@ -536,34 +538,37 @@ class WordsController extends AppController
                     }
                 }
 
+
                 $processedOrigins = [];
-                foreach ($postData['origins']['_ids'] as $originid){
-                    array_push($processedOrigins, array('id' => $originid));
-                }
-                
-                $pattern = '/^origin_other_entry_/';
-                $postkeys = array_keys($postData);
-                $otheroriginskey = preg_grep($pattern, $postkeys);
-                print_r($otheroriginskey);
-                if ($otheroriginskey !== false){ //if there 
-                    $otheroriginidvalues = array_values($otheroriginskey);
-                    $otheroriginid = array_shift($otheroriginidvalues);
-                    //echo $otheroriginid;
-                    if(isset($otheroriginid) && in_array(999,$postData['origins']['_ids'])){
-                        $getoriginid = explode("_",$otheroriginid);
-                        //print_r($getoriginid);
-                        $getoriginidvalue = $getoriginid[3];
-                        array_push($processedOrigins, [ 'id' => $getoriginidvalue, 'origin' => $postData[$otheroriginid]]);
-                        unset($postData[$otheroriginid]);
-                        unset($postData['origins']['_ids']);
-                        $postData['origins'] = $processedOrigins;
-                    } elseif(isset($postData['origin_other_entry']) && $postData['origin_other_entry'] !== '') {
-                        array_push($processedOrigins, ['origin' => $postData['origin_other_entry']]);
-                        unset($postData['origin_other_entry']);
-                        unset($postData['origins']['_ids']);
-                        $postData['origins'] = $processedOrigins;
-                    } else {
-                        unset($postData['origin_other_entry']);
+                if($postData['origins']['_ids'] !== ''){
+                    foreach ($postData['origins']['_ids'] as $originid){
+                        array_push($processedOrigins, array('id' => $originid));
+                    }
+                    
+                    $pattern = '/^origin_other_entry_/';
+                    $postkeys = array_keys($postData);
+                    $otheroriginskey = preg_grep($pattern, $postkeys);
+                    print_r($otheroriginskey);
+                    if ($otheroriginskey !== false){ //if there 
+                        $otheroriginidvalues = array_values($otheroriginskey);
+                        $otheroriginid = array_shift($otheroriginidvalues);
+                        //echo $otheroriginid;
+                        if(isset($otheroriginid) && in_array(999,$postData['origins']['_ids'])){
+                            $getoriginid = explode("_",$otheroriginid);
+                            //print_r($getoriginid);
+                            $getoriginidvalue = $getoriginid[3];
+                            array_push($processedOrigins, [ 'id' => $getoriginidvalue, 'origin' => $postData[$otheroriginid]]);
+                            unset($postData[$otheroriginid]);
+                            unset($postData['origins']['_ids']);
+                            $postData['origins'] = $processedOrigins;
+                        } elseif(isset($postData['origin_other_entry']) && $postData['origin_other_entry'] !== '') {
+                            array_push($processedOrigins, ['origin' => $postData['origin_other_entry']]);
+                            unset($postData['origin_other_entry']);
+                            unset($postData['origins']['_ids']);
+                            $postData['origins'] = $processedOrigins;
+                        } else {
+                            unset($postData['origin_other_entry']);
+                        }
                     }
                 }
 
