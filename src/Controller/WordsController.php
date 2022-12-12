@@ -287,6 +287,18 @@ class WordsController extends AppController
                 }
             }
 
+            $processedOrigins = [];
+            foreach ($postData['origins']['_ids'] as $originid){
+                array_push($processedOrigins, array('id' => $originid));
+            }
+            
+            if ($postData['origin_other_entry'] !== ''){
+                array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
+                unset($postData['origin_other_entry']);
+            }
+            unset($postData['origins']['_ids']);
+            $postData['origins'] = $processedOrigins;
+
             //reCaptcha authentication
             if (null == $this->request->getSession()->read('Auth.username')){
                 $recaptcha = $postData['g-recaptcha-response'];
@@ -360,7 +372,8 @@ class WordsController extends AppController
         }
 
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
-
+        $specialother = '';
+        $specialothervalue = '';
         $origins = $this->Origins->top_origins($sitelang->id);
         $regions = $this->Regions->top_regions($sitelang->id);
         $types = $this->Types->top_types($sitelang->id);
@@ -368,7 +381,7 @@ class WordsController extends AppController
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang'));
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue'));
     }
 
     public function checkforword(){
@@ -523,6 +536,37 @@ class WordsController extends AppController
                     }
                 }
 
+                $processedOrigins = [];
+                foreach ($postData['origins']['_ids'] as $originid){
+                    array_push($processedOrigins, array('id' => $originid));
+                }
+                
+                $pattern = '/^origin_other_entry_/';
+                $postkeys = array_keys($postData);
+                $otheroriginskey = preg_grep($pattern, $postkeys);
+                print_r($otheroriginskey);
+                if ($otheroriginskey !== false){ //if there 
+                    $otheroriginidvalues = array_values($otheroriginskey);
+                    $otheroriginid = array_shift($otheroriginidvalues);
+                    //echo $otheroriginid;
+                    if(isset($otheroriginid) && in_array(999,$postData['origins']['_ids'])){
+                        $getoriginid = explode("_",$otheroriginid);
+                        //print_r($getoriginid);
+                        $getoriginidvalue = $getoriginid[3];
+                        array_push($processedOrigins, [ 'id' => $getoriginidvalue, 'origin' => $postData[$otheroriginid]]);
+                        unset($postData[$otheroriginid]);
+                        unset($postData['origins']['_ids']);
+                        $postData['origins'] = $processedOrigins;
+                    } elseif(isset($postData['origin_other_entry']) && $postData['origin_other_entry'] !== '') {
+                        array_push($processedOrigins, ['origin' => $postData['origin_other_entry']]);
+                        unset($postData['origin_other_entry']);
+                        unset($postData['origins']['_ids']);
+                        $postData['origins'] = $processedOrigins;
+                    } else {
+                        unset($postData['origin_other_entry']);
+                    }
+                }
+
                 $soundFiles = $this->request->getUploadedFiles();
                 //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
                 $i = 0;
@@ -556,12 +600,22 @@ class WordsController extends AppController
             array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
             $origins = $this->Origins->top_origins($sitelang->id);
+
+            $specialother = '';
+            $specialothervalue = '';
+            foreach($word->origins as $key => $originscan){
+                if(!in_array($originscan->id,array_keys($origins))){
+                    $specialother = '_' . $originscan->id;
+                    $specialothervalue = $originscan->origin;
+                }
+            }
+
             $regions = $this->Regions->top_regions($sitelang->id);
             $types = $this->Types->top_types($sitelang->id);
             $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
             //$alternates = $this->Words->Alternates->find('list');
             $title = 'Edit: ' . $word->spelling;
-            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang'));
+            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue'));
             $this->render('add');
         } else {
             return $this->redirect([

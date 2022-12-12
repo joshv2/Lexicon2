@@ -568,6 +568,10 @@ label {
     color: #777;
 }
 
+.form-group-origins-other {
+    display: none;
+}
+
 form .notes {
     margin: 10px 0;
 }

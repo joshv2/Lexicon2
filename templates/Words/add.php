@@ -244,6 +244,9 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<p class='mini'>" . __('Hold down Ctrl to select more than one option, Ctrl-click again to deselect') ."</p>";
                     echo "</div>";
                     }
+
+                    
+
                     //echo "<div class='form-group left'>";
                     //echo $this->Form->label('Add an Origin');
                     //echo $this->Form->text('extraOrigin');
@@ -255,6 +258,10 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                         echo "</div>";
                     }
                     echo "<div class='form-group clear'>";
+                    
+                    echo "<div class='form-group-origins-other'>";
+                    echo $this->Form->control('origin_other_entry', ['label' => ['text' => __('Enter other origins separated by comma'), 'class' => 'req']]);
+                    echo "</div>";
 
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['etymology']) { 
                         if(null !== $this->request->getData('spelling')){
@@ -469,3 +476,33 @@ $(function(){
         $("#recordcell").append("Recording is not available on iOS at this time.")
 	}
 </script>   
+<script>
+    $(document).ready(showOtherBoxLoad);
+    $("#origins-ids").on('change', showOtherBox);
+    
+    function showOtherBoxLoad() {
+        if($("#origins-ids").val().indexOf("999") >= 0) {
+            $(".form-group-origins-other").show();
+            $("#origin-other-entry").attr('name', 'origin_other_entry' + '<?php echo $specialother; ?>');
+            $("#origin-other-entry").attr('required','required');
+            $("#origin-other-entry").val('<?php echo $specialothervalue; ?>');
+        } else  {
+            $(".form-group-origins-other").hide();           
+        }
+    }
+
+
+    function showOtherBox() {
+        if($("#origins-ids").val().indexOf("999") >= 0) {
+            $(".form-group-origins-other").show(); 
+            $("#origin-other-entry").attr('required','required');        
+        } else  {
+            $(".form-group-origins-other").hide();
+            $("#origin-other-entry").removeAttr('required');           
+        }
+    }
+    
+        
+
+
+</script>
