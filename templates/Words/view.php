@@ -148,7 +148,24 @@
 		<?php if(!empty($word->origins)):?>
 			<?php $neworigins = [];
 			foreach ($word->origins as $key => $origin){
-				$neworigins[$key] = __($origin->origin);
+				$lenotherorigins = 0;
+				//echo $origin->origin, strpos($origin->origin,",") . "</br>";
+
+				if(strpos($origin->origin,",") !== false){
+					//echo "comma";
+					$otherorigins = explode(",",$origin->origin);
+					$lenotherorigins = count($otherorigins);
+				} 
+				//print_r($otherorigins);
+
+
+				if($origin->id != 999 && $lenotherorigins == 0){
+					$neworigins[$key] = __($origin->origin);
+				}
+
+				
+
+				$totalorigins = count($neworigins) + $lenotherorigins;
 			} 
 			?>
 			<h4>Languages of Origin</h4>
@@ -156,7 +173,12 @@
 			<?php foreach ($neworigins as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
-			<?php if (count($word->origins) > 3): ?>
+			<?php if (isset($otherorigins)) : ?>
+				<?php foreach ($otherorigins as $s): ?>
+					<li><?php echo trim($s);?></li>
+				<?php endforeach; ?>
+			<?php endif; ?>
+			<?php if ($totalorigins > 3): ?>
 				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
