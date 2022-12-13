@@ -322,8 +322,11 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     //echo $this->Form->label('Add a Region');
                     //echo $this->Form->text('extraRegion');
                     //echo "</div>";
-
                     echo "<div class='form-group clear'>";
+                    echo "<div class='form-group-types-other'>";
+                        echo $this->Form->control('type_other_entry', ['label' => ['text' => __('Enter other groups separated by comma'), 'class' => 'req']]);
+                    echo "</div>";
+                    
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['notes']) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'notes';
@@ -478,8 +481,10 @@ $(function(){
 </script>   
 <script>
     $(document).ready(showOtherBoxLoad);
+    $(document).ready(showOtherBoxLoadR);
     $("#origins-ids").on('change', showOtherBox);
-    
+    $("#types-ids").on('change', showOtherBoxR);
+
     function showOtherBoxLoad() {
         if($("#origins-ids").val().indexOf("999") >= 0) {
             $(".form-group-origins-other").show();
@@ -502,7 +507,30 @@ $(function(){
         }
     }
     
-        
+
+    
+
+    function showOtherBoxLoadR() {
+        if($("#types-ids").val().indexOf("999") >= 0) {
+            $(".form-group-types-other").show();
+            $("#type-other-entry").attr('name', 'type_other_entry' + '<?php echo $specialothertype; ?>');
+            $("#type-other-entry").attr('required','required');
+            $("#type-other-entry").val('<?php echo $specialothervaluetype; ?>');
+        } else  {
+            $(".form-group-types-other").hide();           
+        }
+    }
+
+
+    function showOtherBoxR() {
+        if($("#types-ids").val().indexOf("999") >= 0) {
+            $(".form-group-types-other").show(); 
+            $("#type-other-entry").attr('required','required');        
+        } else  {
+            $(".form-group-types-other").hide();
+            $("#type-other-entry").removeAttr('required');           
+        }
+    }    
 
 
 </script>

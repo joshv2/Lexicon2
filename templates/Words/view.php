@@ -190,10 +190,21 @@
 			<ul>
 		<?php endif;?>
 		
-		<?php if(!empty($Types_type)):?>
+		<?php if(!empty($word->types)):?>
 			<?php $newtypes = [];
-			foreach ($Types_type as $key => $type){
-				$newtypes[$key] = __($type);
+			foreach ($word->types as $key => $type){
+				$lenothertypes = 0;
+
+				if(strpos($type->type,",") !== false){
+					$othertypes = explode(",",$type->type);
+					$lenothertypes = count($othertypes);
+				}
+
+				if($type->id != 999 && $lenothertypes == 0){
+					$newtypes[$key] = __($type->type);
+				}
+
+				$totaltypes = count($newtypes) + $lenothertypes;
 			} ?>
 			
 			<h4>Who Uses This</h4>
@@ -201,7 +212,14 @@
 			<?php foreach ($newtypes as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
-			<?php if (count($Types_type) > 3): ?>
+			<?php if (isset($othertypes)) : ?>
+				<?php foreach ($othertypes as $s): ?>
+					<li><?php echo trim($s);?></li>
+				<?php endforeach; ?>
+			<?php endif; ?>	
+
+
+			<?php if ($totaltypes > 3): ?>
 				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 			<?php endif; ?>
 		</ul><?php endif;?>
@@ -209,7 +227,7 @@
 		<?php if(!empty($word->regions)):?>
 			<?php $newregions = [];
 			foreach ($word->regions as $key => $region){
-				$newregions[$key] = __($region->region);
+					$newregions[$key] = __($region->region);
 			} ?>
 			
 			<h4>Regions</h4>

@@ -300,6 +300,21 @@ class WordsController extends AppController
                 unset($postData['origins']['_ids']);
                 $postData['origins'] = $processedOrigins;
             }
+            
+            $processedTypes = [];
+            if($postData['types']['_ids'] !== ''){
+                foreach ($postData['types']['_ids'] as $typeid){
+                    array_push($processedTypes, array('id' => $typeid));
+                }
+                
+                if ($postData['type_other_entry'] !== ''){
+                    array_push($processedTypes, [ 'type' => $postData['type_other_entry']]);
+                    unset($postData['type_other_entry']);
+                }
+                unset($postData['types']['_ids']);
+                $postData['types'] = $processedTypes;
+            }
+
 
             //reCaptcha authentication
             if (null == $this->request->getSession()->read('Auth.username')){
@@ -376,6 +391,8 @@ class WordsController extends AppController
         array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $specialother = '';
         $specialothervalue = '';
+        $specialothertype = '';
+        $specialothervaluetype = '';
         $origins = $this->Origins->top_origins($sitelang->id);
         $regions = $this->Regions->top_regions($sitelang->id);
         $types = $this->Types->top_types($sitelang->id);
@@ -383,7 +400,7 @@ class WordsController extends AppController
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue'));
+        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
     }
 
     public function checkforword(){
@@ -572,6 +589,41 @@ class WordsController extends AppController
                     }
                 }
 
+
+
+                $processedTypes = [];
+                if($postData['types']['_ids'] !== ''){
+                    foreach ($postData['types']['_ids'] as $typeid){
+                        array_push($processedTypes, array('id' => $typeid));
+                    }
+                    
+                    $pattern2 = '/^type_other_entry_/';
+                    $postkeys = array_keys($postData);
+                    $othertypeskey = preg_grep($pattern2, $postkeys);
+                    print_r($othertypeskey);
+                    if ($othertypeskey !== false){ //if there 
+                        $othertypeidvalues = array_values($othertypeskey);
+                        $othertypeid = array_shift($othertypeidvalues);
+                        //echo $otheroriginid;
+                        if(isset($othertypeid) && in_array(999,$postData['types']['_ids'])){
+                            $gettypeid = explode("_",$othertypeid);
+                            //print_r($getoriginid);
+                            $gettypeidvalue = $gettypeid[3];
+                            array_push($processedTypes, [ 'id' => $gettypeidvalue, 'type' => $postData[$othertypeid]]);
+                            unset($postData[$othertypeid]);
+                            unset($postData['types']['_ids']);
+                            $postData['types'] = $processedTypes;
+                        } elseif(isset($postData['type_other_entry']) && $postData['type_other_entry'] !== '') {
+                            array_push($processedTypes, ['type' => $postData['type_other_entry']]);
+                            unset($postData['type_other_entry']);
+                            unset($postData['types']['_ids']);
+                            $postData['types'] = $processedOrigins;
+                        } else {
+                            unset($postData['type_other_entry']);
+                        }
+                    }
+                }
+
                 $soundFiles = $this->request->getUploadedFiles();
                 //$targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
                 $i = 0;
@@ -615,12 +667,24 @@ class WordsController extends AppController
                 }
             }
 
-            $regions = $this->Regions->top_regions($sitelang->id);
             $types = $this->Types->top_types($sitelang->id);
+
+            $specialothertype = '';
+            $specialothervaluetype = '';
+
+            foreach($word->types as $key => $typescan){
+                if(!in_array($typescan->id,array_keys($types))){
+                    $specialothertype = '_' . $typescan->id;
+                    $specialothervaluetype = $typescan->type;
+                }
+            }
+
+            $regions = $this->Regions->top_regions($sitelang->id);
+            
             $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
             //$alternates = $this->Words->Alternates->find('list');
             $title = 'Edit: ' . $word->spelling;
-            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue'));
+            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
             $this->render('add');
         } else {
             return $this->redirect([
