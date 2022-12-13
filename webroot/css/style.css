@@ -568,7 +568,8 @@ label {
     color: #777;
 }
 
-.form-group-origins-other {
+.form-group-origins-other,
+.form-group-types-other {
     display: none;
 }
 
