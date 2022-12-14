@@ -617,7 +617,7 @@ class WordsController extends AppController
                             array_push($processedTypes, ['type' => $postData['type_other_entry']]);
                             unset($postData['type_other_entry']);
                             unset($postData['types']['_ids']);
-                            $postData['types'] = $processedOrigins;
+                            $postData['types'] = $processedTypes;
                         } else {
                             unset($postData['type_other_entry']);
                         }
