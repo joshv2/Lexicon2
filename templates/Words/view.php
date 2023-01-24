@@ -13,15 +13,15 @@
 				<?php endif;?>
 				<li>
 				<?php 
-				if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+				if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/pronunciations/add/' .$word->id,
 											['class' => 'nomargin button blue', 'escape' => false]);}
-				elseif (count($word->pronunciations) == 0) {echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id,
+				elseif (count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id,
 					['class' => 'nomargin button blue', 'escape' => false]);}
 											?>
 				</li>
 			
 			<li>
-			<?=$this->Html->link(__('<i class="icon-edit"></i> Edit'), '/words/edit/' .$word->id,
+			<?=$this->Html->link('<i class="icon-edit"></i>' . __(' Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue nl', 'escape' => false]);?>
 			</li>
 		</ul>
