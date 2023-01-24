@@ -627,7 +627,7 @@ msgstr "Vorschläge"
 
 #: Words/add.php:10
 msgid "New"
-msgstr ""
+msgstr " "
 
 #: Words/add.php:27
 msgid "word"

@@ -37,7 +37,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<div id='wordexists' style='color:red'></div>";
 
                     //Alternate Spellings
-                    echo "<div class='form-group' id='alternates'>";
+                    echo "<div class='form-group'>";
                     echo "<label>" . __('Alternate Spelling(s)') . "</label>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['alternates']) > 0) {
 
@@ -60,7 +60,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     ?>
 
                     <!--Pronunciations-->
-                    <div class="form-group">
+                    <div class="form-group" id='alternates'>
                         <?php if('edit' == $controllerName) {
                             echo '<p style="color:red">Do not add pronunciations on this page, please use ' . $this->Html->link('Add a Pronunciation', '/pronunciations/add/' . $word->id) . '</p>';
                         } ?>
