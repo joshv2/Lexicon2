@@ -561,6 +561,10 @@ a.disabled:hover {
     overflow: auto;
 }
 
+#alternates {
+    overflow: unset;
+}
+
 label {
     font-size: 11px;
     font-weight: bold;
