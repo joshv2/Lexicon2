@@ -37,7 +37,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<div id='wordexists' style='color:red'></div>";
 
                     //Alternate Spellings
-                    echo "<div class='form-group'>";
+                    echo "<div class='form-group' id='alternates'>";
                     echo "<label>" . __('Alternate Spelling(s)') . "</label>";
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['alternates']) > 0) {
 
