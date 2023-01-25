@@ -29,7 +29,7 @@ $(document).ready(function() {
  </div>
 	
 	<div class="page-header group">
-		<h2 class="left">Lexicon</h2>
+		<h2 class="left"><?php echo __('Lexicon'); ?></h2>
 		</div>
     <div id="home2" class="c">
 		<div class="internal-home">
