@@ -717,8 +717,8 @@ msgstr "Abgesehen davon, werden Sie"
 msgid "NOT" 
 msgstr "NICHT"
 
-msgid "be contacted or placed on any email lists."
-msgstr "kontaktiert und auch in keinen Email-Verteiler aufgenommen."
+msgid "be contacted or placed on any email lists"
+msgstr "kontaktiert und auch in keinen Email-Verteiler aufgenommen"
 
 
 
