@@ -110,8 +110,8 @@
 					<?php echo $this->Html->link(__('Notes'), '/notes');?>
 					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
 					<a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a>
-					<a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a>
-					<a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a>
+					<a href="https://www.jewishlanguages.org/donate"><?= __('Volunteer') ?></a>
+					<a href="https://www.jewishlanguages.org/donate"><?= __('Donate') ?></a>
 			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>

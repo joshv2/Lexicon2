@@ -448,7 +448,7 @@ msgstr "Willkommen "
 
 #: Pages/home.php:37
 msgid "page"
-msgstr ""
+msgstr " "
 
 #: Pages/home.php:39
 msgid "The lexicon currently has "
@@ -472,7 +472,7 @@ msgstr "HINWEISE"
 
 #: Pages/home.php:68
 msgid "for information about these languages, dictionaries, and types of people."
-msgstr "für Informationen zu diesen Sprachen, Wörterbüchern und Personengruppen."
+msgstr "finden Sie Informationen zu Sprachen, Wörterbüchern und Personengruppen."
 
 #: Pages/home.php:73
 #: Pages/notes.php:17
@@ -706,19 +706,19 @@ msgstr "Gibt es noch etwas, was Besucher dieser Webseite zu diesem Eintrag wisse
 
 #: Words/add.php:332
 msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
-msgstr ""
+msgstr "Ihr Name und Ihre Email-Adresse werden nicht auf der Webseite erscheinen. Wir benötigen beides nur im Fall von Rückfragen zu Ihrem Eintrag. Wenn Sie viele Wörter zum Wörterbuch beisteuern, haben Sie die Möglichkeit, als eine*r der"
 
 msgid "Top Word Contributors" 
-msgstr ""
+msgstr "Haupt-Beitragende*n aufgeführt zu werden"
 
 msgid "Other than that, you will"
-msgstr ""
+msgstr "Abgesehen davon, werden Sie"
 
 msgid "NOT" 
-msgstr ""
+msgstr "NICHT"
 
 msgid "be contacted or placed on any email lists."
-msgstr ""
+msgstr "kontaktiert und auch in keinen Email-Verteiler aufgenommen."
 
 
 
@@ -936,6 +936,9 @@ msgstr "Spenden"
 msgid "Search"
 msgstr "Suchen"
 
+msgid "Search..."
+msgstr "Suchen..."
+
 msgid "Lexicon"
 msgstr "Wörterbuch"
 
@@ -951,4 +954,5 @@ msgstr "Erweiterte Suche"
 msgid "See the"
 msgstr "Unter"
 
-
+msgid "Add an entry"
+msgstr "Eintrag zufügen"
