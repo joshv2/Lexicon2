@@ -237,7 +237,7 @@
 			<?php endforeach; ?>
 		</ul><?php endif;?>
 			
-
+		<?php if($sitelang->hasDictionaries == 1):?>
 		<?php if(!empty($word->dictionaries)):?>
 			<h4>Dictionaries</h4>
 			<ul class="multiple-items">
@@ -253,6 +253,7 @@
 			<ul>
 			<li><?=__("None")?></li>
 			</ul>
+		<?php endif;?>
 		<?php endif;?>
 		<?php if (!empty($word->alternates)): ?>
 			<?php if (strlen(implode(', ', $Alternates_spelling)) > 360):?>
