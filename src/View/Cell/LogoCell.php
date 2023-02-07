@@ -20,6 +20,6 @@ class LogoCell extends Cell
     public function display()
     {
         $sitelang = $this->languageinfo();
-        $this->set('logofilename', $sitelang->LogoImage);
+        $this->set('sitei18n', $sitelang->i18nspec);
     }
 }
