@@ -443,14 +443,15 @@ $(function(){
             if(confirm('Do you want to delete this pronunciation?')){
                 var defidstart = event.target.id;
                 var deletetype = defidstart.substring(0,3);
-                if (deletetype == def):
+                if(deletetype == def){
                     var nodefprefix = defidstart.replace('def','');
                     var path = 'definitions';
-                    var elementid = '#defeditor';
-                else:
+                    var elementid = '#defeditor'; }
+                else {
                     var nodefprefix = defidstart.replace('sen','');
                     var path = 'sentences';
                     var elementid = '#seneditor';
+                }
                 var defid = nodefprefix.split("-");
                 console.log(defid[0]);
                 $.ajax({
