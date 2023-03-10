@@ -195,7 +195,7 @@
 			foreach ($word->types as $key => $type){
 				$lenothertypes = 0;
 
-				if(strpos($type->type,",") !== false && $type->id < 999){
+				if(strpos($type->type,",") !== false && $type->id > 999){
 					$othertypes = explode(",",$type->type);
 					$lenothertypes = count($othertypes);
 				}
