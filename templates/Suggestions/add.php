@@ -15,14 +15,14 @@
         <div class="suggestions form content">
             <?= $this->Form->create($suggestion) ?>
             <fieldset>
-                <legend><?= __('Add Suggestion for ' . $word->spelling) ?></legend>
+                <legend><?= __('Add Suggestion for ') . $word->spelling; ?></legend>
                 <?php
                     echo $this->Form->hidden('word_id', ['value' => $word->id]);
                     //echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control('full_name');
-                    echo $this->Form->control('email');
+                    echo $this->Form->control(__('full_name'));
+                    echo $this->Form->control(__('email'));
                     echo $this->Form->hidden('status', ['value' => 'unread']);
-                    echo $this->Form->control('suggestion');
+                    echo $this->Form->control(__('suggestion'));
                     echo "<div class='g-recaptcha' data-sitekey='" . $recaptcha_user . "'></div>";
                 ?>
             </fieldset>
