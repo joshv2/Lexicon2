@@ -218,7 +218,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                             echo $this->Form->hidden('sentences.' . $i . '.sentence', ['id' => 'sentences' . $i, 'value' => $finalInsert]);
                             echo "<div class='editor-container'><div id='editor-sentences" . $i . "'></div></div>";
                             
-                            echo "<div class='delete2'><a class='deletelink button red' id=sent" .  $wordData['sentences'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i> Delete Sentence</a></div></div>";
+                            echo "<div class='delete2'><a class='deletelink button red' id=sen" .  $wordData['sentences'][$i]['id'] . "-" . $wordData['id'] . " href='#'><i class='fas fa-arrow-left'></i> Delete Sentence</a></div></div>";
 
                             $i += 1;
                         }
@@ -442,12 +442,20 @@ $(function(){
             event.preventDefault();
             if(confirm('Do you want to delete this pronunciation?')){
                 var defidstart = event.target.id;
-                var nodefprefix = defidstart.replace('def','');
+                var deletetype = defidstart.substring(0,3);
+                if (deletetype == def):
+                    var nodefprefix = defidstart.replace('def','');
+                    var path = 'definitions';
+                    var elementid = '#defeditor';
+                else:
+                    var nodefprefix = defidstart.replace('sen','');
+                    var path = 'sentences';
+                    var elementid = '#seneditor';
                 var defid = nodefprefix.split("-");
                 console.log(defid[0]);
                 $.ajax({
                     type: "POST",
-                    url: "/definitions/ajaxdelete/" + defid[0],
+                    url: "/" + path + "/ajaxdelete/" + defid[0],
                     /*data: {
                         spelling: $('[name="spelling"]').val()
                     },*/
@@ -460,7 +468,7 @@ $(function(){
                         //alert(newData.response.spelling);
                         if (newData.response.success == 1) {
                             console.log('value deleted');
-                            $('#defeditor' + defid[0]).remove();
+                            $(elementid + defid[0]).remove();
                         } else {
                             console.log('value not deleted');
                             console.log(newData.response);
