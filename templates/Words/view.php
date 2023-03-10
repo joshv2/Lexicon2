@@ -78,7 +78,7 @@
 			</div>
 		<?php endif; ?>
 		<?php if (!empty($Definitions_definition)): ?>
-		<h4>Definitions</h4>
+		<h4><?=__("Definitions")?></h4>
 		<ul class="multiple-items">
 			<?php foreach ($Definitions_definition as $d): ?>
         <li><?php echo $d;?></li>
@@ -89,7 +89,7 @@
 		</ul><?php endif;?>
 
 		<?php if (!empty($word['sentences'])): ?>
-			<h4>Example Sentences</h4>
+			<h4><?=__("Example Sentences")?></h4>
 			<div class='section-container'>
 				<div class='table-container'>
 				<ul class="sentences multiple-items">
@@ -168,7 +168,7 @@
 				$totalorigins = count($neworigins) + $lenotherorigins;
 			} 
 			?>
-			<h4>Languages of Origin</h4>
+			<h4><?=__("Languages of Origin")?></h4>
 			<ul class="multiple-items">
 			<?php foreach ($neworigins as $s): ?>
 			<li><?php echo $s;?></li>
@@ -184,7 +184,7 @@
 		</ul><?php endif;?>
 
 		<?php if(!empty($word->etymology)):?>
-			<h4>Etymology</h4>
+			<h4><?=__("Etymology")?></h4>
 			<ul class='sentences'>
 			<li><?php echo $word->etymology;?></li>
 			<ul>
@@ -195,7 +195,7 @@
 			foreach ($word->types as $key => $type){
 				$lenothertypes = 0;
 
-				if(strpos($type->type,",") !== false){
+				if(strpos($type->type,",") !== false && $type->id < 999){
 					$othertypes = explode(",",$type->type);
 					$lenothertypes = count($othertypes);
 				}
@@ -207,7 +207,7 @@
 				$totaltypes = count($newtypes) + $lenothertypes;
 			} ?>
 			
-			<h4>Who Uses This</h4>
+			<h4><?=__("Who Uses This")?></h4>
 			<ul class="multiple-items">
 			<?php foreach ($newtypes as $s): ?>
 			<li><?php echo $s;?></li>
@@ -224,22 +224,24 @@
 			<?php endif; ?>
 		</ul><?php endif;?>
 		
+		<?php if($sitelang->hasRegions == 1):?>
 		<?php if(!empty($word->regions)):?>
 			<?php $newregions = [];
 			foreach ($word->regions as $key => $region){
 					$newregions[$key] = __($region->region);
 			} ?>
 			
-			<h4>Regions</h4>
+			<h4><?=__("Regions")?></h4>
 			<ul class="multiple-items">
 			<?php foreach ($newregions as $s): ?>
 			<li><?php echo $s;?></li>
 			<?php endforeach; ?>
 		</ul><?php endif;?>
+		<?php endif;?>
 			
 		<?php if($sitelang->hasDictionaries == 1):?>
 		<?php if(!empty($word->dictionaries)):?>
-			<h4>Dictionaries</h4>
+			<h4><?=__("Dictionaries")?></h4>
 			<ul class="multiple-items">
 			<?php foreach ($word->dictionaries as $s): ?>
 			<li><?php echo $s->dictionary;?></li>

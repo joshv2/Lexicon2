@@ -639,7 +639,7 @@ msgstr "Üblichste Schreibweise"
 
 #: Words/add.php:40
 msgid "Alternate Spelling(s)"
-msgstr "Alternative Schreibweise(n)"
+msgstr "Variante(n)"
 
 #: Words/add.php:54
 msgid "Add an additional spelling"
