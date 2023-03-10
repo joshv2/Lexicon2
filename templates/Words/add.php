@@ -450,7 +450,7 @@ $(function(){
                 else {
                     var nodefprefix = defidstart.replace('sen','');
                     var path = 'sentences';
-                    var elementid = '#seneditor';
+                    var elementid = '#senteditor';
                 }
                 var defid = nodefprefix.split("-");
                 console.log(defid[0]);
