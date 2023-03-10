@@ -151,7 +151,7 @@
 				$lenotherorigins = 0;
 				//echo $origin->origin, strpos($origin->origin,",") . "</br>";
 
-				if(strpos($origin->origin,",") !== false){
+				if(strpos($origin->origin,",") !== false && $origin->id > 999){
 					//echo "comma";
 					$otherorigins = explode(",",$origin->origin);
 					$lenotherorigins = count($otherorigins);
