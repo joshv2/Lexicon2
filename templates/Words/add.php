@@ -447,7 +447,7 @@ $(function(){
                 console.log(defid[0]);
                 $.ajax({
                     type: "POST",
-                    url: "/JEL2/definitions/ajaxdelete/" + defid[0],
+                    url: "/definitions/ajaxdelete/" + defid[0],
                     /*data: {
                         spelling: $('[name="spelling"]').val()
                     },*/
