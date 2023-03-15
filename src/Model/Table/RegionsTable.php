@@ -42,6 +42,19 @@ class RegionsTable extends Table
         return $data;
     }
 
+    public function regions_by_language($langid){
+        $query =$this->find('list', ['valueField' => 'region', 'order' => 'Regions.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['RegionsLanguages.language_id' => $langid]);
+        $query2 = $this->find('list', ['valueField' => 'region'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function get_all_ids(){
         $query = $this->find()->all()->extract('id');
         foreach ($query as $q){

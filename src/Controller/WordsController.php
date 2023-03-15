@@ -393,11 +393,18 @@ class WordsController extends AppController
         $specialothervalue = '';
         $specialothertype = '';
         $specialothervaluetype = '';
-        $origins = $this->Origins->top_origins($sitelang->id);
-        $regions = $this->Regions->top_regions($sitelang->id);
-        $types = $this->Types->top_types($sitelang->id);
+        if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+            $origins = $this->Origins->origins_by_language($sitelang->id);
+            $regions = $this->Regions->regions_by_language($sitelang->id);
+            $types = $this->Types->types_by_language($sitelang->id);
+        } else {
+            $origins = $this->Origins->top_origins($sitelang->id);
+            $regions = $this->Regions->top_regions($sitelang->id);
+            $types = $this->Types->top_types($sitelang->id);
+            
+        }
+        
         $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
-
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
@@ -426,32 +433,6 @@ class WordsController extends AppController
         $this->viewBuilder()->setOption('serialize', true);
         $this->RequestHandler->renderAs($this, 'json');
     }
-
-    /*public function checkforword2(){
-        $sitelang = $this->languageinfo();
-        //$this->RequestHandler->renderAs($this, 'json');
-        $response = [];
-        //debug($this->request->getData());
-        if( $this->request->is('get') ) {
-            $data = $this->request->getQueryParams();
-            debug($data);
-            //$doeswordexist = $data['spelling'];
-            $doeswordexist = $this->Words->findWithSpelling($data);
-            //debug($data);
-            $response['spelling'] = $doeswordexist;
-            //debug($response['spelling']);
-        } else {
-            $response['success'] = 0;
-        }
-
-        //$spelling = $this->request->getData('spelling');
-        debug($response);
-        //$data = $this->Words->findWithSpelling($spelling);
-        $this->set(compact('response'));
-        $this->render();
-        //$this->viewBuilder()->setOption('serialize', true);
-        //$this->RequestHandler->renderAs($this, 'json');
-    }*/
 
     /**
      * Edit method

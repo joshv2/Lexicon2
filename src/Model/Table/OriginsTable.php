@@ -42,6 +42,20 @@ class OriginsTable extends Table
         return $data;
     }
 
+    public function origins_by_language($langid){
+        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'Origins.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['OriginsLanguages.language_id' => $langid]);
+
+        $query2 = $this->find('list', ['valueField' => 'origin'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function get_all_ids(){
         $query = $this->find()->all()->extract('id');
         foreach ($query as $q){

@@ -51,6 +51,19 @@ class TypesTable extends Table
         return $data;
     }
 
+    public function types_by_language($langid){
+        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['TypesLanguages.language_id' => $langid]);
+        $query2 = $this->find('list', ['valueField' => 'type'])
+                        ->where(['id' => 999]);
+        $query = $query->union($query2);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
     public function get_all_ids(){
         $query = $this->find()->all()->extract('id');
         foreach ($query as $q){
