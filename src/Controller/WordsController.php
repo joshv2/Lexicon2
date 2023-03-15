@@ -637,7 +637,7 @@ class WordsController extends AppController
             
             array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
-            $origins = $this->Origins->top_origins($sitelang->id);
+            $origins = $this->Origins->origins_by_language($sitelang->id);
 
             $specialother = '';
             $specialothervalue = '';
@@ -648,7 +648,7 @@ class WordsController extends AppController
                 }
             }
 
-            $types = $this->Types->top_types($sitelang->id);
+            $types = $this->Types->types_by_language($sitelang->id);
 
             $specialothertype = '';
             $specialothervaluetype = '';
@@ -660,7 +660,7 @@ class WordsController extends AppController
                 }
             }
 
-            $regions = $this->Regions->top_regions($sitelang->id);
+            $regions = $this->Regions->regions_by_language($sitelang->id);
             
             $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
             //$alternates = $this->Words->Alternates->find('list');
