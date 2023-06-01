@@ -469,7 +469,7 @@ class WordsController extends AppController
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
         ]);*/
 
-        if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')){
+        if (null !== $this->request->getSession()->read('Auth.username') && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
             
             
             $getRoute = explode("/", $this->request->getRequestTarget());
