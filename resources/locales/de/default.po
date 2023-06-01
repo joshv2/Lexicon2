@@ -956,3 +956,42 @@ msgstr "Unter"
 
 msgid "Add an entry"
 msgstr "Eintrag zufügen"
+
+msgid "Jews"
+msgstr "Jüdinnen und Juden"
+
+msgid "American Jews"
+msgstr "Amerikanische Jüdinnen und Juden"
+
+msgid "Strong Israel Connection"
+msgstr "starke Israel-Verbindung"
+
+msgid "Jews of German/Jeckic origin"
+msgstr "Jüdinnen und Juden deutscher/jeckischer Herkunft"
+
+msgid "Definitions"
+msgstr "Definitionen"
+
+msgid "Example Sentences"
+msgstr "Beispielsätze"
+
+msgid "Languages of Origin"
+msgstr "Herkunftssprachen"
+
+msgid "Etymology"
+msgstr "Etymologie"
+
+msgid "Who Uses This"
+msgstr "Wer benutzt das"
+
+msgid "Regions"
+msgstr "Regionen"
+
+msgid "full name"
+msgstr "Vollständiger Name"
+
+msgid "email"
+msgstr "Email"
+
+msgid "suggestion"
+msgstr "Vorschlag"
