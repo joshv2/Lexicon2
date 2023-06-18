@@ -564,16 +564,16 @@
         },
         {
             "name": "cloudconvert/cloudconvert-php",
-            "version": "3.2.4",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudconvert/cloudconvert-php.git",
-                "reference": "b084f2c7f92e2c2e82049566c03dfcdaffb99e1a"
+                "reference": "69ca75c32a8a7583458e6bea3e2d31d6ca3f52a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudconvert/cloudconvert-php/zipball/b084f2c7f92e2c2e82049566c03dfcdaffb99e1a",
-                "reference": "b084f2c7f92e2c2e82049566c03dfcdaffb99e1a",
+                "url": "https://api.github.com/repos/cloudconvert/cloudconvert-php/zipball/69ca75c32a8a7583458e6bea3e2d31d6ca3f52a6",
+                "reference": "69ca75c32a8a7583458e6bea3e2d31d6ca3f52a6",
                 "shasum": ""
             },
             "require": {
@@ -612,9 +612,9 @@
             "homepage": "https://github.com/cloudconvert/cloudconvert-php",
             "support": {
                 "issues": "https://github.com/cloudconvert/cloudconvert-php/issues",
-                "source": "https://github.com/cloudconvert/cloudconvert-php/tree/3.2.4"
+                "source": "https://github.com/cloudconvert/cloudconvert-php/tree/3.3.0"
             },
-            "time": "2022-03-09T12:20:49+00:00"
+            "time": "2022-03-30T11:03:12+00:00"
         },
         {
             "name": "clue/stream-filter",
