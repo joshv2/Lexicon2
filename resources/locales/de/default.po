@@ -999,6 +999,9 @@ msgstr "Vorschlag"
 msgid "Origin"
 msgstr "Herkunftssprache"
 
+msgid "All Origins"
+msgstr "Alle Herkunftssprache"
+
 msgid "Origin:"
 msgstr "Herkunftssprache:"
 
