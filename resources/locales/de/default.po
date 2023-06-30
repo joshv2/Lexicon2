@@ -919,10 +919,10 @@ msgid "Religious"
 msgstr "religiöse Jüdinnen und Juden"
 
 msgid "Non-Jews: (words that have spread outside of Jewish networks)"
-msgstr "Machane-Teilnehmerinnen und Teilnehmer"
+msgstr "nicht-jüdische Sprecherinnen und Sprecher"
 
 msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
-msgstr "nicht-jüdische Sprecherinnen und Sprecher"
+msgstr "Machane-Teilnehmerinnen und Teilnehmer"
 
 msgid "Jewish Languages"
 msgstr "Jüdische Sprachen"
@@ -999,6 +999,9 @@ msgstr "Vorschlag"
 msgid "Origin"
 msgstr "Herkunftssprache"
 
+msgid "Origin:"
+msgstr "Herkunftssprache:"
+
 msgid "All"
 msgstr "Alle"
 
@@ -1068,3 +1071,5 @@ msgstr "starke Israel-Verbindung"
 msgid "Jews of German/Jeckic Origin" 
 msgstr "Jüdinnen und Juden deutscher/jeckischer Herkunft"
 
+msgid "of"
+msgstr "str"
