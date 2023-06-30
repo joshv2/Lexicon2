@@ -995,3 +995,76 @@ msgstr "Email"
 
 msgid "suggestion"
 msgstr "Vorschlag"
+
+msgid "Origin"
+msgstr "Herkunftssprache"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Aramaic" 
+msgstr "Aramäisch"
+
+msgid "Yiddish" 
+msgstr "Jiddisch"
+
+msgid "Modern Hebrew" 
+msgstr "Hebräisch (Modernes Hebräisch/Neuhebräisch)"
+
+msgid "Arabic/Judeo-Arabic" 
+msgstr "Arabisch/Judäo-Arabisch"
+
+msgid "German" 
+msgstr "Deutsch"
+
+msgid "Russian" 
+msgstr "Russisch"
+
+msgid "Polish" 
+msgstr "Polnisch"
+
+msgid "Other" 
+msgstr "Sonstige"
+
+msgid "Uses" 
+msgstr "Personnengruppen, die das Wort verwenden"
+
+msgid "All Uses" 
+msgstr "Alle Personnengruppen"
+
+msgid "Orthodox" 
+msgstr "Orthodox: Juden die sich als Orthodox bezeichnen und die Halacha (jüdische Gesetze) befolgen"
+
+msgid "Camp" 
+msgstr "Machane: Jüdinnen und Juden die an jüdischen Ferienlagern (Machanot) teilnehmen"
+
+msgid "Older" 
+msgstr "ältere Jüdinnen und Juden"
+
+msgid "Younger" 
+msgstr "jüngere Jüdinnen und Juden"
+
+msgid "Non-Jews" 
+msgstr "Nichtjüdinnen und Nichtjuden"
+
+msgid "Russian" 
+msgstr "russische Jüdinnen und Juden: Jüdinnen und Juden, russischsprachiger Abstammung"
+
+msgid "Religious" 
+msgstr "religiöse Jüdinnen und Juden"
+
+msgid "Eastern European Jews" 
+msgstr "osteuropäische Jüdinnen und Juden"
+
+msgid "Jews" 
+msgstr "Jüdinnen und Juden"
+
+msgid "American Jews" 
+msgstr "amerikanische Jüdinnen und Juden"
+
+msgid "Strong Israel Connection" 
+msgstr "starke Israel-Verbindung"
+
+msgid "Jews of German/Jeckic Origin" 
+msgstr "Jüdinnen und Juden deutscher/jeckischer Herkunft"
+
