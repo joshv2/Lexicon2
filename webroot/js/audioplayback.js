@@ -3,7 +3,7 @@ $(function() {
         //alert(this.id);
         var curelementsplit = this.id.split("-");
         var playernumber = curelementsplit[3];
-        if ($(this).children.eq(0).hasClass('fa-solid fa-volume-up')) {
+        if ($(this).children().eq(0).hasClass('fa-solid fa-volume-up')) {
             $(this).children.eq(0).removeClass('fa-solid fa-volume-up');
             $(this).children.eq(0).addClass('fa-solid fa-pause');
             console.log($("#audioplayer" + playernumber).get(0));
