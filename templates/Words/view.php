@@ -13,9 +13,9 @@
 				<?php endif;?>
 				<li>
 				<?php 
-				if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+				if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fa-solid fa-microphone"></i>' . __(' Record a Pronunciation'), '/pronunciations/add/' .$word->id,
 											['class' => 'nomargin button blue', 'escape' => false]);}
-				elseif (count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id,
+				elseif (count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fa-solid fa-microphone"></i>' . __(' Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id,
 					['class' => 'nomargin button blue', 'escape' => false]);}
 											?>
 				</li>
@@ -67,11 +67,11 @@
 			<div class='delete3'><div class='vertical-center'>
 				<p><?php 
 				if ($this->Identity->isLoggedIn() && count($word->pronunciations) > 0) {
-						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+						echo $this->Html->link('<i class="fa-solid fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
 						['class' => 'button blue', 'escape' => false]);
 					
 						} elseif  (count($word->pronunciations) > 0){
-							echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
+							echo $this->Html->link('<i class="fa-solid fa-microphone"></i> ' . __('Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
 													['class' => 'button blue ', 'escape' => false]);
 						}?></p>
 			</div></div>
@@ -127,18 +127,18 @@
 				<p><?php 
 				if ($this->Identity->isLoggedIn()) {
 					if (count($word['sentences']) == 1){
-					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+					echo $this->Html->link('<i class="fa-solid fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
 					} else {
-						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
+						echo $this->Html->link('<i class="fa-solid fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
 				} else {
 					if (count($word['sentences']) == 1){
-						echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/add/' .$word->sentences[0]->id,
+						echo $this->Html->link(__('<i class="fa-solid fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
 					} else {
-					echo $this->Html->link(__('<i class="fas fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/choose/' . $word->id,
+					echo $this->Html->link(__('<i class="fa-solid fa-microphone"></i> Record a Sentence'), '/login?redirect=/SentenceRecordings/choose/' . $word->id,
 											['class' => 'button blue', 'escape' => false]);
 					}
 				}?></p>
