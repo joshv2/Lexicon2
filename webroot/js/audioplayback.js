@@ -1,6 +1,6 @@
 $(function() {
     $('[id^=play-pause-button-]').on("click", function() {
-        alert(this.id);
+        //alert(this.id);
         var curelementsplit = this.id.split("-");
         var playernumber = curelementsplit[3];
         console.log($(this).find(":first-child").hasClass('fa-volume-high'));
