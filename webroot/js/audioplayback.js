@@ -3,7 +3,7 @@ $(function() {
         alert(this.id);
         var curelementsplit = this.id.split("-");
         var playernumber = curelementsplit[3];
-        console.log($(this).first());
+        console.log($(this).first().hasClass('fa-volume-high'));
         if ($(this).first().hasClass('fa-volume-high')) {
             $(this).first().removeClass('fa-solid fa-volume-up');
             $(this).first().addClass('fa-solid fa-pause');
