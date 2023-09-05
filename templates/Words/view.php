@@ -53,7 +53,7 @@
 					
 				<?php 
 					if ('' !== $p->sound_file){
-						$audioPlayer = '<a id="play-pause-button-' . $i . '" class="fa fa-volume-up"> <span id="listen">listen</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $p->sound_file), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
+						$audioPlayer = '<a id="play-pause-button-' . $i . '"><i class="fa-solid fa-volume-up"></i> <span id="listen">listen</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $p->sound_file), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
 					} else {
 						$audioPlayer = '';
 					}
@@ -104,7 +104,7 @@
 						$linkArray = [];
 						foreach ($s['sentence_recordings'] as $r) {
 							if($r['approved'] == 1){
-							array_push($linkArray, '<a id="play-pause-button-' . $j . '" class="fa fa-volume-up"> <span id="listen">' . __('Recording') . ' ' . $k  . '</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $r['sound_file']), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $j]));
+							array_push($linkArray, '<a id="play-pause-button-' . $j . '"><i class="fa-solid fa-volume-up"></i> <span id="listen">' . __('Recording') . ' ' . $k  . '</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $r['sound_file']), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $j]));
 							$j += 1;
 							$k += 1;
 						}}
