@@ -22,7 +22,9 @@
 		),
 		'as' => 'font']
 	);?>
-	<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>
+	<!--<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>-->
+	<?php echo $this->Html->css('fontawesome');?>
+	<?php echo $this->Html->css('solid');?>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 	<!-- Include stylesheet -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -58,6 +60,8 @@
 	<?= $this->Html->script('exConfirm')."\n";?>
 <?= $this->Html->script('recorder')."\n";?>
 <?= $this->Html->script('toggle')."\n";?>
+<?= $this->Html->script('fontawesome')."\n";?>
+<?= $this->Html->script('solid')."\n";?>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <?= $this->Html->script('detectios')."\n";?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
