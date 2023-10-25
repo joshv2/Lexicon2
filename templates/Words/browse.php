@@ -14,7 +14,7 @@
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['origin']) ? __('All Origins') : '<b>' . __('Origin') .':</b> '. $origins[$current_condition['origin']]; ?></span>
+						<span><?php echo empty($current_condition['origin']) ? __('All Origins') : '<b>' . __('Origin') .':</b> '. __($origins[$current_condition['origin']]); ?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -32,7 +32,7 @@
 				<div class="dropdown">
 					<a class="main">
 						<span><?php echo empty($current_condition['dictionary']) ? 
-					__('All Dictionaries') : '<b>' . __('Dictionary') . ':</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
+					__('All Dictionaries') : '<b>' . __('Dictionary') . ':</b> ' . __($dictionaries[$current_condition['dictionary']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -47,7 +47,7 @@
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>'. __('Use') . ':</b> ' . $types[$current_condition['use']];?></span>
+						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>'. __('Use') . ':</b> ' . __($types[$current_condition['use']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -62,7 +62,7 @@
 			<li class="main last">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . $regions[$current_condition['region']];?></span>
+						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . __($regions[$current_condition['region']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -83,7 +83,7 @@
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['origin'])? __('All Origins') : '<b>'. __('Origin') .':</b> '. $origins[$current_condition['origin']]; ?></span>
+						<span><?php echo empty($current_condition['origin'])? __('All Origins') : '<b>'. __('Origin') .':</b> '. __($origins[$current_condition['origin']]); ?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -101,7 +101,7 @@
 				<div class="dropdown">
 					<a class="main">
 						<span><?php echo empty($current_condition['dictionary']) ? 
-					__('All Dictionaries') : '<b>'. __('Dictionary') .':</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
+					__('All Dictionaries') : '<b>'. __('Dictionary') .':</b> ' . __($dictionaries[$current_condition['dictionary']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -116,7 +116,7 @@
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>' . __('Use') .':</b> ' . $types[$current_condition['use']];?></span>
+						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>' . __('Use') .':</b> ' . __($types[$current_condition['use']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
@@ -131,7 +131,7 @@
 			<li class="main last">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . $regions[$current_condition['region']];?></span>
+						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . __($regions[$current_condition['region']]);?></span>
 					</a>
 					<div class="submenu">
 						<ul>
