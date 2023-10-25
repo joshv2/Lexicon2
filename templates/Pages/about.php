@@ -96,12 +96,11 @@
 <p><?=__('To cite a particular entry:')?></br>
 <?=__("Benor, Sarah Bunin. 2012-present. \"Tachlis, entry in Jewish English Lexicon.\" Los Angeles: Jewish Language Project. https://jel.jewish-languages.org/words/556. ")?> </p>
 	</div>
-<script>
-var sc_project=7851936;
-var sc_invisible=1;
-var sc_security="d9e1dc98";
-</script>
-<script src="http://www.statcounter.com/counter/counter.js"></script>
-<noscript><a class="statcounter" href="http://statcounter.com/"><img class="statcounter" src="http://c.statcounter.com/7851936/0/d9e1dc98/1/" alt="StatCounter" /></a></noscript>
 
+	<div class="page-header group">
+		<h2 class="left"><?=__('Privacy')?></h2>
+	</div>
+	<div id="about2" class="c content">
+	<p><?=__('The Lexicon collects minimal data about visitors to the site. Any data which is or will be collected by this site will be covered by the')?> <?php echo $this->Html->link(__('HUC privacy policy'), 'https://huc.edu/privacy-policy/');?> <?=__('and')?> <?php echo $this->Html->link(__('HUC cookie policy'), 'https://huc.edu/cooki-policy/');?>.</br>
+	</div>
 </section>

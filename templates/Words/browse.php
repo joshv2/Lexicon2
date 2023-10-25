@@ -14,11 +14,11 @@
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['origin']) ? 'All Origins' : '<b>Origin:</b> '. $origins[$current_condition['origin']]; ?></span>
+						<span><?php echo empty($current_condition['origin']) ? __('All Origins') : '<b>' . __('Origin') .':</b> '. $origins[$current_condition['origin']]; ?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('origin');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('origin');?>"><?php __('All'); ?></a></li>
 							<?php foreach ($origins as $k => $o): ?>
 							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo $o;?></a></li>
 							<?php endforeach;?>
@@ -32,11 +32,11 @@
 				<div class="dropdown">
 					<a class="main">
 						<span><?php echo empty($current_condition['dictionary']) ? 
-					'All Dictionaries' : '<b>Dictionary:</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
+					__('All Dictionaries') : '<b>' . __('Dictionary') . ':</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>"><?php __('All'); ?></a></li>
 							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -47,11 +47,11 @@
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['use']) ? 'All Uses' : '<b>Use:</b> ' . $types[$current_condition['use']];?></span>
+						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>'. __('Use') . ':</b> ' . $types[$current_condition['use']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('use');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('use');?>"><?php __('All'); ?></a></li>
 						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -62,11 +62,11 @@
 			<li class="main last">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['region']) ? 'All Regions' : '<b>Region:</b> ' . $regions[$current_condition['region']];?></span>
+						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . $regions[$current_condition['region']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('region');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('region');?>"><?php __('All');?></a></li>
 						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -83,11 +83,11 @@
 			<li class="first main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['origin'])? 'All Origins' : '<b>Origin:</b> '. $origins[$current_condition['origin']]; ?></span>
+						<span><?php echo empty($current_condition['origin'])? __('All Origins') : '<b>'. __('Origin') .':</b> '. $origins[$current_condition['origin']]; ?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('origin');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('origin');?>"><?php __('All');?></a></li>
 							<?php foreach ($origins as $k => $o): ?>
 							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo $o;?></a></li>
 							<?php endforeach;?>
@@ -101,11 +101,11 @@
 				<div class="dropdown">
 					<a class="main">
 						<span><?php echo empty($current_condition['dictionary']) ? 
-					'All Dictionaries' : '<b>Dictionary:</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
+					__('All Dictionaries') : '<b>'. __('Dictionary') .':</b> ' . $dictionaries[$current_condition['dictionary']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>"><?php __('All');?></a></li>
 							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -116,11 +116,11 @@
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['use']) ? 'All Uses' : '<b>Use:</b> ' . $types[$current_condition['use']];?></span>
+						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>' . __('Use') .':</b> ' . $types[$current_condition['use']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('use');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('use');?>"><?php __('All');?></a></li>
 						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -131,11 +131,11 @@
 			<li class="main last">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['region']) ? 'All Regions' : '<b>Region:</b> ' . $regions[$current_condition['region']];?></span>
+						<span><?php echo empty($current_condition['region']) ? __('All Regions') : '<b>'. __('Region') .':</b> ' . $regions[$current_condition['region']];?></span>
 					</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="<?php echo $this->QueryString->remove('region');?>">All</a></li>
+							<li><a href="<?php echo $this->QueryString->remove('region');?>"><?php __('All');?></a></li>
 						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
 						</ul>
 					</div>
@@ -154,7 +154,7 @@
 
 		<div id="browse_info" class="group">
 			<p id="paging_info">
-				<?php echo $this->Paginator->counter('range');?>
+				<?php echo $this->Paginator->counter('{{start}} - {{end}} ' . __('of') . ' {{count}}');?>
 			</p>
 		</div>
 		
