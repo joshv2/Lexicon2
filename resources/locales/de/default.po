@@ -995,3 +995,21 @@ msgstr "Email"
 
 msgid "suggestion"
 msgstr "Vorschlag"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Origin"
+msgstr "Herkunft"
+
+msgid "Use"
+msgstr "Verwendung"
+
+msgid "All Regions"
+msgstr "Alle Regionen"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "of"
+msgstr "von"
