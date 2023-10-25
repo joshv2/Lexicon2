@@ -154,7 +154,7 @@
 
 		<div id="browse_info" class="group">
 			<p id="paging_info">
-				<?php echo $this->Paginator->counter('{{start}} - {{end}} ' . __('of') . ' {{count}}');?>
+				<?php echo $this->Paginator->counter(__('{{start}} - {{end}} of {{count}}'));?>
 			</p>
 		</div>
 		
