@@ -1011,5 +1011,5 @@ msgstr "Alle Regionen"
 msgid "Region"
 msgstr "Region"
 
-msgid "of"
-msgstr "von"
+msgid "{{start}} - {{end}} of {{count}}"
+msgstr "{{start}} - {{end}} von {{count}}"
