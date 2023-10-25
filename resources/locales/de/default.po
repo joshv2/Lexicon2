@@ -990,6 +990,9 @@ msgstr "Regionen"
 msgid "full name"
 msgstr "Vollständiger Name"
 
+msgid "full_name"
+msgstr "Vollständiger Name"
+
 msgid "email"
 msgstr "Email"
 
@@ -1013,3 +1016,9 @@ msgstr "Region"
 
 msgid "{{start}} - {{end}} of {{count}}"
 msgstr "{{start}} - {{end}} von {{count}}"
+
+msgid "Something missing from this entry? Inaccurate? Feel free to suggest an edit."
+msgstr "Ist dieser Eintrag unvollständig? Nicht ganz richtig? Schlagen Sie gerne eine Änderung vor."
+
+msgid "Record a Sentence"
+msgstr "Einen Satz aufnehmen"
