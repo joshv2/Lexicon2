@@ -20,7 +20,7 @@
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('origin');?>"><?php __('All'); ?></a></li>
 							<?php foreach ($origins as $k => $o): ?>
-							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo $o;?></a></li>
+							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo __($o);?></a></li>
 							<?php endforeach;?>
 						</ul>
 					</div>
@@ -37,7 +37,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>"><?php __('All'); ?></a></li>
-							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('use');?>"><?php __('All'); ?></a></li>
-						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('region');?>"><?php __('All');?></a></li>
-						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('origin');?>"><?php __('All');?></a></li>
 							<?php foreach ($origins as $k => $o): ?>
-							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo $o;?></a></li>
+							<li><a href="<?php echo $this->QueryString->add('origin', $k); ?>"><?php echo __($o);?></a></li>
 							<?php endforeach;?>
 						</ul>
 					</div>
@@ -106,7 +106,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('dictionary'); ?>"><?php __('All');?></a></li>
-							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+							<?php foreach ($dictionaries as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('dictionary', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
@@ -121,7 +121,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('use');?>"><?php __('All');?></a></li>
-						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
@@ -136,7 +136,7 @@
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('region');?>"><?php __('All');?></a></li>
-						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo $o;?></a></li><?php endforeach;?>
+						<?php foreach ($regions as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('region', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
