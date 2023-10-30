@@ -131,45 +131,6 @@ class LanguagesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             
-            /*$translation_file = $postData['translationfile'];
-            if(!empty($translation_file->getClientFilename())){ 
-                
-                $name = $translation_file->getClientFilename();
-                $finalname = 'default.po';
-                if (!is_dir(ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'])){
-                    mkdir(ROOT. DS .  'resources' . DS . 'locales' . DS .  $postData['i18nspec'], 0777, true);
-                }
-                $targetPath = ROOT . DS . 'resources' . DS . 'locales' . DS . $postData['i18nspec'] . DS . $finalname;
-                $translation_file->moveTo($targetPath);
-                $postData['translationfile'] = $name;
-            } else {
-                $postData['translationfile'] = $language['translationfile'];
-            }
-            
-            $header_image = $postData['HeaderImage'];
-
-            
-            if(!empty($header_image->getClientFilename())){ 
-                $name = $header_image->getClientFilename();
-                
-                $targetPath = WWW_ROOT. 'img' . DS . $name;
-                $header_image->moveTo($targetPath);
-                $postData['HeaderImage'] = $name;
-            } else {
-                $postData['HeaderImage'] = $language['HeaderImage'];
-            }
-
-            $logo_image = $postData['LogoImage'];
-            if(!empty($logo_image->getClientFilename())){ 
-                
-                $name = $logo_image->getClientFilename();
-                
-                $targetPath = WWW_ROOT. 'img' . DS . $name;
-                $logo_image->moveTo($targetPath);
-                $postData['LogoImage'] = $name;
-            } else {
-                $postData['LogoImage'] = $language['LogoImage'];
-            }*/
 
             $quillFields = ['AboutSec1Text', 'AboutSec2Text','AboutSec3Text','AboutSec4Text','NotesSec1Text'];
             foreach ($quillFields as $quillField) {
@@ -179,13 +140,16 @@ class LanguagesController extends AppController
                 $quill = new \DBlackborough\Quill\Render($postData[$quillField]);
                 $defresult = $quill->render();
                 $postData[$quillField] = $defresult;
+           
 
                 if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillField])){
-                    unset($postData[$quillField]);
-                    unset($postData[$quillField . '_json']);
+                    $postData[$quillField] = '';
+                    $postData[$quillField . '_json'] = '{}';
                 }
-                    
+                 
+            
             }
+            
             
 
             $language = $this->Languages->patchEntity($language, $postData);

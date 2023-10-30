@@ -50,4 +50,18 @@ class OriginsTable extends Table
         $typeids = implode(',',$idarray);
         return $typeids;
     }
+
+    public function get_region_by_name($origin){
+        $query = $this->find()->where(['origin' => $origin]);
+        $nresults = $query->count();
+        if ($nresults == 0) {
+            $idarray = [];
+        } else {
+            foreach ($query as $q){
+                $idarray[] = $q->id;
+            }
+        }
+        return $idarray;
+    }
+
 }
