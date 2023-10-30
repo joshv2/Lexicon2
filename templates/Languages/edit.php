@@ -121,7 +121,7 @@
         return true; // submit form
     }
     
-    var content = JSON.parse(<?= json_encode($language->AboutSec1Text_json); ?>);
+    var content = JSON.parse(<?= empty($language->AboutSec1Text_json) ? '{}' : json_encode($language->AboutSec1Text_json); ?>);
     quill.setContents(content.ops, 'api');
     var content2 = JSON.parse(<?= json_encode($language->AboutSec2Text_json); ?>);
     quill2.setContents(content2);
@@ -130,7 +130,6 @@
     var content4 = JSON.parse(<?= json_encode($language->AboutSec4Text_json); ?>);
     quill4.setContents(content4);
     var content5 = JSON.parse(<?= json_encode($language->NotesSec1Text_json); ?>);
-    //var content5 = JSON.parse('<?= str_replace(':', "\u003A", str_replace(",", "\u002C", str_replace("!", "\u0021", str_replace(";", "\u003B", str_replace(array("\n", "\r", "\r\n"), "\\n", str_replace('"', '\"', str_replace("\\", "\\\\", $language->NotesSec1Text_json))))))); ?>');
-    quill5.setContents(content5);
+    quill5.setContents(content5.ops);
 </script>
 

@@ -61,7 +61,7 @@ class PronunciationsController extends AppController
             $i = 0;
             foreach ($soundFiles as $soundFile) {
                 $name = $soundFile->getClientFilename();
-                $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                $finalname = str_replace(array(' ','/','\\','<',';',':','>','"','|','?','*'), '', $postData['spelling']) . time() . $i . '.webm';
                 $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
                 $type = $soundFile->getClientMediaType();
                 if ($type == 'audio/webm') {

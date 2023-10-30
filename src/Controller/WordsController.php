@@ -287,6 +287,7 @@ class WordsController extends AppController
                 }
             }
 
+            array_map([$this, 'loadModel'], ['Origins']);
             $processedOrigins = [];
             if($postData['origins']['_ids'] !== ''){
                 foreach ($postData['origins']['_ids'] as $originid){
@@ -294,14 +295,21 @@ class WordsController extends AppController
                 }
                 
                 if ($postData['origin_other_entry'] !== ''){
-                    array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
-                    unset($postData['origin_other_entry']);
+                    #echo count($this->Origins->get_region_by_name($postData['origin_other_entry']));
+                    if (count($this->Origins->get_region_by_name($postData['origin_other_entry'])) == 0) {
+                        array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
+                        unset($postData['origin_other_entry']);
+                    } else {
+                        array_push($processedOrigins, [ 'id' => $this->Origins->get_region_by_name($postData['origin_other_entry'])[0] ]);
+                        unset($postData['origin_other_entry']);
+                    }
+                    unset($postData['origins']['_ids']);
+                    $postData['origins'] = $processedOrigins;
                 }
-                unset($postData['origins']['_ids']);
-                $postData['origins'] = $processedOrigins;
             }
             
             $processedTypes = [];
+            
             if($postData['types']['_ids'] !== ''){
                 foreach ($postData['types']['_ids'] as $typeid){
                     array_push($processedTypes, array('id' => $typeid));
@@ -338,7 +346,7 @@ class WordsController extends AppController
             $i = 0;
             foreach ($soundFiles as $soundFile) {
                 $name = $soundFile->getClientFilename();
-                $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                $finalname = str_replace(array(' ','/','\\','<',';',':','>','"','|','?','*'), '', $postData['spelling']) . time() . $i . '.webm';
                 $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
                 $type = $soundFile->getClientMediaType();
                 if ($type == 'audio/webm') {
@@ -629,7 +637,7 @@ class WordsController extends AppController
                 $i = 0;
                 foreach ($soundFiles as $soundFile) {
                     $name = $soundFile->getClientFilename();
-                    $finalname = str_replace(' ', '', $postData['spelling']) . time() . $i . '.webm';
+                    $finalname = str_replace(array(' ','/','\\','<',';',':','>','"','|','?','*'), '', $postData['spelling']) . time() . $i . '.webm';
                     $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
                     $type = $soundFile->getClientMediaType();
                     if ($type == 'audio/webm') {
