@@ -435,32 +435,6 @@ class WordsController extends AppController
         $this->RequestHandler->renderAs($this, 'json');
     }
 
-    /*public function checkforword2(){
-        $sitelang = $this->languageinfo();
-        //$this->RequestHandler->renderAs($this, 'json');
-        $response = [];
-        //debug($this->request->getData());
-        if( $this->request->is('get') ) {
-            $data = $this->request->getQueryParams();
-            debug($data);
-            //$doeswordexist = $data['spelling'];
-            $doeswordexist = $this->Words->findWithSpelling($data);
-            //debug($data);
-            $response['spelling'] = $doeswordexist;
-            //debug($response['spelling']);
-        } else {
-            $response['success'] = 0;
-        }
-
-        //$spelling = $this->request->getData('spelling');
-        debug($response);
-        //$data = $this->Words->findWithSpelling($spelling);
-        $this->set(compact('response'));
-        $this->render();
-        //$this->viewBuilder()->setOption('serialize', true);
-        //$this->RequestHandler->renderAs($this, 'json');
-    }*/
-
     /**
      * Edit method
      *

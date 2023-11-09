@@ -58,20 +58,40 @@ class SentenceRecordingsController extends AppController
             $soundFiles = $this->request->getUploadedFiles();
             $i = 0;
             foreach ($soundFiles as $soundFile) {
-                $name = $soundFile->getClientFilename();
-                $finalname = 'sentence' . $id . time() . $i . '.webm';
-                $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
-                $type = $soundFile->getClientMediaType();
-                if ($type == 'audio/webm') {
-                    if(!empty($name)){
-                        if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
-                            $soundFile->moveTo($targetPath);
-                            $postData['sound_file'] = $finalname;
-                        }
+                if ('' !== $soundFile->getClientFilename() &&
+                    $soundFile->getSize() > 0 && 
+                    $soundFile->getError() == 0) {
+                        $name = $soundFile->getClientFilename();
+                        $type = $soundFile->getClientMediaType();
+                        
+                        $recordingname = 'sentence' . $id . time() . $i;
+
+
+                        switch ($type){
+                            case 'audio/webm':
+                                $extension = '.webm';
+                                break;
+                            case 'audio/mpeg':
+                                $extension = '.mp3';
+                                break;
+                            default:
+                                $this->Flash->error(__('Please record or upload a file in MP3 format.'));
+                                $this->set(compact('sentenceRecording', 'sentences'));
+                                return $this->render();
+                            }
+
+                        $finalname = $recordingname . '.' . $extension;
+                        $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+                        $soundFile->moveTo($targetPath);
+                        $postData['sound_file'][$i] = $finalname;
+                    } else {
+                        $this->Flash->error(__('Please record or upload a recording before submitting.'));
+                        $this->set(compact('sentenceRecording', 'sentences'));
+                        return $this->render();
                     }
-                }
                 $i++;
-            }
+            } //end of checking for how many attached files
+
 
             if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')){
                 $datefortimestamp = date('Y-m-d h:i:s', time());
