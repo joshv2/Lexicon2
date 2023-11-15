@@ -26,6 +26,7 @@
                     <input type="radio" name="option" id="showUploadBox">
                     <label for="showUploadBox">Upload a Recording</label>
                     <div id="buttonContainer">
+                        <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>    
                         <button class="btn-record button" id="record" type="submit">Click to Record</button>
                         ' . $this->Form->control(__('soundfile0'), [
                             'class' => 'recording-input',
@@ -37,7 +38,7 @@
                     </div>
 
                     <div id="uploadBoxContainer" style="display:none">
-                        <input type="file" name="soundfile0" id="soundfile0" style="width: 176px;" accept=".mp3">
+                        <input type="file" name="soundfile1" id="soundfile1" style="width: 176px;" accept=".mp3">
                     </div></div>'; ?>
                     <div class='readingSentence2'>
                     <br/><br/>
@@ -53,29 +54,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    const toggleButton = document.getElementById("record");
-    const fileInput = document.getElementById("fileInput");
-    const buttonContainer = document.getElementById("buttonContainer");
-    const uploadBoxContainer = document.getElementById("uploadBoxContainer");
-
-    document.querySelectorAll('input[type=radio][name=option]').forEach((radio) => {
-      radio.addEventListener('change', (e) => {
-        if (e.target.id === "showButton") {
-          buttonContainer.style.display = "block";
-          uploadBoxContainer.style.display = "none";
-        } else if (e.target.id === "showUploadBox") {
-          buttonContainer.style.display = "none";
-          uploadBoxContainer.style.display = "block";
-        }
-      });
-    });
-  </script>
-<script type="text/javascript">
-	if((iOS() == true)){
-		$(".readingSentence").empty();
-        $(".readingSentence").append("Recording is not available on iOS at this time.")
-	}
-	</script>   
+<?= $this->Html->script('uploadtoggle')."\n";?>
+<?= $this->Html->script('detectios')."\n";?>
