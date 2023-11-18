@@ -111,13 +111,13 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                     <!--Produce rows-->
                                     <tr class="table-row" data-counter="0">
                                         <td style="width:0;">
-                                            <?=  $this->Form->control('pronunciations.0.id',['label' => FALSE, 'class' => 'muliplespid']);?>
+                                            <?=  $this->Form->control('pronunciations.0.id',['label' => FALSE]);?>
                                         </td>
                                         <td>
-                                            <?= $this->Form->control('pronunciations.0.spelling', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                            <?= $this->Form->control('pronunciations.0.spelling', ['label' => FALSE]);?>
                                         </td>
                                         <td>
-                                            <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                            <?= $this->Form->control('pronunciations.0.pronunciation', ['label' => FALSE]);?>
                                         </td>
                                         <td style="vertical-align: top;" id="recordcell">
                                             <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
