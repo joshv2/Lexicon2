@@ -61,7 +61,7 @@ class PronunciationsController extends AppController
             if ($this->Processfile->areThereAnyFiles($soundFiles)) {
                 if ($this->Processfile->checkFormats($soundFiles)) {
                     $postData['sound_file'] = $this->Processfile->processSoundfiles($soundFiles, $controller = $this->request->getParam('controller'), $id = $id);
-
+                    if (sizeof($postData['sound_file']) > 0) {
                     if (null !== $this->request->getSession()->read('Auth.username') 
                             && 'superuser' == $this->request->getSession()->read('Auth.role')){
                                 $datefortimestamp = date('Y-m-d h:i:s', time());
@@ -69,11 +69,12 @@ class PronunciationsController extends AppController
                                 $postData['approved'] = 1;
                                 $postData['approved_date'] = $datefortimestamp;
                                 $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
-                                if (sizeof($postData['sound_file']) > 0) {
-                                    $this->Processfile->convertMP3($postData['sound_file']);
-                                    $postData['sound_file'] = implode(' ,', $postData['sound_file']);
-                                }
-                    } else {
+                               
+                                $this->Processfile->convertMP3($postData['sound_file']);
+                                $postData['sound_file'] = implode(' ,', $postData['sound_file']);
+                    }
+                    else {
+                        $postData['sound_file'] = implode(' ,', $postData['sound_file']);
                         $postData['sentence_id'] = $id;
                         $postData['approved'] = 0;
                     }
@@ -93,9 +94,10 @@ class PronunciationsController extends AppController
                     $this->Flash->error(__('Please record or upload a recording before submitting.'));
                    
                 }
+            } else {
                 $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
             }
-            
+        }    
         $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
 
         $this->set(compact('pronunciation', 'words', 'word'));
