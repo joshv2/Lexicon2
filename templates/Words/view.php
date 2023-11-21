@@ -66,14 +66,8 @@
 				</div>
 			<div class='delete3'><div class='vertical-center'>
 				<p><?php 
-				if ($this->Identity->isLoggedIn() && count($word->pronunciations) > 0) {
-						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
-						['class' => 'button blue', 'escape' => false]);
-					
-						} elseif  (count($word->pronunciations) > 0){
-							echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/login?redirect=/pronunciations/add/'.$word->id,
-													['class' => 'button blue ', 'escape' => false]);
-						}?></p>
+				echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
+				['class' => 'button blue', 'escape' => false]);?></p>
 			</div></div>
 			</div>
 		<?php endif; ?>
@@ -125,7 +119,7 @@
 		
 			<div class='delete4'><div class='vertical-center'>
 				<p><?php 
-				if ($this->Identity->isLoggedIn()) {
+
 					if (count($word['sentences']) == 1){
 					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
 											['class' => 'button blue', 'escape' => false]);
@@ -133,15 +127,7 @@
 						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
-				} else {
-					if (count($word['sentences']) == 1){
-						echo $this->Html->link('<i class="fas fa-microphone"></i> '. __('Record a Sentence'), '/login?redirect=/SentenceRecordings/add/' .$word->sentences[0]->id,
-											['class' => 'button blue', 'escape' => false]);
-					} else {
-					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/login?redirect=/SentenceRecordings/choose/' . $word->id,
-											['class' => 'button blue', 'escape' => false]);
-					}
-				}?></p>
+			 ?></p>
 			</div></div>
 		</div>
 		<?php endif;?>
