@@ -699,12 +699,30 @@ input[type=submit] {
     width: 400px;
 }
 
-#main {
-    border-radius: 5px;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    width: 900px;
-    margin: 0 auto;
+@media (max-width: 899px) {
+    #main {
+        border-radius: 5px;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+}
+@media (min-width: 900px) {
+    #main {
+        border-radius: 5px;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 900px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
+    #footer_inner {
+        width: 900px; 
+        margin: 0 auto;
+    }
 }
 
 .c {
@@ -738,8 +756,8 @@ header {
     background: linear-gradient(to bottom, #0b458a 0%, #08203d 100%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#0b458a', endColorstr='#08203d', GradientType=0);
     margin: 0 0 20px 0;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    height: 50px;
+    /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);*/
+    height: 55px;
     padding: 0 20px;
 }
 
@@ -818,9 +836,9 @@ header h1 small {
     top: -18px;
 }
 
-header nav {
+/* header nav {
     float: left;
-}
+} */
 
 #navbar_main {
     float: left;
@@ -960,7 +978,7 @@ footer {
     padding: 30px 0;
     /*height: 170px;*/
     color: #ccc;
-    min-width: 960px;
+    /*min-width: 960px;*/
     width: 100%;
     background: #04152a;
 }
@@ -970,7 +988,7 @@ footer a {
 }
 
 #footer_inner {
-    width: 900px;
+    /*width: 900px;*/
     margin: 0 auto;
 }
 
@@ -1567,10 +1585,10 @@ seefullentrybutton {
     font-size: 17px;
 }
 
-.active {
+/*.active {
     background-color: #4CAF50;
     color: white;
-}
+}*/
 
 .topnav .icon {
     display: none;
@@ -1963,10 +1981,16 @@ textarea {
         float: left;
     }
     header {
-        background: #0A3C78;
+        background: linear-gradient(to bottom, #0b458a 0%, #08203d 100%);
         padding: 0 10px;
         height: 53px;
     }
+    @media (max-width: 575.98px) {
+    header {
+        height: 61px;
+      }
+    }
+
     header form {
         float: left;
         margin: unset;

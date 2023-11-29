@@ -21,10 +21,10 @@ $(document).ready(function() {
 	</ul>
 </nav>-->
 
-<section id="main">
+<!--<section id="main">-->
 <div id="header-image">
 <?php if ('' != $sitelang->HeaderImage):?>
-<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => 900])?>
+<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => '100%'])?>
 <?php endif; ?>
  </div>
 	
@@ -135,4 +135,4 @@ $(document).ready(function() {
 	</div>
 
 
-</section>
+<!--</section>-->
