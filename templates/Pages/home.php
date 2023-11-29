@@ -32,6 +32,13 @@ $(document).ready(function() {
 		<h2 class="left"><?php echo __('Lexicon'); ?></h2>
 		</div>
     <div id="home2" class="c">
+		<div class="internal-home" id="upperhomesearch">
+			<form id="home_search" class="group m3" type="GET" action="/search">
+				<?php echo '<input type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
+				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
+			</form>
+			<hr class="m2" />
+		</div>
 		<div class="internal-home">
 		<p id="first_time_here"><?=__("First time here? Read our ")?><?php echo $this->Html->link(__('welcome '), '/about');?><?=__("page")?></a>.</p>
 		
@@ -60,13 +67,15 @@ $(document).ready(function() {
 											'class' => 'button'])?>	-->								
     	</div>
         <hr class="m2" />
-        <h3><?=__("SEARCH:")?></h3>
-		<form id="home_search" class="group m3" type="GET" action="/search">
+        <div id="lowerhomesearch">
+			<h3><?=__("SEARCH:")?></h3>
+			<form id="home_search" class="group m3" type="GET" action="/search">
 				<?php echo '<input type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
 				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
 			</form>
-
-        <hr class="m2" />
+			<hr class="m2" />
+		</div>
+        
 		<h3 class="m1"><?=__("ADVANCED SEARCH:")?></h3>
 		<p class="m2">(<?=__("See the") ?> <?php echo $this->Html->link(__('NOTES'), '/notes');?> <?=__("for information about these languages, dictionaries, and types of people.")?>)</p>
 

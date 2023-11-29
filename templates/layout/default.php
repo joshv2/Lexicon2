@@ -88,22 +88,22 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto mx-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Add a Word <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/add">Add a Word <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/about">About Us <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Notes <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/notes">Notes <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Jewish Languages <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.jewishlangauges.org/lexicon-recording">Jewish Languages <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Volunteer <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Volunteer <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item last">
 						<a class="nav-link" href="#">Donate <span class="sr-only">(current)</span></a>

@@ -98,16 +98,16 @@ hr {
 
 #home_search input[type=text] {
     margin: 0 5px 0 0;
-    width: 456px;
-    font-size: 16px;
+    width: 412px;
+    font-size: 18px;
     float: left;
 }
 
 #home_search a {
     text-align: center;
-    width: 11px;
+    /*width: 11px;*/
     line-height: 8px;
-    height: 6px;
+    /*height: 6px;*/
 }
 
 #homepagesearch {
@@ -708,6 +708,14 @@ input[type=submit] {
         margin: 0 auto;
         padding-bottom: 10px;
     }
+
+    #upperhomesearch {
+        display: block;
+    }
+
+    #lowerhomesearch {
+        display: none;
+    }
 }
 @media (min-width: 900px) {
     #main {
@@ -722,6 +730,14 @@ input[type=submit] {
     #footer_inner {
         width: 900px; 
         margin: 0 auto;
+    }
+
+    #upperhomesearch {
+        display: none;
+    }
+
+    #lowerhomesearch {
+        display: block;
     }
 }
 
@@ -1969,7 +1985,7 @@ textarea {
         margin: unset;
     }
     #home_search {
-        width: 100%;
+        width: 113%;
     }
     .internal-home {
         padding: 25px 25px 15px 15px;
@@ -1977,7 +1993,7 @@ textarea {
     #home_search input[type=text] {
         margin: 0 5px 0 0;
         width: 82%;
-        font-size: 16px;
+        font-size: 18px;
         float: left;
     }
     header {
