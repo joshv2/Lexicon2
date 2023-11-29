@@ -5,7 +5,7 @@
  */
 ?>
 <?php function status_to_words($approved){
-	switch ($approved) {
+    switch ($approved) {
 		case 0:
 			return "Pending";
 		case 1:
@@ -22,7 +22,6 @@
         <p><?=__("Sentences are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
         <?= $this->Form->create() ?>
         <table>
-
             <?php echo $this->Html->tableHeaders(['Recording ID', 'Listen', '', 'Ranking']);
                 $i = 0; ?>
             
@@ -31,7 +30,7 @@
                 <?php 
                     
                     if ('' !== $p->sound_file){
-                        $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'player']);
+                        $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls', 'class' => 'player']); //, ['type' => ''], 
                     } else {
                         $audioPlayer = '';
                     }
