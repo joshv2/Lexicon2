@@ -88,30 +88,30 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto mx-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/"><?= __('Home');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/add">Add a Word <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/add"><?= __('Add a Word');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/about">About Us <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/about"><?= __('About Us');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/notes">Notes <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/notes"><?= __('Notes');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="https://www.jewishlanguages.org">Jewish Languages <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://www.jewishlanguages.org/lexicon-recording">Volunteer <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item last">
-						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate');?> <span class="sr-only">(current)</span></a>
 					</li>
 				</ul>
 
 			<form class="form-inline" type="GET" action="/search">
-				<input class="form-control mr-sm-2" type="text" results="5" placeholder="Search..." aria-label="Search" name="q" id="search">
+				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
 				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
 		</div> <!-- nav -->
