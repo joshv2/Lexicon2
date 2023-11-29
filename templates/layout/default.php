@@ -23,6 +23,12 @@
 		'as' => 'font']
 	);?>
 	<!--<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>-->
+	
+	<?php echo $this->Html->css('output.css');?>
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">-->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+	
 	<?php echo $this->Html->css('fontawesome');?>
 	<?php echo $this->Html->css('solid');?>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
@@ -68,61 +74,52 @@
 
 </head>
 <body>
-<div id="container">
-	<header>
-	<div id="desktop">	
-		<div class="headergroup">
-		<div class="flex"> 	<span>
-		<h1>
-            <?= $this->cell('Logo'); ?></h1></span></div>
-			<nav class="flex"> <span>
-			<div id="navbar_subdiv">
-			<ul id="navbar_sub">
-					<li><?php echo $this->Html->link(__('Home'), '/');?></li>
-					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
-					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
-					<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
-					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
-					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
-					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
-				</ul><div></span>
-			</nav>
-			<div class="flex"><span>
-			<form type="GET" action="/search">
-				<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
-			</form></span>
-			</div>
-		</div>
-	</div>
-		<div class="mobile-header">
-		<div id="headerlogo">
-			<h1>
-			<?= $this->cell('Logo'); ?></h1>
-			</h1>
-		</div>
-		<div id="searchform">
-			<form type="GET" action="/search">
-			<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
+
+
+<header>
+  	<div class="container bannerbg">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
+			<a class="navbar-brand" href="/">
+				<?= $this->cell('Logo'); ?>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto mx-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/"><?= __('Home');?> <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/add"><?= __('Add a Word');?> <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/about"><?= __('About Us');?> <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/notes"><?= __('Notes');?> <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.jewishlanguages.org">Jewish Languages <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer');?> <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item last">
+						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate');?> <span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+
+			<form class="form-inline" type="GET" action="/search">
+				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
+				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
-		</div>
-		<div id="navigation">
-			<div class="topnav" id="myTopnav">
-			<?php echo $this->Html->link(__('Home'), '/');?>
-					<?php echo $this->Html->link(__('Add a Word'), '/add');?>
-					<?php echo $this->Html->link(__('About Us'), '/about');?>
-					<?php echo $this->Html->link(__('Notes'), '/notes');?>
-					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a>
-					<a href="https://www.jewishlanguages.org/donate"><?= __('Volunteer') ?></a>
-					<a href="https://www.jewishlanguages.org/donate"><?= __('Donate') ?></a>
-			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-			</div>
-		</div>
-		
-		</div> <!--mobile header -->
-		
+		</div> <!-- nav -->
+			</nav>
+	</div>
+
 	</header>
+<div>
 	<section id="main">
 	
 	<?php echo $this->element('user_bar');?>
@@ -137,7 +134,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	
 	</div>
 	<!--<div class="cfooter"></div>-->
-</div>
+<div>
 
 
 	<footer>
@@ -163,8 +160,9 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			</div>
 			<div class="clear"></div>
 		</div>
-	</footer>
+  </footer>
 	<?= $this->Html->script('bottom')."\n";?>
+
 </body>
 
 
