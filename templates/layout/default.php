@@ -100,13 +100,13 @@
 						<a class="nav-link" href="/notes">Notes <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://www.jewishlangauges.org/lexicon-recording">Jewish Languages <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.jewishlanguages.org">Jewish Languages <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Volunteer <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.jewishlanguages.org/lexicon-recording">Volunteer <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item last">
-						<a class="nav-link" href="#">Donate <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Donate <span class="sr-only">(current)</span></a>
 					</li>
 				</ul>
 
