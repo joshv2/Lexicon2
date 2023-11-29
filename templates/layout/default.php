@@ -160,20 +160,9 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			</div>
 			<div class="clear"></div>
 		</div>
-	</footer>
-	</div>
-	<?php echo $this->fetch('js_bottom'); ?>
-	<!--<?php //echo $this->element('sql_dump'); ?>-->
-	<script>
-		function myFunction() {
-		  var x = document.getElementById("myTopnav");
-		  if (x.className === "topnav") {
-			x.className += " responsive";
-		  } else {
-			x.className = "topnav";
-		  }
-		}
-	</script>
+  </footer>
+	<?= $this->Html->script('bottom')."\n";?>
+
 </body>
 
 
