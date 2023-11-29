@@ -12,6 +12,7 @@
             <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add Pronunciation for ') . $word->spelling ?></legend>
+                <div class='readingSentence'></div>
                 <div class="form-group">
                         <table>
                             <thead>
@@ -19,29 +20,44 @@
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;"><?=__("Pronuciation (Spelling)")?></th>
                                     <th style="text-align: left;"><?=__("Phonetic Spelling")?></th>
-                                    <th style="text-align: left;"><?=__("Record")?></th>
+                                    <th style="text-align: center;" colspan=2><?=__("Record")?></th>
+                                    <!--<th style="text-align: left;"></th>-->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="table-row" data-counter="0">
                                     <td style="width:0;">
-                                        <?=  $this->Form->control('id',['label' => FALSE, 'class' => 'muliplespid']);?>
+                                        <?=  $this->Form->control('id',['label' => FALSE]);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control(__('spelling'), ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        <?= $this->Form->control(__('spelling'), ['label' => FALSE]);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control(__('pronunciation'), ['label' => FALSE, 'class' => 'muliplespsp']);?>
+                                        <?= $this->Form->control(__('pronunciation'), ['label' => FALSE]);?>
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="option" id="showButton" checked>
+                                        <label for="showButton">Record on Your Device</label>
+                                        <br/>
+                                        <input type="radio" name="option" id="showUploadBox">
+                                        <label for="showUploadBox">Upload a Recording</label>
+                                        
                                     </td>
                                     <td style="vertical-align: top;" id="recordcell"> 
-                                    <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>
-                                        <?= $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']);?>
-                                        <?= $this->Form->control(__('soundfile0'), [
-                                            'class' => 'recording-input',
-                                            'type' => 'file',
-                                            'style' => 'display:none',
-                                            'label' => FALSE
-                                        ]); ?>
+                                        <div id="buttonContainer">
+                                            <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>    
+                                            <button class="btn-record button" id="record" type="submit">Click to Record</button>
+                                            <?= $this->Form->control(__('soundfile0'), [
+                                                'class' => 'recording-input',
+                                                'type' => 'file',
+                                                'style' => 'display:none',
+                                                'label' => FALSE
+                                            ]) ?>
+                                        </div>
+
+                                        <div id="uploadBoxContainer" style="display:none">
+                                            <input type="file" name="soundfile1" id="soundfile1" style="width: 176px;" accept=".mp3">
+                                        </div>    
                                     </td>
                                 </tr>
                             </tbody>
@@ -63,9 +79,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-	if(iOS() == true){
-		$("#recordcell").empty();
-        $("#recordcell").append("Recording is not available on iOS at this time.")
-	}
-	</script>   
+<?= $this->Html->script('uploadtoggle')."\n";?>
+<?= $this->Html->script('detectios')."\n";?>

@@ -177,13 +177,13 @@ return [
             'bypassAuth' => true,
         ],
         [
-            'role' => ['contributor'],
+            'role' => '*',
             'controller' => 'SentenceRecordings',
             'action' => ['add', 'choose', 'success'],
             'bypassAuth' => true,
         ],
         [
-            'role' => ['contributor','user','superuser'],
+            'role' => '*',
             'controller' => 'Pronunciations',
             'action' => ['add'],
             'bypassAuth' => true,
