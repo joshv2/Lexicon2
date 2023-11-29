@@ -76,14 +76,10 @@
 <body>
 
 
-
-  	<div class="row">
-		<div class="col">
-			1 of 3
-		</div>
-		<div class="col-6">
+<header>
+  	<div class="container bannerbg">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
-			<a class="navbar-brand">
+			<a class="navbar-brand" href="/">
 				<?= $this->cell('Logo'); ?>
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,100 +87,39 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto mx-auto">
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">Add a Word <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">Notes <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">Jewish Languages <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="#">Volunteer <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item last">
 						<a class="nav-link" href="#">Donate <span class="sr-only">(current)</span></a>
 					</li>
 				</ul>
 
 			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<input class="form-control mr-sm-2" type="text" results="5" placeholder="Search..." aria-label="Search" name="q" id="search">
+				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
 		</div> <!-- nav -->
 			</nav>
-		</div> <!--column-->
-		<div class="col">
-			3 of 3
-		</div>
 	</div>
 
-
-
-
-
-<div id="container">
-	<header>
-	<div id="desktop">	
-		<div class="headergroup">
-		<div class="flex"> 	<span>
-		<h1>
-            <?= $this->cell('Logo'); ?></h1></span></div>
-			<nav class="flex"> <span>
-			<div id="navbar_subdiv">
-			<ul id="navbar_sub">
-					<li><?php echo $this->Html->link(__('Home'), '/');?></li>
-					<li><?php echo $this->Html->link(__('Add a Word'), '/add');?></li>
-					<li><?php echo $this->Html->link(__('About Us'), '/about');?></li>
-					<li><?php echo $this->Html->link(__('Notes'), '/notes');?></li>
-					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<li><a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a></li>
-					<li><a href="https://www.jewishlanguages.org/lexicon-recording"><?= __('Volunteer') ?></a></li>
-					<li class="last"><a href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words"><?= __('Donate') ?></a></li>
-				</ul><div></span>
-			</nav>
-			<div class="flex"><span>
-			<form type="GET" action="/search">
-				<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
-			</form></span>
-			</div>
-		</div>
-	</div>
-		<div class="mobile-header">
-		<div id="headerlogo">
-			<h1>
-			<?= $this->cell('Logo'); ?></h1>
-			</h1>
-		</div>
-		<div id="searchform">
-			<form type="GET" action="/search">
-			<?php echo '<input type="text" results="5" placeholder="' . __('Search...') . '" name="q" id="search">'; ?>
-			</form>
-		</div>
-		<div id="navigation">
-			<div class="topnav" id="myTopnav">
-			<?php echo $this->Html->link(__('Home'), '/');?>
-					<?php echo $this->Html->link(__('Add a Word'), '/add');?>
-					<?php echo $this->Html->link(__('About Us'), '/about');?>
-					<?php echo $this->Html->link(__('Notes'), '/notes');?>
-					<!--<li><a href="http://jewishlexicon.weebly.com" target="_blank">Forum</a></li>-->
-					<a href="http://www.jewish-languages.org" target="_blank"><?= __('Jewish Languages') ?></a>
-					<a href="https://www.jewishlanguages.org/donate"><?= __('Volunteer') ?></a>
-					<a href="https://www.jewishlanguages.org/donate"><?= __('Donate') ?></a>
-			  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-			</div>
-		</div>
-		
-		</div> <!--mobile header -->
-		
 	</header>
+<div>
 	<section id="main">
 	
 	<?php echo $this->element('user_bar');?>
@@ -199,7 +134,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	
 	</div>
 	<!--<div class="cfooter"></div>-->
-</div>
+<div>
 
 
 	<footer>
@@ -226,6 +161,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			<div class="clear"></div>
 		</div>
 	</footer>
+	</div>
 	<?php echo $this->fetch('js_bottom'); ?>
 	<!--<?php //echo $this->element('sql_dump'); ?>-->
 	<script>
