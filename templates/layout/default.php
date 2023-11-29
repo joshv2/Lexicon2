@@ -110,7 +110,7 @@
 					</li>
 				</ul>
 
-			<form class="form-inline">
+			<form class="form-inline" type="GET" action="/search">
 				<input class="form-control mr-sm-2" type="text" results="5" placeholder="Search..." aria-label="Search" name="q" id="search">
 				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
