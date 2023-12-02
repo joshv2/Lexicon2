@@ -6,7 +6,7 @@
 ?>
 
 
-<div class="row">
+<div>
     <div class="column-responsive column-80">
         <div class="sentenceRecordings form content">
             <?= $this->Form->create($sentenceRecording, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
