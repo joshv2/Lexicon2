@@ -6,7 +6,7 @@
 ?>
 
 <p class="landscape">This form is best viewed in landscape mode.</p>
-<div class="row">
+<div>
     <div class="column-responsive column-80">
         <div class="pronunciations form content">
             <?= $this->Form->create($pronunciation, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
