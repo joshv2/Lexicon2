@@ -1090,6 +1090,25 @@ nav#browse {
     height: 90px;
 }
 
+nav#browsealpha {
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+    border-radius: 0px 0px 0 0;
+    border-bottom: 1px #bbb solid;
+    /*height: 90px;*/
+    margin-bottom: 0px;
+}
+
+.alphabg {
+    background: #f1f1f1;
+}
+
 .browse_nav {
     list-style: none;
     padding: 0;
@@ -1281,7 +1300,8 @@ nav#browse {
     list-style: none;
     padding: 0;
     background: #f1f1f1;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 0px 0px;
+    margin-bottom: 0px;
 }
 
 .pagination li {
@@ -1312,21 +1332,65 @@ nav#browse {
 }
 
 #alphabetical_list {
-    float: left;
-    text-align: center;
-    width: 100%
+    /*float: left;
+    text-align: center;*/
+    width: 87%;
+    margin: auto;
 }
 
 #alphabetical_list ul {
     padding: 0;
-    height: 40px;
+    /*height: 40px;*/
+}
+
+.centeralpha {
+    margin: auto;
+    width: 87.5%;
+}
+
+.alphalist {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .alphalist li {
+    display: inline-block;
+    margin: 5px;
+    font-size: 24px;
+  }
+  
+  @media (max-width: 570px) {
+    .alphalist {
+      display: block;
+    }
+  
+    .alphalist li {
+      display: block;
+    }
+  }
+
+
+.pagination2 {
+    display: flex; 
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    /* margin: auto; */
+}
+
+.pagination2 li a {
+    display: inline-block;
+    padding: 10px;
 }
 
 #alphabetical_list li a {
     padding-top: 0;
     padding-bottom: 0;
+    padding-right: 6px;
     line-height: 40px;
-    height: 40px;
+    height: 40px;  
+    font-size: 16px;
 }
 
 #browse_info {
@@ -1519,7 +1583,7 @@ nav#browse {
 
 #crumbs {
     margin: 0 auto 10px auto;
-    width: 900px;
+    /*width: 900px;*/
 }
 
 #crumbs ul {

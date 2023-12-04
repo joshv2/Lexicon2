@@ -1,37 +1,12 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
-<section id="main">
-	<nav id="mobilealphabrowse">
-		<div id="alphabetical_list">
-			<h3 id="alphabrowseheader"><?=__("Browse by Letter")?></h3>
-			<ul class="pagination group">
-			<?php
-			foreach($alphabet as $k => $v){
-				if ($letter == $v){
-					echo '<li class="current">'.$v.'</li>';
-				} else {
-					echo '<li>'. 
-					$this->Html->link($v, '/alphabetical//'. $v) . '</li>';
-				}
-			}
-			/*for ($i = 65; $i < 91; $i++)
-			{
-				$uc = chr($i);
-				$lc = chr($i + 32);
-				if ($letter == $uc || $letter == $lc)
-					echo '<li class="current">'.$uc.'</li>';
-				else
-					echo '<li>'. 
-					$this->Html->link($uc, '/alphabetical//'. $lc) . '</li>';
-			}*/
-			?>
-			</ul>
-		</div>
-	</nav>
+<!--<section id="main">-->
 	
-	<nav id="browse">
-		<div id="alphabetical_list">
+	<div class="alphabg">
+	<div class="centeralpha">
+	<nav class="pagination">
+		<!--<div id="alphabetical_list">-->
 			
-			<ul class="pagination group">
+			<ul class="browsealpha">
 			<?php
 			foreach($alphabet as $k => $v){
 				if ($letter == $v){
@@ -53,9 +28,10 @@
 			}*/
 			?>
 			</ul>
-		</div>
+		<!--</div>-->
 	</nav>
-
+	</div>
+	</div>
 	<div id="browse_info" class="group">
 		<p id="sort_info"><?php echo $letter;?></p>
 		<p id="paging_info">
@@ -81,8 +57,10 @@
 	<?php endforeach; ?>
 	</ul>
 
+	<div class="alphabg">
+	<div class="centeralpha">
 	<div class="pagination">
-	<ul class="pagination group">
+	<ul class="browsealpha">
 		<?php
 		foreach($alphabet as $k => $v){
 			if ($letter == $v){
@@ -105,5 +83,7 @@
 	</ul>
 	<div class="clear"></div>
 	</div>
+	</div>
+	</div>
 	<?php endif;?>
-</section>
+<!--</section>-->
