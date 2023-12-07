@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Language $language
  */
 ?>
-<div class="row">
+<div>
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
