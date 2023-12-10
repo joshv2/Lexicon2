@@ -92,16 +92,16 @@ hr {
 }
 
 #home_search {
-    width: 600px;
-    margin: 0 auto 30px auto;
+    width: 100%;
+    /* margin: 0 auto 30px auto;*/
 }
 
-#home_search input[type=text] {
+/*#home_search input[type=text] {
     margin: 0 5px 0 0;
     width: 412px;
     font-size: 18px;
     float: left;
-}
+}*/
 
 #home_search a {
     text-align: center;
@@ -610,6 +610,13 @@ textarea {
     transition: border-color 0.2s;
 }
 
+#btmsearch {
+    width: 88%;
+    float: left;
+    margin-left: 8px;
+    margin-right: 2px;
+}
+
 #loginemail,
 #loginpassword {
     display: unset;
@@ -710,7 +717,16 @@ input[type=submit] {
     }
 
     #upperhomesearch {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #home_search input[type=text] {
+        margin: 0 5px 0 0;
+        width: 89%;
+        font-size: 18px;
+        float: left;
     }
 
     #lowerhomesearch {
@@ -737,8 +753,12 @@ input[type=submit] {
     }
 
     #lowerhomesearch {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+   
 }
 
 .c {
@@ -1108,6 +1128,22 @@ nav#browsealpha {
 .alphabg {
     background: #f1f1f1;
 }
+
+
+/* Add custom styles */
+
+  
+  .center-form {
+    display: flex;
+    align-items: center;
+  }
+  
+  /*input[type="text"], button {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+  }*/
+
 
 .browse_nav {
     list-style: none;
@@ -2049,7 +2085,9 @@ textarea {
         margin: unset;
     }
     #home_search {
-        width: 113%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .internal-home {
         padding: 25px 25px 15px 15px;
