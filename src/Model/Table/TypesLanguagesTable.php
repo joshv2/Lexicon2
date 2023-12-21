@@ -10,5 +10,6 @@ class TypesLanguagesTable extends Table
     {
         $this->belongsTo('Types');
         $this->belongsTo('Languages');
+        $this->belongsTo('TypeCategories');
     }
 }

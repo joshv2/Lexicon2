@@ -83,9 +83,11 @@ $(document).ready(function() {
 
 		<ul id="home2_filters">
 		<?php if($sitelang->hasOrigins): ?>
-			<li>
-				<h4><i class="icon-comments-alt"></i> <?=__("Languages of origin")?></h4>
-				<ul>
+			<details class="home2_details">
+				<summary class="home2_summary">
+					<i class="icon-comments-alt"></i> <?=__("Languages of origin")?>
+				</summary>
+				<ul class="adv_search_ul">
 				<?php foreach ($origins as &$neworigin){
                         $neworigin = __($neworigin);
                     } ?>
@@ -94,12 +96,14 @@ $(document).ready(function() {
 					<?php endforeach;?>
 					<li><?php echo $this->Html->link(__('Other'), '/words?origin=other');?></li>
 				</ul>
-			</li>
+			</details>
 		<?php endif; ?>
 		<?php if($sitelang->hasRegions): ?>
-			<li>
-				<h4><i class="icon-globe"></i> <?=__("Regions in which the word is used")?></h4>
-				<ul>
+			<details class="home2_details">
+				<summary class="home2_summary">
+					<i class="icon-globe"></i> <?=__("Regions in which the word is used")?>
+				</summary>
+				<ul class="adv_search_ul">
 					
 				<?php foreach ($regions as &$newregion){
                         $newregion = __($newregion);
@@ -109,32 +113,66 @@ $(document).ready(function() {
 					<?php endforeach;?>
 					<li><?php echo $this->Html->link(__('Other'), '/words?region=other');?></li>
 				</ul>
-			</li>
+			</details>
 		<?php endif; ?>
 		<?php if($sitelang->hasTypes): ?>
-			<li>
-				<h4><i class="icon-user"></i> <?=__("Types of people who tend to use the word")?></h4>
-				<ul class="m3">
-					<?php foreach ($types as &$newtype){
-                        $newtype = __($newtype);
-                    } ?>
-					<?php foreach ($types as $id => $o):?>
-						<li><?php echo $this->Html->link($o, '/words?use='.$id);?></li>
-					<?php endforeach;?>
-					<li><?php echo $this->Html->link(__('Other'), '/words?use=other');?></li>
+			<details class="home2_details">
+				<summary class="home2_summary">
+					<i class="icon-user"></i> <?=__("Types of people who tend to use the word")?>
+				</summary>
+				<ul class="adv_search_ul">
+				<?php 
+				$otherarray = [];
+				foreach ($types as $type) {
+					
+					if (isset($type->category)){
+						echo __($type->category) . "<br>";
+					}
+					if (is_array($type->types)) {
+						foreach ($type->types as $subtype) {
+							// If it's a subarray, list all its values in the first index
+							//$output = implode(", ", $type);
+							if (str_contains($subtype->type, ":")) {
+								$boldMainName = explode(":", $subtype->type);
+								$boldMainName[0] = $boldMainName[0] . ":";
+							} else {
+								$boldMainName = [$subtype->type, ""];
+							}
+							echo "<li>". $this->Html->link("<span class='boldname'>" . __($boldMainName[0]) . "</span>"
+								. __($boldMainName[1]), '/words?use='.$subtype->id, ['escape' => false]) . "</li>";
+						}
+						echo "<br>";
+					} else {
+						// If it's not a subarray, simply print the value
+							array_push($otherarray, $type);
+					}
+					//echo "<br>";
+				} 
+				if (count($otherarray) > 0) {
+					if($sitelang->hasTypeCategories) {
+						echo __("Other") . "<br>";
+					}
+						foreach ($otherarray as $othertype) {
+							echo "<li>".  $this->Html->link(__($othertype->type), '/words?use='.$othertype->id) . "</li>";
+						}
+					}
+				?>
+
 				</ul>
-			</li>
+			</details>
 		<?php endif; ?>
 		<?php if($sitelang->hasDictionaries): ?>
-			<li>
-				<h4><i class="icon-book"></i> <?=__("Dictionaries in which the word appears")?></h4>
-				<ul>
+			<details class="home2_details">
+				<summary class="home2_summary">
+					<i class="icon-book"></i> <?=__("Dictionaries in which the word appears")?>
+				</summary>
+				<ul class="adv_search_ul">
 					<?php foreach ($dictionaries as $id => $o):?>
 						<li><?php echo $this->Html->link($o, '/words?dictionary='.$id);?></li>
 					<?php endforeach;?>
 					<li><?php echo $this->Html->link(__('None'), '/words?dictionary=none');?></li>
 				</ul>
-			</li>
+			</details>
 		<?php endif; ?>
 		</ul>
 		<hr class="m2" />
