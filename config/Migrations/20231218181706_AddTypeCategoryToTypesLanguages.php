@@ -15,7 +15,7 @@ class AddTypeCategoryToTypesLanguages extends AbstractMigration
     public function change()
     {
         $table = $this->table('types_languages');
-        $table->addColumn('category_id', 'integer', [
+        $table->addColumn('type_category_id', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,
