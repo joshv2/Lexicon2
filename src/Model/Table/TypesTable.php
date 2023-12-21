@@ -16,13 +16,25 @@ class TypesTable extends Table
         $this->belongsToMany('Languages', [
             'through' => 'TypesLanguages'
         ]);
+        $this->belongsToMany('TypeCategories', [
+            'through' => 'TypesLanguages']);
     }
 
     public function top_types_for_home($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
-                        ->contain(['Languages'])
+        $query = $this->find('all', ['order' => 'Types.id'])
+                        ->contain(['Languages', 'TypeCategories'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
+        //$query->disableHydration();
+        $data = $query->toArray();
+        return $data;
+    }
+
+    public function top_types_for_home_no_cat($langid){
+        $query = $this->find('all', ['order' => 'Types.id'])
+                        ->contain(['Languages'])
+                        ->matching('Languages')
+                        ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid, 'TypesLanguages.type_category_id' => 0]);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;

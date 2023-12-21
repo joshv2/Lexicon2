@@ -80,7 +80,7 @@ class PagesController extends AppController
         $words = $this->getTableLocator()->get('Words');
         $sitelang = $this->languageinfo();
         $total_entries = $words->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
-        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']); //load Models so we can get for the homepage dropdown
+        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries', 'TypeCategories']); //load Models so we can get for the homepage dropdown
         //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
         $tagging = [];
         if($sitelang->hasOrigins) {
@@ -92,7 +92,10 @@ class PagesController extends AppController
             $tagging['regions'] = $regions;
         }
         if($sitelang->hasTypes) {
-            $types = $this->Types->top_types_for_home($sitelang->id);
+            $typesWithCategory = $this->TypeCategories->top_types_for_home_by_cat($sitelang->id);
+            $typesWithoutCategory = $this->Types->top_types_for_home_no_cat($sitelang->id);
+            $types = array_merge($typesWithCategory, $typesWithoutCategory);
+            #$types = $this->Types->top_types_for_home($sitelang->id);
             $tagging['types'] = $types;
         }
         if($sitelang->hasDictionaries) {

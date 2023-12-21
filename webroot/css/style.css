@@ -16,7 +16,9 @@ body {
     min-width: 960px;
 }
 
-
+.boldname {
+    font-weight: bold;
+}
 /*for banner*/
 
 #frdiv {
@@ -158,7 +160,7 @@ hr {
     margin: 0 40px 10px 20px;
 }
 
-#notes.c {
+#notes.c, #notes.d {
     width: 700px;
     margin: 0 auto;
     font-size: 14px;
@@ -176,16 +178,24 @@ h6 {
     margin: 0;
 }
 
-.c.content.about ul {
+.c.content.about ul, .d.content.about ul {
     list-style: none;
     line-height: initial;
 }
 
-.c ul {
+.adv_search_ul {
+    list-style: none;
+    margin: 0 0 10px 0;
+    padding: 0 0 0 40px;
+}
+
+.d ul {
     list-style: square;
     margin: 0 0 10px 0;
     padding: 0 0 0 40px;
 }
+
+
 
 #notes.content p,
 #welcome.content p {
@@ -249,6 +259,23 @@ a:hover {
 #home2 h3 {
     font-size: 16px;
     color: #005acf;
+}
+
+.home2_details {
+    font-weight: normal;
+    margin: 10px;
+    border: 1px #c1c1c1 solid;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 5px 15px 5px 5px;
+}
+
+.home2_summary {
+    color: #005ac5;
+    font-size: 16px;
+    margin: 0;
+    padding: 5px 15px 5px 5px;
 }
 
 #home2_filters {
@@ -761,7 +788,7 @@ input[type=submit] {
    
 }
 
-.c {
+.c, .d {
     padding: 25px 25px 15px 25px;
 }
 
@@ -1871,17 +1898,17 @@ textarea {
         font-size: 1.125em;
         margin-right: 30px;
     }
-    .c {
+    .c, .d {
         padding: unset;
         margin-left: 5px;
     }
-    .c.content,
-    .c.add,
-    .c.word {
+    .c.content, .d.content,
+    .c.add, .d.add,
+    .c.word, .d.word {
         padding: unset;
         padding: 10px;
     }
-    #notes.c {
+    #notes.c, #notes.d {
         width: 100%;
         margin: 0 auto;
         font-size: 14px;
