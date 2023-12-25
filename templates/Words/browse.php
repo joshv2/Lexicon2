@@ -116,12 +116,12 @@
 			<li class="main">
 				<div class="dropdown">
 					<a class="main">
-						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>' . __('Use') .':</b> ' . __($types[$current_condition['use']]);?></span>
+						<span><?php echo empty($current_condition['use']) ? __('All Uses') : '<b>' . __('Use') .':</b> ' . __($types[$current_condition['use']]['type']);?></span> <!--$current_condition['use']-->
 					</a>
 					<div class="submenu">
 						<ul>
 							<li><a href="<?php echo $this->QueryString->remove('use');?>"><?php echo __('All');?></a></li>
-						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo __($o);?></a></li><?php endforeach;?>
+						<?php foreach ($types as $k => $o): ?><li><a href="<?php echo $this->QueryString->add('use', $k); ?>"><?php echo __($o['type']);?></a></li><?php endforeach;?>
 						</ul>
 					</div>
 				</div>
