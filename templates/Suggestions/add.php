@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Suggestion $suggestion
  */
 ?>
-<div class="row">
+
     <!--<aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -30,4 +30,4 @@
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+

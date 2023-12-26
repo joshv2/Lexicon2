@@ -539,17 +539,21 @@ class WordsController extends AppController
 
                 array_map([$this, 'loadModel'], ['Origins']);
                 $processedOrigins = [];
+                $pattern2 = '/^origin_other_entry/';
+                $postkeys = array_keys($postData);
+                $otheroriginskeyarray = preg_grep($pattern2, $postkeys);
+                $otheroriginskey = $otheroriginskeyarray[array_key_first($otheroriginskeyarray)];
                 if($postData['origins']['_ids'] !== ''){
                     foreach ($postData['origins']['_ids'] as $originid){
                         array_push($processedOrigins, array('id' => $originid));
                     }
-                    if ($postData['origin_other_entry'] !== ''){
-                        if (count($this->Origins->get_region_by_name($postData['origin_other_entry'])) == 0) {
-                            array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
-                            unset($postData['origin_other_entry']);
+                    if ($postData[$otheroriginskey] !== ''){
+                        if (count($this->Origins->get_region_by_name($postData[$otheroriginskey])) == 0) {
+                            array_push($processedOrigins, [ 'origin' => $postData[$otheroriginskey]]);
+                            unset($postData[$otheroriginskey]);
                         } else {
-                            array_push($processedOrigins, [ 'id' => $this->Origins->get_region_by_name($postData['origin_other_entry'])[0] ]);
-                            unset($postData['origin_other_entry']);
+                            array_push($processedOrigins, [ 'id' => $this->Origins->get_region_by_name($postData[$otheroriginskey])[0] ]);
+                            unset($postData[$otheroriginskey]);
                         }
                         unset($postData['origins']['_ids']);
                         $postData['origins'] = $processedOrigins;
@@ -565,7 +569,7 @@ class WordsController extends AppController
                     $pattern2 = '/^type_other_entry_/';
                     $postkeys = array_keys($postData);
                     $othertypeskey = preg_grep($pattern2, $postkeys);
-                    print_r($othertypeskey);
+                    //print_r($othertypeskey);
                     if ($othertypeskey !== false){ //if there 
                         $othertypeidvalues = array_values($othertypeskey);
                         $othertypeid = array_shift($othertypeidvalues);
