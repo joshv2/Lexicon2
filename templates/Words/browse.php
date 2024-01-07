@@ -1,11 +1,83 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
-
+<div class="dropdown-container">
+<?php $ortdarray = [[$sitelang->hasOrigins, $ortd["origins"], "Origins"], 
+					[$sitelang->hasRegions, $ortd["regions"], "Regions"], 
+					[$sitelang->hasTypes, $ortd["types"], "Types"],
+					[$sitelang->hasDictionaries, $ortd["dictionaries"], "Dictionaries"]];
+		$i = 0;
+		$j = 3;
+?>
+<?php foreach($ortdarray as $ortdarray2):?>
+	<?= '<div class="dropdown' .  $j . '">' ?>
+	<?= '<button onclick="toggleDropdown(\'dropdown' . $j . '\')" class="dropbtn3">&#9660; Select ' . $ortdarray2[2] . '</button>' ?>
+	<?= '<div id="checkboxes' . $j . '" class="dropdown-content3 checkboxesclass">'?>
+	<?php if($ortdarray2[0] and $ortdarray2[2] !== 'Types'): ?>
+		<?php 
+			$ortddata = [];
+			foreach ($ortdarray2[1] as $k => $v){
+						$ortddata[$k] = __($v);
+					} 
+		?>
+		<?php foreach ($ortddata as $id => $o):?>	
+			<?php echo '<label><input type="checkbox" value="' . $id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . $o . '</label>'; ?>
+		<?php endforeach;?>	
+		
+			<!-- Add more options as needed -->
+		
+<?php elseif($ortdarray2[2] == 'Types'): ?>
+	<?php $otherarray = [];
+			foreach ($ortdarray2[1] as $type){
+				if (isset($type->category)){
+					echo __($type->category) . "<br>";
+				}
+				if (is_array($type->types)) {
+					foreach ($type->types as $subtype) {
+						// If it's a subarray, list all its values in the first index
+						//$output = implode(", ", $type);
+						if (str_contains($subtype->type, ":")) {
+							$boldMainName = explode(":", $subtype->type);
+							$boldMainName[0] = $boldMainName[0] . ":";
+						} else {
+							$boldMainName = [$subtype->type, ""];
+						}
+						echo '<label><input type="checkbox" value="' . $subtype->id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . __($boldMainName[0]) .  __($boldMainName[1]) . '</label>';
+						#echo "<li>". $this->Html->link("<span class='boldname'>" . __($boldMainName[0]) . "</span>"
+						#	. __($boldMainName[1]), '/words?use='.$subtype->id, ['escape' => false]) . "</li>";
+					}
+					echo "<br>";
+				} else {
+					// If it's not a subarray, simply print the value
+						array_push($otherarray, $type);
+				}
+				//echo "<br>";
+			} 
+			if (count($otherarray) > 0) {
+				if($sitelang->hasTypeCategories) {
+					echo __("Other") . "<br>";
+				}
+					foreach ($otherarray as $othertype) {
+						echo "<li>".  $this->Html->link(__($othertype->type), '/words?use='.$othertype->id) . "</li>";
+					}
+				}
+			?>
+<?php endif; ?>
+<?= '<label><input type="checkbox" value="other" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> Other</label>'?>
+</div>
+</div>
+<?php $i++;
+		$j++; ?>
+<?php endforeach; ?>
+</div> <!--end of dropdown container-->
 <nav id="crumbs" class="group">
 	<ul class="right">
 		<li><?=$this->Html->link('<i class="icon-plus-sign"></i>' . __('Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?></li>
 	</ul>
 </nav>
+
+
+
+
 
 <section id="main">
 	<nav id="mobilefilterbrowse">
