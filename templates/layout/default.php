@@ -25,6 +25,7 @@
 	<!--<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>-->
 	
 	<?php echo $this->Html->css('output.css');?>
+	<?php echo $this->Html->css('checkboxes.css');?>
 	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">-->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
@@ -43,11 +44,52 @@
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalytics ?>"></script>
 	<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	gtag('config', '<?= $sitelang->googleAnalytics ?>');
+		gtag('config', '<?= $sitelang->googleAnalytics ?>');
+		</script>
+				<script>
+function toggleDropdown(dropdownId) {
+  var checkboxes = document.getElementById("checkboxes" + dropdownId.slice(-1));
+  checkboxes.classList.toggle("show");
+
+  var dropdowns = document.getElementsByClassName("dropdown-content3");
+  for (var i = 0; i < dropdowns.length; i++) {
+    var otherDropdown = dropdowns[i];
+    if (otherDropdown.id !== "checkboxes" + dropdownId.slice(-1)) {
+      otherDropdown.classList.remove('show');
+    }
+  }
+}
+
+function checkboxChanged(dropdownId, checkbox) {
+  if (checkbox.checked) {
+    makeAjaxCall(dropdownId, checkbox.value, true);
+  } else {
+    makeAjaxCall(dropdownId, checkbox.value, false);
+  }
+}
+
+function makeAjaxCall(dropdownId, optionValue, isChecked) {
+  // Your AJAX call logic remains the same
+  // ...
+
+  // For demonstration, I'll log the AJAX call details
+  console.log(`Dropdown ${dropdownId} - Option ${optionValue} ${isChecked ? 'selected' : 'deselected'} successfully.`);
+}
+
+// Close the dropdown only if the click is outside the dropdown area
+window.onclick = function(event) {
+  var dropdowns = document.getElementsByClassName("dropdown-content3");
+  for (var i = 0; i < dropdowns.length; i++) {
+    var openDropdown = dropdowns[i];
+    if (!event.target.matches('.dropbtn3') && !openDropdown.contains(event.target)) {
+      openDropdown.classList.remove('show');
+    }
+  }
+}
 	</script>
 	<?php if ('' != $sitelang->googleAnalyticsOld):?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalyticsOld ?>"></script>

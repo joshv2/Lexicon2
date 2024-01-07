@@ -19,6 +19,7 @@ class WordsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Paginator');
+        $this->loadComponent('LoadORTD');
     }
     
     /**
@@ -32,7 +33,9 @@ class WordsController extends AppController
         $sitelang = $this->languageinfo();
         //private function 
         
-        $origins = $this->Origins->top_origins_for_home($sitelang->id);
+        $ortd = $this->LoadORTD->getORTD($sitelang);
+
+        /*$origins = $this->Origins->top_origins_for_home($sitelang->id);
         $origins['other'] = 'Other';
         $regions = $this->Regions->top_regions_for_home($sitelang->id);
         $regions['other'] = 'Other';
@@ -40,7 +43,7 @@ class WordsController extends AppController
         $types['other'] = 'Other';
         $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
         $dictionaries['other'] = 'Other';
-        $dictionaries['none'] = 'None';
+        $dictionaries['none'] = 'None';*/
 
         $originvalue = $this->request->getQuery('origin');
         $regionvalue = $this->request->getQuery('region');
@@ -70,7 +73,7 @@ class WordsController extends AppController
         $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id)));
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
 
