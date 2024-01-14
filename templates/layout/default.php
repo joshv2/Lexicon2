@@ -50,47 +50,7 @@
 
 		gtag('config', '<?= $sitelang->googleAnalytics ?>');
 		</script>
-				<script>
-function toggleDropdown(dropdownId) {
-  var checkboxes = document.getElementById("checkboxes" + dropdownId.slice(-1));
-  checkboxes.classList.toggle("show");
 
-  var dropdowns = document.getElementsByClassName("dropdown-content3");
-  for (var i = 0; i < dropdowns.length; i++) {
-    var otherDropdown = dropdowns[i];
-    if (otherDropdown.id !== "checkboxes" + dropdownId.slice(-1)) {
-      otherDropdown.classList.remove('show');
-    }
-  }
-}
-
-function checkboxChanged(dropdownId, checkbox) {
-  if (checkbox.checked) {
-    makeAjaxCall(dropdownId, checkbox.value, true);
-  } else {
-    makeAjaxCall(dropdownId, checkbox.value, false);
-  }
-}
-
-function makeAjaxCall(dropdownId, optionValue, isChecked) {
-  // Your AJAX call logic remains the same
-  // ...
-
-  // For demonstration, I'll log the AJAX call details
-  console.log(`Dropdown ${dropdownId} - Option ${optionValue} ${isChecked ? 'selected' : 'deselected'} successfully.`);
-}
-
-// Close the dropdown only if the click is outside the dropdown area
-window.onclick = function(event) {
-  var dropdowns = document.getElementsByClassName("dropdown-content3");
-  for (var i = 0; i < dropdowns.length; i++) {
-    var openDropdown = dropdowns[i];
-    if (!event.target.matches('.dropbtn3') && !openDropdown.contains(event.target)) {
-      openDropdown.classList.remove('show');
-    }
-  }
-}
-	</script>
 	<?php if ('' != $sitelang->googleAnalyticsOld):?>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalyticsOld ?>"></script>
 	<script>
@@ -110,6 +70,7 @@ window.onclick = function(event) {
 <?= $this->Html->script('toggle')."\n";?>
 <?= $this->Html->script('fontawesome')."\n";?>
 <?= $this->Html->script('solid')."\n";?>
+
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <?= $this->Html->script('detectios')."\n";?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -203,6 +164,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			<div class="clear"></div>
 		</div>
   </footer>
+  <?= $this->Html->script('ortdselect')."\n";?>
 	<?= $this->Html->script('bottom')."\n";?>
 
 </body>
