@@ -231,7 +231,7 @@ class WordsTable extends Table
         return $query->all();
     }
 
-    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $langid){
+    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid){
 
         if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
             $query = $this->find()
@@ -240,25 +240,30 @@ class WordsTable extends Table
         } else {
 
             $params = [];
-            if (!is_null($originvalue) && 'other' !== $originvalue){
+            if (count($originvalue) == 0){}
+            elseif (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
             } elseif ('other' == $originvalue) {
                 $params['o.origin_id ='] = 999;
             }
 
-            if (!is_null($regionvalue) && 'other' !== $regionvalue){
+            if (count($regionvalue) == 0){}
+            elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
                 $params['r.region_id IN'] = $regionvalue;
             } elseif ('other' == $regionvalue) {
                 $params['r.region_id ='] = 999;
             }
 
-            if (!is_null($typevalue) && 'other' !== $typevalue){
+            if (count($typevalue) == 0){}
+            elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
                 $params['t.type_id IN'] = $typevalue;
             } elseif ('other' == $typevalue) {
                 $params['t.type_id ='] = 999;
             }
 
-            if (!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue){
+            if (count($dictionaryvalue) == 0){}
+            elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
+            || count($dictionaryvalue) > 0) {
                 $params['d.dictionary_id IN'] = $dictionaryvalue;
             } elseif ('other' == $dictionaryvalue) {
                 $params['d.dictionary_id NOT IN'] = [1,2,3,4,5,6];
@@ -295,8 +300,11 @@ class WordsTable extends Table
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
         }    
-        return $query;                        
-                
+        if ($returnjson) {
+            return json_encode($query);
+        } else {
+            return $query;
+        }
     }
 
     public function get_random_words($langid) {

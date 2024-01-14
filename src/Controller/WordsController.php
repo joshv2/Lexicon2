@@ -70,7 +70,7 @@ class WordsController extends AppController
                 'Dictionaries'
             ], 'limit' => 100];
         
-        $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id)));
+        $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id)));
         $title = 'Home';
 
         $this->set(compact('current_condition', 'ortd', 'title', 'sitelang'));
@@ -433,6 +433,37 @@ class WordsController extends AppController
         //$spelling = $this->request->getData('spelling');
         //debug($spelling);
         //$data = $this->Words->findWithSpelling($spelling);
+        $this->set(compact('response'));
+        $this->viewBuilder()->setOption('serialize', true);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    public function browsewords(){
+        $sitelang = $this->languageinfo();
+        $this->RequestHandler->renderAs($this, 'json');
+        $response = [];
+        //debug($this->request->getData());
+        $ortdarray["Origins"] = [];
+        $ortdarray["Regions"] = [];
+        $ortdarray["Types"] = [];
+        $ortdarray["Dictionaries"] = [];
+
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            
+            foreach ($data["selectedOptions"] as $v){
+                array_push($ortdarray[explode('_',$v)[0]], explode('_',$v)[1]);
+            }
+            //debug($ortdarray);
+            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+            $response_with_language['language'] = $sitelang->id;
+            $response_with_language['words'] = $browsewords;
+            $response['success'] = $response_with_language;
+            
+        } else {
+            $response['success'] = 0;
+        }
+
         $this->set(compact('response'));
         $this->viewBuilder()->setOption('serialize', true);
         $this->RequestHandler->renderAs($this, 'json');

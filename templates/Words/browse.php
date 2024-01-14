@@ -1,4 +1,6 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
+
+
 <div class="dropdown-container">
 <?php $ortdarray = [[$sitelang->hasOrigins, $ortd["origins"], "Origins"], 
 					[$sitelang->hasRegions, $ortd["regions"], "Regions"], 
@@ -19,7 +21,7 @@
 					} 
 		?>
 		<?php foreach ($ortddata as $id => $o):?>	
-			<?php echo '<label><input type="checkbox" value="' . $id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . $o . '</label>'; ?>
+			<?php echo '<label><input type="checkbox" value="' . $ortdarray2[2] . '_' . $id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . $o . '</label>'; ?>
 		<?php endforeach;?>	
 		
 			<!-- Add more options as needed -->
@@ -40,7 +42,7 @@
 						} else {
 							$boldMainName = [$subtype->type, ""];
 						}
-						echo '<label><input type="checkbox" value="' . $subtype->id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . __($boldMainName[0]) .  __($boldMainName[1]) . '</label>';
+						echo '<label><input type="checkbox" value="' . $ortdarray2[2]  . '_' . $subtype->id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . __($boldMainName[0]) .  __($boldMainName[1]) . '</label>';
 						#echo "<li>". $this->Html->link("<span class='boldname'>" . __($boldMainName[0]) . "</span>"
 						#	. __($boldMainName[1]), '/words?use='.$subtype->id, ['escape' => false]) . "</li>";
 					}
