@@ -35,26 +35,11 @@ class WordsController extends AppController
         
         $ortd = $this->LoadORTD->getORTD($sitelang);
 
-        /*$origins = $this->Origins->top_origins_for_home($sitelang->id);
-        $origins['other'] = 'Other';
-        $regions = $this->Regions->top_regions_for_home($sitelang->id);
-        $regions['other'] = 'Other';
-        $types = $this->Types->top_types_for_home($sitelang->id);
-        $types['other'] = 'Other';
-        $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
-        $dictionaries['other'] = 'Other';
-        $dictionaries['none'] = 'None';*/
-
-        $originvalue = $this->request->getQuery('origin');
-        $regionvalue = $this->request->getQuery('region');
-        $typevalue = $this->request->getQuery('use');
-        $dictionaryvalue = $this->request->getQuery('dictionary');
+        $originvalue = [$this->request->getQuery('origin')];
         
-        /*if ('other' !== $this->request->getQuery('dictionary')){
-            $dictionaryvalue = $this->request->getQuery('dictionary');
-        } elseif ('other' == $this->request->getQuery('dictionary')) {
-            $dictionaryvalue = 'other';
-        }*/
+        $regionvalue = [$this->request->getQuery('region')];
+        $typevalue = [$this->request->getQuery('use')];
+        $dictionaryvalue = [$this->request->getQuery('dictionary')];
 
         $current_condition = ['origin' => $originvalue,
                               'region' => $regionvalue,
@@ -70,10 +55,11 @@ class WordsController extends AppController
                 'Dictionaries'
             ], 'limit' => 100];
         
-        $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id)));
+        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id));
+
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'ortd', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'ortd', 'words', 'title', 'sitelang'));
         $this->render('browse');
     }
 

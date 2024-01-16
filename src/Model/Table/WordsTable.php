@@ -185,17 +185,6 @@ class WordsTable extends Table
         return $rules;
     }
 
-    /*public function beforeMarshal(EventInterface $event, ArrayObject $data, ArrayObject $options)
-    {
-        if(!empty($data['dictionaries']['_ids'])){
-            $chosenids = implode(',', $data['dictionaries']['_ids']);
-            unset($data['dictionaries']['_ids']);
-            $data['dictionaries']['_ids'] = [$chosenids];
-        }
-        //debug($data);
-        //debug($data['dictionaries']['_ids']);
-
-    }*/
 
     public function get_not_in_other_dictionary($langid){
         $query = $this->find()
@@ -240,38 +229,41 @@ class WordsTable extends Table
         } else {
 
             $params = [];
-            if (count($originvalue) == 0){}
+            if (count($originvalue) == 0 OR 'none' == $originvalue || null == $originvalue[0]){
+            }
             elseif (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
             } elseif ('other' == $originvalue) {
                 $params['o.origin_id ='] = 999;
             }
 
-            if (count($regionvalue) == 0){}
+            if (count($regionvalue) == 0 OR 'none' == $regionvalue || null == $regionvalue[0]){
+            }
             elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
                 $params['r.region_id IN'] = $regionvalue;
             } elseif ('other' == $regionvalue) {
                 $params['r.region_id ='] = 999;
             }
 
-            if (count($typevalue) == 0){}
+            if (count($typevalue) == 0 OR 'none' == $typevalue || null == $typevalue[0]){
+            }
             elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
                 $params['t.type_id IN'] = $typevalue;
             } elseif ('other' == $typevalue) {
                 $params['t.type_id ='] = 999;
             }
 
-            if (count($dictionaryvalue) == 0){}
+            if (0 == count($dictionaryvalue) || 'none' == $dictionaryvalue || null == $dictionaryvalue[0]){
+            }
             elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
             || count($dictionaryvalue) > 0) {
                 $params['d.dictionary_id IN'] = $dictionaryvalue;
             } elseif ('other' == $dictionaryvalue) {
                 $params['d.dictionary_id NOT IN'] = [1,2,3,4,5,6];
             } elseif ('none' == $dictionaryvalue) {
-                $params['d.dictionary_id IS'] = null;
-            } 
+                
+            }
             $params['approved ='] = 1; 
-            //debug($typeids);
             $query = $this->find()
                         ->join([
                             'd' => [
@@ -354,14 +346,6 @@ class WordsTable extends Table
         //$results = $query->all();
         return $query->first();
     }
-
-    /*public function get_sentences_for_word($id){
-        $query = $this->find()
-                    ->where(['Words.id' => $id, 'Words.approved' => 1])
-                    ->contain(['Sentences']);
-        $results = $query->all();
-        return $results->toArray();
-    }*/
 
     public function get_pending_words($langid) {
         $query = $this->find()

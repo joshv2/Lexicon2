@@ -78,8 +78,14 @@
 .dropbtn3 {
   padding: 10px;
   font-size: 16px;
+  width: 100%
 }
 
+.dropdown3 {
+  float: left;
+  padding-top: 14px;
+  width: 25%;
+}
 /* Style the dropdown content (hidden by default) */
 .dropdown-content3 {
   display: none;
@@ -88,6 +94,14 @@
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
+  width: 25%;
+}
+
+#checkboxes5 {
+  padding-left: 5px;
+  padding-top: 5px;
+  overflow: scroll;
+  height: 300px;
 }
 
 /* Show the dropdown content when the dropdown button is clicked */

@@ -15,36 +15,26 @@ function toggleDropdown(dropdownId) {
     var allCheckboxes = document.querySelectorAll('.checkboxesclass input[type="checkbox"]');
     //console.log(allCheckboxes);
     var selectedOptions = [];
-
+    var selectedOptionsDesc = []
     allCheckboxes.forEach(function(checkbox) {
         if (checkbox.checked) {
         selectedOptions.push(checkbox.value);
+        selectedOptionsDesc.push(checkbox.parentElement.textContent);
         }
     });
 
     var jsonData = JSON.stringify({ selectedOptions: selectedOptions });
-    console.log(jsonData);
+    
+    console.log(selectedOptionsDesc);
+
+    // Update the content of the separate div
+    updateCheckedOptionsDiv(selectedOptionsDesc)
     // Replace 'your_ajax_endpoint' with your actual endpoint URL
     makeAjaxCall(jsonData);
     
     
     
-    /*console.log(checkbox);
-    var dropdowns = document.getElementsByClassName("dropdown-content3 checkboxesclass");
-    
 
-    
-    for (var i = 0; i < dropdowns.length; i++) {
-      var checkboxes = dropdowns[i].getElementsByTagName("input");
-      //console.log(checkboxes);
-      for (var j = 3; j < checkboxes.length +3; j++) {
-        console.log(checkboxes[j]);
-        if (checkboxes[j] === checkbox) {
-          console.log(checkboxes[j]);
-          makeAjaxCall(checkbox.value, checkbox.checked);
-        }
-      }
-    }*/
   }
   function makeAjaxCall(jsonData) {
     fetch('words/browsewords', {
@@ -68,7 +58,22 @@ function toggleDropdown(dropdownId) {
         elements.forEach(element => {
             element.innerHTML = '';
         });
-        console.log('Response:', data.response.success);
+
+        const element = document.getElementById('paging_info');
+
+        // Check if the element exists before manipulating it
+        if (element) {
+          // Set the innerHTML to an empty string to remove its content
+          element.innerHTML = '';
+        }
+
+        const elements2 = document.querySelectorAll('.pagination');
+
+        // Loop through each element and remove its HTML content
+        elements2.forEach(element => {
+            element.innerHTML = '';
+        });
+        //console.log('Response:', data.response.success);
         const outputElement = document.getElementsByClassName('word-list');
 
         // Generate HTML and insert it into the output element
@@ -83,16 +88,20 @@ function toggleDropdown(dropdownId) {
   }
 
   function get_translation(language_id){
-    if (1 == language_id) {
-      translation_strings = ['SEE FULL ENTRY', 'No words were found. Refine your search options above.'];
-    } else if (2 == language_id){
-      translation_strings = ['Veja informação completa', 'Nenhum verbete foi encontrado.'];
-    } else if (3 == language_id) {
-      translation_strings = ['Den ganzen Eintrag ansehen', 'Es wurden keine Wörter gefunden.'];
+    const languageIdTranslations = {
+      1: ['SEE FULL ENTRY', 'No words were found. Refine your search options above.'],
+      2: ['Veja informação completa', 'Nenhum verbete foi encontrado.'],
+      3: ['Den ganzen Eintrag ansehen', 'Es wurden keine Wörter gefunden.'],
+      default: ['This language is not valid', 'This language is not valid']
+    };
+    
+    const keys = Object.keys(languageIdTranslations);
+
+    if (keys.includes(language_id.toString())) {
+      return languageIdTranslations[language_id];
     } else {
-      translation_strings = ['This language is not valid', 'This language is not valid'];
+      return languageIdTranslations['default'];
     }
-    return translation_strings;
   }
 
   function generateHTML(data) {
@@ -119,6 +128,11 @@ function toggleDropdown(dropdownId) {
     return html;
   }
   
+  function updateCheckedOptionsDiv(selectedOptions) {
+    var checkedOptionsDiv = document.getElementById('checkedOptionsDiv');
+    checkedOptionsDiv.innerHTML = selectedOptions.length > 0 ? 'Checked Options: ' + selectedOptions.join(', ') : '';
+  }
+
   // Close the dropdown only if the click is outside the dropdown area
   window.onclick = function(event) {
     var dropdowns = document.getElementsByClassName("dropdown-content3");
@@ -129,3 +143,4 @@ function toggleDropdown(dropdownId) {
       }
     }
   }
+
