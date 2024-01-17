@@ -36,16 +36,22 @@ class WordsController extends AppController
         $ortd = $this->LoadORTD->getORTD($sitelang);
 
         $originvalue = [$this->request->getQuery('origin')];
-        
         $regionvalue = [$this->request->getQuery('region')];
         $typevalue = [$this->request->getQuery('use')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
 
-        $current_condition = ['origin' => $originvalue,
-                              'region' => $regionvalue,
-                              'use' => $typevalue,
-                              'dictionary' => $dictionaryvalue];
-
+        $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
+                              'regions' => $regionvalue[0],
+                              'uses' => $typevalue[0],
+                              'dictionaries' => $dictionaryvalue[0]];
+        
+        $cc = [];
+        foreach($current_condition as $ortdcat => $ortd2) {
+            if ($ortd2 != null){
+                $cc[$ortdcat] = $ortd2;
+            }
+        }
+   
         $this->paginate = [
             'contain' => [
                 'Definitions',
@@ -59,7 +65,7 @@ class WordsController extends AppController
 
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'ortd', 'words', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'cc', 'ortd', 'words', 'title', 'sitelang'));
         $this->render('browse');
     }
 
