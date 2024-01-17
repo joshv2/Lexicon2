@@ -64,7 +64,7 @@ function toggleDropdown(dropdownId) {
         // Check if the element exists before manipulating it
         if (element) {
           // Set the innerHTML to an empty string to remove its content
-          element.innerHTML = '';
+          element.innerHTML = 'Words returned: ' + JSON.parse(data.response.success.words).length;
         }
 
         const elements2 = document.querySelectorAll('.pagination');

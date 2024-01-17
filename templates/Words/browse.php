@@ -22,6 +22,7 @@
 						[$sitelang->hasDictionaries, $ortd["dictionaries"], "Dictionaries"]];
 			$i = 0;
 			$j = 3;
+
 	?>
 	<?php foreach($ortdarray as $ortdarray2):?>
 		<?= '<div class="dropdown3">' ?>
@@ -93,7 +94,7 @@
 	<?php else:?>
 
 		<div id="browse_info" class="group">
-		<div id="checkedOptionsDiv"></div>	
+		<div id="checkedOptionsDiv">Checked options: <?php echo $ortd[array_key_first($cc)][$cc[array_key_first($cc)]]; ?></div>	
 			<p id="paging_info">
 				<?php echo $this->Paginator->counter(__('{{start}} - {{end}} of {{count}}'));?>
 			</p>

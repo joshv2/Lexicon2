@@ -1465,6 +1465,14 @@ nav#browsealpha {
     overflow: auto;
 }
 
+#checkedOptionsDiv {
+    font-size: 14px;
+    float: left;
+    color: #777;
+    background: #f1f1f1;
+    overflow: auto;
+}
+
 #sort_info {
     float: left;
     margin: 0;
