@@ -42,7 +42,7 @@ class WordsController extends AppController
 
         $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
                               'regions' => $regionvalue[0],
-                              'uses' => $typevalue[0],
+                              'types' => $typevalue[0],
                               'dictionaries' => $dictionaryvalue[0]];
         
         $cc = [];
