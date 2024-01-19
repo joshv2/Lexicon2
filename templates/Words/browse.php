@@ -94,7 +94,15 @@
 	<?php else:?>
 
 		<div id="browse_info" class="group">
-		<div id="checkedOptionsDiv">Checked options: <?php echo $ortd[array_key_first($cc)][$cc[array_key_first($cc)]]; ?></div>	
+		<div id="checkedOptionsDiv"><?php 
+			if (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
+				echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
+			 } elseif (array_key_first($cc) == 'types') {
+				echo "Checked options: " . $ortd['top'.array_key_first($cc)][$cc[array_key_first($cc)]];
+			 } else {
+				echo "";
+			 }
+				?></div>	
 			<p id="paging_info">
 				<?php echo $this->Paginator->counter(__('{{start}} - {{end}} of {{count}}'));?>
 			</p>

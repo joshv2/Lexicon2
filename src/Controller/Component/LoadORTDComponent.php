@@ -30,6 +30,7 @@ class LoadORTDComponent extends Component
                 $typesWithoutCategory = $this->Types->top_types_for_home_no_cat($sitelang->id);
                 $types = array_merge($typesWithCategory, $typesWithoutCategory);
                 $tagging['types'] = $types;
+                $tagging['toptypes'] = $this->Types->top_types($sitelang->id);
             }
             if($sitelang->hasDictionaries) {
                 $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
