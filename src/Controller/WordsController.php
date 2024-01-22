@@ -51,6 +51,8 @@ class WordsController extends AppController
                 $cc[$ortdcat] = $ortd2;
             }
         }
+
+
    
         $this->paginate = [
             'contain' => [
@@ -443,11 +445,25 @@ class WordsController extends AppController
         if( $this->request->is('post') ) {
             $data = $this->request->getData();
             
+            $resultArray = [];
+
             foreach ($data["selectedOptions"] as $v){
                 array_push($ortdarray[explode('_',$v)[0]], explode('_',$v)[1]);
             }
             //debug($ortdarray);
-            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+            
+            foreach ($ortdarray as $key => $dimension) {
+                foreach ($dimension as $value) {
+                    $word_ids = $this->Words->browse_words_and_step_1($dimension, $value, $sitelang->id);
+                    $resultArray[] = $word_ids;
+                    //$browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+                }
+            }
+
+            $commonValues = call_user_func_array('array_intersect', $resultArray);
+
+            $browsewords = $this->Words->browse_words_and_step_2($commonValues);
+
             $response_with_language['language'] = $sitelang->id;
             $response_with_language['words'] = $browsewords;
             $response['success'] = $response_with_language;
