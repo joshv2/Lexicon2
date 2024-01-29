@@ -164,7 +164,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			<div class="clear"></div>
 		</div>
   </footer>
-  <?= $this->Html->script('ortdselect')."\n";?>
+  <?= $this->Html->script('ortdselectall')."\n";?>
 	<?= $this->Html->script('bottom')."\n";?>
 
 </body>
