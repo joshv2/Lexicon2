@@ -220,7 +220,7 @@ class WordsTable extends Table
         return $query->all();
     }
 
-    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid){
+    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid, $index = FALSE){
 
         if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
             $query = $this->find()
@@ -264,6 +264,7 @@ class WordsTable extends Table
                 
             }
             $params['approved ='] = 1; 
+            if ($index === FALSE) {
             $query = $this->find()
                         ->select(['id'])
                         ->join([
@@ -292,6 +293,36 @@ class WordsTable extends Table
                         //->contain(['Definitions'])
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
+            } else {
+                $query = $this->find()
+                ->join([
+                    'd' => [
+                        'table' => 'dictionaries_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = d.word_id'
+                    ],
+                    't' => [
+                        'table' => 'types_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = t.word_id'
+                    ],
+                    'r' => [
+                        'table' => 'regions_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = r.word_id'
+                    ],
+                    'o' => [
+                        'table' => 'origins_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = o.word_id'
+                    ]
+                ])
+                ->where([$params, 'language_id' => $langid])
+                ->contain(['Definitions'])
+                ->distinct()
+                ->order(['spelling' => 'ASC']);
+            }
+
         }    
         if ($returnjson) {
             $results = $query->all();
@@ -299,6 +330,15 @@ class WordsTable extends Table
         } else {
             return $query;
         }
+    }
+
+    public function browse_words_filter2($wordIds, $langid){
+        $params['approved ='] = 1; 
+        $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
+                ->contain(['Definitions'])
+                ->distinct()
+                ->order(['spelling' => 'ASC']);
+        return json_encode($query);
     }
 
     public function get_random_words($langid) {
