@@ -232,7 +232,7 @@ class WordsTable extends Table
             if (count($originvalue) == 0 OR 'none' == $originvalue || null == $originvalue[0]){
             }
             elseif (!is_null($originvalue) && 'other' !== $originvalue){
-                $params['o.origin_id ='] = $originvalue;
+                $params['o.origin_id IN'] = $originvalue;
             } elseif ('other' == $originvalue) {
                 $params['o.origin_id ='] = 999;
             }
@@ -240,7 +240,7 @@ class WordsTable extends Table
             if (count($regionvalue) == 0 OR 'none' == $regionvalue || null == $regionvalue[0]){
             }
             elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
-                $params['r.region_id ='] = $regionvalue;
+                $params['r.region_id IN'] = $regionvalue;
             } elseif ('other' == $regionvalue) {
                 $params['r.region_id ='] = 999;
             }
@@ -248,7 +248,7 @@ class WordsTable extends Table
             if (count($typevalue) == 0 OR 'none' == $typevalue || null == $typevalue[0]){
             }
             elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
-                $params['t.type_id ='] = $typevalue;
+                $params['t.type_id IN'] = $typevalue;
             } elseif ('other' == $typevalue) {
                 $params['t.type_id ='] = 999;
             }
@@ -257,7 +257,7 @@ class WordsTable extends Table
             }
             elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
             || count($dictionaryvalue) > 0) {
-                $params['d.dictionary_id ='] = $dictionaryvalue;
+                $params['d.dictionary_id IN'] = $dictionaryvalue;
             } elseif ('other' == $dictionaryvalue) {
                 $params['d.dictionary_id NOT IN'] = [1,2,3,4,5,6];
             } elseif ('none' == $dictionaryvalue) {
@@ -289,12 +289,13 @@ class WordsTable extends Table
                             ]
                         ])
                         ->where([$params, 'language_id' => $langid])
-                        ->contain(['Definitions'])
+                        //->contain(['Definitions'])
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
         }    
         if ($returnjson) {
-            return json_encode($query);
+            $results = $query->all();
+            return json_encode($results);
         } else {
             return $query;
         }

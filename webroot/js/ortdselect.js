@@ -15,7 +15,7 @@ function toggleDropdown(dropdownId) {
     var allCheckboxes = document.querySelectorAll('.checkboxesclass input[type="checkbox"]');
     //console.log(allCheckboxes);
     var selectedOptions = [];
-    var selectedOptionsDesc = []
+    var selectedOptionsDesc = [] // for the description of what is checked
     allCheckboxes.forEach(function(checkbox) {
         if (checkbox.checked) {
         selectedOptions.push(checkbox.value);

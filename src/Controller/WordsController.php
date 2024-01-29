@@ -447,22 +447,21 @@ class WordsController extends AppController
             
             $resultArray = [];
 
-            foreach ($data["selectedOptions"] as $v){
-                array_push($ortdarray[explode('_',$v)[0]], explode('_',$v)[1]);
-            }
+            //debug($data["selectedOptions"]);
+            $sentValue = $data["selectedOptions"];
+            array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
+
             //debug($ortdarray);
             
-            foreach ($ortdarray as $key => $dimension) {
-                foreach ($dimension as $value) {
-                    $word_ids = $this->Words->browse_words_and_step_1($dimension, $value, $sitelang->id);
-                    $resultArray[] = $word_ids;
-                    //$browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
-                }
-            }
+            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+            //debug($browsewords);
+            
+            //$resultArray[] = $word_ids;
 
-            $commonValues = call_user_func_array('array_intersect', $resultArray);
 
-            $browsewords = $this->Words->browse_words_and_step_2($commonValues);
+            //$commonValues = call_user_func_array('array_intersect', $resultArray);
+
+            //$browsewords = $this->Words->browse_words_and_step_2($commonValues);
 
             $response_with_language['language'] = $sitelang->id;
             $response_with_language['words'] = $browsewords;
