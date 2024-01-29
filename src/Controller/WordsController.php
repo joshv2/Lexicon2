@@ -63,7 +63,7 @@ class WordsController extends AppController
                 'Dictionaries'
             ], 'limit' => 100];
         
-        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id));
+        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE));
 
         $title = 'Home';
 
@@ -476,6 +476,38 @@ class WordsController extends AppController
         $this->RequestHandler->renderAs($this, 'json');
     }
 
+
+    public function browsewords2(){
+        $sitelang = $this->languageinfo();
+        $this->RequestHandler->renderAs($this, 'json');
+        $response = [];
+        //debug($this->request->getData());
+        
+
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            
+            
+            if(sizeof($data["requestedWordIds"]) > 0){
+                $browsewords = $this->Words->browse_words_filter2($data["requestedWordIds"], $sitelang->id);
+
+
+
+                $response_with_language['language'] = $sitelang->id;
+                $response_with_language['words'] = $browsewords;
+                $response['success'] = $response_with_language;
+                    
+                } else {
+                    $response_with_language['language'] = $sitelang->id;
+                    $response_with_language['words'] = "[]";
+                    $response['success'] = $response_with_language;
+                }
+
+                $this->set(compact('response'));
+                $this->viewBuilder()->setOption('serialize', true);
+                $this->RequestHandler->renderAs($this, 'json');
+            }
+    }
     /**
      * Edit method
      *

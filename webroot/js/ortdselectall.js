@@ -64,16 +64,10 @@ function toggleDropdown(dropdownId) {
         var currentCheckboxData = {};
 
         selectedOptions.forEach(value => {
-            //console.log(value.split("_")[1]);
             if (!storedCheckboxData.hasOwnProperty(value)) {
-                const wordIdsResponse = postDataSync(value);
+                const wordIdsResponse = postDataSync1(value);
                 storedCheckboxData[JSON.stringify(value)] = wordIdsResponse.response.success.words
-                //storedCheckboxData[value] = fetchWordIds(value, storedCheckboxData);
                 localStorage.setItem('checkboxData', JSON.stringify(storedCheckboxData));
-                
-                
-                //console.log(wordIds);
-                //storedCheckboxData[value] = wordIds.success.words;
             }
           });
 
@@ -84,24 +78,16 @@ function toggleDropdown(dropdownId) {
           }
 
 
-        //console.log(2);
-        //localStorage.setItem('checkboxData', JSON.stringify(storedCheckboxData));
-        //console.log(JSON.parse(Object.values(storedCheckboxData)));
-
         console.log(Object.values(JSON.parse(localStorage.getItem('checkboxData'))).length);
         // Get the common word IDs across all keys in the checkboxData
-        var commonWordIds = findCommonWordIds(Object.values(storedCheckboxData))
-            //.filter(([key, value]) => value)
-            //.map(([key]) => key)
-        //)
-        ;
+        const commonWordIds = findCommonValues(Object.values(JSON.parse(localStorage.getItem('checkboxData'))))        ;
 
-        //console.log(commonWordIds);
+        console.log(commonWordIds);
         // Make AJAX call to fetch words based on common word IDs
-        //fetchWords(commonWordIds);
+        makeAjaxCall(JSON.stringify({'requestedWordIds' : commonWordIds}));
     }
 
-    function postDataSync(data) {
+    function postDataSync1(data) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'words/browsewords', false); // false makes the request synchronous
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -125,98 +111,125 @@ function toggleDropdown(dropdownId) {
           throw error; // You can choose to handle or rethrow the error as needed
         }
       }
+
+    function findCommonValues(jsonStrings) {
+        // Create an array of sets to store unique values for each array
+        
+        const arrays = jsonStrings.map(jsonString => JSON.parse(jsonString));
+        console.log(arrays);
+
+        if (arrays.length === 1) {
+            return arrays[0].map(obj => obj.id);
+          }
+
+        const sets = arrays.map(array => new Set(array.map(obj => obj.id)));
+      
+        // Find the intersection of all sets
+        const commonValues = sets.reduce((intersection, currentSet) => {
+          return new Set([...intersection].filter(value => currentSet.has(value)));
+        });
+      
+        // Convert the set to an array if needed
+        const commonValuesArray = Array.from(commonValues);
+      
+        return commonValuesArray;
+      }
     
-    
-    // Function to make AJAX call to fetch word IDs based on checkbox value
-    async function fetchWordIds(checkboxValue, storedCheckboxData) {
-        try {
-            console.log(1);
-            const response = await fetch('words/browsewords', {
+      function makeAjaxCall(jsonData) {
+        fetch('words/browsewords2', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
             },
-            body: JSON.stringify({selectedOptions: checkboxValue})
+            body: jsonData
           })
-
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch word IDs');
-            
-            }
-        
-        const wordIds = await response.json();
-        const wordIds2 = await wordIds.response.success.words
-        return wordIds2
-
-    } catch (error) {
-        console.error('Error fetching word IDs:', error);
-    }
-          /*.then(response => {
+          .then(response => {
             if (response.ok) {
               return response.json();
             }
             throw new Error('Network response was not ok.');
           })
           .then(data => {
-            storedCheckboxData[checkboxValue] = data.response.success.words
-            localStorage.setItem('checkboxData', JSON.stringify(storedCheckboxData));
-            console.log(2);
-            })
+            const elements = document.querySelectorAll('.word-list');
+    
+            // Loop through each element and remove its HTML content
+            elements.forEach(element => {
+                element.innerHTML = '';
+            });
+    
+            const element = document.getElementById('paging_info');
+    
+            // Check if the element exists before manipulating it
+            if (element) {
+              // Set the innerHTML to an empty string to remove its content
+              element.innerHTML = 'Words returned: ' + JSON.parse(data.response.success.words).length;
+            }
+    
+            const elements2 = document.querySelectorAll('.pagination');
+    
+            // Loop through each element and remove its HTML content
+            elements2.forEach(element => {
+                element.innerHTML = '';
+            });
+            //console.log('Response:', data.response.success);
+            const outputElement = document.getElementsByClassName('word-list');
+    
+            // Generate HTML and insert it into the output element
+            outputElement[0].innerHTML = generateHTML(data);
+    
+            
+          })
           .catch(error => {
             console.error('Error:', error);
           });
-
-          //return response.json();*/
-    }
-
-    // Function to make AJAX call to fetch words based on common word IDs
-    function fetchWords(commonWordIds) {
-        $.ajax({
-            url: 'your_server_endpoint_for_words', // Replace with your server endpoint
-            method: 'GET',
-            data: {
-                commonWordIds: commonWordIds
-            },
-            success: function(words) {
-                // Display the fetched words
-                console.log('Fetched Words:', words);
-                // For demonstration purposes, just display the words
-                $('#result').html('Fetched Words: ' + JSON.stringify(words));
-            },
-            error: function(error) {
-                console.error('Error fetching words:', error);
-            }
-        });
-    }
-
-    // Function to get the common word IDs across all checkbox values
-    function findCommonWordIds(lists) {
-        // Implement your logic to find common word IDs based on checkbox values
-        // For now, just return an empty array
-
-        if (lists.length === 0) {
-            return [];
-        }
-        console.log(3);
-        // Initialize the result with the IDs from the first list
-        let commonIds = lists[0].slice();
-    
-        // Iterate through the remaining lists
-        for (let i = 1; i < lists.length; i++) {
-            // Use filter to keep only the IDs present in both lists
-            commonIds = Array.from(commonIds).filter(id => lists[i].includes(id));
-        }
-    
-        return commonIds;
-        //return [];
-    }
+        
+      }
 
     function clearLocal(){
         localStorage.setItem('checkboxData', JSON.stringify({}));
     }
 
+    function get_translation(language_id){
+        const languageIdTranslations = {
+          1: ['SEE FULL ENTRY', 'No words were found. Refine your search options above.'],
+          2: ['Veja informação completa', 'Nenhum verbete foi encontrado.'],
+          3: ['Den ganzen Eintrag ansehen', 'Es wurden keine Wörter gefunden.'],
+          default: ['This language is not valid', 'This language is not valid']
+        };
+        
+        const keys = Object.keys(languageIdTranslations);
+    
+        if (keys.includes(language_id.toString())) {
+          return languageIdTranslations[language_id];
+        } else {
+          return languageIdTranslations['default'];
+        }
+      }
+    
+      function generateHTML(data) {
+        let wordresponse = JSON.parse(data.response.success.words);
+        console.log(wordresponse.length);
+        let html = '';
+        if (wordresponse.length > 0) {
+          html += '<ul class="word-list">';
+          for(const item of wordresponse) {
+              html += `<li class="group">
+              <div class="word-main">
+                <h3><a href='words/${item.id}'>${item.spelling}</a></h3>
+                <a href='words/${item.id}' class='noborder'>${get_translation(data.response.success.language)[0]}<i class="fa fa-caret-down"></i></a>
+              </div>
+            </li>`;
+          }
+          html += '</ul>';
+        } else {
+          html += `<div class="c content">
+                <p>${get_translation(data.response.success.language)[1]}</p>
+            </div>`
+        }
+    
+        return html;
+      }
     // Call the updateLocalStorageAndFilter function on button click
     $('#filterButton').on('click', updateLocalStorageAndFilter);
 
