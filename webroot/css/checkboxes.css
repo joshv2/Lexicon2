@@ -1,0 +1,151 @@
+/* General CSS */
+.category {
+    width: 25%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 10px;
+  }
+  
+  .category-header {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    padding: 8px;
+    margin: 0;
+  }
+  
+  .checkboxes_browse {
+    display: none;
+  }
+  
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .checkbox-container {
+      margin-top: 20px;
+    }
+  
+    .filter-header {
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+  
+    .desktop-only {
+      display: block;
+    }
+  
+    .category {
+      width: 100%;
+    }
+  
+    .checkbox-container.collapsed .category {
+      display: none;
+    }
+  
+    .checkbox-container.collapsed .desktop-only {
+      display: block;
+    }
+  }
+  
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .desktop-only {
+      display: none;
+    }
+  
+    .checkbox-container {
+      margin-bottom: 20px;
+    }
+  
+    .category {
+      width: 100%;
+      float: none;
+      box-sizing: border-box;
+      padding: 0;
+      margin-bottom: 15px;
+    }
+  
+    .category.active .checkboxes_browse {
+      display: block;
+    }
+  }
+
+
+.dropdown-container {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed */
+  }
+
+  /* Style the dropdown button */
+.dropbtn3 {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%
+}
+
+.dropdown3 {
+  float: left;
+  padding-top: 14px;
+  width: 25%;
+}
+/* Style the dropdown content (hidden by default) */
+.dropdown-content3 {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 25%;
+}
+
+#checkboxes5 {
+  padding-left: 5px;
+  padding-top: 5px;
+  overflow: scroll;
+  height: 300px;
+}
+
+/* Show the dropdown content when the dropdown button is clicked */
+.show {
+  display: block;
+}
+
+.dropdown-content3 label {
+  display: block;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Highlight the option when hovered over */
+.dropdown-content3 label:hover {
+  background-color: #e6e6e6;
+}
+
+@media screen and (max-width: 768px) {
+  .dropdown-container{
+    display: block;
+  }
+  
+  .dropdown3 {
+    width: 100%;
+    margin-bottom: 0px;
+  }
+
+  .dropdown-content3 {
+    display: none;
+    position: relative;
+    width: calc(100vw - 20px); /* Subtract any desired margin or padding */
+    box-shadow: none;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+  }
+
+  .dropdown-content3.show {
+    display: block;
+  }
+
+  .dropbtn3{
+    width: 100%;
+    text-align: left;
+  }
+}

@@ -19,6 +19,7 @@ class WordsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Paginator');
+        $this->loadComponent('LoadORTD');
     }
     
     /**
@@ -32,32 +33,27 @@ class WordsController extends AppController
         $sitelang = $this->languageinfo();
         //private function 
         
-        $origins = $this->Origins->top_origins_for_home($sitelang->id);
-        $origins['other'] = 'Other';
-        $regions = $this->Regions->top_regions_for_home($sitelang->id);
-        $regions['other'] = 'Other';
-        $types = $this->Types->top_types_for_home($sitelang->id);
-        $types['other'] = 'Other';
-        $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
-        $dictionaries['other'] = 'Other';
-        $dictionaries['none'] = 'None';
+        $ortd = $this->LoadORTD->getORTD($sitelang);
 
-        $originvalue = $this->request->getQuery('origin');
-        $regionvalue = $this->request->getQuery('region');
-        $typevalue = $this->request->getQuery('use');
-        $dictionaryvalue = $this->request->getQuery('dictionary');
+        $originvalue = [$this->request->getQuery('origin')];
+        $regionvalue = [$this->request->getQuery('region')];
+        $typevalue = [$this->request->getQuery('use')];
+        $dictionaryvalue = [$this->request->getQuery('dictionary')];
+
+        $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
+                              'regions' => $regionvalue[0],
+                              'types' => $typevalue[0],
+                              'dictionaries' => $dictionaryvalue[0]];
         
-        /*if ('other' !== $this->request->getQuery('dictionary')){
-            $dictionaryvalue = $this->request->getQuery('dictionary');
-        } elseif ('other' == $this->request->getQuery('dictionary')) {
-            $dictionaryvalue = 'other';
-        }*/
+        $cc = [];
+        foreach($current_condition as $ortdcat => $ortd2) {
+            if ($ortd2 != null){
+                $cc[$ortdcat] = $ortd2;
+            }
+        }
 
-        $current_condition = ['origin' => $originvalue,
-                              'region' => $regionvalue,
-                              'use' => $typevalue,
-                              'dictionary' => $dictionaryvalue];
 
+   
         $this->paginate = [
             'contain' => [
                 'Definitions',
@@ -67,10 +63,11 @@ class WordsController extends AppController
                 'Dictionaries'
             ], 'limit' => 100];
         
-        $this->set('words', $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $sitelang->id)));
+        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE));
+
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'origins', 'regions', 'types', 'dictionaries', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'cc', 'ortd', 'words', 'title', 'sitelang'));
         $this->render('browse');
     }
 
@@ -435,6 +432,82 @@ class WordsController extends AppController
         $this->RequestHandler->renderAs($this, 'json');
     }
 
+    public function browsewords(){
+        $sitelang = $this->languageinfo();
+        $this->RequestHandler->renderAs($this, 'json');
+        $response = [];
+        //debug($this->request->getData());
+        $ortdarray["Origins"] = [];
+        $ortdarray["Regions"] = [];
+        $ortdarray["Types"] = [];
+        $ortdarray["Dictionaries"] = [];
+
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            
+            $resultArray = [];
+
+            //debug($data["selectedOptions"]);
+            $sentValue = $data["selectedOptions"];
+            array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
+
+            //debug($ortdarray);
+            
+            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+            //debug($browsewords);
+            
+            //$resultArray[] = $word_ids;
+
+
+            //$commonValues = call_user_func_array('array_intersect', $resultArray);
+
+            //$browsewords = $this->Words->browse_words_and_step_2($commonValues);
+
+            $response_with_language['language'] = $sitelang->id;
+            $response_with_language['words'] = $browsewords;
+            $response['success'] = $response_with_language;
+            
+        } else {
+            $response['success'] = 0;
+        }
+
+        $this->set(compact('response'));
+        $this->viewBuilder()->setOption('serialize', true);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
+
+    public function browsewords2(){
+        $sitelang = $this->languageinfo();
+        $this->RequestHandler->renderAs($this, 'json');
+        $response = [];
+        //debug($this->request->getData());
+        
+
+        if( $this->request->is('post') ) {
+            $data = $this->request->getData();
+            
+            
+            if(sizeof($data["requestedWordIds"]) > 0){
+                $browsewords = $this->Words->browse_words_filter2($data["requestedWordIds"], $sitelang->id);
+
+
+
+                $response_with_language['language'] = $sitelang->id;
+                $response_with_language['words'] = $browsewords;
+                $response['success'] = $response_with_language;
+                    
+                } else {
+                    $response_with_language['language'] = $sitelang->id;
+                    $response_with_language['words'] = "[]";
+                    $response['success'] = $response_with_language;
+                }
+
+                $this->set(compact('response'));
+                $this->viewBuilder()->setOption('serialize', true);
+                $this->RequestHandler->renderAs($this, 'json');
+            }
+    }
     /**
      * Edit method
      *

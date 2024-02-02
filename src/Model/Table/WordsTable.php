@@ -185,17 +185,6 @@ class WordsTable extends Table
         return $rules;
     }
 
-    /*public function beforeMarshal(EventInterface $event, ArrayObject $data, ArrayObject $options)
-    {
-        if(!empty($data['dictionaries']['_ids'])){
-            $chosenids = implode(',', $data['dictionaries']['_ids']);
-            unset($data['dictionaries']['_ids']);
-            $data['dictionaries']['_ids'] = [$chosenids];
-        }
-        //debug($data);
-        //debug($data['dictionaries']['_ids']);
-
-    }*/
 
     public function get_not_in_other_dictionary($langid){
         $query = $this->find()
@@ -231,7 +220,7 @@ class WordsTable extends Table
         return $query->all();
     }
 
-    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $langid){
+    public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid, $index = FALSE){
 
         if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
             $query = $this->find()
@@ -240,34 +229,44 @@ class WordsTable extends Table
         } else {
 
             $params = [];
-            if (!is_null($originvalue) && 'other' !== $originvalue){
+            if (count($originvalue) == 0 OR 'none' == $originvalue || null == $originvalue[0]){
+            }
+            elseif (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
             } elseif ('other' == $originvalue) {
                 $params['o.origin_id ='] = 999;
             }
 
-            if (!is_null($regionvalue) && 'other' !== $regionvalue){
+            if (count($regionvalue) == 0 OR 'none' == $regionvalue || null == $regionvalue[0]){
+            }
+            elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
                 $params['r.region_id IN'] = $regionvalue;
             } elseif ('other' == $regionvalue) {
                 $params['r.region_id ='] = 999;
             }
 
-            if (!is_null($typevalue) && 'other' !== $typevalue){
+            if (count($typevalue) == 0 OR 'none' == $typevalue || null == $typevalue[0]){
+            }
+            elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
                 $params['t.type_id IN'] = $typevalue;
             } elseif ('other' == $typevalue) {
                 $params['t.type_id ='] = 999;
             }
 
-            if (!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue){
+            if (0 == count($dictionaryvalue) || 'none' == $dictionaryvalue || null == $dictionaryvalue[0]){
+            }
+            elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
+            || count($dictionaryvalue) > 0) {
                 $params['d.dictionary_id IN'] = $dictionaryvalue;
             } elseif ('other' == $dictionaryvalue) {
                 $params['d.dictionary_id NOT IN'] = [1,2,3,4,5,6];
             } elseif ('none' == $dictionaryvalue) {
-                $params['d.dictionary_id IS'] = null;
-            } 
+                
+            }
             $params['approved ='] = 1; 
-            //debug($typeids);
+            if ($index === FALSE) {
             $query = $this->find()
+                        ->select(['id'])
                         ->join([
                             'd' => [
                                 'table' => 'dictionaries_words',
@@ -291,12 +290,55 @@ class WordsTable extends Table
                             ]
                         ])
                         ->where([$params, 'language_id' => $langid])
-                        ->contain(['Definitions'])
+                        //->contain(['Definitions'])
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
+            } else {
+                $query = $this->find()
+                ->join([
+                    'd' => [
+                        'table' => 'dictionaries_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = d.word_id'
+                    ],
+                    't' => [
+                        'table' => 'types_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = t.word_id'
+                    ],
+                    'r' => [
+                        'table' => 'regions_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = r.word_id'
+                    ],
+                    'o' => [
+                        'table' => 'origins_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = o.word_id'
+                    ]
+                ])
+                ->where([$params, 'language_id' => $langid])
+                ->contain(['Definitions'])
+                ->distinct()
+                ->order(['spelling' => 'ASC']);
+            }
+
         }    
-        return $query;                        
-                
+        if ($returnjson) {
+            $results = $query->all();
+            return json_encode($results);
+        } else {
+            return $query;
+        }
+    }
+
+    public function browse_words_filter2($wordIds, $langid){
+        $params['approved ='] = 1; 
+        $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
+                ->contain(['Definitions'])
+                ->distinct()
+                ->order(['spelling' => 'ASC']);
+        return json_encode($query);
     }
 
     public function get_random_words($langid) {
@@ -346,14 +388,6 @@ class WordsTable extends Table
         //$results = $query->all();
         return $query->first();
     }
-
-    /*public function get_sentences_for_word($id){
-        $query = $this->find()
-                    ->where(['Words.id' => $id, 'Words.approved' => 1])
-                    ->contain(['Sentences']);
-        $results = $query->all();
-        return $results->toArray();
-    }*/
 
     public function get_pending_words($langid) {
         $query = $this->find()

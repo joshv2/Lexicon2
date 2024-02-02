@@ -155,7 +155,7 @@ return [
         [
             'role' => '*',
             'controller' => 'Words',
-            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword', 'edit', 'wordnotfound'],
+            'action' => ['index', 'alphabetical', 'view', 'add', 'random','success', 'checkforword', 'edit', 'wordnotfound', 'browsewords', 'browsewords2'],
             'bypassAuth' => true,
         ],
         [
