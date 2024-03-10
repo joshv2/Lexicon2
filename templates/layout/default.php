@@ -166,7 +166,8 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
   </footer>
   <?= $this->Html->script('ortdselectall')."\n";?>
 	<?= $this->Html->script('bottom')."\n";?>
-
+	<script type="text/javascript"> var infolinks_pid = 3416121; var infolinks_wsid = 0; </script> 
+	<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
 </body>
 
 
