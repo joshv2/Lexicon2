@@ -20,10 +20,14 @@ class LoadORTDComponent extends Component
             if($sitelang->hasOrigins) {
                 $origins = $this->Origins->top_origins_for_home($sitelang->id);
                 $tagging['origins'] = $origins;
+            } else {
+                $tagging['origins'] = '';
             }
             if($sitelang->hasRegions) {
                 $regions = $this->Regions->top_regions_for_home($sitelang->id);
                 $tagging['regions'] = $regions;
+            } else {
+                $tagging['regions'] = '';
             }
             if($sitelang->hasTypes) {
                 $typesWithCategory = $this->TypeCategories->top_types_for_home_by_cat($sitelang->id);
@@ -31,12 +35,16 @@ class LoadORTDComponent extends Component
                 $types = array_merge($typesWithCategory, $typesWithoutCategory);
                 $tagging['types'] = $types;
                 $tagging['toptypes'] = $this->Types->top_types($sitelang->id);
+            } else {
+                $tagging['types'] = '';
             }
             if($sitelang->hasDictionaries) {
                 $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
                 $no_dict_entries = $this->Words->get_not_in_other_dictionary($sitelang->id);
                 $tagging['no_dict_entries'] = $no_dict_entries;
                 $tagging['dictionaries'] = $dictionaries;
+            } else {
+                $tagging['dictionaries'] = '';
             }
 
         return $tagging;

@@ -25,6 +25,7 @@
 
 	?>
 	<?php foreach($ortdarray as $ortdarray2):?>
+		<?php if ($ortdarray2[1] !== ''):?>
 		<?= '<div class="dropdown3">' ?>
 		<?= '<button onclick="toggleDropdown(\'dropdown' . $j . '\')" class="dropbtn3">&#9660; Select ' . $ortdarray2[2] . '</button>' ?>
 		<?= '<div id="checkboxes' . $j . '" class="dropdown-content3 checkboxesclass">'?>
@@ -78,12 +79,15 @@
 					}
 				?>
 	<?php endif; ?>
+	
 	<?= '<label><input type="checkbox" value="other" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> Other</label>'?>
 	</div>
 	</div>
 	<?php $i++;
 			$j++; ?>
+	<?php endif; ?>
 	<?php endforeach; ?>
+	
 	</div> <!--end of dropdown container-->
 	
 
