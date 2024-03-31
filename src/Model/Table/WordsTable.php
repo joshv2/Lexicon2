@@ -441,12 +441,12 @@ class WordsTable extends Table
                             'conditions' => 'Words.id = s.word_id'
                         ]
                     ]);
-        $spellingmatch = $query->newExpr()
+        $spellingmatch = $query->expr()
                     ->addCase(
-                        [$query->newExpr()->add(['Words.spelling LIKE' => $querystring]),
-                         $query->newExpr()->add(['a.spelling LIKE' => $querystring]),
-                         $query->newExpr()->add(['Words.spelling LIKE' => '%'.$querystring.'%']),
-                         $query->newExpr()->add(['a.spelling LIKE' => '%'.$querystring.'%'])],
+                        [$query->expr()->add(['Words.spelling LIKE' => $querystring]),
+                         $query->expr()->add(['a.spelling LIKE' => $querystring]),
+                         $query->expr()->add(['Words.spelling LIKE' => '%'.$querystring.'%']),
+                         $query->expr()->add(['a.spelling LIKE' => '%'.$querystring.'%'])],
 
                         [ 2,2,1,1,0]
 

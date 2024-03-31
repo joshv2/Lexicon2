@@ -84,7 +84,7 @@ class WordsController extends AppController
         $sitelang = $this->languageinfo();
         $letter = $this->request->getParam('pass')[0];
         
-        $language = $this->getTableLocator()->get('Languages');
+        $language = $this->fetchTable('Languages');
         foreach(range(hexdec($sitelang->UTFRangeStart), hexdec($sitelang->UTFRangeEnd)) as $letter2) {
             //echo $letter;
             $alphabet[] = html_entity_decode("&#$letter2;", ENT_COMPAT, "UTF-8");
@@ -243,7 +243,7 @@ class WordsController extends AppController
                             $jsonFromOriginal = json_decode($original);
                             //debug($jsonFromOriginal->ops[0]->insert);
                             $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
-                            $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                            $quill = new \nadar\quill\Lexer($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                             $defresult = $quill->render();
                             $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
                         }
@@ -256,7 +256,7 @@ class WordsController extends AppController
                 } else {
                     $jsonFromOriginal = json_decode($original);
                     $postData['etymology_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \DBlackborough\Quill\Render($postData['etymology']);
+                    $quill = new \nadar\quill\Lexer($postData['etymology']);
                     $defresult = $quill->render();
                     $postData['etymology'] = $defresult;
                 }
@@ -266,7 +266,7 @@ class WordsController extends AppController
                 } else {
                     $jsonFromOriginal = json_decode($original);
                     $postData['notes_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \DBlackborough\Quill\Render($postData['notes']);
+                    $quill = new \nadar\quill\Lexer($postData['notes']);
                     $defresult = $quill->render();
                     $postData['notes'] = $defresult;
                 }
@@ -546,10 +546,10 @@ class WordsController extends AppController
                             $jsonFromOriginal = json_decode($original);
                             //debug($jsonFromOriginal->ops[0]->insert);
                             $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
-                            $quill = new \DBlackborough\Quill\Render($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
+                            $quill = new \nadar\quill\Lexer($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
                             $defresult = $quill->render();
                             $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
-                            
+
                             //debug(preg_replace('/\s+/', '',$defresult));
 
                             if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillAssoc][$i][$processFields[$quillAssoc]])){
@@ -564,7 +564,7 @@ class WordsController extends AppController
                                     unset($postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json']);
                                 }
                             }
-                            
+
                             //$i += 1;
                         }
                         //debug($postData[$quillAssoc]);
@@ -581,7 +581,7 @@ class WordsController extends AppController
                     $original = $postData['etymology'];
                     $jsonFromOriginal = json_decode($original);
                     $postData['etymology_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \DBlackborough\Quill\Render($postData['etymology']);
+                    $quill = new \nadar\quill\Lexer($postData['etymology']);
                     $defresult = $quill->render();
                     $postData['etymology'] = $defresult;
                     if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['etymology'])){
@@ -590,7 +590,7 @@ class WordsController extends AppController
                     $original = $postData['notes'];
                     $jsonFromOriginal = json_decode($original);
                     $postData['notes_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \DBlackborough\Quill\Render($postData['notes']);
+                    $quill = new \nadar\quill\Lexer($postData['notes']);
                     $defresult = $quill->render();
                     $postData['notes'] = $defresult;
                     if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['notes'])){
