@@ -77,30 +77,33 @@ class PagesController extends AppController
     }
 
     public function index(){
-        $words = $this->getTableLocator()->get('Words');
+        $wordsTable = $this->fetchTable('Words');
+        $originsTable = $this->fetchTable('Origins');
+        $regionsTable = $this->fetchTable('Regions');
+        $typesTable = $this->fetchTable('Types');
+        $dictionariesTable = $this->fetchTable('Dictionaries');
+        $typeCategoriesTable  = $this->fetchTable('TypeCategories');
         $sitelang = $this->languageinfo();
-        $total_entries = $words->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
-        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries', 'TypeCategories']); //load Models so we can get for the homepage dropdown
-        //$this->loadModel('Words', 'Origins', 'Regions', 'Types');
+        $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {
-            $origins = $this->Origins->top_origins_for_home($sitelang->id);
+            $origins = $originsTable->top_origins_for_home($sitelang->id);
             $tagging['origins'] = $origins;
         }
         if($sitelang->hasRegions) {
-            $regions = $this->Regions->top_regions_for_home($sitelang->id);
+            $regions = $regionsTable->top_regions_for_home($sitelang->id);
             $tagging['regions'] = $regions;
         }
         if($sitelang->hasTypes) {
-            $typesWithCategory = $this->TypeCategories->top_types_for_home_by_cat($sitelang->id);
-            $typesWithoutCategory = $this->Types->top_types_for_home_no_cat($sitelang->id);
+            $typesWithCategory = $typeCategoriesTable->top_types_for_home_by_cat($sitelang->id);
+            $typesWithoutCategory = $typesTable->top_types_for_home_no_cat($sitelang->id);
             $types = array_merge($typesWithCategory, $typesWithoutCategory);
-            #$types = $this->Types->top_types_for_home($sitelang->id);
+            #$types = $typesTable->top_types_for_home($sitelang->id);
             $tagging['types'] = $types;
         }
         if($sitelang->hasDictionaries) {
-            $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
-            $no_dict_entries = $this->Words->get_not_in_other_dictionary($sitelang->id);
+            $dictionaries = $dictionariesTable->top_dictionaries($sitelang->id);
+            $no_dict_entries = $wordsTable->get_not_in_other_dictionary($sitelang->id);
             $tagging['no_dict_entries'] = $no_dict_entries;
             $tagging['dictionaries'] = $dictionaries;
         }

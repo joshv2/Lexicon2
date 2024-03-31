@@ -1,0 +1,605 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2021-11-21 18:05+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "The alternate has been saved."
+msgstr "Alternativen har sparats."
+
+
+
+msgid "The alternate could not be saved. Please, try again."
+msgstr "Alternativen kunde inte sparas. Försök igen."
+
+
+msgid "The alternate has been deleted."
+msgstr "Alternativen har raderats."
+
+
+msgid "The alternate could not be deleted. Please, try again."
+msgstr "Alternativen kunde inte raderas. Försök igen."
+
+
+
+msgid "The definition has been saved."
+msgstr "Definitionen har sparats"
+
+
+
+msgid "The definition could not be saved. Please, try again."
+msgstr "Definitionen kunde inte sparas. Försök igen."
+
+
+msgid "The definition has been deleted."
+msgstr "Definitionen har raderats."
+
+
+msgid "The definition could not be deleted. Please, try again."
+msgstr "Definitionen kunde inte raderas. Försök igen."
+
+
+msgid "The pronunciation has been saved."
+msgstr "Uttalet har sparats."
+
+
+
+
+msgid "The pronunciation could not be saved. Please, try again."
+msgstr "Uttalet kunde inte sparas. Försök igen."
+
+
+
+msgid "The sentence has been saved."
+msgstr "Meningen har sparats."
+
+
+
+msgid "The sentence could not be saved. Please, try again."
+msgstr "Meningen kunde inte sparas. Försök igen."
+
+
+
+msgid "The suggestion has been saved."
+msgstr "Förslaget har sparats"
+
+
+
+msgid "The suggestion could not be saved. Please, try again."
+msgstr "Förslaget kunde inte sparas"
+
+
+
+msgid "The word could not be saved. Please, try again."
+msgstr "Ordet kunde inte sparas."
+
+
+msgid "The word has been saved."
+msgstr "Ordet har sparats."
+
+msgid "Submit"
+msgstr "Skicka"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Säker att du vill radera # {0}?"
+
+msgid "View"
+msgstr "Se"
+
+msgid "Edit"
+msgstr "Redigera"
+
+
+msgid "first"
+msgstr "först"
+
+msgid "previous"
+msgstr "tidigare"
+
+msgid "next"
+msgstr "nästa"
+
+msgid "last"
+msgstr "sista"
+
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Sida "{{page}} av {{pages}}, visar {{current}} post(er) av totalt {{count}}" 
+
+msgid "Word"
+msgstr "Ord"
+
+msgid "Spelling"
+msgstr "Stavning"
+
+msgid "Related Words"
+msgstr "Relaterade ord"
+
+msgid "Etymology"
+msgstr "Etymologi"
+
+msgid "Notes"
+msgstr "Riktlinjer"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "Approved"
+msgstr "Godkänd"
+
+msgid "Welcome"
+msgstr "Välkommen"
+
+msgid "Enter the Lexicon"
+msgstr "Gå vidare till lexikonet"
+
+msgid "Coming Soon."
+msgstr "Kommer snart"
+
+msgid "About Us"
+msgstr "Om oss"
+
+msgid "First time here? Read our "
+msgstr "Första gången här? Läs vår
+
+msgid "welcome page"
+msgstr "välkomstsida"
+
+msgid "page"
+msgstr "sida"
+
+msgid "The lexicon currently has "
+msgstr "Lexikonet har för närvarande"
+
+msgid "entries."
+msgstr "uppslagsord"
+
+msgid "BROWSE:"
+msgstr "UTFORSKA"
+
+msgid "SEARCH:"
+msgstr "SÖK"
+
+msgid "NOTES"
+msgstr "RIKTLINJER"
+
+msgid "for information about these languages, dictionaries, and types of people."
+msgstr "för mer information om dessa språk, ordböcker eller typ av talare som använda orden."
+
+msgid "Languages of origin"
+msgstr "Språkligt ursprung"
+
+msgid "Other"
+msgstr "Andra"
+
+msgid "Regions in which the word is used"
+msgstr "Regioner där ordet används"
+
+msgid "Types of people who tend to use the word"
+msgstr "Typ av talare som tenderar att använda orden"
+
+msgid "Dictionaries in which the word appears"
+msgstr "Ordböcker där ordet visas"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "CAN'T FIND A WORD?"
+msgstr "SAKNAS NÅGOT ORD?"
+
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
+msgstr "Som andra samarbetswebbplatser, till exempel Wikipedia eller Urban Dictionary", LJS möjliggör för användarna att själva lägga till ord och uttryck de använder. Snälla ta bara några minuter att lägga till ett ord eller två."
+
+msgid "Add Pronunciation for "
+msgstr "Lägg till uttalet för"
+
+msgid "Pronuciation (Spelling)"
+msgstr "Uttal (Stavning)"
+
+msgid "Phonetic Spelling"
+msgstr "Fonetisk stavning"
+
+msgid "Record"
+msgstr "Spela in"
+
+msgid "spelling"
+msgstr "stavning"
+
+msgid "pronunciation"
+msgstr "uttal"
+
+msgid "New Pronunciation"
+msgstr "Nytt uttal"
+
+msgid "Pronunciations"
+msgstr "Uttaler"
+
+msgid "Pronunciation"
+msgstr "Uttaler"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "Top"
+msgstr "Topp"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Your search for"
+msgstr "Din sökning efter"
+
+msgid "returned"
+msgstr "gav"
+
+msgid "results."
+msgstr "resultat"
+
+msgid "That word is not yet in the database. Try searching with a different spelling."
+msgstr "Det ordet finns ännu inte i databasen. Försök söka med en annan stavning."
+
+msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
+msgstr "Om du fortfarande inte hittar det, lägga till det och hjälpa oss att göra lexikonen mer komplett"
+
+msgid "See full entry"
+msgstr "Se fullständigt uppslagsord"
+
+msgid "SEE FULL ENTRY"
+msgstr "SE FULLSTÄNDIGT UPPSLAGSORD"
+
+msgid "Sentences"
+msgstr "Meningar"
+
+msgid "Sentence"
+msgstr "Mening"
+
+msgid "Add Suggestion for "
+msgstr "Lägg till förslag till"
+
+msgid "New Suggestion"
+msgstr "Nytt förslag"
+
+msgid "Suggestions"
+msgstr "Förslag"
+
+msgid "New"
+msgstr "Nytt"
+
+msgid "word"
+msgstr "Ord"
+
+msgid "Most Common Spelling"
+msgstr "Vanligaste stavning"
+
+msgid "Alternate Spelling(s)"
+msgstr "Alternativ stavning"
+
+msgid "Add an additional spelling"
+msgstr "Lägg till ytterligare en stavning"
+
+msgid "Remove"
+msgstr "Radera"
+
+msgid "Phonetic Spelling "
+msgstr "Fonetisk stavning"
+
+msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+msgstr "Med hjälp av bindestreck och versaler, ange stavelse och betoning, t.ex. 'te-SHU-va' vs. 'tshu-VA"
+
+msgid "Recorded"
+msgstr "Spelade in"
+
+msgid "Add an additional pronunciation"
+msgstr "Lägg till ytterligare ett uttal"
+
+msgid "Definition(s)"
+msgstr "Definitioner"
+
+msgid "Add an additional definition"
+msgstr "Lägg till ytterligare en definition"
+
+msgid "Example Sentence(s)"
+msgstr "Exempelmening"
+
+msgid "Add an additional sentence"
+msgstr "Lägg till ytterligare en mening"
+
+msgid "Language(s) of Origin"
+msgstr "Språkligt ursprung"
+
+msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
+msgstr "Håll ned Kontroll för att välja mer än ett alternativ, Kontroll-klicka igen för att avmarkera"
+
+msgid "Who Uses This"
+msgstr "Ordets användare"
+
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
+msgstr "Håll ned Ctrl ("command på Mac) för att välja mer än ett alternative, Ctrl/command-klicka igen för att avmarkera"
+
+msgid "Anything else you want website visitors to know about this entry"
+msgstr "Övrig information som du vill att läsaren ska veta om uppslagsordet"
+
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
+msgstr "Den här informationen kommer inte att visas på hemsidan. Vi behöver den i fall vi har frågor gällande något ord du lagt till. Om du lägger till många nya uppslagsord har du även möjligheten att hamna på
+
+msgid "Top Word Contributors" 
+msgstr "Topplistan över de som lagt till flest ord"
+
+msgid "Other than that, you will"
+msgstr "Utöver de ovan nämnda fallen kommer du"
+
+msgid "NOT" 
+msgstr "INTE"
+
+msgid "be contacted or placed on any email lists"
+msgstr "att bli kontaktad eller bli placerad på någon postlista."
+
+msgid "Your Name"
+msgstr "Ditt namn"
+
+msgid "Your Email Address"
+msgstr "Din epostadress"
+
+msgid "Double check your submission!"
+msgstr "Granska ditt inlägg innan du skickar in det!"
+
+msgid "Approve Word"
+msgstr "Godkänna ord"
+
+msgid "Delete Word"
+msgstr "Radera ord"
+
+msgid "Are you sure?"
+msgstr "Är du säker"
+
+msgid "This word already exists in the lexicon or is being evaluated."
+msgstr "Detta ord finns redan i lexikonet eller utvärderas."
+
+msgid "Add a new word"
+msgstr "Lägg till ett nytt ord"
+
+msgid "Browse by Letter"
+msgstr "Utforska med bokstav"
+
+msgid "Showing "
+msgstr "Visar"
+
+msgid "words"
+msgstr "ord"
+
+msgid "No words were found."
+msgstr "Inga ord hittades"
+
+msgid "Add a new word"
+msgstr "Lägg till ett nytt ord"
+
+msgid "No words were found. Refine your search options above."
+msgstr "Inga ord hittades. Du kan förfina dina sökalternativ ovan."
+
+msgid "Editing"
+msgstr "Redigerar"
+
+msgid "SUGGEST CHANGES FOR "
+msgstr FÖRESLÅ ÄNDRINGAR FÖR"
+
+msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
+msgstr "Här kan du föreslå ändringar för detta uppslagsord. Mer information om språkligt ursprung, ordens stavningar eller typ av talare som tenderar att använda orden finner du under fliken"
+
+msgid "Notes."
+msgstr "Riktlinjer"
+
+msgid "What edits would you like to suggest to this entry? Please be specific."
+msgstr "Vänligen specificera vilka ändringar du vill föreslå för detta uppslagsord"
+
+msgid "New Word"
+msgstr "Nytt ord"
+
+msgid "Words"
+msgstr "Ord"
+
+msgid "Refresh"
+msgstr "Uppdatera"
+
+msgid "random words retrieved"
+msgstr "Slumpmässiga ord hämtade"
+
+msgid "Thank you"
+msgstr "Tack så mycket"
+
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr "Tack för att du lade till ett uppslagsord till Lexikonet över Judisk Svenska. Kolla igen om en vecka för att se ditt uppslagsord på webbplatsen."
+
+msgid "See your entry"
+msgstr "Se ditt uppslagsord"
+
+msgid "Back"
+msgstr "Tillbaka"
+
+msgid " Record a Pronunciation"
+msgstr "Spela in ett uttal"
+
+msgid " Edit"
+msgstr "Redigera"
+
+msgid "View More"
+msgstr "Se mer"
+
+msgid "Alternative Spellings"
+msgstr "Alternativa stavningar"
+
+msgid "See something you disagree with? Feel free to edit it. All changes will be moderated. "
+msgstr "Om du tycker att ett ord har definierats felaktigt, är det bara att klicka på Redigera-knappen. All ändringar modereras."
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "This word can not be found or has not yet been approved"
+msgstr "Detta ord kan inte hittas eller har ännu inte godkänts."
+
+msgid "Add a word"
+msgstr "Lägg till ett ord"
+
+msgid "Add a Word"
+msgstr "Lägg till ett ord"
+
+msgid "Back"
+msgstr "Tillbaka"
+
+msgid "Yiddish"
+msgstr "Jiddisch"
+
+msgid "Modern Hebrew"
+msgstr "Modern hebreiska"
+
+msgid "Polish"
+msgstr "Polska"
+
+msgid "Russian"
+msgstr "Ryska"
+
+msgid "German"
+msgstr "Tyska"
+
+msgid "Aramaic"
+msgstr "Arameiska"
+
+msgid "Arabic / Judeo-Arabic"
+msgstr "Arabiska / Judisk-Arabiska"
+
+msgid "Younger: Jews in their 30s or younger"
+msgstr "Yngre: Judar i 30-årsåldern eller yngre"
+
+msgid "Older: Jews who are middle-aged and older"
+msgstr "Äldre: Judar som är medelålders och äldre"
+
+msgid "Eastern European Jews"
+msgstr "Östeuropeiska judar"
+
+msgid "Russian: Jews with recent Russian-speaking ancestry in Russia"
+msgstr "Rysk: Judar med rysktalande anor i Ryssland"
+
+msgid "Orthodox: Jews who identify as Orthodox and observe halacha (Jewish law)"
+msgstr "Ortodoxa: Judar som identifierar sig som Ortodoxa och hålla Halacha (Judisk lag)"
+
+msgid "Religious"
+msgstr "Religiös"
+
+msgid "Non-Jews: (words that have spread outside of Jewish networks)"
+msgstr "Icke-judar: (ord som har spridit sig utanför judiska nätverkar)"
+
+msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
+msgstr "Sommarläger: Judar som går i, eller arbetar på, ett Judiskt sommarläger över natten"
+
+msgid "Jewish Languages"
+msgstr "Judiska språk"
+
+msgid "Volunteer"
+msgstr "Vara volontär"
+
+msgid "Donate"
+msgstr "Donera"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search..."
+msgstr "Sök..."
+
+msgid "Lexicon"
+msgstr "Lexikon"
+
+msgid "See full lexicon in alphabetical order"
+msgstr "Se det fullständiga lexikonet i alfabetisk ordning"
+
+msgid "See a random list of words"
+msgstr "Se en slumpmässig lista uppslagsord"
+
+msgid "ADVANCED SEARCH:"
+msgstr "AVANCERAD SÖKNING"
+
+msgid "See the"
+msgstr "Se"
+
+msgid "Add an entry"
+msgstr "Lägg till uppslagsord"
+
+msgid "Jews"
+msgstr "Judar"
+
+msgid "American Jews"
+msgstr "Amerikanska Judar"
+
+msgid "Strong Israel Connection"
+msgstr "Stark koppling till Israel"
+
+msgid "Jews of German/Jeckic origin"
+msgstr "Judar av tyskt ursprung"
+
+msgid "Definitions"
+msgstr "Definitioner"
+
+msgid "Example Sentences"
+msgstr "Exempelmening"
+
+msgid "Languages of Origin"
+msgstr "Språkligt ursprung"
+
+msgid "Etymology"
+msgstr "Etymologi"
+
+msgid "Who Uses This"
+msgstr "Ordets användare"
+
+msgid "Regions"
+msgstr "Regioner"
+
+msgid "full name"
+msgstr "Fullständiga namn"
+
+msgid "full_name"
+msgstr "fullständiga_namn"
+
+msgid "email"
+msgstr "epost"
+
+msgid "suggestion"
+msgstr "förslag"
+
+msgid "All"
+msgstr "Alla"
+
+msgid "Origin"
+msgstr "Ursprung"
+
+msgid "Use"
+msgstr "Användning"
+
+msgid "All Regions"
+msgstr "Alla regioner"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "{{start}} - {{end}} of {{count}}"
+msgstr "{{start}} - {{end}} av {{count}}"
+
+msgid "Something missing from this entry? Inaccurate? Feel free to suggest an edit."
+msgstr "Något som saknas i det här uppslagsord? Felaktigt? Kom med ett förslag."
+
+msgid "Record a Sentence"
+msgstr "Spela in en mening"

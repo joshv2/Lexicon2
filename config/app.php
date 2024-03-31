@@ -3,10 +3,11 @@
 use Cake\Cache\Engine\FileEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
-use Cake\Error\ExceptionRenderer;
+//use Cake\Error\ExceptionRendererInterface;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 use Cake\Log\Log;
+use function Cake\Core\env;
 
 Log::setConfig('events', [
     'className' => 'File',
@@ -190,7 +191,7 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'exceptionRenderer' => ExceptionRenderer::class,
+        //'exceptionRenderer' => ExceptionRendererInterface::class,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
