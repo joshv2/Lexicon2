@@ -38,7 +38,7 @@ class Word extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'spelling' => true,
         'etymology' => true,
         'etymology_json' => true,

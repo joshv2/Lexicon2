@@ -24,7 +24,7 @@ class Dictionary extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'dictionary' => true,
         'words' => true,
         'language_id' => true,

@@ -6,7 +6,7 @@
 
 	<title>Jewish English Lexicon - Moderator Panel</title>
 	<?php echo $this->Html->css('mod');?>
-	<!--<link rel="stylesheet" href="<?=$this->Html->url('/css/mod.css', true);?>">-->
+	<!--<link rel="stylesheet" href="<?=$this->Html->link('/css/mod.css', true);?>">-->
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	

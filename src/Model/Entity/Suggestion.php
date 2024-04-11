@@ -31,7 +31,7 @@ class Suggestion extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'word_id' => true,
         'user_id' => true,
         'full_name' => true,

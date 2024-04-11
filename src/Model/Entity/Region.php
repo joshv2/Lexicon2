@@ -24,7 +24,7 @@ class Region extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'region' => true,
         'words' => true,
         'language_id' => true,

@@ -49,7 +49,7 @@ class SuggestionsController extends AppController
      */
     public function add($id = null)
     {
-        array_map([$this, 'loadModel'], ['Words']);
+        //array_map([$this, 'loadModel'], ['Words']);
         $suggestion = $this->Suggestions->newEmptyEntity();
         if ($this->request->is('post')) {
             $suggestion = $this->Suggestions->patchEntity($suggestion, $this->request->getData());
@@ -60,7 +60,7 @@ class SuggestionsController extends AppController
             }
             $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
         }
-        $word = $this->Words->get($id);
+        $word = $this->fetchTable('Words')->get($id);
         $recaptcha_user = Configure::consume('recaptcha_user');
         //$users = $this->Suggestions->Users->find('list', ['limit' => 200]);
         $this->set(compact('suggestion', 'word', 'recaptcha_user'));

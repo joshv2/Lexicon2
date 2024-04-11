@@ -52,8 +52,8 @@ class SentenceRecordingsController extends AppController
      */
     public function add($id = null)
     {
-        array_map([$this, 'loadModel'], ['Sentences']);
-        $sentences = $this->Sentences->get_sentences($id);
+        //array_map([$this, 'loadModel'], ['Sentences']);
+        $sentences = $this->fetchTable('Sentences')->get_sentences($id);
         $sentenceRecording = $this->SentenceRecordings->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
@@ -110,9 +110,9 @@ class SentenceRecordingsController extends AppController
 
     public function manage($wordid = null, $sentenceid = null) 
     {
-        array_map([$this, 'loadModel'], ['Sentences', 'Words']);
-        $assocWord = $this->Words->get($wordid);
-        $assocSentence = $this->Sentences->get($sentenceid);
+        //array_map([$this, 'loadModel'], ['Sentences', 'Words']);
+        $assocWord = $this->fetchTable('Words')->get($wordid);
+        $assocSentence = $this->fetchTable('Sentences')->get($sentenceid);
         $sentRecs =  $this->SentenceRecordings->get_recordings($sentenceid);
         //$requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->contain(['RecordingUsers', 'ApprovingUsers'])->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -147,8 +147,8 @@ class SentenceRecordingsController extends AppController
 
     public function approve($id = null){
         $this->request->allowMethod(['post']);
-        array_map([$this, 'loadModel'], ['Words']);
-        //$word =  $this->Words->get($wordid);
+        //array_map([$this, 'loadModel'], ['Words']);
+        //$word =  $this->fetchTable('Words')->get($wordid);
 
         $datefortimestamp = date('Y-m-d h:i:s', time());
         $sentenceRec = $this->SentenceRecordings->get($id, [
@@ -222,8 +222,8 @@ class SentenceRecordingsController extends AppController
             $data = $this->request->getData();
             $this->redirect('/sentenceRecordings/add/'.$data['sentenceToRecord']);
         } else {
-        array_map([$this, 'loadModel'], ['Words', 'Sentences']);
-        $wordResult = $this->Words->get_word_for_view($id);
+        //array_map([$this, 'loadModel'], ['Words', 'Sentences']);
+        $wordResult = $this->fetchTable('Words')->get_word_for_view($id);
         $word = $wordResult[0];
         $this->set(compact('word'));
         }
