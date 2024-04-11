@@ -49,10 +49,10 @@ class PronunciationsController extends AppController
      */
     public function add($id = null)
     {
-        array_map([$this, 'loadModel'], ['Words']);
+        //array_map([$this, 'loadModel'], ['Words']);
         
         $pronunciation = $this->Pronunciations->newEmptyEntity();
-        $word =  $this->Words->get($id);
+        $word =  $this->fetchTable('Words')->get($id);
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
             //Process sound files
@@ -105,8 +105,8 @@ class PronunciationsController extends AppController
 
     public function manage($wordid = null) 
     {
-        array_map([$this, 'loadModel'], ['Words']);
-        $word =  $this->Words->get($wordid);
+        //array_map([$this, 'loadModel'], ['Words']);
+        $word =  $this->fetchTable('Words')->get($wordid);
         $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->contain(['RecordingUsers', 'ApprovingUsers'])->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
@@ -190,8 +190,8 @@ class PronunciationsController extends AppController
 
     public function approve($id = null, $wordid){
         $this->request->allowMethod(['post']);
-        array_map([$this, 'loadModel'], ['Words']);
-        $word =  $this->Words->get($wordid);
+        //array_map([$this, 'loadModel'], ['Words']);
+        $word =  $this->fetchTable('Words')->get($wordid);
 
         $datefortimestamp = date('Y-m-d h:i:s', time());
         $pronunciation = $this->Pronunciations->get($id);

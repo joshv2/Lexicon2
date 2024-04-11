@@ -46,6 +46,11 @@ use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
 
+/**
+ * Load global functions.
+ */
+require CAKE . 'functions.php';
+
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.
  *
@@ -209,9 +214,6 @@ ServerRequest::addDetector('tablet', function ($request) {
 //    ->useLocaleParser();
 // \Cake\Database\TypeFactory::build('timestamptimezone')
 //    ->useLocaleParser();
-
-// There is no time-specific type in Cake
-TypeFactory::map('time', StringType::class);
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize

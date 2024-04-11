@@ -18,7 +18,7 @@
 	<?php echo $this->Html->meta([
 		'rel' => 'preload',
 		'href' => $this->Url->assetUrl(
-			'/fonts/fontawesome-webfont.woff2'
+			'/font/fontawesome-webfont.woff2'
 		),
 		'as' => 'font']
 	);?>

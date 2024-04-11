@@ -8,6 +8,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\ORM\Query\SelectQuery;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableLocator;
 use Cake\ORM\Rule\IsUnique;
@@ -396,33 +397,10 @@ class WordsTable extends Table
         return $query;
     }
 
-    public function search_results($querystring, $langid){
-        /*$searchqueryraw = <<<SQL
-                                SELECT words.id, words.spelling,
-                                GROUP_CONCAT(alternates.spelling SEPARATOR ', ') AS alternates,
-                                GROUP_CONCAT(DISTINCT definitions.id) AS definitions,
-                                CASE
-                                WHEN words.spelling LIKE :query THEN 2
-                                WHEN alternates.spelling LIKE :query THEN 2
-                                WHEN words.spelling LIKE :lquery THEN 1
-                                WHEN alternates.spelling LIKE :lquery THEN 1
-                                ELSE 0
-                                END as spellingmatch,
-                                MATCH(words.notes) AGAINST (:query) AS notesmatch,
-                                MATCH(definitions.definition) AGAINST (:query) AS definitionmatch
-                                FROM words
-                                LEFT JOIN definitions ON definitions.word_id = words.id
-                                LEFT JOIN alternates ON alternates.word_id = words.id
-                                WHERE words.spelling LIKE :lquery
-                                OR alternates.spelling LIKE :lquery
-                                OR MATCH(words.notes) AGAINST (:query)
-                                OR MATCH(definitions.definition) AGAINST (:query)
-                                OR words.etymology LIKE :lquery
-                                GROUP BY words.id
-                                ORDER BY spellingmatch DESC, definitionmatch DESC, notesmatch DESC, spelling ASC
-                            SQL;*/
-        
-        $querystring = addslashes($querystring);
+    public function findSearchResults(SelectQuery $query, $options){
+               
+        $querystring = addslashes($options['querystring']);
+        $langid = $options['langid'];
         $query = $this->find()->contain(['Definitions']);
         $query = $query->join([
                         'd' => [
@@ -441,16 +419,20 @@ class WordsTable extends Table
                             'conditions' => 'Words.id = s.word_id'
                         ]
                     ]);
-        $spellingmatch = $query->expr()
-                    ->addCase(
-                        [$query->expr()->add(['Words.spelling LIKE' => $querystring]),
-                         $query->expr()->add(['a.spelling LIKE' => $querystring]),
-                         $query->expr()->add(['Words.spelling LIKE' => '%'.$querystring.'%']),
-                         $query->expr()->add(['a.spelling LIKE' => '%'.$querystring.'%'])],
 
-                        [ 2,2,1,1,0]
 
-                    );
+        $spellingmatch = $query->newExpr()
+                    ->case()
+                    ->when(['Words.spelling LIKE' => $querystring])
+                    ->then(2)
+                    ->when(['a.spelling LIKE' => $querystring])
+                    ->then(2)
+                    ->when(['Words.spelling LIKE' => '%'.$querystring.'%'])
+                    ->then(1)
+                    ->when(['a.spelling LIKE' => '%'.$querystring.'%'])
+                    ->then(1)
+                    ->else(0);
+
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
                                  'definitions' => 'group_concat(DISTINCT d.id)', 

@@ -48,13 +48,13 @@ class AppController extends Controller
      */
 
     public function languageinfo(){
-        array_map([$this, 'loadModel'], ['Languages']);
+        //array_map([$this, 'fetchTable'], ['Languages']);
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $urlparts1 = explode('//', $actual_link);
         $urlparts2 = explode('.', $urlparts1[1]);
         $reqsubdomain = $urlparts2[0];
 
-        $sitelangvalues = $this->Languages->get_language($reqsubdomain);
+        $sitelangvalues = $this->fetchTable('Languages')->get_language($reqsubdomain);
         return $sitelangvalues;
     }
 
@@ -172,9 +172,9 @@ class AppController extends Controller
                 break;
             }*/
 
-        $this->loadComponent('RequestHandler');
+        //$this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Processfile');
+        //$this->loadComponent('Processfile');
         //$this->loadComponent('Authentication.Authentication');
         //$this->loadComponent('CakeDC.User');
 

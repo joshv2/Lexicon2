@@ -25,10 +25,10 @@ class Alphabet extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = array(
         'id' => true,
         'language_id' => true,
         'UTF8value' => true,
-        'language' => true,
-    ];
+        'language' => true
+    );
 }
