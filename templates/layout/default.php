@@ -94,13 +94,13 @@
 						<a class="nav-link" href="/"><?= __('Home');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/add"><?= __('Add a Word');?> <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="add"><?= __('Add a Word');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/about"><?= __('About Us');?> <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="about"><?= __('About Us');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/notes"><?= __('Notes');?> <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="notes"><?= __('Notes');?> <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="https://www.jewishlanguages.org">Jewish Languages <span class="sr-only">(current)</span></a>
@@ -113,7 +113,7 @@
 					</li>
 				</ul>
 
-			<form class="form-inline" type="GET" action="/search">
+			<form class="form-inline" type="GET" action="search">
 				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
 				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
