@@ -2,13 +2,13 @@
 	<nav id="browse" class="group">
 		<ul class="browse_nav">
 			<li class="first main">
-			<?=$this->Html->link('<i class="icon-refresh"></i>' . __('Refresh'), '/random',
+			<?=$this->Html->link('<i class="fa-solid fa-rotate-right"></i>' . __('Refresh'), '/random',
 											['class' => 'main', 'escape' => false]);?>
 			<div class="clear"></div>
 		</ul>
 	</nav>
 	<div id="browse_info">
-		<p class="m0"><?php echo sizeof($words);?> <?=__("random words retrieved")?></p><p id="refresh"><?=$this->Html->link(__('<i class="icon-refresh"></i> Refresh'), '/random',
+		<p class="m0"><?php echo sizeof($words);?> <?=__("random words retrieved")?></p><p id="refresh"><?=$this->Html->link('<i class="fa-solid fa-rotate-right"></i> ' . __('Refresh'), '/random',
 											['class' => 'main', 'escape' => false]);?></p>
 	</div>
 	<ol class="word-list group">
@@ -27,9 +27,9 @@
 	</ol>
 	<div class="pagination">
 		<ul class="pagination group">
-			<li class="prev"><?=$this->Html->link('<i class="icon-refresh"></i>' . __('Refresh'), '/random',
+			<li class="prev"><?=$this->Html->link('<i class="fa-solid fa-rotate-right"></i> ' . __('Refresh'), '/random',
 											['escape' => false]);?></li>
-			<li class="next"><a href="#"><i class="icon-arrow-up"></i><?= __('Top') ?></a></li>
+			<li class="next"><a href="#"><i class="fa-solid fa-arrow-up"></i><?= __('Top') ?></a></li>
 		</ul>
 		<div class="clear"></div>
 	</div>

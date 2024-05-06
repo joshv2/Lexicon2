@@ -10,7 +10,7 @@
 <section id="main">
 	<nav id="crumbs" class="group">
 		<ul class="right">
-			<li><?=$this->Html->link('<i class="icon-plus-sign"></i>' . __('Add a new word'), '/add',
+			<li><?=$this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> ' . __('Add a new word'), '/add',
 											['class' => 'button blue', 'escape' => false]);?></li>
 		</ul>
 	</nav>
