@@ -26,7 +26,7 @@
                     <input type="radio" name="option" id="showUploadBox">
                     <label for="showUploadBox">Upload a Recording</label>
                     <div id="buttonContainer">
-                        <span class="record-success" style="display: none;">Recorded <i class="icon-ok"></i></span>    
+                        <span class="record-success" style="display: none;">Recorded <i class="fa-solid fa-check"></i></span>    
                         <button class="btn-record button" id="record" type="submit">Click to Record</button>
                         ' . $this->Form->control(__('soundfile0'), [
                             'class' => 'recording-input',

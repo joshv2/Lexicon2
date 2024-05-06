@@ -6,7 +6,7 @@
 				<li>
 				<?php echo 
 			$this->AuthLink->postlink(__(
-                '<i class="icon-trash"></i> Delete'),
+                '<i class="fa-solid fa-trash"></i> Delete'),
                 ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
                 ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
 				</li>
@@ -21,7 +21,7 @@
 				</li>
 			
 			<li>
-			<?=$this->Html->link('<i class="icon-edit"></i>' . __(' Edit'), '/words/edit/' .$word->id,
+			<?=$this->Html->link('<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue nl', 'escape' => false]);?>
 			</li>
 		</ul>
@@ -267,7 +267,7 @@
 
 	<div class="c wordedit">
 		<p class="m0">
-		<?=$this->Html->link('<i class="icon-edit"></i>' . __(' Edit'), '/words/edit/' .$word->id,
+		<?=$this->Html->link('<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'), '/words/edit/' .$word->id,
 											['class' => 'button blue', 'escape' => false]);?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("Something missing from this entry? Inaccurate? Feel free to suggest an edit.")?></p>
 	</div>

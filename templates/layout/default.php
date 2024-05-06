@@ -82,25 +82,25 @@
 <header>
   	<div class="container bannerbg">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
-			<a class="navbar-brand" href="/">
+			<!--<a class="navbar-brand" href="/">-->
 				<?= $this->cell('Logo'); ?>
-			</a>
+			<!--</a>--->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto mx-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="/"><?= __('Home');?> <span class="sr-only">(current)</span></a>
+						<?php echo $this->Html->link(__('Home'), '/', ['class' => "nav-link"]);?>	
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="add"><?= __('Add a Word');?> <span class="sr-only">(current)</span></a>
+						<?php echo $this->Html->link(__('Add a Word'), '/add', ['class' => "nav-link"]);?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="about"><?= __('About Us');?> <span class="sr-only">(current)</span></a>
+						<?php echo $this->Html->link(__('About Us'), '/about', ['class' => "nav-link"]);?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="notes"><?= __('Notes');?> <span class="sr-only">(current)</span></a>
+						<?php echo $this->Html->link(__('Notes'), '/notes', ['class' => "nav-link"]);?>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="https://www.jewishlanguages.org">Jewish Languages <span class="sr-only">(current)</span></a>

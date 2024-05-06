@@ -1,10 +1,4 @@
 <section id="main">
-	<!--<nav id="browse" class="group">
-	<form id="results_search" class="group" type="GET" action="/search">
-				<input type="text" placeholder="Search" name="q" value="<?php if (isset($q)) {echo $q;}?>"/>
-				<a class="button blue" onclick="document.getElementById('results_search').submit();"><i class="icon-search"></i></a>
-			</form>
-	</nav>-->
 	<div id="browse_info">
 		<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b> <?= __('returned'); ?> <?php echo $this->Paginator->counter('{{count}}');?> <?= __('results.');?></p>
 	</div>
@@ -12,7 +6,7 @@
 
 		<div class="c content">
 			<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
-			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="icon-plus-sign"></i> Add a new word', '/add',
+			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="fa-solid fa-plus"></i> ' . __('Add a new word'), '/add',
 										['class' => 'button blue', 'escape' => false]);?></p>
 		</div>
 
