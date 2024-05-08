@@ -329,7 +329,9 @@ class WordsTable extends Table
             $results = $query->all();
             return json_encode($results);
         } else {
-            return $query;
+            $results = $query->all();
+            return $results->toArray();
+            //return $query;
         }
     }
 
