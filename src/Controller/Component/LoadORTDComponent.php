@@ -8,12 +8,12 @@ use Cake\ORM\TableRegistry;
 class LoadORTDComponent extends Component
 {
     public function getORTD($sitelang){
-        $this->Origins = TableRegistry::get('Origins');
-        $this->Regions = TableRegistry::get('Regions');
-        $this->Types = TableRegistry::get('Types');
-        $this->TypeCategories = TableRegistry::get('TypeCategories');
-        $this->Dictionaries = TableRegistry::get('Dictionaries');
-        $this->Words = TableRegistry::get('Words');
+        $this->Origins = TableRegistry::getTableLocator()->get('Origins');
+        $this->Regions = TableRegistry::getTableLocator()->get('Regions');
+        $this->Types = TableRegistry::getTableLocator()->get('Types');
+        $this->TypeCategories = TableRegistry::getTableLocator()->get('TypeCategories');
+        $this->Dictionaries = TableRegistry::getTableLocator()->get('Dictionaries');
+        $this->Words = TableRegistry::getTableLocator()->get('Words');
         #array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries', 'TypeCategories']); //load Models so we can get for the homepage dropdown
 
             $tagging = [];

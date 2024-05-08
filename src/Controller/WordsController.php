@@ -6,6 +6,9 @@ use Cake\Http\Client;
 use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
+use Cake\Http\Exception\InternalErrorException;
+use Cake\Network\Exception\NotFoundException;
+use Cake\Utility\Hash;
 /**
  * Words Controller
  *
@@ -66,11 +69,11 @@ class WordsController extends AppController
                 'Dictionaries'
             ], 'limit' => 100];
         
-        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE));
+        $words = $this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE);
 
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'cc', 'ortd', 'words', 'title', 'sitelang'));
+        $this->set(compact('words', 'current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
 
@@ -437,7 +440,7 @@ class WordsController extends AppController
 
     public function browsewords(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         $ortdarray["Origins"] = [];
@@ -445,19 +448,21 @@ class WordsController extends AppController
         $ortdarray["Types"] = [];
         $ortdarray["Dictionaries"] = [];
 
-        if( $this->request->is('post') ) {
+        if( $this->request->is('POST') ) {
             $data = $this->request->getData();
-            
-            $resultArray = [];
+            //$data = $this->request->getData();
+            //debug($data);
+            if (isset($data['selectedOptions'])) {
+                $resultArray = [];
 
-            //debug($data["selectedOptions"]);
-            $sentValue = $data["selectedOptions"];
-            array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
+                
+                $sentValue = $data["selectedOptions"];
+                array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
 
-            //debug($ortdarray);
-            
-            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
-            //debug($browsewords);
+                //debug($ortdarray);
+                
+                $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+                //debug($browsewords);
             
             //$resultArray[] = $word_ids;
 
@@ -466,11 +471,18 @@ class WordsController extends AppController
 
             //$browsewords = $this->Words->browse_words_and_step_2($commonValues);
 
-            $response_with_language['language'] = $sitelang->id;
-            $response_with_language['words'] = $browsewords;
-            $response['success'] = $response_with_language;
-            
+                $response_with_language['language'] = $sitelang->id;
+                $response_with_language['words'] = $browsewords;
+                $response['success'] = $response_with_language;
+                $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+                return $this->response;
+            } else {
+                // 'selectedOptions' key is missing in the posted data
+                throw new InternalErrorException('Missing required data: selectedOptions');
+            }
         } else {
+            throw new NotFoundException('Invalid request method');
             $response['success'] = 0;
         }
 
@@ -482,7 +494,7 @@ class WordsController extends AppController
 
     public function browsewords2(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         
@@ -506,9 +518,12 @@ class WordsController extends AppController
                     $response['success'] = $response_with_language;
                 }
 
-                $this->set(compact('response'));
-                $this->viewBuilder()->setOption('serialize', true);
-                $this->RequestHandler->renderAs($this, 'json');
+                //$this->set(compact('response'));
+                //$this->viewBuilder()->setOption('serialize', true);
+                //$this->RequestHandler->renderAs($this, 'json');
+                $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+                return $this->response;
             }
     }
     /**

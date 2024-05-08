@@ -15,13 +15,7 @@
 		overlays: {bottom: true}
 	});
 	</script>
-	<?php echo $this->Html->meta([
-		'rel' => 'preload',
-		'href' => $this->Url->assetUrl(
-			'/font/fontawesome-webfont.woff2'
-		),
-		'as' => 'font']
-	);?>
+	
 	<!--<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>-->
 	
 	<?php echo $this->Html->css('output.css');?>
@@ -31,7 +25,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 	
 	<?php echo $this->Html->css('fontawesome');?>
-	<?php echo $this->Html->css('solid');?>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 	<!-- Include stylesheet -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
