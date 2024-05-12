@@ -16,11 +16,9 @@
 	});
 	</script>
 	
-	<!--<script src="https://kit.fontawesome.com/3f405633a9.js" crossorigin="anonymous"></script>-->
 	
 	<?php echo $this->Html->css('output.css');?>
 	<?php echo $this->Html->css('checkboxes.css');?>
-	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">-->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 	
@@ -33,7 +31,6 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalytics ?>"></script>
 	<script>
@@ -55,18 +52,17 @@
 	</script>
 	<?php endif; ?>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 	<?= $this->Html->script('addform')."\n";?>
 	<?= $this->Html->script('audioplayback')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
-<?= $this->Html->script('recorder')."\n";?>
-<?= $this->Html->script('toggle')."\n";?>
-<?= $this->Html->script('fontawesome')."\n";?>
-<?= $this->Html->script('solid')."\n";?>
+	<?= $this->Html->script('recorder')."\n";?>
+	<?= $this->Html->script('toggle')."\n";?>
+	<?= $this->Html->script('fontawesome')."\n";?>
+	<?= $this->Html->script('solid')."\n";?>
 
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<?= $this->Html->script('detectios')."\n";?>
-<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<?= $this->Html->script('detectios')."\n";?>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </head>
 <body>
@@ -108,7 +104,6 @@
 
 			<form class="form-inline" type="GET" action="search">
 				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
-				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
 			</form>
 		</div> <!-- nav -->
 			</nav>
@@ -129,7 +124,6 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
     <?= $this->fetch('content') ?>
 	
 	</div>
-	<!--<div class="cfooter"></div>-->
 <div>
 
 

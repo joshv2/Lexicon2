@@ -9,6 +9,9 @@ use Cake\Collection\Collection;
 use Cake\Http\Exception\InternalErrorException;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Hash;
+use Cake\Datasource\PaginatorInterface;
+use Cake\Datasource\FactoryLocator;
+
 /**
  * Words Controller
  *
@@ -38,7 +41,7 @@ class WordsController extends AppController
         //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $sitelang = $this->languageinfo();
         //private function 
-        
+        //$this->loadComponent('Paginator');
         $ortd = $this->LoadORTD->getORTD($sitelang);
 
         $originvalue = [$this->request->getQuery('origin')];
@@ -58,22 +61,25 @@ class WordsController extends AppController
             }
         }
 
+        //$paginator = FactoryLocator::get('Paginator');
 
-   
-        $this->paginate = [
-            'contain' => [
-                'Definitions',
-                'Origins',
-                'Regions',
-                'Types',
-                'Dictionaries'
-            ], 'limit' => 100];
         
-        $words = $this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE);
+        $query =  $this->Words->browse_words_filter(
+                $originvalue, 
+                $regionvalue, 
+                $typevalue, 
+                $dictionaryvalue, 
+                FALSE, 
+                $sitelang->id,TRUE);
+        //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
+        
+        //$query = $this->Articles->find('published')->contain('Comments');
+        $this->set('words', $this->paginate($query));
 
+        //$words = $paginator->paginate(
         $title = 'Home';
 
-        $this->set(compact('words', 'current_condition', 'cc', 'ortd', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
 
@@ -416,7 +422,7 @@ class WordsController extends AppController
 
     public function checkforword(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         if( $this->request->is('post') ) {
@@ -433,9 +439,12 @@ class WordsController extends AppController
         //$spelling = $this->request->getData('spelling');
         //debug($spelling);
         //$data = $this->Words->findWithSpelling($spelling);
-        $this->set(compact('response'));
-        $this->viewBuilder()->setOption('serialize', true);
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->set(compact('response'));
+        //$this->viewBuilder()->setOption('serialize', true);
+        //$this->RequestHandler->renderAs($this, 'json');
+        $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+        return $this->response;
     }
 
     public function browsewords(){
