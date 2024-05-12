@@ -174,7 +174,7 @@ class AppController extends Controller
 
         //$this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        //$this->loadComponent('Processfile');
+        $this->loadComponent('Processfile');
         //$this->loadComponent('Authentication.Authentication');
         //$this->loadComponent('CakeDC.User');
 
