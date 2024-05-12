@@ -11,6 +11,14 @@ use Cake\Log\Log;
  */
 class PronunciationsController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('ProcessFile');
+        //$this->loadComponent('LoadORTD');
+
+    }
+    
     /**
      * Index method
      *
