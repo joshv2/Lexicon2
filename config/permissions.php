@@ -206,6 +206,6 @@ return [
             'controller' => '*',
             'action' => '*',
             'bypassAuth' => true,
-        ],       
+        ],
     ]
 ];
