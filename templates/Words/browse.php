@@ -10,7 +10,7 @@
 <section id="main">
 	<nav id="crumbs" class="group">
 		<ul class="right">
-			<li><?=$this->Html->link('<i class="icon-plus-sign"></i>' . __('Add a new word'), '/add',
+			<li><?=$this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> ' . __('Add a new word'), '/add',
 											['class' => 'button blue', 'escape' => false]);?></li>
 		</ul>
 	</nav>
@@ -103,9 +103,7 @@
 				echo "";
 			 }
 				?></div>	
-			<p id="paging_info">
-				<?php echo $this->Paginator->counter(__('{{start}} - {{end}} of {{count}}'));?>
-			</p>
+
 		</div>
 		
 		<ul class="word-list">
@@ -122,12 +120,14 @@
 
 		</ul>
 		<div class="pagination">
+
 			<?php if ($this->Paginator->hasPrev()) :?>
 				<?= $this->Paginator->prev(' << ' . __('previous'));?>
 			<?php endif ?>
 			<?php if ($this->Paginator->hasNext()) :?>
 				<?= $this->Paginator->next(' >> ' . __('next'));?>
 			<?php endif ?>	
+
 		</div>
 	<?php endif;?>
 

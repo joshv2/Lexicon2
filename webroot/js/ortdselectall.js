@@ -62,11 +62,18 @@ function toggleDropdown(dropdownId) {
     function updateLocalStorageAndFilter(selectedOptions, storedCheckboxData) {
         // Get the current checked values
         var currentCheckboxData = {};
-
+        if (typeof selectedOptions === 'undefined') {
+            // If selectedOptions is undefined, initialize it as an empty array
+            var selectedOptions = [];
+        }
+        console.log(selectedOptions);
         selectedOptions.forEach(value => {
+            console.log(value);
             if (!storedCheckboxData.hasOwnProperty(value)) {
+                //console.log(wordIdsResponse.response.success.words);
                 const wordIdsResponse = postDataSync1(value);
-                storedCheckboxData[JSON.stringify(value)] = wordIdsResponse.response.success.words
+                storedCheckboxData[JSON.stringify(value)] = wordIdsResponse.success.words //response.
+                
                 localStorage.setItem('checkboxData', JSON.stringify(storedCheckboxData));
             }
           });
@@ -94,12 +101,12 @@ function toggleDropdown(dropdownId) {
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrfToken"]').attr('content'));
       
         try {
+          console.log(JSON.stringify({selectedOptions: data}));
           xhr.send(JSON.stringify({selectedOptions: data}));
-      
           if (xhr.status === 200) {
             // Successful response
             var jsonResponse = JSON.parse(xhr.responseText);
-            //console.log(jsonResponse);
+            console.log("pds1:" + jsonResponse);
             return jsonResponse;
           } else {
             // Handle error
@@ -126,8 +133,19 @@ function toggleDropdown(dropdownId) {
       
         // Find the intersection of all sets
         const commonValues = sets.reduce((intersection, currentSet) => {
+          // Check if intersection is empty (first iteration)
+          if (intersection.size === 0) {
+              // Return currentSet as the initial value
+              return currentSet;
+          } else {
+              // Return the intersection of intersection and currentSet
+              return new Set([...intersection].filter(value => currentSet.has(value)));
+          }
+      }, new Set());
+
+        /*const commonValues = sets.reduce((intersection, currentSet) => {
           return new Set([...intersection].filter(value => currentSet.has(value)));
-        });
+        });*/
       
         // Convert the set to an array if needed
         const commonValuesArray = Array.from(commonValues);
@@ -163,7 +181,7 @@ function toggleDropdown(dropdownId) {
             // Check if the element exists before manipulating it
             if (element) {
               // Set the innerHTML to an empty string to remove its content
-              element.innerHTML = 'Words returned: ' + JSON.parse(data.response.success.words).length;
+              element.innerHTML = 'Words returned: ' + JSON.parse(data.success.words).length;
             }
     
             const elements2 = document.querySelectorAll('.pagination');
@@ -208,7 +226,7 @@ function toggleDropdown(dropdownId) {
       }
     
       function generateHTML(data) {
-        let wordresponse = JSON.parse(data.response.success.words);
+        let wordresponse = JSON.parse(data.success.words);
         console.log(wordresponse.length);
         let html = '';
         if (wordresponse.length > 0) {
@@ -217,14 +235,14 @@ function toggleDropdown(dropdownId) {
               html += `<li class="group">
               <div class="word-main">
                 <h3><a href='words/${item.id}'>${item.spelling}</a></h3>
-                <a href='words/${item.id}' class='noborder'>${get_translation(data.response.success.language)[0]}<i class="fa fa-caret-down"></i></a>
+                <a href='words/${item.id}' class='noborder'>${get_translation(data.success.language)[0]}<i class="fa fa-caret-down"></i></a>
               </div>
             </li>`;
           }
           html += '</ul>';
         } else {
           html += `<div class="c content">
-                <p>${get_translation(data.response.success.language)[1]}</p>
+                <p>${get_translation(data.success.language)[1]}</p>
             </div>`
         }
     
@@ -234,4 +252,4 @@ function toggleDropdown(dropdownId) {
     $('#filterButton').on('click', updateLocalStorageAndFilter);
 
     // Trigger the function on page load
-    updateLocalStorageAndFilter();
+    //updateLocalStorageAndFilter();

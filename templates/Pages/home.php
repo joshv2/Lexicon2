@@ -36,7 +36,7 @@ $(document).ready(function() {
 		<div class="internal-home" id="upperhomesearch">
 			<form id="home_search" class="group m3" type="GET" action="/search">
 				<?php echo '<input type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
-				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
+				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="fa-solid fa-magnifying-glass"></i></a>
 			</form>
 			<hr class="m2" />
 		</div>
@@ -73,7 +73,7 @@ $(document).ready(function() {
 			<!--<h3><?=__("SEARCH:")?></h3>-->
 			<form id="home_search" class="group m3" type="GET" action="/search">
 				<?php echo '<input id="btmsearch" type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
-				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="icon-search"></i></a>
+				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="fa-solid fa-magnifying-glass"></i></a>
 			</form>
 			<hr class="m2" />
 		</div>
@@ -85,7 +85,7 @@ $(document).ready(function() {
 		<?php if($sitelang->hasOrigins): ?>
 			<details class="home2_details">
 				<summary class="home2_summary">
-					<i class="icon-comments-alt"></i> <?=__("Languages of origin")?>
+					<i class="fa-solid fa-comments"></i> <?=__("Languages of origin")?>
 				</summary>
 				<ul class="adv_search_ul">
 				<?php foreach ($origins as &$neworigin){
@@ -101,7 +101,7 @@ $(document).ready(function() {
 		<?php if($sitelang->hasRegions): ?>
 			<details class="home2_details">
 				<summary class="home2_summary">
-					<i class="icon-globe"></i> <?=__("Regions in which the word is used")?>
+				 <i class="fa-solid fa-globe"></i> <?=__("Regions in which the word is used")?>
 				</summary>
 				<ul class="adv_search_ul">
 					
@@ -118,7 +118,7 @@ $(document).ready(function() {
 		<?php if($sitelang->hasTypes): ?>
 			<details class="home2_details">
 				<summary class="home2_summary">
-					<i class="icon-user"></i> <?=__("Types of people who tend to use the word")?>
+					<i class="fa-solid fa-users"></i> <?=__("Types of people who tend to use the word")?>
 				</summary>
 				<ul class="adv_search_ul">
 				<?php 
@@ -164,7 +164,7 @@ $(document).ready(function() {
 		<?php if($sitelang->hasDictionaries): ?>
 			<details class="home2_details">
 				<summary class="home2_summary">
-					<i class="icon-book"></i> <?=__("Dictionaries in which the word appears")?>
+					<i class="fa-solid fa-book"></i> <?=__("Dictionaries in which the word appears")?>
 				</summary>
 				<ul class="adv_search_ul">
 					<?php foreach ($dictionaries as $id => $o):?>

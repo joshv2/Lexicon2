@@ -10,7 +10,7 @@ use \CloudConvert\Models\ImportUploadTask;
 
 class ProcessfileComponent extends Component
 {
-    public $components = ['Flash'];
+    protected array $components = ['Flash'];
 
     public function areThereAnyFiles($soundFiles){
         $errorArray = [];
