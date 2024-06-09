@@ -6,6 +6,12 @@ use Cake\Http\Client;
 use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
+use Cake\Http\Exception\InternalErrorException;
+use Cake\Network\Exception\NotFoundException;
+use Cake\Utility\Hash;
+use Cake\Datasource\PaginatorInterface;
+use Cake\Datasource\FactoryLocator;
+
 /**
  * Words Controller
  *
@@ -18,8 +24,9 @@ class WordsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadComponent('Paginator');
+        //$this->loadComponent('Paginator');
         $this->loadComponent('LoadORTD');
+
     }
     
     /**
@@ -29,10 +36,12 @@ class WordsController extends AppController
      */
     public function index()
     {
-        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+
+        
+        //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $sitelang = $this->languageinfo();
         //private function 
-        
+        //$this->loadComponent('Paginator');
         $ortd = $this->LoadORTD->getORTD($sitelang);
 
         $originvalue = [$this->request->getQuery('origin')];
@@ -52,28 +61,31 @@ class WordsController extends AppController
             }
         }
 
+        //$paginator = FactoryLocator::get('Paginator');
 
-   
-        $this->paginate = [
-            'contain' => [
-                'Definitions',
-                'Origins',
-                'Regions',
-                'Types',
-                'Dictionaries'
-            ], 'limit' => 100];
         
-        $words = $this->paginate($this->Words->browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, FALSE, $sitelang->id,TRUE));
+        $query =  $this->Words->browse_words_filter(
+                $originvalue, 
+                $regionvalue, 
+                $typevalue, 
+                $dictionaryvalue, 
+                FALSE, 
+                $sitelang->id,TRUE);
+        //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
+        
+        //$query = $this->Articles->find('published')->contain('Comments');
+        $this->set('words', $this->paginate($query));
 
+        //$words = $paginator->paginate(
         $title = 'Home';
 
-        $this->set(compact('current_condition', 'cc', 'ortd', 'words', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
 
     public function random() {
         $sitelang = $this->languageinfo();
-        $words = $this->Paginator->paginate($this->Words->get_random_words($sitelang->id));
+        $words = $this->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
         $this->set(compact('words', 'title', 'sitelang'));
 
@@ -284,7 +296,7 @@ class WordsController extends AppController
                 }
             }
 
-            array_map([$this, 'loadModel'], ['Origins']);
+            //array_map([$this, 'loadModel'], ['Origins']);
             $processedOrigins = [];
             if($postData['origins']['_ids'] !== ''){
                 foreach ($postData['origins']['_ids'] as $originid){
@@ -292,12 +304,12 @@ class WordsController extends AppController
                 }
                 
                 if ($postData['origin_other_entry'] !== ''){
-                    #echo count($this->Origins->get_region_by_name($postData['origin_other_entry']));
-                    if (count($this->Origins->get_region_by_name($postData['origin_other_entry'])) == 0) {
+                    #echo count($this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry']));
+                    if (count($this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])) == 0) {
                         array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
                         unset($postData['origin_other_entry']);
                     } else {
-                        array_push($processedOrigins, [ 'id' => $this->Origins->get_region_by_name($postData['origin_other_entry'])[0] ]);
+                        array_push($processedOrigins, [ 'id' => $this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])[0] ]);
                         unset($postData['origin_other_entry']);
                     }
                     unset($postData['origins']['_ids']);
@@ -393,15 +405,15 @@ class WordsController extends AppController
             $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
 
-        array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+        //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $specialother = '';
         $specialothervalue = '';
         $specialothertype = '';
         $specialothervaluetype = '';
-        $origins = $this->Origins->top_origins($sitelang->id);
-        $regions = $this->Regions->top_regions($sitelang->id);
-        $types = $this->Types->top_types($sitelang->id);
-        $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
+        $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
+        $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
+        $types = $this->fetchTable('Types')->top_types($sitelang->id);
+        $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
@@ -410,7 +422,7 @@ class WordsController extends AppController
 
     public function checkforword(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         if( $this->request->is('post') ) {
@@ -427,14 +439,17 @@ class WordsController extends AppController
         //$spelling = $this->request->getData('spelling');
         //debug($spelling);
         //$data = $this->Words->findWithSpelling($spelling);
-        $this->set(compact('response'));
-        $this->viewBuilder()->setOption('serialize', true);
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->set(compact('response'));
+        //$this->viewBuilder()->setOption('serialize', true);
+        //$this->RequestHandler->renderAs($this, 'json');
+        $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+        return $this->response;
     }
 
     public function browsewords(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         $ortdarray["Origins"] = [];
@@ -442,19 +457,21 @@ class WordsController extends AppController
         $ortdarray["Types"] = [];
         $ortdarray["Dictionaries"] = [];
 
-        if( $this->request->is('post') ) {
+        if( $this->request->is('POST') ) {
             $data = $this->request->getData();
-            
-            $resultArray = [];
+            //$data = $this->request->getData();
+            //debug($data);
+            if (isset($data['selectedOptions'])) {
+                $resultArray = [];
 
-            //debug($data["selectedOptions"]);
-            $sentValue = $data["selectedOptions"];
-            array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
+                
+                $sentValue = $data["selectedOptions"];
+                array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
 
-            //debug($ortdarray);
-            
-            $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
-            //debug($browsewords);
+                //debug($ortdarray);
+                
+                $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
+                //debug($browsewords);
             
             //$resultArray[] = $word_ids;
 
@@ -463,11 +480,18 @@ class WordsController extends AppController
 
             //$browsewords = $this->Words->browse_words_and_step_2($commonValues);
 
-            $response_with_language['language'] = $sitelang->id;
-            $response_with_language['words'] = $browsewords;
-            $response['success'] = $response_with_language;
-            
+                $response_with_language['language'] = $sitelang->id;
+                $response_with_language['words'] = $browsewords;
+                $response['success'] = $response_with_language;
+                $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+                return $this->response;
+            } else {
+                // 'selectedOptions' key is missing in the posted data
+                throw new InternalErrorException('Missing required data: selectedOptions');
+            }
         } else {
+            throw new NotFoundException('Invalid request method');
             $response['success'] = 0;
         }
 
@@ -479,7 +503,7 @@ class WordsController extends AppController
 
     public function browsewords2(){
         $sitelang = $this->languageinfo();
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
         
@@ -503,9 +527,12 @@ class WordsController extends AppController
                     $response['success'] = $response_with_language;
                 }
 
-                $this->set(compact('response'));
-                $this->viewBuilder()->setOption('serialize', true);
-                $this->RequestHandler->renderAs($this, 'json');
+                //$this->set(compact('response'));
+                //$this->viewBuilder()->setOption('serialize', true);
+                //$this->RequestHandler->renderAs($this, 'json');
+                $this->response = $this->response->withType('application/json')
+                    ->withStringBody(json_encode($response));
+                return $this->response;
             }
     }
     /**
@@ -610,7 +637,7 @@ class WordsController extends AppController
                     }
                 }
 
-                array_map([$this, 'loadModel'], ['Origins']);
+                //array_map([$this, 'loadModel'], ['Origins']);
                 $processedOrigins = [];
                 $pattern2 = '/^origin_other_entry/';
                 $postkeys = array_keys($postData);
@@ -621,11 +648,11 @@ class WordsController extends AppController
                         array_push($processedOrigins, array('id' => $originid));
                     }
                     if ($postData[$otheroriginskey] !== ''){
-                        if (count($this->Origins->get_region_by_name($postData[$otheroriginskey])) == 0) {
+                        if (count($this->fetchTable('Origins')->get_region_by_name($postData[$otheroriginskey])) == 0) {
                             array_push($processedOrigins, [ 'origin' => $postData[$otheroriginskey]]);
                             unset($postData[$otheroriginskey]);
                         } else {
-                            array_push($processedOrigins, [ 'id' => $this->Origins->get_region_by_name($postData[$otheroriginskey])[0] ]);
+                            array_push($processedOrigins, [ 'id' => $this->fetchTable('Origins')->get_region_by_name($postData[$otheroriginskey])[0] ]);
                             unset($postData[$otheroriginskey]);
                         }
                         unset($postData['origins']['_ids']);
@@ -696,9 +723,9 @@ class WordsController extends AppController
                 $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
             
-            array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+            //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
 
-            $origins = $this->Origins->top_origins($sitelang->id);
+            $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
 
             $specialother = '';
             $specialothervalue = '';
@@ -709,7 +736,7 @@ class WordsController extends AppController
                 }
             }
 
-            $types = $this->Types->top_types($sitelang->id);
+            $types = $this->fetchTable('Types')->top_types($sitelang->id);
 
             $specialothertype = '';
             $specialothervaluetype = '';
@@ -721,9 +748,9 @@ class WordsController extends AppController
                 }
             }
 
-            $regions = $this->Regions->top_regions($sitelang->id);
+            $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
             
-            $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
+            $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
             //$alternates = $this->Words->Alternates->find('list');
             $title = 'Edit: ' . $word->spelling;
             $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));

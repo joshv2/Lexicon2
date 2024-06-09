@@ -25,7 +25,7 @@ class SentenceRecording extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'sentence_id' => true,
         'sound_file' => true,
         'sentence' => true,

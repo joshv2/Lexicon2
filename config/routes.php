@@ -70,6 +70,7 @@ use Cake\Routing\RouteBuilder;
     /*
      * ...and connect the rest of 'Pages' controller's URLs.
      */
+    //$builder->connect('/login', ['controller' => 'Pages', 'action' => 'index', 'plugin' => 'false']);
     $builder->connect('/pages/*', 'Pages::display');
 
     $builder->connect('/alphabetical', ['controller' => 'Words', 'action' => 'alphabetical', 'a']);
@@ -99,6 +100,7 @@ use Cake\Routing\RouteBuilder;
      * routes you want in your application.
      */
     $builder->fallbacks();
+    
 });
 
 /*

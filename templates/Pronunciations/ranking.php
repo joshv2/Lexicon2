@@ -73,7 +73,7 @@
                                                     (!empty($p->submitting_user->username)) ? $p->submitting_user->username : 'Submitted by Public',
                                                     $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
                                                     $this->Form->postLink(__(
-                                                        '<i class="icon-trash"></i> Delete'),
+                                                        '<i class="fa-solid fa-trash"></i> Delete'),
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 
                                                         ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']),
                                                     $this->Html->link('<i class="fas fa-times"></i> Deny',

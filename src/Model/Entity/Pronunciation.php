@@ -28,7 +28,7 @@ class Pronunciation extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'word_id' => true,
         'spelling' => true,
         'sound_file' => true,
