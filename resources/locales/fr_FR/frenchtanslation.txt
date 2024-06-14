@@ -1,589 +1,401 @@
 msgid "The alternate has been saved."
-msgstr ""
-
-
-
+msgstr "La variante a été sauvegardée"
 msgid "The alternate could not be saved. Please, try again."
-msgstr ""
-
-
+msgstr "La variante n’a pas pu être sauvegardée. Réessayez s’il vous plaît"
 msgid "The alternate has been deleted."
-msgstr ""
-
-
+msgstr "La variante a été effacée"
 msgid "The alternate could not be deleted. Please, try again."
-msgstr ""
-
-
-
+msgstr "La variante n’a pas pu être effacée. Réessayez s’il vous plaît"
 msgid "The definition has been saved."
-msgstr ""
-
-
-
+msgstr "La définition a été sauvegardée"
 msgid "The definition could not be saved. Please, try again."
-msgstr ""
-
-
+msgstr "La définition n’a pas pu être sauvegardée. Réessayez s’il vous plaît"
 msgid "The definition has been deleted."
-msgstr ""
-
-
+msgstr "La définition a été effacée"
 msgid "The definition could not be deleted. Please, try again."
-msgstr ""
-
-
+msgstr "La définition n’a pas pu être effacée. Réessayez s’il vous plaît"
 msgid "The pronunciation has been saved."
-msgstr ""
-
-
-
-
+msgstr "La transcription phonétique a été sauvegardée"
 msgid "The pronunciation could not be saved. Please, try again."
-msgstr ""
-
-
-
+msgstr "La transcription phonétique n’a pas pu être sauvegardée. Réessayez s’il vous plaît"
 msgid "The sentence has been saved."
-msgstr ""
-
-
-
+msgstr "La phrase a été sauvegardée"
 msgid "The sentence could not be saved. Please, try again."
-msgstr ""
-
-
-
+msgstr "La phrase n’a pas pu être sauvegaedée. Réessayez s’il vous plaît"
 msgid "The suggestion has been saved."
-msgstr ""
-
-
-
+msgstr "La suggestion a été sauvegardée"
 msgid "The suggestion could not be saved. Please, try again."
-msgstr ""
-
-
-
+msgstr "La suggestion n’a pas pu être sauvegardée. Réessayez s’il vous plaît"
 msgid "The word could not be saved. Please, try again."
-msgstr ""
-
-
+msgstr "Le mot n’a pas pu être sauvegardé. Réessayez s’il vous plaît"
 msgid "The word has been saved."
-msgstr ""
-
+msgstr "Le mot a été sauvegardé"
 msgid "Submit"
-msgstr ""
-
+msgstr "Déposez"
 msgid "Delete"
-msgstr ""
-
+msgstr "Effacez"
 msgid "Are you sure you want to delete # {0}?"
-msgstr ""
-
+msgstr "Êtes-vous sûr(e) de vouloir effacer"
 msgid "View"
-msgstr ""
-
+msgstr "Visionnez"
 msgid "Edit"
-msgstr ""
-
-
+msgstr "Modifiez"
 msgid "first"
-msgstr ""
-
+msgstr "premier"
 msgid "previous"
-msgstr ""
-
+msgstr "précédent"
 msgid "next"
-msgstr ""
-
+msgstr "suivant"
 msgid "last"
-msgstr ""
-
+msgstr "dernier"
 msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr ""
-
+msgstr "page {{page}} de {{pages}}" “présentation le(s) récapitulatif(s) à jour du {{décompte}}
+total
 msgid "Word"
-msgstr ""
-
+msgstr "mot"
 msgid "Spelling"
-msgstr ""
-
+msgstr "orthographe"
 msgid "Related Words"
-msgstr ""
-
+msgstr "mots apparentés"
 msgid "Etymology"
-msgstr ""
-
+msgstr "étymologie"
 msgid "Notes"
 msgstr "Notes"
-
 msgid "Created"
-msgstr ""
-
+msgstr "créé"
 msgid "Approved"
-msgstr ""
-
+msgstr "approuvez"
 msgid "Welcome"
-msgstr ""
-
+msgstr "Bienvenue"
 msgid "Enter the Lexicon"
 msgstr "Accès au glossaire"
-
 msgid "Coming Soon."
-msgstr ""
-
+msgstr "bientôt en ligne"
 msgid "About Us"
 msgstr "Qui sommes-nous?"
-
 msgid "First time here? Read our "
 msgstr "Si vous entrez ici pour la première fois, lisez donc notre"
-
 msgid "welcome "
 msgstr "page d'accueil"
-
 msgid "page"
-msgstr ""
-
+msgstr "page"
 msgid "The lexicon currently has "
 msgstr "A ce jour le glossaire contient "
-
 msgid "entries."
 msgstr "entrées."
-
 msgid "BROWSE:"
 msgstr "FEUILLETEZ:"
-
 msgid "SEARCH:"
 msgstr "RECHERCHE:"
-
 msgid "NOTES"
 msgstr "NOTES"
-
 msgid "for information about these languages, dictionaries, and types of people."
 msgstr "pour plus d’information sur les langues, les dictionnaires et les groupes de locuteurs"
-
 msgid "Languages of origin"
 msgstr "Langue d'origine"
-
 msgid "Other"
-msgstr ""
-
+msgstr "autre"
 msgid "Regions in which the word is used"
 msgstr "Régions où ce mot est usité"
-
 msgid "Types of people who tend to use the word"
 msgstr "Catégories de personnes qui ont tendance à utiliser ce mot"
-
 msgid "Dictionaries in which the word appears"
 msgstr "Catégories de personnes qui ont tendance à utiliser ce mot"
-
 msgid "None"
-msgstr ""
-
+msgstr "Aucun"
 msgid "CAN'T FIND A WORD?"
 msgstr "JE N'ARRIVE PAS A TROUVER UN MOT"
-
-msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
-msgstr "Comme tant d'autres sites interactifs comme Wikipédia ou Word Reference Forum le Glossaire du français juif ne peut exister que si les visiteurs participent à la vie du site. Prenez donc quelques minutes de votre temps pour ajouter un mot ou deux au glossaire!"
-
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish
+English Lexicon is made possible by visitor participation. Please take a few minutes to add a
+word or two."
+msgstr "Comme tant d'autres sites interactifs comme Wikipédia ou Word Reference Forum le
+Glossaire du français juif ne peut exister que si les visiteurs participent à la vie du site. Prenez
+donc quelques minutes de votre temps pour ajouter un ou deux mots au glossaire!"
 msgid "Add Pronunciation for "
-msgstr ""
-
-msgid "Pronuciation (Spelling)"
-msgstr ""
-
+msgstr "ajoutez une transcription phonétique pour"
+msgid "Pronunciation (Spelling)"
+msgstr "prononciation (orthographe)"
 msgid "Phonetic Spelling"
-msgstr ""
-
+msgstr "translittération phonétique"
 msgid "Record"
-msgstr ""
-
+msgstr "enregistrez"
 msgid "spelling"
-msgstr ""
-
+msgstr "orthographe"
 msgid "pronunciation"
-msgstr ""
-
+msgstr "transcription phonétique"
 msgid "New Pronunciation"
-msgstr ""
-
+msgstr "nouvelle transcription phonétique"
 msgid "Pronunciations"
-msgstr ""
-
+msgstr "transcriptions phonétiques"
 msgid "Pronunciation"
-msgstr ""
-
+msgstr "transcription phonétique"
 msgid "Region"
-msgstr ""
-
+msgstr "région"
 msgid "Top"
-msgstr ""
-
+msgstr "haut de page"
 msgid "Yes"
-msgstr ""
-
+msgstr "oui"
 msgid "No"
-msgstr ""
-
+msgstr "nom"
 msgid "Your search for"
-msgstr ""
-
+msgstr "votre recherche de"
 msgid "returned"
-msgstr ""
-
+msgstr "renvoyé"
 msgid "results."
-msgstr ""
-
+msgstr "résultats"
 msgid "That word is not yet in the database. Try searching with a different spelling."
-msgstr "Ce mot ne figure pas encore dans la banque de données. Essayez de le chercher sous une autre orthographe."
-
+msgstr "Ce mot ne figure pas encore dans la banque de données. Essayez de le chercher sous
+une autre orthographe."
 msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
-msgstr "Si vous ne le trouvez toujours pas, veuillez enrichir le glossaire en y ajoutant le mot manquant."
-
+msgstr "Si vous ne le trouvez toujours pas, veuillez enrichir le glossaire en y ajoutant le mot
+manquant."
 msgid "See full entry"
-msgstr ""
-
+msgstr "Voir le texte complet de l’entrée"
 msgid "SEE FULL ENTRY"
-msgstr ""
-
+msgstr "VOIR LE TEXTE COMPLET DE L’ENTREE"
 msgid "Sentences"
-msgstr ""
-
+msgstr “phrases"
 msgid "Sentence"
-msgstr ""
-
+msgstr "phrase"
 msgid "Add Suggestion for "
-msgstr ""
-
+msgstr "Ajoutez une suggestion pour"
 msgid "New Suggestion"
-msgstr ""
-
+msgstr "Nouvelle suggestion"
 msgid "Suggestions"
-msgstr ""
-
+msgstr "suggestions"
 msgid "New"
-msgstr ""
-
+msgstr "nouveau"
 msgid "word"
-msgstr ""
-
+msgstr "mot"
 msgid "Most Common Spelling"
 msgstr "Graphie la plus commune"
-
 msgid "Alternate Spelling(s)"
-msgstr "Graphies alternative(s)"
-
+msgstr "Graphie(s) alternative(s)"
 msgid "Add an additional spelling"
 msgstr "Ajoutez une autre graphie"
-
 msgid "Remove"
 msgstr "Enlevez la graphie"
-
 msgid "Phonetic Spelling "
-msgstr ""
-
-msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
-msgstr ""
-
+msgstr "Translittération phonétique"
+msgid "Using dashes and capital letters indicates syllable and stress, e.g., 'te-SHOO-vuh' vs.
+'tshoo-VAH'"
+msgstr "L’utilisation de tirets et de majuscules permet d’indiquer la syllabation et l’accent
+tonique"
 msgid "Recorded"
-msgstr ""
-
+msgstr "enregistré"
 msgid "Add an additional pronunciation"
-msgstr ""
-
+msgstr "ajoutez une autre prononciation"
 msgid "Definition(s)"
-msgstr ""
-
+msgstr "définitions(s)"
 msgid "Add an additional definition"
-msgstr ""
-
+msgstr "Ajoutez une autre définition"
 msgid "Example Sentence(s)"
-msgstr ""
-
+msgstr “Phrases typiques"
 msgid "Add an additional sentence"
-msgstr ""
-
+msgstr "Ajoutez une phrase supplémentaire"
 msgid "Language(s) of Origin"
-msgstr ""
-
+msgstr "langue(s) d’origine"
 msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
-msgstr ""
-
-msgid "Who Uses This"
-msgstr ""
-
-msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
-msgstr ""
-
+msgstr "Pressez longuement la touche Ctrl pour sélectionnez plus d’un choix et la touche
+Ctrl-click pour annuler la sélection"
+msgid "Who Uses This?"
+msgstr "Qui utilise cela"
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click
+again to deselect"
+msgstr "Pressez longuement Ctrl (touche sur Mac) pour sélectionner plus d’une option et
+Ctrl/command-click again" pour annuler la sélection
 msgid "Anything else you want website visitors to know about this entry"
-msgstr ""
-
-msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
-msgstr ""
-
-msgid "Top Word Contributors" 
-msgstr ""
-
+msgstr "Y a-t-il quelque chose d’autre que vous voudriez communiquer aux visiteurs du site sur
+cette entrée"
+msgid "Your name and email will not appear on the website. We require it in case we have
+questions about your entry. If you add many words to the lexicon, we will give you the option of
+being listed as one of the"
+msgstr "Votre nom et votre adresse électronique n’apparaîtront pas sur le site. Nous ne les
+demandons que pour le cas où nous avons des questions à vous poser sur l’entrée. Si vous
+ajoutez beaucoup de mots au lexique, nous vous donnerons la possibilité d’être mentionnée
+comme l’un des"
+msgid "Top Word Contributors"
+msgstr "Contributeur exceptionnel de mots"
 msgid "Other than that, you will"
-msgstr ""
-
-msgid "NOT" 
-msgstr ""
-
+msgstr "Dans le cas contraire, vous ne serez"
+msgid "NOT"
+msgstr "pas"
 msgid "be contacted or placed on any email lists"
-msgstr ""
-
+msgstr "contactés ou mentionné dans aucune liste"
 msgid "Your Name"
-msgstr ""
-
+msgstr "votre nom"
 msgid "Your Email Address"
-msgstr ""
-
+msgstr "votre adresse électronique"
 msgid "Double check your submission!"
-msgstr ""
-
+msgstr "Relisez votre dépôt"
 msgid "Approve Word"
-msgstr ""
-
+msgstr "Confirmez un mot"
 msgid "Delete Word"
-msgstr ""
-
+msgstr "Effacez un mot"
 msgid "Are you sure?"
-msgstr ""
-
+msgstr "Êtes-vous sûr(e)?"
 msgid "This word already exists in the lexicon or is being evaluated."
-msgstr ""
-
+msgstr "Ce mot existe déjà dans le lexique ou bien il est en cours d’examen"
 msgid "Add a new word"
 msgstr "Ajoutez un mot"
-
 msgid "Browse by Letter"
-msgstr ""
-
+msgstr "Feuilletez lettre par lettre"
 msgid "Showing "
-msgstr ""
-
+msgstr "Présentation en cours"
 msgid "words"
-msgstr ""
-
+msgstr "des mots"
 msgid "No words were found."
-msgstr ""
-
+msgstr ""Aucun mot n’a été trouvé”
 msgid "Add a new word"
 msgstr "Ajoutez un mot"
-
 msgid "No words were found. Refine your search options above."
-msgstr ""
-
+msgstr "Aucun mot n’a été trouvé. Affinez les critères de recherche ci-dessus"
 msgid "Editing"
-msgstr ""
-
+msgstr “Révision en cours"
 msgid "SUGGEST CHANGES FOR "
 msgstr "Corrections suggérées pour "
-
-msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
-msgstr "Vous allez maintenant suggérer des corrections pour cet article. Si vous avez des questions sur l'origine, la graphie ou les utilisateurs de ce mot, consultez les "
-
+msgid "You are about to enter suggested edits for this entry. In case you have questions about
+languages of origin, spelling, or who uses it, please see "
+msgstr "Vous allez maintenant suggérer des corrections pour cet article. Si vous avez des
+questions sur l'origine, la graphie ou les utilisateurs de ce mot, consultez les "
 msgid "Notes."
 msgstr "Notes."
-
 msgid "What edits would you like to suggest to this entry? Please be specific."
 msgstr "Quelles corrections suggérez-vous? Soyez précis s'il vous plaît."
-
 msgid "New Word"
-msgstr ""
-
+msgstr "Nouveau mot"
 msgid "Words"
-msgstr ""
-
+msgstr "mots"
 msgid "Refresh"
-msgstr ""
-
+msgstr "Réactivez"
 msgid "random words retrieved"
-msgstr ""
-
+msgstr "Mots arbitrairement retrouvés"
 msgid "Thank you"
-msgstr ""
-
-msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
-msgstr ""
-
+msgstr "Merci"
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a
+week to see your entry on the website."
+msgstr "Merci d’avoir ajouter une entrée au lexique du français juif. Vérifiez à nouveau dans une
+semaine environ afin de voir votre entrée sur le site"
 msgid "See your entry"
-msgstr ""
-
+msgstr "Visionnez votre entrée"
 msgid "Back"
-msgstr ""
-
+msgstr "retour"
 msgid " Record a Pronunciation"
-msgstr ""
-
+msgstr "enregistrez une prononciation"
 msgid " Edit"
-msgstr ""
-
+msgstr "révisez"
 msgid "View More"
-msgstr ""
-
+msgstr "voir davantage"
 msgid "Alternative Spellings"
-msgstr ""
-
+msgstr "graphies alternatives"
 msgid "See something you disagree with? Feel free to edit it. All changes will be moderated. "
-msgstr ""
-
+msgstr "Voyez-vous quelque chose avec laquelle vous n’êtes pas d’accord? N’hésitez pas à
+suggérer une révision. Tout changement fera l’objet d’un arbitrage"
 msgid "Error"
-msgstr ""
-
+msgstr "erreur"
 msgid "This word can not be found or has not yet been approved"
-msgstr ""
-
+msgstr "Ce mot est introuvable ou bien n’a pas encore été sanctionné"
 msgid "Add a word"
-msgstr "Ajoutez une entrée"
-
+msgstr "Ajoutez un mot"
 msgid "Add a Word"
-msgstr "Ajoutez une entrée"
-
+msgstr "Ajoutez un mot"
 msgid "Back"
-msgstr ""
-
+msgstr "retour"
 msgid "Yiddish"
-msgstr ""
-
+msgstr "yiddish"
 msgid "Modern Hebrew"
-msgstr ""
-
+msgstr "hébreu moderne"
 msgid "Polish"
-msgstr ""
-
+msgstr "polonais"
 msgid "Russian"
-msgstr ""
-
+msgstr "russe"
 msgid "German"
-msgstr ""
-
+msgstr "allemand"
 msgid "Aramaic"
-msgstr ""
-
+msgstr "araméem"
 msgid "Arabic / Judeo-Arabic"
-msgstr ""
-
+msgstr "arabe/judéo-arabe"
 msgid "Younger: Jews in their 30s or younger"
-msgstr ""
-
+msgstr "plus jeunes: Juifs de trente ans au plus"
 msgid "Older: Jews who are middle-aged and older"
-msgstr ""
-
+msgstr "plus vieux: Juifs de cinquante ans ou plus"
 msgid "Eastern European Jews"
-msgstr ""
-
+msgstr "Juifs d’Europe orientale"
 msgid "Russian: Jews with recent Russian-speaking ancestry in Russia"
-msgstr ""
-
+msgstr "Russes: Juifs d’ascendance russophone ayant des racines familiales en Russie"
 msgid "Orthodox: Jews who identify as Orthodox and observe halacha (Jewish law)"
-msgstr ""
-
+msgstr "Juifs orthodoxes: Juifs qui se reconnaissent dans le judaïsme orthodoxe et qui
+observant la Halakha (loi religieuse juive)"
 msgid "Religious"
-msgstr ""
-
+msgstr "religieux"
 msgid "Non-Jews: (words that have spread outside of Jewish networks)"
-msgstr ""
-
+msgstr "non-juifs: (mots qui se sont répandus en-dehors des réseaux sociaux juifs)"
 msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
-msgstr ""
-
+msgstr "colonies de vacances: Juifs qui fréquentent les colonies de vacances juifs ou qui y
+travaillent"
 msgid "Jewish Languages"
-msgstr ""
-
+msgstr "langues juives"
 msgid "Volunteer"
-msgstr ""
-
+msgstr "portez-vous volontaire"
 msgid "Donate"
-msgstr ""
-
+msgstr "faire une donation"
 msgid "Search"
-msgstr ""
-
+msgstr "recherche"
 msgid "Search..."
-msgstr ""
-
+msgstr "recherche"
 msgid "Lexicon"
-msgstr ""
-
+msgstr "lexique"
 msgid "See full lexicon in alphabetical order"
 msgstr "Voir l'intégralité du glossaire par ordre alphabétique"
-
 msgid "See a random list of words"
 msgstr "Voir une liste de mots figurant selon un ordre aléatoire"
-
 msgid "ADVANCED SEARCH:"
 msgstr "RECHERCHE AVANCÉE"
-
 msgid "See the"
 msgstr "voir les"
-
 msgid "Add an entry"
 msgstr "Ajoutez une entrée"
-
 msgid "Jews"
-msgstr ""
-
+msgstr "Juifs"
 msgid "American Jews"
-msgstr ""
-
+msgstr "Juifs américains"
 msgid "Strong Israel Connection"
-msgstr ""
-
+msgstr "Liens forts avec Israël"
 msgid "Jews of German/Jeckic origin"
-msgstr ""
-
+msgstr "Juifs allemands (Yekes)"
 msgid "Definitions"
-msgstr ""
-
+msgstr "définition"
 msgid "Example Sentences"
-msgstr ""
-
+msgstr "Phrases-types"
 msgid "Languages of Origin"
-msgstr ""
-
+msgstr "langues d'origine"
 msgid "Etymology"
-msgstr ""
-
-msgid "Who Uses This"
-msgstr ""
-
+msgstr "étymologie"
+msgid "Who Uses This?"
+msgstr "Qui utlise cela?"
 msgid "Regions"
-msgstr ""
-
+msgstr "régions"
 msgid "full name"
-msgstr ""
-
+msgstr "nom complet"
 msgid "full_name"
-msgstr ""
-
+msgstr "nom complet"
 msgid "email"
-msgstr ""
-
+msgstr "adresse électronique"
 msgid "suggestion"
-msgstr ""
-
+msgstr "suggestion"
 msgid "All"
-msgstr ""
-
+msgstr "tout"
 msgid "Origin"
-msgstr ""
-
+msgstr "origine"
 msgid "Use"
-msgstr ""
-
+msgstr "usage"
 msgid "All Regions"
-msgstr ""
-
+msgstr "toutes les régions"
 msgid "Region"
-msgstr ""
-
+msgstr "région"
 msgid "{{start}} - {{end}} of {{count}}"
-msgstr ""
-
+msgstr "{{commencement}} - {{fin}} du {{décompte}}”
 msgid "Something missing from this entry? Inaccurate? Feel free to suggest an edit."
-msgstr ""
-
+msgstr "Quelque chose manque-t-il dans cette entrée? Y a-t-il une inexactitude? N’hésitez pas à proposer des suggestions ou des corrections"
 msgid "Record a Sentence"
-msgstr ""
+msgstr "enregistrez une phrase"
