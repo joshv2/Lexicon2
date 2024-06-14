@@ -378,6 +378,13 @@ class WordsTable extends Table
         return $results->toArray();
     }
 
+    public function get_new_word_id($langid, $old_word_id){
+        $query = $this->find()
+                    ->select(['id'])
+                    ->where(['old_id' => $old_word_id, 'language_id' => $langid]);
+        return $query->first();
+    }
+
     public function get_word_for_edit($id){
         $query = $this->find()
                     ->where(['Words.id' => $id])
