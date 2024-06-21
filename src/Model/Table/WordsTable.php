@@ -187,7 +187,7 @@ class WordsTable extends Table
     }
 
 
-    public function get_not_in_other_dictionary($langid){
+    public function get_not_in_other_dictionary_count($langid){
         $query = $this->find()
             ->join([
                 'd' => [
@@ -197,6 +197,18 @@ class WordsTable extends Table
                 ]
             ])->where(['d.word_id IS' => NULL, 'Words.approved' => 1,  'language_id' => $langid]);
         return $query->count();
+    }
+
+    public function get_not_in_other_dictionary_words($langid){
+        $query = $this->find()
+            ->join([
+                'd' => [
+                    'table' => 'dictionaries_words',
+                    'type' => 'LEFT',
+                    'conditions' => 'Words.id = d.word_id'
+                ]
+            ])->where(['d.word_id IS' => NULL, 'Words.approved' => 1,  'language_id' => $langid]);
+        return $query;
     }
 
     public function get_words_with_no_pronunciations($langid){
@@ -215,7 +227,7 @@ class WordsTable extends Table
     public function get_words_starting_with_letter($letter, $langid){
         //need to add logic around approved words
         $query = $this->find()
-                    ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
+                     ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
                     ->contain(['Definitions'])
                     ->order(['spelling' => 'ASC']);
         return $query->all();
