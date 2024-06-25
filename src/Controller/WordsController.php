@@ -36,48 +36,53 @@ class WordsController extends AppController
      */
     public function index()
     {
-
-        
-        //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $sitelang = $this->languageinfo();
-        //private function 
-        //$this->loadComponent('Paginator');
         $ortd = $this->LoadORTD->getORTD($sitelang);
-
         $originvalue = [$this->request->getQuery('origin')];
-        $regionvalue = [$this->request->getQuery('region')];
-        $typevalue = [$this->request->getQuery('use')];
-        $dictionaryvalue = [$this->request->getQuery('dictionary')];
+            $regionvalue = [$this->request->getQuery('region')];
+            $typevalue = [$this->request->getQuery('use')];
+            $dictionaryvalue = [$this->request->getQuery('dictionary')];
 
-        $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
-                              'regions' => $regionvalue[0],
-                              'types' => $typevalue[0],
-                              'dictionaries' => $dictionaryvalue[0]];
-        
-        $cc = [];
-        foreach($current_condition as $ortdcat => $ortd2) {
-            if ($ortd2 != null){
-                $cc[$ortdcat] = $ortd2;
+            $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
+                                'regions' => $regionvalue[0],
+                                'types' => $typevalue[0],
+                                'dictionaries' => $dictionaryvalue[0]];
+            
+            $cc = [];
+            foreach($current_condition as $ortdcat => $ortd2) {
+                if ($ortd2 != null){
+                    $cc[$ortdcat] = $ortd2;
+                }
             }
+
+        if ($this->request->getQuery('dictionary') == 'none'){
+            $this->set('words', $this->paginate($ortd['no_dict_entries_words']));
+            $title = 'Browse';
+
+            $this->set(compact('current_condition', 'cc','ortd', 'title', 'sitelang'));
+            $this->render('browse');
+        } else {
+
+        
+            
+
+            //$paginator = FactoryLocator::get('Paginator');
+
+            
+            $query =  $this->Words->browse_words_filter(
+                    $originvalue, 
+                    $regionvalue, 
+                    $typevalue, 
+                    $dictionaryvalue, 
+                    FALSE, 
+                    $sitelang->id,TRUE);
+            //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
+            
+            //$query = $this->Articles->find('published')->contain('Comments');
+            $this->set('words', $this->paginate($query));
         }
 
-        //$paginator = FactoryLocator::get('Paginator');
-
-        
-        $query =  $this->Words->browse_words_filter(
-                $originvalue, 
-                $regionvalue, 
-                $typevalue, 
-                $dictionaryvalue, 
-                FALSE, 
-                $sitelang->id,TRUE);
-        //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
-        
-        //$query = $this->Articles->find('published')->contain('Comments');
-        $this->set('words', $this->paginate($query));
-
-        //$words = $paginator->paginate(
-        $title = 'Home';
+        $title = 'Browse';
 
         $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
