@@ -102,7 +102,7 @@
 					</li>
 				</ul>
 
-			<form class="form-inline" type="GET" action="search">
+			<form class="form-inline" type="GET" action="/search">
 				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
 			</form>
 		</div> <!-- nav -->
