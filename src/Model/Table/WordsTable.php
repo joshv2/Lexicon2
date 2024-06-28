@@ -231,7 +231,7 @@ class WordsTable extends Table
         } else {
 
             $params = [];
-            if (count($originvalue) == 0 OR 'none' == $originvalue || null == $originvalue[0]){
+            if ((is_array($originvalue) && count($originvalue) == 0) OR 'none' == $originvalue || null == $originvalue){
             }
             elseif (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
@@ -239,7 +239,7 @@ class WordsTable extends Table
                 $params['o.origin_id ='] = 999;
             }
 
-            if (count($regionvalue) == 0 OR 'none' == $regionvalue || null == $regionvalue[0]){
+            if ((is_array($regionvalue) && count($regionvalue) == 0) OR 'none' == $regionvalue || null == $regionvalue){
             }
             elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
                 $params['r.region_id IN'] = $regionvalue;
@@ -247,7 +247,7 @@ class WordsTable extends Table
                 $params['r.region_id ='] = 999;
             }
 
-            if (count($typevalue) == 0 OR 'none' == $typevalue || null == $typevalue[0]){
+            if ((is_array($typevalue) && count($typevalue) == 0) OR 'none' == $typevalue || null == $typevalue){
             }
             elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
                 $params['t.type_id IN'] = $typevalue;
@@ -255,7 +255,7 @@ class WordsTable extends Table
                 $params['t.type_id ='] = 999;
             }
 
-            if (0 == count($dictionaryvalue) || 'none' == $dictionaryvalue || null == $dictionaryvalue[0]){
+            if ((is_array($dictionaryvalue) && 0 == count($dictionaryvalue)) || 'none' == $dictionaryvalue || null == $dictionaryvalue){
             }
             elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
             || count($dictionaryvalue) > 0) {
