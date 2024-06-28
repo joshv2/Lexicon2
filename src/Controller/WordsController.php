@@ -45,10 +45,11 @@ class WordsController extends AppController
         $ortd = $this->LoadORTD->getORTD($sitelang);
 
         $originvalue = [$this->request->getQuery('origin')];
+        
         $regionvalue = [$this->request->getQuery('region')];
         $typevalue = [$this->request->getQuery('use')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
-
+        //debug($regionvalue[0] == null);
         $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
                               'regions' => $regionvalue[0],
                               'types' => $typevalue[0],
@@ -65,10 +66,10 @@ class WordsController extends AppController
 
         
         $query =  $this->Words->browse_words_filter(
-                $originvalue, 
-                $regionvalue, 
-                $typevalue, 
-                $dictionaryvalue, 
+                $originvalue[0], 
+                $regionvalue[0], 
+                $typevalue[0], 
+                $dictionaryvalue[0], 
                 FALSE, 
                 $sitelang->id,TRUE);
         //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);

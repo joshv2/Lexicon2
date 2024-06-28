@@ -223,10 +223,11 @@ class WordsTable extends Table
 
     public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid, $index = FALSE){
 
-        if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
+        if ($originvalue == null && $regionvalue == null && $typevalue == null && $dictionaryvalue == null){
             $query = $this->find()
                         ->where(['language_id' => $langid, 'approved' => 1])
-                        ->contain(['Definitions']);
+                        //->contain(['Definitions'])
+                        ;
         } else {
 
             $params = [];
@@ -410,24 +411,24 @@ class WordsTable extends Table
                
         $querystring = addslashes($options['querystring']);
         $langid = $options['langid'];
-        $query = $this->find()->contain(['Definitions']);
+        $query = $this->find();//->contain(['Definitions']);
         $query = $query->join([
-                        'd' => [
+                        /*'d' => [
                             'table' => 'definitions',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = d.word_id'
-                        ],
+                        ],*/
                         'a' => [
                             'table' => 'alternates',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = a.word_id'
-                        ],
-                        's' => [
+                        ]
+                        /*'s' => [
                             'table' => 'sentences',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = s.word_id'
                         ]
-                    ]);
+                    ]);*/]);
 
 
         $spellingmatch = $query->newExpr()
@@ -444,18 +445,19 @@ class WordsTable extends Table
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
-                                 'definitions' => 'group_concat(DISTINCT d.id)', 
+                                 //'definitions' => 'group_concat(DISTINCT d.id)', 
                                  'spellingmatch' => $spellingmatch,
-                                 'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
-                                 'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"])
+                                 //'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
+                                 //'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"]
+                                 ])
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         ["MATCH(Words.notes) AGAINST ('".$querystring."')"],
-                                         ["MATCH(d.definition) AGAINST ('".$querystring."')"],
-                                         ["MATCH(s.sentence) AGAINST ('".$querystring."')"],
-                                         ['etymology LIKE' => '%'.$querystring.'%']], 'approved' => 1])
+                                         //["MATCH(Words.notes) AGAINST ('".$querystring."')"],
+                                         //["MATCH(d.definition) AGAINST ('".$querystring."')"],
+                                         //["MATCH(s.sentence) AGAINST ('".$querystring."')"],
+                                         /*['etymology LIKE' => '%'.$querystring.'%']],*/], 'approved' => 1])
                         ->group(['Words.id'])
-                        ->order(['spellingmatch' => 'DESC', 'definitionmatch' => 'DESC', 'notesmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+                        ->order(['spellingmatch' => 'DESC', /*'definitionmatch' => 'DESC', 'notesmatch' => 'DESC',*/ 'Words.spelling' => 'ASC']);
 
         //debug($query);
         return $query;
