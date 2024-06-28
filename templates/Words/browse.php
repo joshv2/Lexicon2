@@ -112,8 +112,7 @@
 				<div class="word-main">
 					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?></h3>
 					<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', '/words//'.$word->id, ['class' => 'noborder', 'escape' => false]); ?>
-					
-					<!--<p class="definition"><?php echo sizeof($word->definitions) > 0 ? $word->definitions[0]->definition : '';?></p>-->
+				
 				</div>
 			</li>
 		<?php endforeach; ?>
