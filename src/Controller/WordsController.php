@@ -36,16 +36,13 @@ class WordsController extends AppController
      */
     public function index()
     {
-
-        
         //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $sitelang = $this->viewBuilder()->getVar('sitelang');
         //private function 
         //$this->loadComponent('Paginator');
-        $ortd = $this->LoadORTD->getORTD($sitelang);
 
+        $ortd = $this->LoadORTD->getORTD($sitelang);
         $originvalue = [$this->request->getQuery('origin')];
-        
         $regionvalue = [$this->request->getQuery('region')];
         $typevalue = [$this->request->getQuery('use')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
@@ -59,12 +56,19 @@ class WordsController extends AppController
         foreach($current_condition as $ortdcat => $ortd2) {
             if ($ortd2 != null){
                 $cc[$ortdcat] = $ortd2;
-            }
-        }
 
-        //$paginator = FactoryLocator::get('Paginator');
+            }
+
+        if ($this->request->getQuery('dictionary') == 'none'){
+            $this->set('words', $this->paginate($ortd['no_dict_entries_words']));
+            $title = 'Browse';
+
+            $this->set(compact('current_condition', 'cc','ortd', 'title', 'sitelang'));
+            $this->render('browse');
+        } else {
 
         
+
         $query =  $this->Words->browse_words_filter(
                 $originvalue[0], 
                 $regionvalue[0], 
@@ -77,8 +81,8 @@ class WordsController extends AppController
         //$query = $this->Articles->find('published')->contain('Comments');
         $this->set('words', $this->paginate($query));
 
-        //$words = $paginator->paginate(
-        $title = 'Home';
+
+        $title = 'Browse';
 
         $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
