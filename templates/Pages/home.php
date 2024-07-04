@@ -24,7 +24,7 @@ $(document).ready(function() {
 <!--<section id="main">-->
 <div id="header-image">
 <?php if ('' != $sitelang->HeaderImage):?>
-<?php echo $this->Html->image($sitelang->HeaderImage, ['height' => 200, 'width' => '100%'])?>
+<?php echo $this->Html->image($sitelang->i18nspec . '/' . $sitelang->HeaderImage, ['height' => 200, 'width' => '100%'])?>
 <?php endif; ?>
  </div>
 	

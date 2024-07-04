@@ -103,7 +103,7 @@ class PagesController extends AppController
         }
         if($sitelang->hasDictionaries) {
             $dictionaries = $dictionariesTable->top_dictionaries($sitelang->id);
-            $no_dict_entries = $wordsTable->get_not_in_other_dictionary($sitelang->id);
+            $no_dict_entries = $wordsTable->get_not_in_other_dictionary_count($sitelang->id);
             $tagging['no_dict_entries'] = $no_dict_entries;
             $tagging['dictionaries'] = $dictionaries;
         }

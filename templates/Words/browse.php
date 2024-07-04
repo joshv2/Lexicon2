@@ -38,7 +38,9 @@
 			<?php foreach ($ortddata as $id => $o):?>	
 				<?php echo '<label><input type="checkbox" value="' . $ortdarray2[2] . '_' . $id . '" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> ' . $o . '</label>'; ?>
 			<?php endforeach;?>	
-			
+			<?php if($ortdarray2[0] and $ortdarray2[2] == 'Dictionaries'): ?>
+				<?php echo '<label><input type="checkbox" value="none" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> None</label>'; ?>
+			<?php endif; ?>	
 				<!-- Add more options as needed -->
 			
 	<?php elseif($ortdarray2[2] == 'Types'): ?>
@@ -78,6 +80,7 @@
 					}
 				?>
 	<?php endif; ?>
+			
 	<?= '<label><input type="checkbox" value="other" onchange="checkboxChanged(\'dropdown' . $j . '\', this)"> Other</label>'?>
 	</div>
 	</div>
@@ -115,7 +118,9 @@
 				<div class="word-main">
 					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?></h3>
 					<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', '/words//'.$word->id, ['class' => 'noborder', 'escape' => false]); ?>
+
 				
+
 				</div>
 			</li>
 		<?php endforeach; ?>
