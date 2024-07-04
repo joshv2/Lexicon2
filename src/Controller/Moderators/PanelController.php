@@ -100,7 +100,7 @@ class PanelController extends AppController {
             $submittedWords = $this->fetchTable('Words')->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
             $newWords = $this->fetchTable('Words')->get_pending_words($sitelang->id);
 
-            $pendingSuggestions = $this->fetchTable('Suggestions')->find('all')
+            $pendingSuggestions = $this->fetchTable('Suggestions')->find()
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 

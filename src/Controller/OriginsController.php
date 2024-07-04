@@ -22,7 +22,7 @@ class OriginsController extends AppController
         $this->paginate = [
             'contain' => ['Languages']
         ];
-        $origins = $this->paginate($this->Origins->find('all')->where(['language_id' => $sitelang->id]));
+        $origins = $this->paginate($this->Origins->find()->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('origins'));
     }

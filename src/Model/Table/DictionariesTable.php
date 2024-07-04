@@ -77,7 +77,9 @@ class DictionariesTable extends Table
     }
 
     public function top_dictionaries($langid){
-        $query = $this->find('list', ['valueField' => 'dictionary', 'order' => 'id']) #'limit' => 6,
+        $query = $this->find('list', 
+                        valueField: 'dictionary',
+                        order: ['id' => 'ASC']) #'limit' => 6,
                         ->where(['top' => 1, 'language_id' => $langid]);
         //$query->disableHydration();
         $data = $query->toArray();

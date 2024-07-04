@@ -22,7 +22,7 @@ class DictionariesController extends AppController
         $this->paginate = [
             'contain' => ['Languages']
         ];
-        $origins = $this->paginate($this->Dictionaries->find('all')->where(['language_id' => $sitelang->id]));
+        $origins = $this->paginate($this->Dictionaries->find()->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('dictionaries'));
     }

@@ -21,7 +21,7 @@ class TypeCategoriesTable extends Table
     }
 
     public function top_types_for_home_by_cat($langid){
-        $query = $this->find('all', ['order' => 'TypeCategories.id'])
+        $query = $this->find(order: ['TypeCategories.id' => 'ASC'])
                         ->distinct('TypeCategories.id')
                         ->contain(['Types'])
                         ->matching('Languages')

@@ -22,7 +22,7 @@ class RegionsController extends AppController
         $this->paginate = [
             'contain' => ['Languages'],
         ];
-        $regions = $this->paginate($this->Regions->find('all')->where(['language_id' => $sitelang->id]));
+        $regions = $this->paginate($this->Regions->find()->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('regions'));
     }

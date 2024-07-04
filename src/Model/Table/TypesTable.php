@@ -21,7 +21,8 @@ class TypesTable extends Table
     }
 
     public function top_types_for_home($langid){
-        $query = $this->find('all', ['order' => 'Types.id'])
+        $query = $this->find('all', 
+                        order: ['Types.id' => 'ASC'])
                         ->contain(['TypeCategories'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
@@ -31,7 +32,8 @@ class TypesTable extends Table
     }
 
     public function top_types_for_home_no_cat($langid){
-        $query = $this->find('all', ['order' => 'Types.id'])
+        $query = $this->find('all', 
+                        order: ['Types.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid, 'TypesLanguages.type_category_id' => 0]);
@@ -41,7 +43,9 @@ class TypesTable extends Table
     }
 
     public function top_types_for_registration($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
+        $query = $this->find('list', 
+                        valueField: 'type', 
+                        order: ['Types.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
@@ -51,11 +55,14 @@ class TypesTable extends Table
     }
 
     public function top_types($langid){
-        $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
+        $query = $this->find('list', 
+                        valueField: 'type', 
+                        order: ['Types.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
-        $query2 = $this->find('list', ['valueField' => 'type'])
+        $query2 = $this->find('list', 
+                        valueField: 'type')
                         ->where(['id' => 999]);
         $query = $query->union($query2);
         //$query->disableHydration();
