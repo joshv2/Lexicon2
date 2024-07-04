@@ -22,7 +22,7 @@ class TypesController extends AppController
         $this->paginate = [
             'contain' => ['Languages'],
         ];
-        $types = $this->paginate($this->Types->find('all')->where(['language_id' => $sitelang->id]));
+        $types = $this->paginate($this->Types->find()->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('types'));
     }

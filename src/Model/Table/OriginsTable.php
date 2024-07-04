@@ -29,7 +29,9 @@ class OriginsTable extends Table
 
 
     public function top_origins($langid){
-        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'Origins.id'])
+        $query = $this->find('list', 
+                        valueField: 'origin', 
+                        order: ['Origins.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);

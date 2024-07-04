@@ -19,7 +19,9 @@ class RegionsTable extends Table
 
 
     public function top_regions_for_home($langid){
-        $query = $this->find('list', ['valueField' => 'region', 'order' => 'Regions.id'])
+        $query = $this->find('list', 
+                            valueField: 'region', 
+                            order: ['Regions.id' => 'ASC'])
                                 //->contain(['Languages'])
                                 ->matching('Languages')
                                 ->where(['RegionsLanguages.top' => 1, 'RegionsLanguages.language_id' => $langid]);
@@ -30,7 +32,9 @@ class RegionsTable extends Table
     }
 
     public function top_regions($langid){
-        $query =$this->find('list', ['valueField' => 'region', 'order' => 'Regions.id'])
+        $query =$this->find('list', 
+                        valueField: 'region', 
+                        order: ['Regions.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['RegionsLanguages.top' => 1, 'RegionsLanguages.language_id' => $langid]);
