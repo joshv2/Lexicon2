@@ -18,7 +18,7 @@ class RegionsController extends AppController
      */
     public function index()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->paginate = [
             'contain' => ['Languages'],
         ];
@@ -51,7 +51,7 @@ class RegionsController extends AppController
     public function add()
     {
         $region = $this->Regions->newEmptyEntity();
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         if ($this->request->is('post')) {
             $region = $this->Regions->patchEntity($region, $this->request->getData());
             if ($this->Regions->save($region)) {
@@ -75,7 +75,7 @@ class RegionsController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $region = $this->Regions->get($id, [
             'contain' => ['Words'],
         ]);

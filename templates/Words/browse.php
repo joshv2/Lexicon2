@@ -95,7 +95,10 @@
 
 		<div id="browse_info" class="group">
 		<div id="checkedOptionsDiv"><?php 
-			if (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
+			if ($cc['dictionaries'] == 'none') {
+				echo "Checked options: Words not in any other dictionary.";
+			}
+			elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
 				echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
 			 } elseif (array_key_first($cc) == 'types') {
 				echo "Checked options: " . $ortd['top'.array_key_first($cc)][$cc[array_key_first($cc)]];

@@ -216,7 +216,7 @@ class WordsTable extends Table
         //need to add logic around approved words
         $query = $this->find()
                     ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
-                    ->contain(['Definitions'])
+                    //->contain(['Definitions'])
                     ->order(['spelling' => 'ASC']);
         return $query->all();
     }
@@ -320,7 +320,7 @@ class WordsTable extends Table
                     ]
                 ])
                 ->where([$params, 'language_id' => $langid])
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
             }
@@ -339,7 +339,7 @@ class WordsTable extends Table
     public function browse_words_filter2($wordIds, $langid){
         $params['approved ='] = 1; 
         $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
         return json_encode($query);
@@ -347,7 +347,7 @@ class WordsTable extends Table
 
     public function get_random_words($langid) {
         $query = $this->find()
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->where(['approved' => 1, 'language_id' => $langid])
                 ->order("rand()")
                 ->limit(20);

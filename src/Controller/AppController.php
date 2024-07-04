@@ -118,7 +118,7 @@ class AppController extends Controller
     }
 
     public function beforeFilter(EventInterface $event){
-        #$sitelang = $this->languageinfo();
+        #$sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->set('sitelang', $this->languageinfo());
     }
     
@@ -157,8 +157,8 @@ class AppController extends Controller
         $sitelang = $this->languageinfo();
 
 
-        if (null != $sitelang['i18nspec']) {
-            I18n::setLocale($sitelang['i18nspec']);
+        if (null != $sitelang->i18nspec) {
+            I18n::setLocale($sitelang->i18nspec);
         } else {
             I18n::setLocale('en_US');
         }

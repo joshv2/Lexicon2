@@ -62,7 +62,7 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $title = ucfirst($page);
         $this->set(compact('page', 'subpage', 'title', 'sitelang'));
 
@@ -83,7 +83,7 @@ class PagesController extends AppController
         $typesTable = $this->fetchTable('Types');
         $dictionariesTable = $this->fetchTable('Dictionaries');
         $typeCategoriesTable  = $this->fetchTable('TypeCategories');
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {

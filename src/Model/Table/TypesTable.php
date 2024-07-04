@@ -22,7 +22,7 @@ class TypesTable extends Table
 
     public function top_types_for_home($langid){
         $query = $this->find('all', ['order' => 'Types.id'])
-                        ->contain(['Languages', 'TypeCategories'])
+                        ->contain(['TypeCategories'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         //$query->disableHydration();
@@ -32,7 +32,7 @@ class TypesTable extends Table
 
     public function top_types_for_home_no_cat($langid){
         $query = $this->find('all', ['order' => 'Types.id'])
-                        ->contain(['Languages'])
+                        //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid, 'TypesLanguages.type_category_id' => 0]);
         //$query->disableHydration();
@@ -42,7 +42,7 @@ class TypesTable extends Table
 
     public function top_types_for_registration($langid){
         $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
-                        ->contain(['Languages'])
+                        //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         //$query->disableHydration();
@@ -52,7 +52,7 @@ class TypesTable extends Table
 
     public function top_types($langid){
         $query = $this->find('list', ['valueField' => 'type', 'order' => 'Types.id'])
-                        ->contain(['Languages'])
+                        //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['TypesLanguages.top' => 1, 'TypesLanguages.language_id' => $langid]);
         $query2 = $this->find('list', ['valueField' => 'type'])

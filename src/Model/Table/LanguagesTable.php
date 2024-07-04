@@ -173,7 +173,8 @@ class LanguagesTable extends Table
         //need to add logic around approved words
         $query = $this->find()
                     ->where(['subdomain' => $subdomain])
-                    ->contain(['Alphabets']);
+                    //->contain(['Alphabets'])
+                    ;
         return $query->first();
     }
 

@@ -18,7 +18,7 @@ class DictionariesController extends AppController
      */
     public function index()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->paginate = [
             'contain' => ['Languages']
         ];
@@ -50,7 +50,7 @@ class DictionariesController extends AppController
      */
     public function add()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $dictionary = $this->Dictionaries->newEmptyEntity();
         if ($this->request->is('post')) {
             $dictionary = $this->Dictionaries->patchEntity($dictionary, $this->request->getData());
@@ -74,7 +74,7 @@ class DictionariesController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $dictionary = $this->Dictionaries->get($id, [
             'contain' => ['Words'],
         ]);
