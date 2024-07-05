@@ -58,14 +58,8 @@ class WordsController extends AppController
                 $cc[$ortdcat] = $ortd2;
 
             }
+        }
 
-        if ($this->request->getQuery('dictionary') == 'none'){
-            $this->set('words', $this->paginate($ortd['no_dict_entries_words']));
-            $title = 'Browse';
-
-            $this->set(compact('current_condition', 'cc','ortd', 'title', 'sitelang'));
-            $this->render('browse');
-        } else {
 
         
 
@@ -76,6 +70,7 @@ class WordsController extends AppController
                 $dictionaryvalue[0], 
                 FALSE, 
                 $sitelang->id,TRUE);
+                
         //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
         
         //$query = $this->Articles->find('published')->contain('Comments');
@@ -87,6 +82,7 @@ class WordsController extends AppController
         $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
+    
 
     public function random() {
         $sitelang = $this->viewBuilder()->getVar('sitelang');
