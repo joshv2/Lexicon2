@@ -233,6 +233,37 @@ class WordsTable extends Table
         return $query->all();
     }
 
+    
+    public function browse_words_simplified($ortdtype, $ortdvalue, $returnjson, $langid, $index = FALSE){
+        $pluralization = ['dictionary' => 'dictionaries',
+                            'region' => 'regions',
+                            'type' => 'types',
+                            'origin' => 'origins'];
+        
+        if ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
+            $params['d.word_id IS'] = NULL;
+        } elseif ($ortdvalue === 'other') {
+            $params['d.' . $ortdtype . '_id IN'] = 999;
+        }
+        else {
+                $params['d.' . $ortdtype . '_id IN'] = $ortdvalue;
+            } 
+        
+        $params['approved ='] = 1;
+
+        $query = $this->find()->select(['id','spelling'])->join([
+                    'd' => [
+                        'table' => $pluralization[$ortdtype] . '_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = d.word_id']])
+                ->where([$params, 
+                         'language_id' => $langid])
+                ->contain([ucfirst($pluralization[$ortdtype])])
+                         ->distinct()
+                ->order(['spelling' => 'ASC']);
+        return $query;
+    }
+    
     public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid, $index = FALSE){
 
         if ($originvalue == null && $regionvalue == null && $typevalue == null && $dictionaryvalue == null){
