@@ -37,6 +37,8 @@ class WordsController extends AppController
     public function index()
     {
         //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
+        $queryParams = $this->request->getQueryParams();
+        //debug(array_values($queryParams)[0]==='none');
         $sitelang = $this->viewBuilder()->getVar('sitelang');
         //private function 
         //$this->loadComponent('Paginator');
@@ -46,7 +48,6 @@ class WordsController extends AppController
         $regionvalue = [$this->request->getQuery('region')];
         $typevalue = [$this->request->getQuery('use')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
-        //debug($regionvalue[0] == null);
         $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
                               'regions' => $regionvalue[0],
                               'types' => $typevalue[0],
@@ -63,17 +64,26 @@ class WordsController extends AppController
 
         
 
-        $query =  $this->Words->browse_words_filter(
+        /*$query =  $this->Words->browse_words_filter(
                 $originvalue[0], 
                 $regionvalue[0], 
                 $typevalue[0], 
                 $dictionaryvalue[0], 
                 FALSE, 
-                $sitelang->id,TRUE);
-                
+                $sitelang->id,TRUE);*/
+
         //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
         
         //$query = $this->Articles->find('published')->contain('Comments');
+        
+        $query = $this->Words->browse_words_simplified(
+                        array_keys($queryParams)[0], 
+                        array_values($queryParams)[0],
+                        FALSE, 
+                        $sitelang->id,
+                        TRUE);
+        
+        
         $this->set('words', $this->paginate($query));
 
 
