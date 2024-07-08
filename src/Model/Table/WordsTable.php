@@ -240,7 +240,12 @@ class WordsTable extends Table
                             'type' => 'types',
                             'origin' => 'origins'];
         
-        if ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
+        if ($ortdtype === 'all' && $ortdvalue == 'all'){
+            $query = $this->find()->select(['id','spelling'])
+                ->where(['language_id' => $langid, 'approved' => 1])
+                ->order(['spelling' => 'ASC']);
+            return $query;
+        } elseif ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
             $params['d.word_id IS'] = NULL;
         } elseif ($ortdvalue === 'other') {
             $params['d.' . $ortdtype . '_id IN'] = 999;
