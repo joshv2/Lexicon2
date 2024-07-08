@@ -98,10 +98,10 @@
 
 		<div id="browse_info" class="group">
 		<div id="checkedOptionsDiv"><?php 
-			if ($cc['dictionaries'] == 'none') {
+			if (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
 				echo "Checked options: Words not in any other dictionary.";
 			}
-			elseif(in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
+			elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
 				echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
 			 } elseif (array_key_first($cc) == 'types') {
 				echo "Checked options: " . $ortd['top'.array_key_first($cc)][$cc[array_key_first($cc)]];
@@ -118,7 +118,9 @@
 				<div class="word-main">
 					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?></h3>
 					<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', '/words//'.$word->id, ['class' => 'noborder', 'escape' => false]); ?>
-					
+
+				
+
 				</div>
 			</li>
 		<?php endforeach; ?>
