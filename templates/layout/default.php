@@ -62,7 +62,13 @@
   	<div class="container bannerbg">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
 			<!--<a class="navbar-brand" href="/">-->
-				<?= $this->cell('Logo'); ?>
+				<?php echo $this->Html->image($sitelang->i18nspec . '/JewishLex_Logo.jpg' , 
+                                            [
+                                            'class' => "d-inline-block align-top",
+                                            'alt'=> "Home Logo",
+                                            'height' => 51, 
+                                            'url' => ['controller' => 'Pages', 'action' => 'index', 'plugin' => false]
+                                            ])?>
 			<!--</a>--->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -92,7 +98,7 @@
 					</li>
 				</ul>
 
-			<form class="form-inline" type="GET" action="search">
+			<form class="form-inline" type="GET" action="/search">
 				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
 			</form>
 		</div> <!-- nav -->
@@ -136,7 +142,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			</ul>
 			<div class="right">
 			<?php echo $this->Html->image("joint_logo.jpg", ['id' => 'jointlogo', 'width' => '100%']);?>
-			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
+			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International .</a></p>
 			</div>
 			<div class="clear"></div>
 		</div>

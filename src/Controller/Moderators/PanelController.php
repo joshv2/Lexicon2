@@ -12,7 +12,7 @@ class PanelController extends AppController {
         {
             $remainingcredits = $this->getremainingcredits();
             //array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations', 'Sentences', 'SentenceRecordings']);
-            $sitelang = $this->languageinfo();
+            $sitelang = $this->viewBuilder()->getVar('sitelang');
             $userLevel = $this->request->getSession()->read('Auth.role');
             $userid = $this->request->getSession()->read('Auth.id');
             //debug($userid);
@@ -50,7 +50,7 @@ class PanelController extends AppController {
         {
             $remainingcredits = $this->getremainingcredits();
             $userid = $this->request->getSession()->read('Auth.id');
-            $sitelang = $this->languageinfo();
+            $sitelang = $this->viewBuilder()->getVar('sitelang');
             $userLevel = $this->request->getSession()->read('Auth.role');
             $file = new File(LOGS.'events.log');
             $eventfile = $file->read();
@@ -83,7 +83,7 @@ class PanelController extends AppController {
         {
             $remainingcredits = $this->getremainingcredits();
             //array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
-            $sitelang = $this->languageinfo();
+            $sitelang = $this->viewBuilder()->getVar('sitelang');
             $userLevel = $this->request->getSession()->read('Auth.role');
             $userid = $this->request->getSession()->read('Auth.id');
             //debug($userid);
@@ -100,7 +100,7 @@ class PanelController extends AppController {
             $submittedWords = $this->fetchTable('Words')->get_user_words($this->request->getSession()->read('Auth.id'), $sitelang->id);
             $newWords = $this->fetchTable('Words')->get_pending_words($sitelang->id);
 
-            $pendingSuggestions = $this->fetchTable('Suggestions')->find('all')
+            $pendingSuggestions = $this->fetchTable('Suggestions')->find()
                 ->where(['status =' => 'unread'])
                 ->contain(['Words']);
 

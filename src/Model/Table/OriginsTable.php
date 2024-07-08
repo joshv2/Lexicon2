@@ -19,7 +19,7 @@ class OriginsTable extends Table
 
     public function top_origins_for_home($langid){
         $query = $this->find('list', valueField: 'origin', order: 'Origins.id')
-                        ->contain(['Languages'])
+                        //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
         //$query->disableHydration();
@@ -29,8 +29,10 @@ class OriginsTable extends Table
 
 
     public function top_origins($langid){
-        $query = $this->find('list', ['valueField' => 'origin', 'order' => 'Origins.id'])
-                        ->contain(['Languages'])
+        $query = $this->find('list', 
+                        valueField: 'origin', 
+                        order: ['Origins.id' => 'ASC'])
+                        //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
 

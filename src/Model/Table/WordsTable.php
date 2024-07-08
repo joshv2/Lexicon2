@@ -227,22 +227,54 @@ class WordsTable extends Table
     public function get_words_starting_with_letter($letter, $langid){
         //need to add logic around approved words
         $query = $this->find()
-                     ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
-                    ->contain(['Definitions'])
+                    ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
+                    //->contain(['Definitions'])
                     ->order(['spelling' => 'ASC']);
         return $query->all();
     }
 
+    
+    public function browse_words_simplified($ortdtype, $ortdvalue, $returnjson, $langid, $index = FALSE){
+        $pluralization = ['dictionary' => 'dictionaries',
+                            'region' => 'regions',
+                            'type' => 'types',
+                            'origin' => 'origins'];
+        
+        if ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
+            $params['d.word_id IS'] = NULL;
+        } elseif ($ortdvalue === 'other') {
+            $params['d.' . $ortdtype . '_id IN'] = 999;
+        }
+        else {
+                $params['d.' . $ortdtype . '_id IN'] = $ortdvalue;
+            } 
+        
+        $params['approved ='] = 1;
+
+        $query = $this->find()->select(['id','spelling'])->join([
+                    'd' => [
+                        'table' => $pluralization[$ortdtype] . '_words',
+                        'type' => 'LEFT',
+                        'conditions' => 'Words.id = d.word_id']])
+                ->where([$params, 
+                         'language_id' => $langid])
+                ->contain([ucfirst($pluralization[$ortdtype])])
+                         ->distinct()
+                ->order(['spelling' => 'ASC']);
+        return $query;
+    }
+    
     public function browse_words_filter($originvalue, $regionvalue, $typevalue, $dictionaryvalue, $returnjson, $langid, $index = FALSE){
 
-        if ($originvalue == NULL && $regionvalue == NULL && $typevalue == NULL && $dictionaryvalue == NULL){
+        if ($originvalue == null && $regionvalue == null && $typevalue == null && $dictionaryvalue == null){
             $query = $this->find()
                         ->where(['language_id' => $langid, 'approved' => 1])
-                        ->contain(['Definitions']);
+                        //->contain(['Definitions'])
+                        ;
         } else {
 
             $params = [];
-            if (count($originvalue) == 0 OR 'none' == $originvalue || null == $originvalue[0]){
+            if ((is_array($originvalue) && count($originvalue) == 0) OR 'none' == $originvalue || null == $originvalue){
             }
             elseif (!is_null($originvalue) && 'other' !== $originvalue){
                 $params['o.origin_id IN'] = $originvalue;
@@ -250,7 +282,7 @@ class WordsTable extends Table
                 $params['o.origin_id ='] = 999;
             }
 
-            if (count($regionvalue) == 0 OR 'none' == $regionvalue || null == $regionvalue[0]){
+            if ((is_array($regionvalue) && count($regionvalue) == 0) OR 'none' == $regionvalue || null == $regionvalue){
             }
             elseif ((!is_null($regionvalue) && 'other' !== $regionvalue) || count($regionvalue) > 0){
                 $params['r.region_id IN'] = $regionvalue;
@@ -258,7 +290,7 @@ class WordsTable extends Table
                 $params['r.region_id ='] = 999;
             }
 
-            if (count($typevalue) == 0 OR 'none' == $typevalue || null == $typevalue[0]){
+            if ((is_array($typevalue) && count($typevalue) == 0) OR 'none' == $typevalue || null == $typevalue){
             }
             elseif ((!is_null($typevalue) && 'other' !== $typevalue) || count($typevalue) > 0){
                 $params['t.type_id IN'] = $typevalue;
@@ -266,7 +298,7 @@ class WordsTable extends Table
                 $params['t.type_id ='] = 999;
             }
 
-            if (0 == count($dictionaryvalue) || 'none' == $dictionaryvalue || null == $dictionaryvalue[0]){
+            if ((is_array($dictionaryvalue) && 0 == count($dictionaryvalue)) || 'none' == $dictionaryvalue || null == $dictionaryvalue){
             }
             elseif ((!is_null($dictionaryvalue) && 'other' !== $dictionaryvalue && 'none' !== $dictionaryvalue)
             || count($dictionaryvalue) > 0) {
@@ -331,7 +363,7 @@ class WordsTable extends Table
                     ]
                 ])
                 ->where([$params, 'language_id' => $langid])
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
             }
@@ -350,7 +382,7 @@ class WordsTable extends Table
     public function browse_words_filter2($wordIds, $langid){
         $params['approved ='] = 1; 
         $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
         return json_encode($query);
@@ -358,7 +390,7 @@ class WordsTable extends Table
 
     public function get_random_words($langid) {
         $query = $this->find()
-                ->contain(['Definitions'])
+                //->contain(['Definitions'])
                 ->where(['approved' => 1, 'language_id' => $langid])
                 ->order("rand()")
                 ->limit(20);
@@ -390,6 +422,13 @@ class WordsTable extends Table
         return $results->toArray();
     }
 
+    public function get_new_word_id($langid, $old_word_id){
+        $query = $this->find()
+                    ->select(['id'])
+                    ->where(['old_id' => $old_word_id, 'language_id' => $langid]);
+        return $query->first();
+    }
+
     public function get_word_for_edit($id){
         $query = $this->find()
                     ->where(['Words.id' => $id])
@@ -415,24 +454,24 @@ class WordsTable extends Table
                
         $querystring = addslashes($options['querystring']);
         $langid = $options['langid'];
-        $query = $this->find()->contain(['Definitions']);
+        $query = $this->find();//->contain(['Definitions']);
         $query = $query->join([
-                        'd' => [
+                        /*'d' => [
                             'table' => 'definitions',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = d.word_id'
-                        ],
+                        ],*/
                         'a' => [
                             'table' => 'alternates',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = a.word_id'
-                        ],
-                        's' => [
+                        ]
+                        /*'s' => [
                             'table' => 'sentences',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = s.word_id'
                         ]
-                    ]);
+                    ]);*/]);
 
 
         $spellingmatch = $query->newExpr()
@@ -449,18 +488,19 @@ class WordsTable extends Table
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
-                                 'definitions' => 'group_concat(DISTINCT d.id)', 
+                                 //'definitions' => 'group_concat(DISTINCT d.id)', 
                                  'spellingmatch' => $spellingmatch,
-                                 'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
-                                 'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"])
+                                 //'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
+                                 //'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"]
+                                 ])
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         ["MATCH(Words.notes) AGAINST ('".$querystring."')"],
-                                         ["MATCH(d.definition) AGAINST ('".$querystring."')"],
-                                         ["MATCH(s.sentence) AGAINST ('".$querystring."')"],
-                                         ['etymology LIKE' => '%'.$querystring.'%']], 'approved' => 1])
+                                         //["MATCH(Words.notes) AGAINST ('".$querystring."')"],
+                                         //["MATCH(d.definition) AGAINST ('".$querystring."')"],
+                                         //["MATCH(s.sentence) AGAINST ('".$querystring."')"],
+                                         /*['etymology LIKE' => '%'.$querystring.'%']],*/], 'approved' => 1])
                         ->group(['Words.id'])
-                        ->order(['spellingmatch' => 'DESC', 'definitionmatch' => 'DESC', 'notesmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+                        ->order(['spellingmatch' => 'DESC', /*'definitionmatch' => 'DESC', 'notesmatch' => 'DESC',*/ 'Words.spelling' => 'ASC']);
 
         //debug($query);
         return $query;

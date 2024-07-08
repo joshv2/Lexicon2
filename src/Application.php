@@ -27,6 +27,7 @@ use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
+use App\Middleware\SubdomainWordIdMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 /**
@@ -109,6 +110,7 @@ class Application extends BaseApplication
             // creating the middleware instance specify the cache config name by
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
+            ->add(SubdomainWordIdMiddleware::class)
             ->add(new RoutingMiddleware($this))
 
             // Parse various types of encoded request bodies so that they are
