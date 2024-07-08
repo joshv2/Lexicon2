@@ -38,7 +38,12 @@ class WordsController extends AppController
     {
         //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
         $queryParams = $this->request->getQueryParams();
-        //debug(array_values($queryParams)[0]==='none');
+        //debug(array_values($queryParams));
+        if($queryParams === []){
+            $queryParams['all'] = 'all';
+        }
+        //debug(array_values($queryParams)[0]);
+        
         $sitelang = $this->viewBuilder()->getVar('sitelang');
         //private function 
         //$this->loadComponent('Paginator');
