@@ -36,19 +36,23 @@ class WordsController extends AppController
      */
     public function index()
     {
-
-        
         //array_map([$this, 'loadModel'], ['Words', 'Origins', 'Regions', 'Types', 'Dictionaries']);
-        $sitelang = $this->languageinfo();
+        $queryParams = $this->request->getQueryParams();
+        //debug(array_values($queryParams));
+        if($queryParams === []){
+            $queryParams['all'] = 'all';
+        }
+        //debug(array_values($queryParams)[0]);
+        
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         //private function 
         //$this->loadComponent('Paginator');
-        $ortd = $this->LoadORTD->getORTD($sitelang);
 
+        $ortd = $this->LoadORTD->getORTD($sitelang);
         $originvalue = [$this->request->getQuery('origin')];
         $regionvalue = [$this->request->getQuery('region')];
         $typevalue = [$this->request->getQuery('use')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
-
         $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
                               'regions' => $regionvalue[0],
                               'types' => $typevalue[0],
@@ -58,33 +62,45 @@ class WordsController extends AppController
         foreach($current_condition as $ortdcat => $ortd2) {
             if ($ortd2 != null){
                 $cc[$ortdcat] = $ortd2;
+
             }
         }
 
-        //$paginator = FactoryLocator::get('Paginator');
 
         
-        $query =  $this->Words->browse_words_filter(
-                $originvalue, 
-                $regionvalue, 
-                $typevalue, 
-                $dictionaryvalue, 
+
+        /*$query =  $this->Words->browse_words_filter(
+                $originvalue[0], 
+                $regionvalue[0], 
+                $typevalue[0], 
+                $dictionaryvalue[0], 
                 FALSE, 
-                $sitelang->id,TRUE);
+                $sitelang->id,TRUE);*/
+
         //$paginator = new \Cake\Datasource\Paginator\QueryPaginator($query);
         
         //$query = $this->Articles->find('published')->contain('Comments');
+        
+        $query = $this->Words->browse_words_simplified(
+                        array_keys($queryParams)[0], 
+                        array_values($queryParams)[0],
+                        FALSE, 
+                        $sitelang->id,
+                        TRUE);
+        
+        
         $this->set('words', $this->paginate($query));
 
-        //$words = $paginator->paginate(
-        $title = 'Home';
+
+        $title = 'Browse';
 
         $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
+    
 
     public function random() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $words = $this->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
         $this->set(compact('words', 'title', 'sitelang'));
@@ -93,7 +109,7 @@ class WordsController extends AppController
 
     public function alphabetical()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $letter = $this->request->getParam('pass')[0];
         
         $language = $this->fetchTable('Languages');
@@ -103,10 +119,10 @@ class WordsController extends AppController
             //print_r($alphabet);
         }
         
-        foreach($sitelang->alphabets as $k => $v){
+        /*foreach($sitelang->alphabets as $k => $v){
             $letter3 = hexdec($v['UTF8value']);
             $alphabet[] = html_entity_decode("&#$letter3;", ENT_COMPAT, "UTF-8");
-        }
+        }*/
         
         if($sitelang->righttoleft){
             $alphabet = array_reverse($alphabet);
@@ -131,7 +147,7 @@ class WordsController extends AppController
         //$word = $this->Words->get($id, [
             //'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations' => ['sort' => ['Pronunciations.display_order' => 'ASC']]]]);
         
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $wordResult = $this->Words->get_word_for_view($id);
         $word = $wordResult[0];
         //debug($word);
@@ -228,7 +244,7 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         
         //debug($this->request->getAttribute('params'));
         $getRoute = explode("/", $this->request->getRequestTarget());
@@ -421,7 +437,7 @@ class WordsController extends AppController
     }
 
     public function checkforword(){
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
@@ -448,7 +464,7 @@ class WordsController extends AppController
     }
 
     public function browsewords(){
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
@@ -502,7 +518,7 @@ class WordsController extends AppController
 
 
     public function browsewords2(){
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         //$this->RequestHandler->renderAs($this, 'json');
         $response = [];
         //debug($this->request->getData());
@@ -546,7 +562,7 @@ class WordsController extends AppController
     {
         $wordResult = $this->Words->get_word_for_edit($id);
         $word = $wordResult;
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         /*$word = $this->Words->get($id, [
             'contain' => ['Dictionaries', 'Origins', 'Regions', 'Types','Alternates','Languages','Definitions', 'Pronunciations', 'Sentences', 'Suggestions'],
         ]);*/

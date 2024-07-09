@@ -18,11 +18,11 @@ class TypesController extends AppController
      */
     public function index()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->paginate = [
             'contain' => ['Languages'],
         ];
-        $types = $this->paginate($this->Types->find('all')->where(['language_id' => $sitelang->id]));
+        $types = $this->paginate($this->Types->find()->where(['language_id' => $sitelang->id]));
 
         $this->set(compact('types'));
     }
@@ -51,7 +51,7 @@ class TypesController extends AppController
     public function add()
     {
         $type = $this->Types->newEmptyEntity();
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         if ($this->request->is('post')) {
             $type = $this->Types->patchEntity($type, $this->request->getData());
             if ($this->Types->save($type)) {
@@ -75,7 +75,7 @@ class TypesController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $type = $this->Types->get($id, [
             'contain' => ['Words'],
         ]);

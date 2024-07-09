@@ -24,12 +24,12 @@ class LanguagesController extends AppController
     }
 
     public function about() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->set(compact('sitelang'));
     }
 
     public function notes() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $this->set(compact('sitelang'));
     }
 
@@ -123,7 +123,7 @@ class LanguagesController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         //$this->set(compact('sitelang'));
         $language = $this->Languages->get($sitelang['id'], [
             'contain' => [],

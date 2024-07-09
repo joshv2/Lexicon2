@@ -20,7 +20,7 @@
 	<?php echo $this->Html->css('output.css');?>
 	<?php echo $this->Html->css('checkboxes.css');?>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 	
 	<?php echo $this->Html->css('fontawesome');?>
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
@@ -41,16 +41,6 @@
 		gtag('config', '<?= $sitelang->googleAnalytics ?>');
 		</script>
 
-	<?php if ('' != $sitelang->googleAnalyticsOld):?>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalyticsOld ?>"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', '<?= $sitelang->googleAnalyticsOld ?>');
-	</script>
-	<?php endif; ?>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<?= $this->Html->script('addform')."\n";?>
 	<?= $this->Html->script('audioplayback')."\n";?>
@@ -72,7 +62,13 @@
   	<div class="container bannerbg">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark">
 			<!--<a class="navbar-brand" href="/">-->
-				<?= $this->cell('Logo'); ?>
+				<?php echo $this->Html->image($sitelang->i18nspec . '/JewishLex_Logo.jpg' , 
+                                            [
+                                            'class' => "d-inline-block align-top",
+                                            'alt'=> "Home Logo",
+                                            'height' => 51, 
+                                            'url' => ['controller' => 'Pages', 'action' => 'index', 'plugin' => false]
+                                            ])?>
 			<!--</a>--->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -146,7 +142,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 			</ul>
 			<div class="right">
 			<?php echo $this->Html->image("joint_logo.jpg", ['id' => 'jointlogo', 'width' => '100%']);?>
-			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International.</a></p>
+			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International .</a></p>
 			</div>
 			<div class="clear"></div>
 		</div>
