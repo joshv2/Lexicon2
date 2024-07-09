@@ -225,10 +225,8 @@ class WordsTable extends Table
     }
 
     public function get_words_starting_with_letter($letter, $langid){
-        //need to add logic around approved words
         $query = $this->find()
                     ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
-                    //->contain(['Definitions'])
                     ->order(['spelling' => 'ASC']);
         return $query->all();
     }
@@ -273,9 +271,7 @@ class WordsTable extends Table
 
         if ($originvalue == null && $regionvalue == null && $typevalue == null && $dictionaryvalue == null){
             $query = $this->find()
-                        ->where(['language_id' => $langid, 'approved' => 1])
-                        //->contain(['Definitions'])
-                        ;
+                        ->where(['language_id' => $langid, 'approved' => 1]);
         } else {
 
             $params = [];
@@ -340,7 +336,6 @@ class WordsTable extends Table
                             ]
                         ])
                         ->where([$params, 'language_id' => $langid])
-                        //->contain(['Definitions'])
                         ->distinct()
                         ->order(['spelling' => 'ASC']);
             } else {
@@ -368,7 +363,6 @@ class WordsTable extends Table
                     ]
                 ])
                 ->where([$params, 'language_id' => $langid])
-                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
             }
@@ -379,7 +373,6 @@ class WordsTable extends Table
             return json_encode($results);
         } else {
             $results = $query->all();
-            //return $results->toArray();
             return $query;
         }
     }
@@ -387,7 +380,6 @@ class WordsTable extends Table
     public function browse_words_filter2($wordIds, $langid){
         $params['approved ='] = 1; 
         $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
-                //->contain(['Definitions'])
                 ->distinct()
                 ->order(['spelling' => 'ASC']);
         return json_encode($query);
@@ -395,7 +387,6 @@ class WordsTable extends Table
 
     public function get_random_words($langid) {
         $query = $this->find()
-                //->contain(['Definitions'])
                 ->where(['approved' => 1, 'language_id' => $langid])
                 ->order("rand()")
                 ->limit(20);
@@ -444,7 +435,6 @@ class WordsTable extends Table
                             ->where(['Suggestions.status' => 'unread'])
                             ->order(['Suggestions.created' => 'ASC']);
                     });
-        //$results = $query->all();
         return $query->first();
     }
 
@@ -459,24 +449,14 @@ class WordsTable extends Table
                
         $querystring = addslashes($options['querystring']);
         $langid = $options['langid'];
-        $query = $this->find();//->contain(['Definitions']);
+        $query = $this->find();
         $query = $query->join([
-                        /*'d' => [
-                            'table' => 'definitions',
-                            'type' => 'LEFT',
-                            'conditions' => 'Words.id = d.word_id'
-                        ],*/
+
                         'a' => [
                             'table' => 'alternates',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = a.word_id'
-                        ]
-                        /*'s' => [
-                            'table' => 'sentences',
-                            'type' => 'LEFT',
-                            'conditions' => 'Words.id = s.word_id'
-                        ]
-                    ]);*/]);
+                        ]]);
 
 
         $spellingmatch = $query->newExpr()
@@ -493,21 +473,14 @@ class WordsTable extends Table
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
-                                 //'definitions' => 'group_concat(DISTINCT d.id)', 
                                  'spellingmatch' => $spellingmatch,
-                                 //'notesmatch' => "MATCH(Words.notes) AGAINST ('".$querystring."')",
-                                 //'definitionmatch' => "MATCH(d.definition) AGAINST ('".$querystring."')"]
                                  ])
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         //["MATCH(Words.notes) AGAINST ('".$querystring."')"],
-                                         //["MATCH(d.definition) AGAINST ('".$querystring."')"],
-                                         //["MATCH(s.sentence) AGAINST ('".$querystring."')"],
-                                         /*['etymology LIKE' => '%'.$querystring.'%']],*/], 'approved' => 1])
+                                         ], 'approved' => 1])
                         ->group(['Words.id'])
-                        ->order(['spellingmatch' => 'DESC', /*'definitionmatch' => 'DESC', 'notesmatch' => 'DESC',*/ 'Words.spelling' => 'ASC']);
+                        ->order(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
 
-        //debug($query);
         return $query;
     }
 
@@ -531,7 +504,6 @@ class WordsTable extends Table
                                 ->where(['Alternates.spelling =' => $wordtosearch, 'Words.language_id' => $spelling["language_id"]]);
 
         $finalquery = $altspellingquery->union($wordspellingquery);
-        //return $finalquery->toArray();
         if ($finalquery->count() > 0) {
             return FALSE;
         } else {
