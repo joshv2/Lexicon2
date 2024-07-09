@@ -34,9 +34,11 @@ class LoadORTDComponent extends Component
             }
             if($sitelang->hasDictionaries) {
                 $dictionaries = $this->Dictionaries->top_dictionaries($sitelang->id);
-                $no_dict_entries = $this->Words->get_not_in_other_dictionary($sitelang->id);
+                $no_dict_entries = $this->Words->get_not_in_other_dictionary_count($sitelang->id);
+                $no_dict_entries_words = $this->Words->get_not_in_other_dictionary_words($sitelang->id);
                 $tagging['no_dict_entries'] = $no_dict_entries;
                 $tagging['dictionaries'] = $dictionaries;
+                $tagging['no_dict_entries_words'] = $no_dict_entries_words;
             }
 
         return $tagging;

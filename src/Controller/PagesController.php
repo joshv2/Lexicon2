@@ -62,7 +62,7 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $title = ucfirst($page);
         $this->set(compact('page', 'subpage', 'title', 'sitelang'));
 
@@ -83,7 +83,7 @@ class PagesController extends AppController
         $typesTable = $this->fetchTable('Types');
         $dictionariesTable = $this->fetchTable('Dictionaries');
         $typeCategoriesTable  = $this->fetchTable('TypeCategories');
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
         $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {
@@ -103,7 +103,7 @@ class PagesController extends AppController
         }
         if($sitelang->hasDictionaries) {
             $dictionaries = $dictionariesTable->top_dictionaries($sitelang->id);
-            $no_dict_entries = $wordsTable->get_not_in_other_dictionary($sitelang->id);
+            $no_dict_entries = $wordsTable->get_not_in_other_dictionary_count($sitelang->id);
             $tagging['no_dict_entries'] = $no_dict_entries;
             $tagging['dictionaries'] = $dictionaries;
         }

@@ -112,7 +112,7 @@ class SuggestionsTable extends Table
     }
 
     public function get_pending_suggestions($langid) {
-            $query = $this->find('all')
+            $query = $this->find()
                         ->where(['status =' => 'unread'])
                         ->contain(['Words' => function (Query $q) use ($langid) {
                             return $q->where(['Words.language_id' => $langid]);
