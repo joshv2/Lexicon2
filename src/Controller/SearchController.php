@@ -8,10 +8,12 @@ class SearchController extends AppController {
 	public function initialize(): void
     {
         parent::initialize();
+        //$this->loadComponent('Paginator');
     }
 
 	public function index()
     {
+        //array_map([$this, 'loadModel'], ['Words']);
         $sitelang = $this->viewBuilder()->getVar('sitelang');
         $q = $this->request->getQuery('q');
 

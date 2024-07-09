@@ -445,10 +445,10 @@ class WordsTable extends Table
         return $query;
     }
 
-    public function findSearchResults(SelectQuery $query, $options){
+    public function findSearchResults(SelectQuery $query, string $querystring, int $langid){
                
-        $querystring = addslashes($options['querystring']);
-        $langid = $options['langid'];
+        $querystring = addslashes($querystring);
+        $langid = $langid;
         $query = $this->find();
         $query = $query->join([
 
