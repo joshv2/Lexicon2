@@ -6,7 +6,16 @@
 	<link rel="icon" 
       type="image/ico" 
       href="/img/<?= $sitelang->i18nspec ?>/favicon.ico" />
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','<?= $sitelang->googleAnalytics ?>');</script>
+	<!-- End Google Tag Manager -->
+	
+	  <link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />
+	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
      crossorigin="anonymous"></script>
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({
@@ -31,15 +40,8 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $sitelang->googleAnalytics ?>"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
 
-		gtag('config', '<?= $sitelang->googleAnalytics ?>');
-		</script>
+
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<?= $this->Html->script('addform')."\n";?>
@@ -56,7 +58,10 @@
 
 </head>
 <body>
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $sitelang->googleAnalytics ?>"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <header>
   	<div class="container bannerbg">
@@ -151,6 +156,14 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
 	<?= $this->Html->script('bottom')."\n";?>
 	<script type="text/javascript"> var infolinks_pid = 3416121; var infolinks_wsid = 0; </script> 
 	<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+	<script src="https://public-assets.tagconcierge.com/consent-banner/1.2.3/cb.min.js" integrity="sha384-zXUdInIfEJI2FEImKEFc2cmja+Jn7TViSXzqt6OhABX0jMgz6Mctrc864uJaN5PX" crossorigin="anonymous"></script>
+	<script>
+		cookiesBannerJs(
+			loadConsentState,
+			saveConsentState,
+			config
+		);
+	</script>
 </body>
 
 
