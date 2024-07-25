@@ -52,10 +52,11 @@
 				<?php if(1 == $p->approved): ?>
 					
 				<?php 
-					if ('' !== $p->sound_file){
-						$audioPlayer = '<a id="play-pause-button-' . $i . '"><i class="fa-solid fa-volume-up"></i> <span id="listen">listen</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $p->sound_file), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
-					} else {
+					if (is_null($p->sound_file) || '' == $p->sound_file) {
 						$audioPlayer = '';
+					}
+					else {
+						$audioPlayer = '<a id="play-pause-button-' . $i . '"><i class="fa-solid fa-volume-up"></i> <span id="listen">listen</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $p->sound_file), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
 					}
 					 ?>
 				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]], ['class' => 'pronunciationtr']); ?>
