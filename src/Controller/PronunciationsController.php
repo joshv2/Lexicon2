@@ -153,7 +153,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null, $wordid)
+    public function edit($wordid, $id = null)
     {
         $pronunciation = $this->Pronunciations->get($id, [
             'contain' => [],
@@ -182,7 +182,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null, $wordid)
+    public function delete($wordId, $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $pronunciation = $this->Pronunciations->get($id);
@@ -196,7 +196,7 @@ class PronunciationsController extends AppController
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 
-    public function approve($id = null, $wordid){
+    public function approve($wordid, $id = null){
         $this->request->allowMethod(['post']);
         //array_map([$this, 'loadModel'], ['Words']);
         $word =  $this->fetchTable('Words')->get($wordid);
