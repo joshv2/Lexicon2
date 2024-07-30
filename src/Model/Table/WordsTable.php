@@ -235,7 +235,6 @@ class WordsTable extends Table
     public function browse_words_simplified($ortdtype, $ortdvalue, $returnjson, $langid, $index = FALSE){
         $pluralization = ['dictionary' => 'dictionaries',
                             'region' => 'regions',
-                            'use' => 'types',
                             'type' => 'types',
                             'origin' => 'origins'];
         
