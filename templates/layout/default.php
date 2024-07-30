@@ -240,7 +240,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
             },
             modal: {
                 title: 'Cookies',
-                description: 'We are using various cookies files. Learn more in our [privacy policy](#) and make your choice.',
+                description: 'We are using various cookies files. Learn more in our [privacy policy](/about) and make your choice.',
                 buttons: {
                     accept: 'Accept',
                     settings: 'Settings'
