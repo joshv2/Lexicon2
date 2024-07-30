@@ -2470,8 +2470,18 @@ label[for="alternates-0-spelling"] {
     border-radius: 3px;
 }
 
+.consent-banner-button:hover {
+    color: #0A3C78;
+    border-color: #0A3C78;
+}
+
 .consent-banner-button[href="#accept"] {
     color: #ffffff;
     border-color: #0A3C78;
     background-color: #0A3C78;
+}
+
+.consent-banner-button[href="#accept"]:hover {
+    background-color: #0A3C78;
+    border-color: #0A3C78;
 }
