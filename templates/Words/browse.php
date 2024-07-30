@@ -104,7 +104,7 @@
 			elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
 				echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
 			 } elseif (array_key_first($cc) == 'types') {
-				echo "Checked options: " . $ortd['top'.array_key_first($cc)][$cc[array_key_first($cc)]];
+				echo "Checked options: " . $ortd['toptypes'][$cc['types']];
 			 } else {
 				echo "";
 			 }

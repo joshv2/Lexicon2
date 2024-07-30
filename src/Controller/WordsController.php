@@ -45,7 +45,7 @@ class WordsController extends AppController
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $originvalue = [$this->request->getQuery('origin')];
         $regionvalue = [$this->request->getQuery('region')];
-        $typevalue = [$this->request->getQuery('use')];
+        $typevalue = [$this->request->getQuery('type')];
         $dictionaryvalue = [$this->request->getQuery('dictionary')];
         $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
                               'regions' => $regionvalue[0],
