@@ -139,7 +139,7 @@ $(document).ready(function() {
 								$boldMainName = [$subtype->type, ""];
 							}
 							echo "<li>". $this->Html->link("<span class='boldname'>" . __($boldMainName[0]) . "</span>"
-								. __($boldMainName[1]), '/words?use='.$subtype->id, ['escape' => false]) . "</li>";
+								. __($boldMainName[1]), '/words?type='.$subtype->id, ['escape' => false]) . "</li>";
 						}
 						echo "<br>";
 					} else {
@@ -153,7 +153,7 @@ $(document).ready(function() {
 						echo __("Other") . "<br>";
 					}
 						foreach ($otherarray as $othertype) {
-							echo "<li>".  $this->Html->link(__($othertype->type), '/words?use='.$othertype->id) . "</li>";
+							echo "<li>".  $this->Html->link(__($othertype->type), '/words?type='.$othertype->id) . "</li>";
 						}
 					}
 				?>
