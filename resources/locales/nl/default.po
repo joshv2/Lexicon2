@@ -203,7 +203,7 @@ msgstr "Eerste keer op onze website? Lees onze "
 
 
 msgid "welcome "
-msgstr "Welkomstpagina"
+msgstr "Welkomstpagina "
 
 
 msgid "page"
