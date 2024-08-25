@@ -4,9 +4,7 @@
  * @var \App\Model\Entity\Origin $origin
  */
 ?>
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">

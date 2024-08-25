@@ -4,9 +4,7 @@
  * @var \App\Model\Entity\Origin[]|\Cake\Collection\CollectionInterface $origins
  */
 ?>
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
+
 <div class="origins index content">
     <?= $this->Html->link(__('New Origin'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Origins') ?></h3>

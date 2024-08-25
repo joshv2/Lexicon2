@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\Http\Client;
 use Cake\Core\Configure;
+use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
 use Cake\Http\Exception\InternalErrorException;
@@ -25,6 +27,7 @@ class WordsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('LoadORTD');
+        $this->Origins = TableRegistry::getTableLocator()->get('Origins');
 
     }
     
@@ -366,10 +369,19 @@ class WordsController extends AppController
         $specialothervalue = '';
         $specialothertype = '';
         $specialothervaluetype = '';
-        $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
-        $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
-        $types = $this->fetchTable('Types')->top_types($sitelang->id);
-        $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
+        //$this->loadModel('Origins');
+        //$originsTable = $this->fetchTable('Origins');
+        $origins = $this->Origins->find('topOrigins', ['langId' => $sitelang->id])->toArray();
+
+        //$origins = $this->fetchTable('Origins')->find('topOrigins', langid: $sitelang->id)->all();
+        //$origins = $this->fetchTable('Origins')->topOrigins($sitelang->id);
+        //$regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
+        //$types = $this->fetchTable('Types')->top_types($sitelang->id);
+        //$origins = [];
+        $regions = [];
+        $types = [];
+        $dictionaries = [];
+        //$dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';

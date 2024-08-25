@@ -2,7 +2,10 @@
 // src/Model/Table/OriginsTable.php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
+
 
 class OriginsTable extends Table
 {
@@ -28,7 +31,43 @@ class OriginsTable extends Table
     }
 
 
-    public function top_origins($langid){
+    public function findTopOrigins(SelectQuery $query, int $langid): Query
+    {
+        
+        if ($langId === null) {
+            throw new \InvalidArgumentException('Language ID must be provided.');
+        }
+
+
+        // First Query
+        $query = $this->find(
+            type: 'list', 
+            options: [
+                'valueField' => 'origin',
+                'order' => ['Origins.id' => 'ASC']
+            ]
+        )->matching(
+            assoc: 'Languages', 
+            builder: function ($q) use ($langId) {
+                return $q->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langId]);
+            }
+        );
+
+        // Second Query
+        $query2 = $this->find(
+            type: 'list', 
+            options: [
+                'valueField' => 'origin'
+            ]
+        )->where(['id' => 999]);
+
+        // Combine Queries
+        
+        return $query->union($query2);
+    }
+
+
+    /*public function top_origins($langid){
         $query = $this->find('list', 
                         valueField: 'origin', 
                         order: ['Origins.id' => 'ASC'])
@@ -42,7 +81,7 @@ class OriginsTable extends Table
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
-    }
+    }*/
 
     public function get_all_ids(){
         $query = $this->find()->all()->extract('id');
