@@ -463,8 +463,8 @@ $(function(){
                     success: function(response) {
                         var newData = response;
                         
-                        //alert(newData.response.spelling);
-                        if (newData.response.success == 1) {
+                        //alert(newData.response);
+                        if (newData.success == 1) {
                             console.log('value deleted');
                             $(elementid + defid[0]).remove();
                         } else {

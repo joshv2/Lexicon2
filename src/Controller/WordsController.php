@@ -369,19 +369,10 @@ class WordsController extends AppController
         $specialothervalue = '';
         $specialothertype = '';
         $specialothervaluetype = '';
-        //$this->loadModel('Origins');
-        //$originsTable = $this->fetchTable('Origins');
-        $origins = $this->Origins->find('topOrigins', ['langId' => $sitelang->id])->toArray();
-
-        //$origins = $this->fetchTable('Origins')->find('topOrigins', langid: $sitelang->id)->all();
-        //$origins = $this->fetchTable('Origins')->topOrigins($sitelang->id);
-        //$regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
-        //$types = $this->fetchTable('Types')->top_types($sitelang->id);
-        //$origins = [];
-        $regions = [];
-        $types = [];
-        $dictionaries = [];
-        //$dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
+        $origins = $this->fetchTable('Origins')->top_origins(options : ['langid' => $sitelang->id]);
+        $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
+        $types = $this->fetchTable('Types')->top_types($sitelang->id);
+        $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
 
         $recaptcha_user = Configure::consume('recaptcha_user');
         $title = 'Add a Word';
@@ -637,7 +628,7 @@ class WordsController extends AppController
             }
             
 
-            $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
+            $origins = $this->fetchTable('Origins')->top_origins(options : ['langid' => $sitelang->id]);
 
             $specialother = '';
             $specialothervalue = '';

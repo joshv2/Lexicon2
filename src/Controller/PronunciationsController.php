@@ -196,9 +196,11 @@ class PronunciationsController extends AppController
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 
-    public function approve($wordid, $id = null){
+    public function approve($id = null, $wordid){
         $this->request->allowMethod(['post']);
         //array_map([$this, 'loadModel'], ['Words']);
+        //debug($wordid);
+        //debug($id);
         $word =  $this->fetchTable('Words')->get($wordid);
 
         $datefortimestamp = date('Y-m-d h:i:s', time());

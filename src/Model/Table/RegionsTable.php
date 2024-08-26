@@ -38,7 +38,7 @@ class RegionsTable extends Table
                         //->contain(['Languages'])
                         ->matching('Languages')
                         ->where(['RegionsLanguages.top' => 1, 'RegionsLanguages.language_id' => $langid]);
-        $query2 = $this->find('list', ['valueField' => 'region'])
+        $query2 = $this->find('list', valueField : 'region')
                         ->where(['id' => 999]);
         $query = $query->union($query2);
         //$query->disableHydration();

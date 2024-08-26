@@ -67,21 +67,21 @@ class OriginsTable extends Table
     }
 
 
-    /*public function top_origins($langid){
+    public function top_origins(array $options){
         $query = $this->find('list', 
                         valueField: 'origin', 
                         order: ['Origins.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
-                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
+                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $options['langid']]);
 
-        $query2 = $this->find('list', ['valueField' => 'origin'])
+        $query2 = $this->find('list', valueField: 'origin')
                         ->where(['id' => 999]);
         $query = $query->union($query2);
         //$query->disableHydration();
         $data = $query->toArray();
         return $data;
-    }*/
+    }
 
     public function get_all_ids(){
         $query = $this->find()->all()->extract('id');

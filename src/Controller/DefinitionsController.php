@@ -112,25 +112,28 @@ class DefinitionsController extends AppController
 
     public function ajaxdelete($id = null)
     {
-        $this->RequestHandler->renderAs($this, 'json');
+
         $response = [];
 
         if( $this->request->is('post') ) {
             $definition = $this->Definitions->get($id);
             if ($this->Definitions->delete($definition)) {
                 Log::info('Definition \/\/ ' . $this->request->getSession()->read('Auth.username') . ' deleted ' . $definition->definition . ' \/\/', ['scope' => ['events']]);
-                $response['success'] = 1;
+                $data['success'] = 1;
             } else {
-                $response['success'] = 0;
+                $data['success'] = 0;
             }
             //debug($response['spelling']);
         } else {
-            $response['success'] = 0;
+            $data['success'] = 0;
         }
 
-        $this->set(compact('response'));
-        $this->viewBuilder()->setOption('serialize', true);
-        $this->RequestHandler->renderAs($this, 'json');
+        //$this->set(compact('response'));
+        $this->response = $this->response->withType('application/json')
+                                     ->withStringBody(json_encode($data));
+    
+        return $this->response;
+        //$this->RequestHandler->renderAs($this, 'json');
 
         /*$this->request->allowMethod(['post', 'delete']);
         $definition = $this->Definitions->get($id);
