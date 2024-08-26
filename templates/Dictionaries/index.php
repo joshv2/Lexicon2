@@ -4,9 +4,7 @@
  * @var \App\Model\Entity\Dictionary[]|\Cake\Collection\CollectionInterface $dictionaries
  */
 ?>
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
+
 <div class="dictionaries index content">
     <?= $this->Html->link(__('New Dictionary'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Dictionaries') ?></h3>

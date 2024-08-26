@@ -82,7 +82,16 @@ use Cake\Routing\RouteBuilder;
     $builder->connect('/words/{id}', 
         ['controller' => 'Words', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]);
-
+    $builder->connect(
+        '/pronunciations/approve/{id}/{wordid}',
+        ['controller' => 'Pronunciations', 'action' => 'approve'],
+        [
+            'id' => '\d+',
+            'wordid' => '\d+',
+            'pass' => ['id', 'wordid'],
+            '_name' => 'pronunciations_approve'
+        ]
+    );
     $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
 
 

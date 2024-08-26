@@ -4,9 +4,7 @@
  * @var \App\Model\Entity\Type[]|\Cake\Collection\CollectionInterface $types
  */
 ?>
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
+
 <div class="types index content">
     <?= $this->Html->link(__('New Type'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Types') ?></h3>

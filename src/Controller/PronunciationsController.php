@@ -182,7 +182,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($wordId, $id = null)
+    public function delete($id = null, $wordid)
     {
         $this->request->allowMethod(['post', 'delete']);
         $pronunciation = $this->Pronunciations->get($id);
@@ -196,9 +196,11 @@ class PronunciationsController extends AppController
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 
-    public function approve($wordid, $id = null){
+    public function approve($id = null, $wordid){
         $this->request->allowMethod(['post']);
         //array_map([$this, 'loadModel'], ['Words']);
+        //debug($wordid);
+        //debug($id);
         $word =  $this->fetchTable('Words')->get($wordid);
 
         $datefortimestamp = date('Y-m-d h:i:s', time());

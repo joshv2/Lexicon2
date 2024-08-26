@@ -138,7 +138,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                     <td colspan="5">
                                         <a class='add-row'><i class="fa fa-plus" aria-hidden="true"></i> <?=__("Add an additional pronunciation")?></a>&nbsp;&nbsp;
                                         <a class='remove-row disabled'><i class='fa fa-minus' aria-hidden='true'></i> <?=__("Remove")?></a>
-                                        <?php echo ('edit' == $controllerName && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
+                                        <?php echo ('edit' == $controllerName && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking/Remove Pronunciation'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -463,8 +463,8 @@ $(function(){
                     success: function(response) {
                         var newData = response;
                         
-                        //alert(newData.response.spelling);
-                        if (newData.response.success == 1) {
+                        //alert(newData.response);
+                        if (newData.success == 1) {
                             console.log('value deleted');
                             $(elementid + defid[0]).remove();
                         } else {
