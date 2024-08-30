@@ -199,11 +199,11 @@ msgstr "Over Ons"
 
 
 msgid "First time here? Read our "
-msgstr "Eerste keer op onze website? Lees onze "[a]
+msgstr "Eerste keer op onze website? Lees onze "
 
 
 msgid "welcome "
-msgstr "Welkomstpagina"
+msgstr "Welkomstpagina "
 
 
 msgid "page"
@@ -800,4 +800,3 @@ msgstr "Ontbreekt er iets aan dit trefwoord? Is het onjuist? Voelt u vrij om een
 
 msgid "Record a Sentence"
 msgstr "Zin Opnemen"
-[a]check

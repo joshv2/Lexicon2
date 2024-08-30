@@ -2455,3 +2455,33 @@ label[for="alternates-0-spelling"] {
 [class^="add-editor"] {
     float: right;
 }
+
+.consent-banner-button {
+    text-decoration: none;
+    background: none;
+    border: 1px solid #000;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    color: #0A3C78;
+    border-color: #0A3C78;
+    background-color: transparent;
+    border-width: 2px;
+    padding: 8px 27px;
+    border-radius: 3px;
+}
+
+.consent-banner-button:hover {
+    color: #0A3C78;
+    border-color: #0A3C78;
+}
+
+.consent-banner-button[href="#accept"] {
+    color: #ffffff;
+    border-color: #0A3C78;
+    background-color: #0A3C78;
+}
+
+.consent-banner-button[href="#accept"]:hover {
+    background-color: #0A3C78;
+    border-color: #0A3C78;
+}
