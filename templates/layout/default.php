@@ -232,7 +232,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
             }],
             settings: {
                 title: "Cookies Settings",
-                description: "In order to provide you with best experience we use various...",
+                description: "Check the cookies you accept.",
                 buttons: {
                     save: "Save preferences",
                     close: "Close"
@@ -240,7 +240,7 @@ If we meet our fundraising goal by May 3, you can expect to see - and hear! - th
             },
             modal: {
                 title: 'Cookies',
-                description: 'We are using various cookies files. Learn more in our [privacy policy](/about) and make your choice.',
+                description: 'We are using various cookies files. Learn more in our [privacy policy](/about#about22) and make your choice.',
                 buttons: {
                     accept: 'Accept',
                     settings: 'Settings'

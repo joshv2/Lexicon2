@@ -52,7 +52,7 @@
 <?php endif;?>
 
 <?php if ('' !== $sitelang->AboutSec4Header): ?>	
-	<div class="page-header group">
+	<div id="about22" class="page-header group">
 		<h2 class="left"><?= $sitelang->AboutSec4Header ?></h2>
 	</div>
 <?php endif;?>
