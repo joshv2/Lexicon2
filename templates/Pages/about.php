@@ -100,7 +100,7 @@
 	<div class="page-header group">
 		<h2 class="left"><?=__('Privacy')?></h2>
 	</div>
-	<div id="about2" class="c content">
-	<p><?=__('The Lexicon collects minimal data about visitors to the site. Any data which is or will be collected by this site will be covered by the')?> <?php echo $this->Html->link(__('HUC privacy policy'), 'https://huc.edu/privacy-policy/');?> <?=__('and')?> <?php echo $this->Html->link(__('HUC cookie policy'), 'https://huc.edu/cooki-policy/');?>.</br>
+	<div id="about22" class="c content">
+	<p><?=__('The Lexicon collects minimal data about visitors to the site. Any data which is or will be collected by this site will be covered by the')?> <?php echo $this->Html->link(__('HUC privacy policy'), 'https://huc.edu/privacy-policy/');?> <?=__('and')?> <?php echo $this->Html->link(__('HUC cookie policy'), 'https://huc.edu/cookie-policy/');?>.</br>
 	</div>
 </section>
