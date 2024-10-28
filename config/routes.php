@@ -72,12 +72,16 @@ use Cake\Routing\RouteBuilder;
      */
     //$builder->connect('/login', ['controller' => 'Pages', 'action' => 'index', 'plugin' => 'false']);
     $builder->connect('/pages/*', 'Pages::display');
-
+    $routes->connect('/.well-known/*', ['controller' => 'Pages', 'action' => 'display']);
     $builder->connect('/alphabetical', ['controller' => 'Words', 'action' => 'alphabetical', 'a']);
     $builder->connect('/alphabetical/{letter}', 
         ['controller' => 'Words', 'action' => 'alphabetical'],
         ['pass' => ['letter']]
     );
+    
+    Router::scope('/', function ($routes) {
+        
+    });
 
     $builder->connect('/words/{id}', 
         ['controller' => 'Words', 'action' => 'view'],
