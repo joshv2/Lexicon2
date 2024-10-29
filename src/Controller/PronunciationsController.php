@@ -141,7 +141,7 @@ class PronunciationsController extends AppController
             }
 
         }   
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('requested_pronunciations', 'words', 'word'));
         $this->render('ranking');
     }
