@@ -2,7 +2,10 @@
 // src/Model/Table/OriginsTable.php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
+
 
 class OriginsTable extends Table
 {
@@ -28,15 +31,51 @@ class OriginsTable extends Table
     }
 
 
-    public function top_origins($langid){
+    public function findTopOrigins(SelectQuery $query, int $langid): Query
+    {
+        
+        if ($langId === null) {
+            throw new \InvalidArgumentException('Language ID must be provided.');
+        }
+
+
+        // First Query
+        $query = $this->find(
+            type: 'list', 
+            options: [
+                'valueField' => 'origin',
+                'order' => ['Origins.id' => 'ASC']
+            ]
+        )->matching(
+            assoc: 'Languages', 
+            builder: function ($q) use ($langId) {
+                return $q->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langId]);
+            }
+        );
+
+        // Second Query
+        $query2 = $this->find(
+            type: 'list', 
+            options: [
+                'valueField' => 'origin'
+            ]
+        )->where(['id' => 999]);
+
+        // Combine Queries
+        
+        return $query->union($query2);
+    }
+
+
+    public function top_origins(array $options){
         $query = $this->find('list', 
                         valueField: 'origin', 
                         order: ['Origins.id' => 'ASC'])
                         //->contain(['Languages'])
                         ->matching('Languages')
-                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
+                        ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $options['langid']]);
 
-        $query2 = $this->find('list', ['valueField' => 'origin'])
+        $query2 = $this->find('list', valueField: 'origin')
                         ->where(['id' => 999]);
         $query = $query->union($query2);
         //$query->disableHydration();

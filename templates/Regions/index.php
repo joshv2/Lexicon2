@@ -4,9 +4,7 @@
  * @var \App\Model\Entity\Region[]|\Cake\Collection\CollectionInterface $regions
  */
 ?>
-<nav id="crumbs" class="group">
-	<?php echo $this->element('user_bar');?>
-</nav>
+
 <div class="regions index content">
     <?= $this->Html->link(__('New Region'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Regions') ?></h3>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 use Cake\Http\Client;
 use Cake\Core\Configure;
+use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
 use Cake\Http\Exception\InternalErrorException;
@@ -25,6 +27,7 @@ class WordsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('LoadORTD');
+        $this->Origins = TableRegistry::getTableLocator()->get('Origins');
 
     }
     
@@ -366,7 +369,7 @@ class WordsController extends AppController
         $specialothervalue = '';
         $specialothertype = '';
         $specialothervaluetype = '';
-        $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
+        $origins = $this->fetchTable('Origins')->top_origins(options : ['langid' => $sitelang->id]);
         $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
         $types = $this->fetchTable('Types')->top_types($sitelang->id);
         $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
@@ -625,7 +628,7 @@ class WordsController extends AppController
             }
             
 
-            $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
+            $origins = $this->fetchTable('Origins')->top_origins(options : ['langid' => $sitelang->id]);
 
             $specialother = '';
             $specialothervalue = '';
