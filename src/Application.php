@@ -65,7 +65,7 @@ class Application extends BaseApplication
 
         //$this->addPlugin(\CakeDC\Users\Plugin::class);
         if (PHP_SAPI === 'cli') {
-            $this->bootstrapCli();
+            //$this->bootstrapCli();
         } else {
             FactoryLocator::add(
                 'Table',

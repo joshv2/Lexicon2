@@ -321,7 +321,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     //echo "</div>";
                     echo "<div class='form-group clear'>";
                     echo "<div class='form-group-types-other'>";
-                        echo $this->Form->control('type_other_entry', ['label' => ['text' => __('Enter other groups separated by comma'), 'class' => 'req']]);
+                        echo $this->Form->control('type_other_entry', ['label' => ['text' => __('Enter other groups separated by semicolon'), 'class' => 'req']]);
                     echo "</div>";
                     
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['notes']) { 
