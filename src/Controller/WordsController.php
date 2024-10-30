@@ -286,7 +286,7 @@ class WordsController extends AppController
                 }
                 
                 if ($postData['type_other_entry'] !== ''){
-                    array_push($processedTypes, [ 'type' => $postData['type_other_entry']]);
+                    array_merge($processedTypes, [ 'type' => explode(";", $postData['type_other_entry'])]);
                     unset($postData['type_other_entry']);
                 }
                 unset($postData['types']['_ids']);

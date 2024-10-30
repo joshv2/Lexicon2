@@ -182,10 +182,10 @@
 			foreach ($word->types as $key => $type){
 				$lenothertypes = 0;
 
-				if(strpos($type->type,",") !== false && $type->id > 999){
+				/*if(strpos($type->type,",") !== false && $type->id > 999){ // TODO fix this logic it is bad!!
 					$othertypes = explode(",",$type->type);
 					$lenothertypes = count($othertypes);
-				}
+				}*/
 
 				if($type->id != 999 && $lenothertypes == 0){
 					$newtypes[$key] = __($type->type);
@@ -255,12 +255,12 @@
 			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
 			<?php endif; ?>
 		<?php endif;?>
-		</div>
+		</div> <!--// TODO check what this div is doing-->
 		<div class='wnotes'>
 		<?php if(!empty($word->notes)):?>
 			<h4><?=__("Notes")?></h4>
 			<ul>
-				<li class='notesli'><?php echo $word->notes;?></li>
+				<li class='notesli'><?php echo $word->notes;?></li> <!--// // TODO should check for <p></br></p> -->
 			</ul>
 		<?php endif;?>
 	</div>
