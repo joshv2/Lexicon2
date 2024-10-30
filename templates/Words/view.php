@@ -182,12 +182,7 @@
 			foreach ($word->types as $key => $type){
 				$lenothertypes = 0;
 
-				/*if(strpos($type->type,",") !== false && $type->id > 999){ // TODO fix this logic it is bad!!
-					$othertypes = explode(",",$type->type);
-					$lenothertypes = count($othertypes);
-				}*/
-
-				if($type->id != 999 && $lenothertypes == 0){
+				if($type->id != 999 && $lenothertypes == 0){ // logic to exclude "other" from appearing in list
 					$newtypes[$key] = __($type->type);
 				}
 
@@ -260,7 +255,7 @@
 		<?php if(!empty($word->notes)):?>
 			<h4><?=__("Notes")?></h4>
 			<ul>
-				<li class='notesli'><?php echo $word->notes;?></li> <!--// // TODO should check for <p></br></p> -->
+				<li class='notesli'><?php echo $word->notes;?></li> <!--// TODO should check for <p></br></p> -->
 			</ul>
 		<?php endif;?>
 	</div>
