@@ -11,6 +11,7 @@ use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Datasource\PaginatorInterface;
 use Cake\Datasource\FactoryLocator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Words Controller
@@ -286,9 +287,22 @@ class WordsController extends AppController
                 }
                 
                 if ($postData['type_other_entry'] !== ''){
-                    array_merge($processedTypes, [ 'type' => explode(";", $postData['type_other_entry'])]);
+                    
+                    foreach (explode(";", $postData['type_other_entry']) as $othertype) {
+                        $typesTable = $this->fetchTable('Types');
+                        $typeIdofOtherType = $typesTable->getTypeIdIfExists($othertype);
+                        
+
+                        if ($typeIdofOtherType !== null) {
+                            array_push($processedTypes, array('id' => $typeIdofOtherType));
+                        } else {
+                            array_push($processedTypes, [ 'type' => $othertype ]);
+                        }
+                    }
+                    
+                    //debug($processedTypes);
                     unset($postData['type_other_entry']);
-                }
+                } 
                 unset($postData['types']['_ids']);
                 $postData['types'] = $processedTypes;
             }
