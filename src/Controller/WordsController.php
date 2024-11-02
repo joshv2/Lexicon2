@@ -36,8 +36,9 @@ class WordsController extends AppController
     public function index()
     {
         $queryParams = $this->request->getQueryParams();
-        if($queryParams === []){
-            $queryParams['all'] = 'all';
+        if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
+            $queryParams = array_merge(['all' => 'all'], $queryParams);
+            //$queryParams['all'] = 'all';
         }
         
         $sitelang = $this->viewBuilder()->getVar('sitelang');
@@ -59,7 +60,7 @@ class WordsController extends AppController
 
             }
         }
-
+        
         $query = $this->Words->browse_words_simplified(
                         array_keys($queryParams)[0], 
                         array_values($queryParams)[0],
