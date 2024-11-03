@@ -219,12 +219,11 @@ class WordsController extends AppController
                     }
                 }
                 
-                //debug($processedTypes);
+
                 unset($postData[substr($ortd, 0, -1) . '_other_entry']);
             } 
-            //debug($processed);
+
             unset($postData[$ortd]['_ids']);
-            //$processed = array_unique($processed);
             $postData[$ortd] = $processed;
             return $postData;
         } else {
@@ -310,53 +309,6 @@ class WordsController extends AppController
             foreach ($ortdswithother as $ortdwithother){
                 $postData = $this->process_others($ortdwithother, $postData);
             }
-
-            /*$processedOrigins = [];
-            if($postData['origins']['_ids'] !== ''){
-                foreach ($postData['origins']['_ids'] as $originid){
-                    array_push($processedOrigins, array('id' => $originid));
-                }
-                
-                if ($postData['origin_other_entry'] !== ''){
-                    if (count($this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])) == 0) {
-                        array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
-                        unset($postData['origin_other_entry']);
-                    } else {
-                        array_push($processedOrigins, [ 'id' => $this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])[0] ]);
-                        unset($postData['origin_other_entry']);
-                    }
-                    unset($postData['origins']['_ids']);
-                    $postData['origins'] = $processedOrigins;
-                }
-            }
-            
-            $processedTypes = [];
-            
-            if($postData['types']['_ids'] !== ''){
-                foreach ($postData['types']['_ids'] as $typeid){
-                    array_push($processedTypes, array('id' => $typeid));
-                }
-                
-                if ($postData['type_other_entry'] !== ''){
-                    
-                    foreach (explode(";", $postData['type_other_entry']) as $othertype) {
-                        $typesTable = $this->fetchTable('Types');
-                        $typeIdofOtherType = $typesTable->getTypeIdIfExists($othertype);
-                        
-
-                        if ($typeIdofOtherType !== null) {
-                            array_push($processedTypes, array('id' => $typeIdofOtherType));
-                        } else {
-                            array_push($processedTypes, [ 'type' => $othertype ]);
-                        }
-                    }
-                    
-                    //debug($processedTypes);
-                    unset($postData['type_other_entry']);
-                } 
-                unset($postData['types']['_ids']);
-                $postData['types'] = $processedTypes;
-            }*/
 
 
             //reCaptcha authentication
