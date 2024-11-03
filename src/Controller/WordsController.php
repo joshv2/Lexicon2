@@ -187,6 +187,50 @@ class WordsController extends AppController
         }
     }
 
+    private function process_others($ortd, $postData)
+    {
+        $processed = [];
+            
+        if($postData[$ortd]['_ids'] !== ''){
+            foreach ($postData[$ortd]['_ids'] as $ortdid){
+                array_push($processed, array('id' => $ortdid));
+            }
+            
+            if ($postData[substr($ortd, 0, -1) .'_other_entry'] !== ''){
+                
+                foreach (explode(";", $postData[substr($ortd, 0, -1) . '_other_entry']) as $otherortd) {
+                    $table = $this->fetchTable(ucfirst($ortd));
+                    $idofOtherOrtd = $table->getIdIfExists($otherortd);
+                    
+
+                    if ($idofOtherOrtd !== null) {
+                        $returnedIdArray = ['id' => $idofOtherOrtd];
+                        $alreadySubmitted = 0;
+                        foreach ($processed as $idpair){
+                            if ($idpair == $returnedIdArray) {
+                                $alreadySubmitted += 1;
+                            }
+                        }
+                        if ($alreadySubmitted === 0) {
+                            array_push($processed, array('id' => $idofOtherOrtd));
+                        }
+                    } else {
+                        array_push($processed, [ substr($ortd, 0, -1) => $otherortd]);
+                    }
+                }
+                
+                //debug($processedTypes);
+                unset($postData[substr($ortd, 0, -1) . '_other_entry']);
+            } 
+            //debug($processed);
+            unset($postData[$ortd]['_ids']);
+            //$processed = array_unique($processed);
+            $postData[$ortd] = $processed;
+            return $postData;
+        } else {
+            return $postData;
+        }
+    }
     /**
      * Add method
      *
@@ -260,7 +304,14 @@ class WordsController extends AppController
                 }
             }
 
-            $processedOrigins = [];
+
+            $ortdswithother = ['origins','types'];
+            
+            foreach ($ortdswithother as $ortdwithother){
+                $postData = $this->process_others($ortdwithother, $postData);
+            }
+
+            /*$processedOrigins = [];
             if($postData['origins']['_ids'] !== ''){
                 foreach ($postData['origins']['_ids'] as $originid){
                     array_push($processedOrigins, array('id' => $originid));
@@ -305,7 +356,7 @@ class WordsController extends AppController
                 } 
                 unset($postData['types']['_ids']);
                 $postData['types'] = $processedTypes;
-            }
+            }*/
 
 
             //reCaptcha authentication
