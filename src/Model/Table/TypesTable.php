@@ -81,7 +81,7 @@ class TypesTable extends Table
         return $typeids;
     }
 
-    public function getTypeIdIfExists(string $typeValue): ?int
+    public function getIdIfExists(string $typeValue): ?int
     {
         $matchingType = $this->find()
             ->select(['id'])
