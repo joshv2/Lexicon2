@@ -167,7 +167,7 @@ class PronunciationsController extends AppController
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling  . ' \/\/', ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been denied.'));
 
-                return $this->redirect(['action' => 'manage', $wordid]);
+                return $this->redirect(['action' => 'manage', $id]);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
@@ -196,7 +196,7 @@ class PronunciationsController extends AppController
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 
-    public function approve($wordid, $id = null){
+    public function approve($id = null, $wordid = null){
         $this->request->allowMethod(['post']);
         //array_map([$this, 'loadModel'], ['Words']);
         $word =  $this->fetchTable('Words')->get($wordid);
