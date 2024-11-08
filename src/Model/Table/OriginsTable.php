@@ -3,6 +3,8 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 
 class OriginsTable extends Table
 {
@@ -64,6 +66,18 @@ class OriginsTable extends Table
             }
         }
         return $idarray;
+    }
+
+    public function getIdIfExists(string $originValue): ?int
+    {
+        $matchingOrigin = $this->find()
+            ->select(['id'])
+            ->where(function (QueryExpression $exp, Query $q) use ($originValue) {
+                return $exp->eq('LOWER(origin)', strtolower($originValue));
+            })
+            ->first();
+
+        return $matchingOrigin ? $matchingOrigin->id : null;
     }
 
 }
