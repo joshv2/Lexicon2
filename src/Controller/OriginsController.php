@@ -62,8 +62,8 @@ class OriginsController extends AppController
             }
             $this->Flash->error(__('The origin could not be saved. Please, try again.'));
         }
-        $languages = $this->Origins->Languages->find('list', ['limit' => 200]);
-        $words = $this->Origins->Words->find('list', ['limit' => 200]);
+        $languages = $this->Origins->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Origins->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('origin', 'languages', 'words','sitelang'));
     }
 
@@ -90,8 +90,8 @@ class OriginsController extends AppController
             }
             $this->Flash->error(__('The origin could not be saved. Please, try again.'));
         }
-        $languages = $this->Origins->Languages->find('list', ['limit' => 200]);
-        $words = $this->Origins->Words->find('list', ['limit' => 200]);
+        $languages = $this->Origins->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Origins->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('origin', 'languages', 'words', 'sitelang'));
     }
 

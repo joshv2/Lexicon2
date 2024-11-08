@@ -106,7 +106,7 @@ class PronunciationsController extends AppController
                 $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
             }
         }    
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
 
         $this->set(compact('pronunciation', 'words', 'word'));
     }
@@ -171,7 +171,7 @@ class PronunciationsController extends AppController
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('pronunciation', 'words'));
     }
 

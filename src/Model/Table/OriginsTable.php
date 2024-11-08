@@ -36,7 +36,7 @@ class OriginsTable extends Table
                         ->matching('Languages')
                         ->where(['OriginsLanguages.top' => 1, 'OriginsLanguages.language_id' => $langid]);
 
-        $query2 = $this->find('list', ['valueField' => 'origin'])
+        $query2 = $this->find(type: 'list', options: ['valueField' => 'origin'])
                         ->where(['id' => 999]);
         $query = $query->union($query2);
         //$query->disableHydration();

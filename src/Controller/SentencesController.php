@@ -60,7 +60,7 @@ class SentencesController extends AppController
             }
             $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
         }
-        $words = $this->Sentences->Words->find('list', ['limit' => 200]);
+        $words = $this->Sentences->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentence', 'words'));
     }
 
@@ -85,7 +85,7 @@ class SentencesController extends AppController
             }
             $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
         }
-        $words = $this->Sentences->Words->find('list', ['limit' => 200]);
+        $words = $this->Sentences->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentence', 'words'));
     }
 

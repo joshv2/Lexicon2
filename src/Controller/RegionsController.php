@@ -61,8 +61,8 @@ class RegionsController extends AppController
             }
             $this->Flash->error(__('The region could not be saved. Please, try again.'));
         }
-        $languages = $this->Regions->Languages->find('list', ['limit' => 200]);
-        $words = $this->Regions->Words->find('list', ['limit' => 200]);
+        $languages = $this->Regions->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Regions->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('region', 'languages', 'words', 'sitelang'));
     }
 
@@ -88,8 +88,8 @@ class RegionsController extends AppController
             }
             $this->Flash->error(__('The region could not be saved. Please, try again.'));
         }
-        $languages = $this->Regions->Languages->find('list', ['limit' => 200]);
-        $words = $this->Regions->Words->find('list', ['limit' => 200]);
+        $languages = $this->Regions->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Regions->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('region', 'languages', 'words', 'sitelang'));
     }
 
