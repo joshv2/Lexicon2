@@ -62,7 +62,7 @@ class SuggestionsController extends AppController
         }
         $word = $this->fetchTable('Words')->get($id);
         $recaptcha_user = Configure::consume('recaptcha_user');
-        //$users = $this->Suggestions->Users->find('list', ['limit' => 200]);
+        //$users = $this->Suggestions->Users->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('suggestion', 'word', 'recaptcha_user'));
     }
 
@@ -107,8 +107,8 @@ class SuggestionsController extends AppController
             }
             $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
         }
-        $words = $this->Suggestions->Words->find('list', ['limit' => 200]);
-        $users = $this->Suggestions->Users->find('list', ['limit' => 200]);
+        $words = $this->Suggestions->Words->find(type: 'list', options: ['limit' => 200]);
+        $users = $this->Suggestions->Users->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('suggestion', 'words', 'users'));
     }
 

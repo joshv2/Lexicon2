@@ -59,7 +59,7 @@ class AlphabetAddendumsController extends AppController
             }
             $this->Flash->error(__('The alphabet addendum could not be saved. Please, try again.'));
         }
-        $languages = $this->AlphabetAddendums->Languages->find('list', ['limit' => 200]);
+        $languages = $this->AlphabetAddendums->Languages->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('alphabetAddendum', 'languages'));
     }
 
@@ -84,7 +84,7 @@ class AlphabetAddendumsController extends AppController
             }
             $this->Flash->error(__('The alphabet addendum could not be saved. Please, try again.'));
         }
-        $languages = $this->AlphabetAddendums->Languages->find('list', ['limit' => 200]);
+        $languages = $this->AlphabetAddendums->Languages->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('alphabetAddendum', 'languages'));
     }
 

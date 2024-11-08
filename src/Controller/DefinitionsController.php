@@ -59,7 +59,7 @@ class DefinitionsController extends AppController
             }
             $this->Flash->error(__('The definition could not be saved. Please, try again.'));
         }
-        $words = $this->Definitions->Words->find('list', ['limit' => 200]);
+        $words = $this->Definitions->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('definition', 'words'));
     }
 
@@ -84,7 +84,7 @@ class DefinitionsController extends AppController
             }
             $this->Flash->error(__('The definition could not be saved. Please, try again.'));
         }
-        $words = $this->Definitions->Words->find('list', ['limit' => 200]);
+        $words = $this->Definitions->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('definition', 'words'));
     }
 
