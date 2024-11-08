@@ -257,7 +257,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<div class='form-group clear'>";
                     
                     echo "<div class='form-group-origins-other'>";
-                    echo $this->Form->control('origin_other_entry', ['label' => ['text' => __('Enter other origins separated by comma'), 'class' => 'req']]);
+                    echo $this->Form->control('origin_other_entry', ['label' => ['text' => __('Enter other origins separated by semicolon'), 'class' => 'req']]);
                     echo "</div>";
 
                     if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && '' != $wordData['etymology']) { 
