@@ -102,7 +102,7 @@ class SentenceRecordingsController extends AppController
                 $this->Flash->error(__('The sentence recording could not be saved. Please, try again.'));
             }
         }
-        //$sentences = $this->SentenceRecordings->Sentences->find('list', ['limit' => 200]);
+        //$sentences = $this->SentenceRecordings->Sentences->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentenceRecording', 'sentences'));
         
 
@@ -140,7 +140,7 @@ class SentenceRecordingsController extends AppController
             }
 
         }   
-        //$words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        //$words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('assocWord', 'assocSentence', 'sentRecs'));
         $this->render('ranking');
     }
@@ -192,7 +192,7 @@ class SentenceRecordingsController extends AppController
             }
             $this->Flash->error(__('The sentence recording could not be saved. Please, try again.'));
         }
-        $sentences = $this->SentenceRecordings->Sentences->find('list', ['limit' => 200]);
+        $sentences = $this->SentenceRecordings->Sentences->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentenceRecording', 'sentences'));
     }
 

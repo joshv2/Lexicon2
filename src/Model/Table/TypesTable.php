@@ -3,6 +3,8 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 
 class TypesTable extends Table
 {
@@ -77,5 +79,17 @@ class TypesTable extends Table
         }
         $typeids = implode(',',$idarray);
         return $typeids;
+    }
+
+    public function getIdIfExists(string $typeValue): ?int
+    {
+        $matchingType = $this->find()
+            ->select(['id'])
+            ->where(function (QueryExpression $exp, Query $q) use ($typeValue) {
+                return $exp->eq('LOWER(type)', strtolower($typeValue));
+            })
+            ->first();
+
+        return $matchingType ? $matchingType->id : null;
     }
 }

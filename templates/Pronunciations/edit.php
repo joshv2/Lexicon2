@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Pronunciation $pronunciation
  */
 ?>
-<div class="row">
+<!--<div class="row">-->
    
     <div class="column-responsive column-80">
         <div class="pronunciations form content">
@@ -21,4 +21,4 @@
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+<!--</div>-->

@@ -162,11 +162,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	
 	<?php echo $this->element('user_bar');?>
 
-	<!--<div id="frdiv">
-	<p id="fundraiser">The Jewish Language Project is proud to announce that we are adding pronunciation recordings to all entries, based on the requests of many visitors. We invite you to support this important initiative by donating funds, volunteering to record entries, and sharing the crowdfunding campaign:
-</br><a id="frlink" href="https://www.givecampus.com/schools/HebrewUnionCollegeJewishInstituteofReligion/help-newcomers-pronounce-jewish-words">Help Newcomers Pronounce Jewish Words!</a></br>
-If we meet our fundraising goal by May 3, you can expect to see - and hear! - the pronunciations on this site by late June.</p>
-	</div>-->
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 	

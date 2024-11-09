@@ -61,7 +61,7 @@ class DictionariesController extends AppController
             }
             $this->Flash->error(__('The dictionary could not be saved. Please, try again.'));
         }
-        $words = $this->Dictionaries->Words->find('list', ['limit' => 200]);
+        $words = $this->Dictionaries->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('dictionary', 'words', 'sitelang'));
     }
 
@@ -87,8 +87,8 @@ class DictionariesController extends AppController
             }
             $this->Flash->error(__('The dictionary could not be saved. Please, try again.'));
         }
-        $languages = $this->Dictionaries->Languages->find('list', ['limit' => 200]);
-        $words = $this->Dictionaries->Words->find('list', ['limit' => 200]);
+        $languages = $this->Dictionaries->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Dictionaries->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('dictionary', 'words', 'languages', 'sitelang'));
     }
 

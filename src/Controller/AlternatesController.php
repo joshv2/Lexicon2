@@ -59,7 +59,7 @@ class AlternatesController extends AppController
             }
             $this->Flash->error(__('The alternate could not be saved. Please, try again.'));
         }
-        $words = $this->Alternates->Words->find('list', ['limit' => 200]);
+        $words = $this->Alternates->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('alternate', 'words'));
     }
 
@@ -84,7 +84,7 @@ class AlternatesController extends AppController
             }
             $this->Flash->error(__('The alternate could not be saved. Please, try again.'));
         }
-        $words = $this->Alternates->Words->find('list', ['limit' => 200]);
+        $words = $this->Alternates->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('alternate', 'words'));
     }
 

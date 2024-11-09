@@ -13,7 +13,7 @@
 		case -1:
 			return "Denied";
 	}
-}
+} // TODO: Find a better solution for this
 ?>
 <div class="column-responsive column-80">
 <h2><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
@@ -85,7 +85,7 @@
                                                    ]]); 
                         $i += 1; ?>
             <?php endforeach; ?>
-        </table>
+        </table> <!-- TODO: Fix when status is deined to have date and also grey out and put on bottom? -->
 
     </div>
 
