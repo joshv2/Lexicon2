@@ -136,13 +136,13 @@ msgid "About Us"
 msgstr "Sobre nosotros"
 
 msgid "First time here? Read our "
-msgstr "¿Primera vez aquí? Lee nuestro"
+msgstr "¿Primera vez aquí? Lee nuestro "
 
 msgid "welcome "
 msgstr "bienvenidos"
 
 msgid "page"
-msgstr "página"
+msgstr " página"
 
 msgid "The lexicon currently has "
 msgstr "El léxico tiene actualmente "

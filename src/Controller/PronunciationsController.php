@@ -106,7 +106,7 @@ class PronunciationsController extends AppController
                 $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
             }
         }    
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
 
         $this->set(compact('pronunciation', 'words', 'word'));
     }
@@ -141,7 +141,7 @@ class PronunciationsController extends AppController
             }
 
         }   
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('requested_pronunciations', 'words', 'word'));
         $this->render('ranking');
     }
@@ -167,11 +167,11 @@ class PronunciationsController extends AppController
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling  . ' \/\/', ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been denied.'));
 
-                return $this->redirect(['action' => 'manage', $wordid]);
+                return $this->redirect(['action' => 'manage', $id]);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
-        $words = $this->Pronunciations->Words->find('list', ['limit' => 200]);
+        $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('pronunciation', 'words'));
     }
 
@@ -182,7 +182,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($wordId, $id = null)
+    public function delete($id = null, $wordid = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $pronunciation = $this->Pronunciations->get($id);
@@ -196,7 +196,7 @@ class PronunciationsController extends AppController
         return $this->redirect(['action' => 'manage', $wordid]);
     }
 
-    public function approve($wordid, $id = null){
+    public function approve($id = null, $wordid = null){
         $this->request->allowMethod(['post']);
         //array_map([$this, 'loadModel'], ['Words']);
         $word =  $this->fetchTable('Words')->get($wordid);

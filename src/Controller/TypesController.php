@@ -61,8 +61,8 @@ class TypesController extends AppController
             }
             $this->Flash->error(__('The type could not be saved. Please, try again.'));
         }
-        $languages = $this->Types->Languages->find('list', ['limit' => 200]);
-        $words = $this->Types->Words->find('list', ['limit' => 200]);
+        $languages = $this->Types->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Types->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('type', 'languages', 'words', 'sitelang'));
     }
 
@@ -88,8 +88,8 @@ class TypesController extends AppController
             }
             $this->Flash->error(__('The type could not be saved. Please, try again.'));
         }
-        $languages = $this->Types->Languages->find('list', ['limit' => 200]);
-        $words = $this->Types->Words->find('list', ['limit' => 200]);
+        $languages = $this->Types->Languages->find(type: 'list', options: ['limit' => 200]);
+        $words = $this->Types->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('type', 'languages', 'words', 'sitelang'));
     }
 

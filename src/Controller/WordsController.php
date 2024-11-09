@@ -11,6 +11,7 @@ use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Datasource\PaginatorInterface;
 use Cake\Datasource\FactoryLocator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Words Controller
@@ -36,8 +37,9 @@ class WordsController extends AppController
     public function index()
     {
         $queryParams = $this->request->getQueryParams();
-        if($queryParams === []){
-            $queryParams['all'] = 'all';
+        if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
+            $queryParams = array_merge(['all' => 'all'], $queryParams);
+            //$queryParams['all'] = 'all';
         }
         
         $sitelang = $this->viewBuilder()->getVar('sitelang');
@@ -59,7 +61,7 @@ class WordsController extends AppController
 
             }
         }
-
+        
         $query = $this->Words->browse_words_simplified(
                         array_keys($queryParams)[0], 
                         array_values($queryParams)[0],
@@ -186,6 +188,49 @@ class WordsController extends AppController
         }
     }
 
+    private function process_others($ortd, $postData)
+    {
+        $processed = [];
+            
+        if($postData[$ortd]['_ids'] !== ''){
+            foreach ($postData[$ortd]['_ids'] as $ortdid){
+                array_push($processed, array('id' => $ortdid));
+            }
+            
+            if ($postData[substr($ortd, 0, -1) .'_other_entry'] !== ''){
+                
+                foreach (explode(";", $postData[substr($ortd, 0, -1) . '_other_entry']) as $otherortd) {
+                    $table = $this->fetchTable(ucfirst($ortd));
+                    $idofOtherOrtd = $table->getIdIfExists($otherortd);
+                    
+
+                    if ($idofOtherOrtd !== null) {
+                        $returnedIdArray = ['id' => $idofOtherOrtd];
+                        $alreadySubmitted = 0;
+                        foreach ($processed as $idpair){
+                            if ($idpair == $returnedIdArray) {
+                                $alreadySubmitted += 1;
+                            }
+                        }
+                        if ($alreadySubmitted === 0) {
+                            array_push($processed, array('id' => $idofOtherOrtd));
+                        }
+                    } else {
+                        array_push($processed, [ substr($ortd, 0, -1) => $otherortd]);
+                    }
+                }
+                
+
+                unset($postData[substr($ortd, 0, -1) . '_other_entry']);
+            } 
+
+            unset($postData[$ortd]['_ids']);
+            $postData[$ortd] = $processed;
+            return $postData;
+        } else {
+            return $postData;
+        }
+    }
     /**
      * Add method
      *
@@ -259,38 +304,11 @@ class WordsController extends AppController
                 }
             }
 
-            $processedOrigins = [];
-            if($postData['origins']['_ids'] !== ''){
-                foreach ($postData['origins']['_ids'] as $originid){
-                    array_push($processedOrigins, array('id' => $originid));
-                }
-                
-                if ($postData['origin_other_entry'] !== ''){
-                    if (count($this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])) == 0) {
-                        array_push($processedOrigins, [ 'origin' => $postData['origin_other_entry']]);
-                        unset($postData['origin_other_entry']);
-                    } else {
-                        array_push($processedOrigins, [ 'id' => $this->fetchTable('Origins')->get_region_by_name($postData['origin_other_entry'])[0] ]);
-                        unset($postData['origin_other_entry']);
-                    }
-                    unset($postData['origins']['_ids']);
-                    $postData['origins'] = $processedOrigins;
-                }
-            }
+
+            $ortdswithother = ['origins','types'];
             
-            $processedTypes = [];
-            
-            if($postData['types']['_ids'] !== ''){
-                foreach ($postData['types']['_ids'] as $typeid){
-                    array_push($processedTypes, array('id' => $typeid));
-                }
-                
-                if ($postData['type_other_entry'] !== ''){
-                    array_push($processedTypes, [ 'type' => $postData['type_other_entry']]);
-                    unset($postData['type_other_entry']);
-                }
-                unset($postData['types']['_ids']);
-                $postData['types'] = $processedTypes;
+            foreach ($ortdswithother as $ortdwithother){
+                $postData = $this->process_others($ortdwithother, $postData);
             }
 
 
