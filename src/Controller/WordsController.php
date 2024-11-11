@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use IntlChar;
 use Cake\Http\Client;
 use Cake\Core\Configure;
 use Cake\Log\Log;
@@ -94,9 +95,25 @@ class WordsController extends AppController
         $letter = $this->request->getParam('pass')[0];
         
         $language = $this->fetchTable('Languages');
-        foreach(range(hexdec($sitelang->UTFRangeStart), hexdec($sitelang->UTFRangeEnd)) as $letter2) {
-            $alphabet[] = html_entity_decode("&#$letter2;", ENT_COMPAT, "UTF-8");
+
+        $alphabet = [];
+        $start = hexdec($sitelang->UTFRangeStart);
+        $end = hexdec($sitelang->UTFRangeEnd);
+
+        foreach (range($start, $end) as $codePoint) {
+            $character = html_entity_decode("&#$codePoint;", ENT_COMPAT, "UTF-8");
+
+            // Check if the character is valid UTF-8 and mapped in Unicode
+            if (mb_check_encoding($character, 'UTF-8') 
+                && IntlChar::charName($character) !== null
+                && IntlChar::isalnum($codePoint)) {
+                    $alphabet[] = $character;
+            }
         }
+
+        /*foreach(range(hexdec($sitelang->UTFRangeStart), hexdec($sitelang->UTFRangeEnd)) as $letter2) {
+            $alphabet[] = html_entity_decode("&#$letter2;", ENT_COMPAT, "UTF-8");
+        }*/
         
         
         if($sitelang->righttoleft){
