@@ -1,0 +1,587 @@
+msgid "The alternate has been saved."
+msgstr "Η εναλλακτική έχει αποθηκευτεί."
+
+
+
+msgid "The alternate could not be saved. Please, try again."
+msgstr "Η εναλλακτική δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+msgid "The alternate has been deleted."
+msgstr "Η εναλλακτική έχει διαγραφεί."
+
+
+msgid "The alternate could not be deleted. Please, try again."
+msgstr "Η εναλλακτική δε μπόρεσε να διαγραφεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+
+msgid "The definition has been saved."
+msgstr "Ο ορισμός έχει αποθηκευτεί."
+
+
+
+msgid "The definition could not be saved. Please, try again."
+msgstr "Ο ορισμός δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+msgid "The definition has been deleted."
+msgstr "Ο ορισμός έχει διαγραφεί."
+
+
+msgid "The definition could not be deleted. Please, try again."
+msgstr "Ο ορισμός δε μπόρεσε να διαγραφεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+msgid "The pronunciation has been saved."
+msgstr "Η προφορά έχει αποθηκευτεί."
+
+
+
+
+msgid "The pronunciation could not be saved. Please, try again."
+msgstr "Η προφορά δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+
+msgid "The sentence has been saved."
+msgstr "Η πρόταση έχει αποθηκευτεί."
+
+
+
+msgid "The sentence could not be saved. Please, try again."
+msgstr "Η πρόταση δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+
+msgid "The suggestion has been saved."
+msgstr "Η υπόδειξη έχει αποθηκευτεί."
+
+
+
+msgid "The suggestion could not be saved. Please, try again."
+msgstr "Η υπόδειξη δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+
+msgid "The word could not be saved. Please, try again."
+msgstr "Η λέξη δε μπόρεσε να αποθηκευτεί. Παρακαλώ, προσπαθήστε ξανά."
+
+
+msgid "The word has been saved."
+msgstr "Η λέξη έχει αποθηκευτεί."
+
+msgid "Submit"
+msgstr "Υποβολή"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε το # {0};"
+
+msgid "View"
+msgstr "Προβολή"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+
+msgid "first"
+msgstr "πρώτο"
+
+msgid "previous"
+msgstr "προηγούμενο"
+
+msgid "next"
+msgstr "επόμενο"
+
+msgid "last"
+msgstr "τελευταίο"
+
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Σελίδα {{σελίδα}} από {{σελίδες}}, με {{τρέχουσα}} εγγραφή(ές) από {{καταμέτρηση}} συνολικά"
+
+msgid "Word"
+msgstr "Λέξη"
+
+msgid "Spelling"
+msgstr "Ορθογραφία"
+
+msgid "Related Words"
+msgstr "Σχετικές Λέξεις"
+
+msgid "Etymology"
+msgstr "Ετυμολογία"
+
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+msgid "Approved"
+msgstr "Εγκρίθηκε"
+
+msgid "Welcome"
+msgstr "Καλώς Ήρθατε"
+
+msgid "Enter the Lexicon"
+msgstr "Εισέλθετε στο Λεξικό"
+
+msgid "Coming Soon."
+msgstr "Έρχεται Σύντομα."
+
+msgid "About Us"
+msgstr "Σχετικά με Εμάς"
+
+msgid "First time here? Read our "
+msgstr "Πρώτη φορά εδώ; Διαβάστε " 
+
+msgid "welcome "
+msgstr "καλωσορίσατε "
+
+msgid "page"
+msgstr "σελίδα"
+
+msgid "The lexicon currently has "
+msgstr "Το λεξικό επί του παρόντος έχει "
+
+msgid "entries."
+msgstr "καταχωρήσεις."
+
+msgid "BROWSE:"
+msgstr "ΠΕΡΙΗΓΗΣΗ:"
+
+msgid "SEARCH:"
+msgstr "ΑΝΑΖΗΤΗΣΗ:"
+
+msgid "NOTES"
+msgstr "ΣΗΜΕΙΩΣΕΙΣ"
+
+msgid "for information about these languages, dictionaries, and types of people."
+msgstr "για πληροφορίες σχετικά με αυτές τις γλώσσες, τα λεξικά, και τους τύπους ανθρώπων."
+
+msgid "Languages of origin"
+msgstr "Γλώσσες προέλευσης"
+
+msgid "Other"
+msgstr "Άλλα"
+
+msgid "Regions in which the word is used"
+msgstr "Περιοχές στις οποίες η λέξη χρησιμοποιείται"
+
+msgid "Types of people who tend to use the word"
+msgstr "Τύποι ανθρώπων που τίνουν να χρησιμοποιούν τη λέξη"
+
+msgid "Dictionaries in which the word appears"
+msgstr "Λεξικά στα οποία εμφανίζεται η λέξη"
+
+msgid "None"
+msgstr "Κανένα"
+
+msgid "CAN'T FIND A WORD?"
+msgstr "ΔΕΝ ΜΠΟΡΕΙΤΕ ΝΑ ΒΡΕΙΤΕ ΜΙΑ ΛΕΞΗ;"
+
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
+msgstr "Όπως άλλες συνεργατικές ιστοσελίδες, όπως η Wikipedia και το Urban Dictionary, το Εβραϊκό Αγγλικό Λεξικό γίνεται εφικτό χάρη στη συμμετοχή των επισκεπτών. Παρακαλούμε αφιερώστε λίγα λεπτά για να προσθέσετε μια ή δύο λέξεις."
+
+msgid "Add Pronunciation for "
+msgstr "Προσθέστε Προφορά για "
+
+msgid "Pronuciation (Spelling)"
+msgstr "Προφορά (Ορθογραφία)"
+
+msgid "Phonetic Spelling"
+msgstr "Φωνητική Ορθογραφία"
+
+msgid "Record"
+msgstr "Εγγραφή"
+
+msgid "spelling"
+msgstr "ορθογραφία"
+
+msgid "pronunciation"
+msgstr "προφορά"
+
+msgid "New Pronunciation"
+msgstr "Νέα Προφορά"
+
+msgid "Pronunciations"
+msgstr "Προφορές"
+
+msgid "Pronunciation"
+msgstr "Προφορά"
+
+msgid "Region"
+msgstr "Περιοχή"
+
+msgid "Top"
+msgstr "Πάνω"
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "Your search for"
+msgstr "Η αναζήτηση σας για"
+
+msgid "returned"
+msgstr "επιστροφή"
+
+msgid "results."
+msgstr "αποτελέσματα."
+
+msgid "That word is not yet in the database. Try searching with a different spelling."
+msgstr "Η λέξη δεν υπάρχει ακόμα στη βάση δεδομένων. Προσπαθήστε να ψάξετε με διαφορετική ορθογραφία."
+
+msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
+msgstr "Αν ακόμα δεν τη βρίσκεται, παρακαλούμε βοηθήστε να γίνει πιο πλήρες αυτό το λεξικό προσθέτοντας την"
+
+msgid "See full entry"
+msgstr "Δείτε ολόκληρη την καταχώρηση"
+
+msgid "SEE FULL ENTRY"
+msgstr "ΔΕΙΤΕ ΟΛΟΚΛΗΡΗ ΤΗΝ ΚΑΤΑΧΩΡΗΣΗ"
+
+msgid "Sentences"
+msgstr "Προτάσεις"
+
+msgid "Sentence"
+msgstr "Πρόταση"
+
+msgid "Add Suggestion for "
+msgstr "Προσθέστε υπόδειξη για "
+
+msgid "New Suggestion"
+msgstr "Νέα Υπόδειξη"
+
+msgid "Suggestions"
+msgstr "Υποδείξεις"
+
+msgid "New"
+msgstr "Νέα"
+
+msgid "word"
+msgstr "λέξη"
+
+msgid "Most Common Spelling"
+msgstr "Πιο Συχνή Ορθογραφία"
+
+msgid "Alternate Spelling(s)"
+msgstr "Εναλλακτική Ορθογραφία(ες)"
+
+msgid "Add an additional spelling"
+msgstr "Προσθέστε μια επιπρόσθετη ορθογραφία"
+
+msgid "Remove"
+msgstr "Αφαιρέστε"
+
+msgid "Phonetic Spelling "
+msgstr "Φωνητική Ορθογραφία "
+
+msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+msgstr "Χρησιμοποιώντας παύλες και κεφαλαία γράμματα, υποδείξτε τη συλλαβή και τον τόνο, π.χ., 'πορ-το-ΚΑ-λι' αντί 'πορ-το-κα-ΛΙ'" 
+
+msgid "Recorded"
+msgstr "Καταγεγραμμένη"
+
+msgid "Add an additional pronunciation"
+msgstr "Προσθέστε μία επιπλέον προφορά"
+
+msgid "Definition(s)"
+msgstr "Ορισμός(οι)"
+
+msgid "Add an additional definition"
+msgstr "Προσθέστε έναν επιπλέον ορισμό"
+
+msgid "Example Sentence(s)"
+msgstr "Ενδεικτική(ές) Πρόταση(εις)"
+
+msgid "Add an additional sentence"
+msgstr "Προσθέστε μία επιπλέον πρόταση"
+
+msgid "Language(s) of Origin"
+msgstr "Γλώσσα(ες) Προέλευσης"
+
+msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
+msgstr "Κρατήστε πατημένο το Ctrl για να επιλέξετε περισσότερες από μία επιλογές, πατήστε ξανά Ctrl και κάνετε κλικ για να καταργήσετε την επιλογή"
+
+msgid "Who Uses This"
+msgstr "Ποιοι τη Χρησιμοποιούν"
+
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
+msgstr "Κρατήστε πατημένο το Ctrl (command στο Mac) για να επιλέξετε περισσότερες από μία επιλογές, ξαναδώστε την εντολή  Ctrl/command-click για να καταργήσετε την επιλογή"
+
+msgid "Anything else you want website visitors to know about this entry"
+msgstr "Οτιδήποτε άλλο θέλετε να γνωρίζουν οι επισκέπτες της ιστοσελίδας σχετικά με αυτή την καταχώρηση"
+
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
+msgstr "Το όνομα και το email σας δεν θα εμφανίζονται στην ιστοσελίδα. Τα χρειαζόμαστε σε περίπτωση που έχουμε ερωτήσεις σχετικά με την καταχώρησή σας. Εάν προσθέσετε πολλές λέξεις στο λεξικό, θα σας δώσουμε τη επιλογή να συμπεριληφθείτε ως ένας από τους"
+
+msgid "Top Word Contributors" 
+msgstr "Κορυφαίοι Καταχωρητές Λέξεων"
+
+msgid "Other than that, you will NOT"
+msgstr "Διαφορετικά, εσείς δεν θα"
+
+
+msgid "be contacted or placed on any email lists"
+msgstr "επικοινωνήσουμε μαζί σας ούτε θα σας βάλουμε σε κάποια λίστα email"
+
+msgid "Your Name"
+msgstr "Το Όνομά σας"
+
+msgid "Your Email Address"
+msgstr "Το Email σας"
+
+msgid "Double check your submission!"
+msgstr "Διπλοελέγξτε την καταχώρηση σας!"
+
+msgid "Approve Word"
+msgstr "Εγκρίνετε τη Λέξη"
+
+msgid "Delete Word"
+msgstr "Διαγράψτε τη Λέξη"
+
+msgid "Are you sure?"
+msgstr "Είστε σίγουροι;"
+
+msgid "This word already exists in the lexicon or is being evaluated."
+msgstr "Αυτή η λέξη υπάρχει ήδη στο λεξικό ή αξιολογείται."
+
+msgid "Add a new word"
+msgstr "Προσθέστε μια νέα λέξη"
+
+msgid "Browse by Letter"
+msgstr "Περιηγηθείτε βάσει Γράμματος"
+
+msgid "Showing "
+msgstr "Προβολή "
+
+msgid "words"
+msgstr "λέξεις"
+
+msgid "No words were found."
+msgstr "Δεν βρέθηκαν λέξεις."
+
+msgid "Add a new word"
+msgstr "Προσθέστε μια νέα λέξη"
+
+msgid "No words were found. Refine your search options above."
+msgstr "Δεν βρέθηκαν λέξεις. Αναδιαμορφώστε τις παραπάνω επιλογές αναζήτησης."
+
+msgid "Editing"
+msgstr "Επεξεργασία"
+
+msgid "SUGGEST CHANGES FOR "
+msgstr "ΥΠΟΔΕΙΞΤΕ ΑΛΛΑΓΕΣ ΓΙΑ "
+
+msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
+msgstr "Είστε έτοιμοι να καταχωρήσετε προτεινόμενες τροποποιήσεις για αυτή την καταχώρηση. Σε περίπτωση που έχετε ερωτήσεις σχετικά με τις γλώσσες προέλευσης, την ορθογραφία ή το ποιοι τις χρησιμοποιούν, δείτε "
+
+msgid "Notes."
+msgstr "Σημειώσεις."
+
+msgid "What edits would you like to suggest to this entry? Please be specific."
+msgstr "Τι τροποποιήσεις θα θέλατε να προτείνετε για αυτήν την καταχώρηση; Παρακαλώ να είστε ακριβείς."
+
+msgid "New Word"
+msgstr "Νέα Λέξη"
+
+msgid "Words"
+msgstr "Λέξεις"
+
+msgid "Refresh"
+msgstr "Ανανέωση"
+
+msgid "random words retrieved"
+msgstr "τυχαίες ανακτηθείσες λέξεις"
+
+msgid "Thank you"
+msgstr "Ευχαριστούμε"
+
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr "Ευχαριστούμε για την προσθήκη μιας καταχώρησης στο Εβραϊκό Αγγλικό Λεξικό. Επιστρέψτε σε περίπου μία εβδομάδα για να δείτε την καταχώρησή σας στην ιστοσελίδα."
+
+msgid "See your entry"
+msgstr "Δείτε την καταχώρησή σας"
+
+msgid "Back"
+msgstr "Επιστροφή"
+
+msgid " Record a Pronunciation"
+msgstr " Καταγράψτε μια Προφορά"
+
+msgid " Edit"
+msgstr " Επεξεργασία"
+
+msgid "View More"
+msgstr "Δείτε Περισσότερα"
+
+msgid "Alternative Spellings"
+msgstr "Εναλλακτικές Ορθογραφίες"
+
+msgid "See something you disagree with? Feel free to edit it. All changes will be moderated. "
+msgstr "Βλέπετε κάτι με το οποίο διαφωνείτε;  Μη διστάσετε να το επεξεργαστείτε. Όλες οι αλλαγές θα ελεγχθούν. "
+
+msgid "Error"
+msgstr "Σφάλμα"
+
+msgid "This word can not be found or has not yet been approved"
+msgstr "Αυτή η λέξη δεν μπορεί να βρεθεί ή δεν έχει ακόμα εγκριθεί"
+
+msgid "Add a word"
+msgstr "Προσθέστε μια λέξη"
+
+msgid "Add a Word"
+msgstr "Προσθέστε μια Λέξη"
+
+msgid "Back"
+msgstr "Επιστροφή"
+
+msgid "Yiddish"
+msgstr "Γίντις"
+
+msgid "Modern Hebrew"
+msgstr "Σύγχρονα Εβραϊκά"
+
+msgid "Polish"
+msgstr "Πολωνικά"
+
+msgid "Russian"
+msgstr "Ρώσικα"
+
+msgid "German"
+msgstr "Γερμανικά"
+
+msgid "Aramaic"
+msgstr "Αραμαϊκά"
+
+msgid "Arabic / Judeo-Arabic"
+msgstr "Αραβικά / Ιουδαϊο-Αραβικά"
+
+msgid "Younger: Jews in their 30s or younger"
+msgstr "Νεότεροι: Εβραίοι στα 30άντα τους ή νεώτεροι"
+
+msgid "Older: Jews who are middle-aged and older"
+msgstr "Μεγαλύτεροι: Εβραίοι οι οποίοι βρίσκονται στη μέση ηλικία ή είναι μεγαλύτεροι"
+
+msgid "Eastern European Jews"
+msgstr "Εβραίοι της Ανατολικής Ευρώπης"
+
+msgid "Russian: Jews with recent Russian-speaking ancestry in Russia"
+msgstr "Ρώσοι: Εβραίοι με πρόσφατη ρωσόφωνη καταγωγή στη Ρωσία"
+
+msgid "Orthodox: Jews who identify as Orthodox and observe halacha (Jewish law)"
+msgstr "Ορθόδοξοι: Εβραίοι που αυτοπροσδιορίζονται ως Ορθόδοξοι και τηρούν τη halacha (εβραϊκός νόμος)"
+
+msgid "Religious"
+msgstr "Θρησκευόμενοι"
+
+msgid "Non-Jews: (words that have spread outside of Jewish networks)"
+msgstr "Μη-Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός εβραϊκών κοινωνικών δικτύων)"
+
+msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
+msgstr "Κάμπ: Εβραίοι που προσέρχονται ή εργάζονται σε θερινά εβραϊκά καταλύματα διανυκτέρευσης"
+
+msgid "Jewish Languages"
+msgstr "Εβραϊκές Γλώσσες"
+
+msgid "Volunteer"
+msgstr "Γίνε Εθελοντής"
+
+msgid "Donate"
+msgstr "Γίνε Δωρητής"
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "Search..."
+msgstr "Αναζήτηση..."
+
+msgid "Lexicon"
+msgstr "Λεξικό"
+
+msgid "See full lexicon in alphabetical order"
+msgstr "Δείτε ολόκληρο το λεξικό σε αλφαβητική σειρά"
+
+msgid "See a random list of words"
+msgstr "Δείτε μια τυχαία λίστα λέξεων"
+
+msgid "ADVANCED SEARCH:"
+msgstr "ΠΡΟΧΩΡΗΜΕΝΗ ΑΝΑΖΗΤΗΣΗ:"
+
+msgid "See the"
+msgstr "Δείτε"
+
+msgid "Add an entry"
+msgstr "Προσθέστε μια καταχώρηση"
+
+msgid "Jews"
+msgstr "Εβραίοι"
+
+msgid "American Jews"
+msgstr "Αμερικανοί Εβραίοι"
+
+msgid "Strong Israel Connection"
+msgstr "Ισχυροί Δεσμοί με το Ισραήλ"
+
+msgid "Jews of German/Jeckic origin"
+msgstr "Γερμανοί Εβραίοι/ Καταγωγής Jeckic"
+
+msgid "Definitions"
+msgstr "Ορισμοί"
+
+msgid "Example Sentences"
+msgstr "Παραδείγματα Προτάσεων"
+
+msgid "Languages of Origin"
+msgstr "Γλώσσες Προέλευσης"
+
+msgid "Etymology"
+msgstr "Ετυμολογία"
+
+msgid "Who Uses This"
+msgstr "Ποιοί τη Χρησιμοποιούν"
+
+msgid "Regions"
+msgstr "Περιοχές"
+
+msgid "full name"
+msgstr "ονοματεπώνυμο"
+
+msgid "full_name"
+msgstr "ονοματεπώνυμο"
+
+msgid "email"
+msgstr "ηλεκτρονικό ταχυδρομείο"
+
+msgid "suggestion"
+msgstr "πρόταση"
+
+msgid "All"
+msgstr "Όλα"
+
+msgid "Origin"
+msgstr "Περιοχή"
+
+msgid "Use"
+msgstr "Χρήση"
+
+msgid "All Regions"
+msgstr "Όλες οι Περιοχές"
+
+msgid "Region"
+msgstr "Περιοχή"
+
+msgid "{{start}} - {{end}} of {{count}}"
+msgstr "{{αρχή}} - {{τέλος}} από {{καταμέτρηση}}"
+
+msgid "Something missing from this entry? Inaccurate? Feel free to suggest an edit."
+msgstr "Λείπει κάτι από αυτή την καταχώρηση; Είναι ανακριβής; Μη διστάσετε να υποδείξετε μια τροποποίηση."
+
+msgid "Record a Sentence"
+msgstr "Καταγράψτε μια Πρόταση"
