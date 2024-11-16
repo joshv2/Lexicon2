@@ -585,3 +585,54 @@ msgstr "Λείπει κάτι από αυτή την καταχώρηση; Εί�
 
 msgid "Record a Sentence"
 msgstr "Καταγράψτε μια Πρόταση"
+
+msgid "Greek"
+msgstr "Ελληνικά"
+
+msgid "Ladino"
+msgstr "Λαντίνο"
+
+msgid "Turkish"
+msgstr "Τουρκικά"
+
+msgid "Albanian"
+msgstr "Αλβανικά"
+
+msgid "Italian"
+msgstr "Ιταλικά"
+
+msgid "Macedonia"
+msgstr "Μακεδονία"
+
+msgid "Thrace"
+msgstr "Θράκη"
+
+msgid "Epirus"
+msgstr "Ήπειρος"
+
+msgid "Ionian Islands"
+msgstr "Ιόνια Νησιά"
+
+msgid "Central Greece"
+msgstr "Κεντρική Ελλάδα"
+
+msgid "Thessaly"
+msgstr "Θεσσαλία"
+
+msgid "Peloponnese"
+msgstr "Πελοπόννησος"
+
+msgid "Aegean Islands"
+msgstr "Νησιά του Αιγαίου"
+
+msgid "Crete"
+msgstr "Κρήτη"
+
+msgid "Religious: Jews who are engaged in religious observance and have some Jewish education"
+msgstr "Θρησκευόμενοι Εβραίοι: Θρησκευόμενοι Εβραίοι που έχουν λάβει εβραϊκή εκπαίδευση"
+
+msgid "Jews: Jews of diverse religious backgrounds and organizational involvements"
+msgstr "Εβραίοι: Εβραίοι με διαφορετικό θρησκευτικό υπόβαθρο και συμμετοχή"
+
+msgid "Non-Jews: (words that have spread outside of Jewish networks)"
+msgstr "Μη Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός των εβραϊκών κοινοτήτων))"
