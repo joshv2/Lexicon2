@@ -207,7 +207,7 @@ msgstr "Welkomstpagina"
 
 
 msgid "page"
-msgstr "&nbsp;"
+msgstr "&#8203;"
 
 
 msgid "The lexicon currently has "
