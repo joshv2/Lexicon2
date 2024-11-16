@@ -800,3 +800,42 @@ msgstr "Ontbreekt er iets aan dit trefwoord? Is het onjuist? Voelt u vrij om een
 
 msgid "Record a Sentence"
 msgstr "Zin Opnemen"
+
+msgid "Belgium"
+msgstr "België"
+
+msgid "Netherlands"
+msgstr "Nederland"
+
+msgid "Textual Hebrew"
+msgstr "Tekstueel Hebreeuws"
+
+msgid "Religious: Jews who are engaged in religious observance and have some Jewish education"
+msgstr "Religieus: Joden die zich bezighouden met religieuze praktijken"
+
+msgid "Ashkenazim: Jews with Ashkenazi heritage"
+msgstr "Asjkenazim: Joden met Asjkenazische afkomst"
+
+msgid "Sephardim: Jews with Sephardi or Mizrahi heritage"
+msgstr "Sefardiem: Joden met Sefardische of Mizrahi-afkomst"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "Dutch"
+msgstr "Nederlands"
+
+msgid "Jews: Jews of diverse religious backgrounds and organizational involvements"
+msgstr "Joden: Joden met diverse achtergronden"
+
+msgid "Non-Jews: (words that have spread outside of Jewish networks)"
+msgstr "Niet-Joden: (woorden die zich buiten Joodse netwerken hebben verspreid)"
+
+msgid "Orthodox: Jews who identify as Orthodox and observe halacha (Jewish law)"
+msgstr "Orthodox: Joden die zichzelf als orthodox beschouwen en de halacha (Joodse wet) naleven"
+
+msgid "Israel: Diaspora Jews who feel connected to Israel and have spent time there"
+msgstr "Israël: Diaspora-joden die zich verbonden voelen met Israël en daar tijd hebben doorgebracht"
+
+msgid "Portuguese: Jews from Spain and Portugal who were forced to convert to Christianity"
+msgstr "Portugees: Joden uit Spanje en Portugal die gedwongen werden zich tot het christendom te bekeren"
