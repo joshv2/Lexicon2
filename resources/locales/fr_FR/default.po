@@ -379,3 +379,5 @@ msgid "Something missing from this entry? Inaccurate? Feel free to suggest an ed
 msgstr "Quelque chose manque-t-il dans cette entrée? Y a-t-il une inexactitude? N’hésitez pas à proposer des suggestions ou des corrections"
 msgid "Record a Sentence"
 msgstr "enregistrez une phrase"
+msgid "Belgium"
+msgstr "Belgique"
