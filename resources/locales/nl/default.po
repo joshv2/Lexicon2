@@ -661,11 +661,6 @@ msgstr "Orthodox: Joden die identificeren als Orthodox en de halacha (de Joodse 
 msgid "Religious"
 msgstr "Religieus"
 
-
-msgid "Non-Jews: (words that have spread outside of Jewish networks)"
-msgstr "Niet-Joden: (woorden die buiten de Joodse samenleving verspreid zijn en woorden die gebruikt worden door niet-Joden om naar Joden to refereren"
-
-
 msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
 msgstr ""
 
@@ -824,6 +819,9 @@ msgstr "Engels"
 
 msgid "Dutch"
 msgstr "Nederlands"
+
+msgid "Portuguese"
+msgstr "Portugees"
 
 msgid "Jews: Jews of diverse religious backgrounds and organizational involvements"
 msgstr "Joden: Joden met diverse achtergronden"
