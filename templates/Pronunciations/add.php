@@ -30,10 +30,10 @@
                                         <?=  $this->Form->control('id',['label' => FALSE]);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control(__('spelling'), ['label' => FALSE]);?>
+                                        <?= $this->Form->control('spelling', ['label' => FALSE]);?>
                                     </td>
                                     <td>
-                                        <?= $this->Form->control(__('pronunciation'), ['label' => FALSE]);?>
+                                        <?= $this->Form->control('pronunciation', ['label' => FALSE]);?>
                                     </td>
                                     <td>
                                         <input type="radio" name="option" id="showButton" checked>
