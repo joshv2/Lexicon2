@@ -139,10 +139,10 @@ msgid "First time here? Read our "
 msgstr "Πρώτη φορά εδώ; Διαβάστε " 
 
 msgid "welcome "
-msgstr "καλωσορίσατε "
+msgstr "Καλωσορίσατε"
 
 msgid "page"
-msgstr "σελίδα"
+msgstr "&#8203;"
 
 msgid "The lexicon currently has "
 msgstr "Το λεξικό επί του παρόντος έχει "
@@ -184,7 +184,7 @@ msgid "CAN'T FIND A WORD?"
 msgstr "ΔΕΝ ΜΠΟΡΕΙΤΕ ΝΑ ΒΡΕΙΤΕ ΜΙΑ ΛΕΞΗ;"
 
 msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
-msgstr "Όπως άλλες συνεργατικές ιστοσελίδες, όπως η Wikipedia και το Urban Dictionary, το Εβραϊκό Αγγλικό Λεξικό γίνεται εφικτό χάρη στη συμμετοχή των επισκεπτών. Παρακαλούμε αφιερώστε λίγα λεπτά για να προσθέσετε μια ή δύο λέξεις."
+msgstr "Όπως άλλες συνεργατικές ιστοσελίδες, όπως η Wikipedia και το Urban Dictionary, το Εβραιοελληνικό Λεξικό γίνεται εφικτό χάρη στη συμμετοχή των επισκεπτών. Παρακαλούμε αφιερώστε λίγα λεπτά για να προσθέσετε μια ή δύο λέξεις."
 
 msgid "Add Pronunciation for "
 msgstr "Προσθέστε Προφορά για "
@@ -325,7 +325,7 @@ msgid "Top Word Contributors"
 msgstr "Κορυφαίοι Καταχωρητές Λέξεων"
 
 msgid "Other than that, you will NOT"
-msgstr "Διαφορετικά, εσείς δεν θα"
+msgstr "Διαφορετικά, ΔΕΝ θα"
 
 
 msgid "be contacted or placed on any email lists"
