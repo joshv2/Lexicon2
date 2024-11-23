@@ -11,16 +11,49 @@ class SearchController extends AppController {
         //$this->loadComponent('Paginator');
     }
 
+    /*public function index()
+    {
+        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $q = $this->request->getQuery('q');
+        $displayType = $this->request->getQuery('displayType');
+    
+        $wordsTable = $this->fetchTable('Words');
+        $query = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id);
+    
+        // Check the value of displayType
+        if ($displayType === 'all') {
+            // Fetch all records without pagination
+            $words = $query->toArray(); // Convert query to an array of results
+        } else {
+            // Use pagination
+            $words = $this->paginate($query);
+        }
+    
+        $this->set(compact('words', 'q'));
+        $this->render('results');
+    }*/
+    
+
+
 	public function index()
     {
         //array_map([$this, 'loadModel'], ['Words']);
         $sitelang = $this->viewBuilder()->getVar('sitelang');
         $q = $this->request->getQuery('q');
+        $displayType = $this->request->getQuery('displayType');
 
+        if ($displayType === 'all') {
+            $words = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id);
+            $isPaginated = false;
+            $words2 = $words->toArray();
+            $count = count($words2);
+        } else {
+		    $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id));
+            $isPaginated = true;
+            $count = 0;
+        }
 
-		$words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id));
-
-        $this->set(compact('words', 'q'));
+        $this->set(compact('words', 'q', 'isPaginated', 'count'));
         $this->render('results');
 	}
 }

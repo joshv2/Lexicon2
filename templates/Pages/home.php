@@ -33,10 +33,10 @@ $(document).ready(function() {
 		</div>
     <div id="home2" class="c">
 	
-		<div class="internal-home" id="upperhomesearch">
-			<form id="home_search" class="group m3" type="GET" action="/search">
-				<?php echo '<input type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
-				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="fa-solid fa-magnifying-glass"></i></a>
+		<div class="internal-home" id="upperhomesearch"> <!-- for mobile display -->
+		<form id="home_search" class="group m3" method="GET" action="/search">
+				<input id="btmsearch" type="text" placeholder="<?=__('Search')?>" name="q" />
+				<button type="submit" class="button blue"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</form>
 			<hr class="m2" />
 		</div>
@@ -71,9 +71,9 @@ $(document).ready(function() {
         <hr class="m2" />
         <div id="lowerhomesearch">
 			<!--<h3><?=__("SEARCH:")?></h3>-->
-			<form id="home_search" class="group m3" type="GET" action="/search">
-				<?php echo '<input id="btmsearch" type="text" placeholder="' . __('Search') . '" name="q" />'; ?>
-				<a class="button blue" id="homepagesearch" onclick="document.getElementById('home_search').submit();"><i class="fa-solid fa-magnifying-glass"></i></a>
+			<form id="home_search" class="group m3" method="GET" action="/search">
+				<input id="btmsearch" type="text" placeholder="<?=__('Search')?>" name="q" />
+				<button type="submit" class="button blue"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</form>
 			<hr class="m2" />
 		</div>
