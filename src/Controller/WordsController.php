@@ -71,12 +71,26 @@ class WordsController extends AppController
                         TRUE);
         
         
-        $this->set('words', $this->paginate($query));
+        $displayType = $this->request->getQuery('displayType');
+
+        if ($displayType === 'all') {
+            #$words = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id);
+            $isPaginated = false;
+            $words = $query->toArray();
+            $count = count($words);
+        } else {
+            $words = $this->paginate($query);
+            $isPaginated = true;
+            $count = 0;
+        }
+
+
+        #$this->set('words', $this->paginate($query));
 
 
         $title = 'Browse';
 
-        $this->set(compact('current_condition', 'cc', 'ortd', 'title', 'sitelang'));
+        $this->set(compact('current_condition', 'words', 'isPaginated', 'cc', 'ortd', 'title', 'sitelang'));
         $this->render('browse');
     }
     
