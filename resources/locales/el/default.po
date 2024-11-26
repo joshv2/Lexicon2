@@ -166,7 +166,7 @@ msgid "Languages of origin"
 msgstr "Γλώσσες προέλευσης"
 
 msgid "Other"
-msgstr "Άλλα"
+msgstr "Άλλη"
 
 msgid "Regions in which the word is used"
 msgstr "Περιοχές στις οποίες η λέξη χρησιμοποιείται"
@@ -482,7 +482,7 @@ msgid "Religious"
 msgstr "Θρησκευόμενοι"
 
 msgid "Non-Jews: (words that have spread outside of Jewish networks)"
-msgstr "Μη-Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός εβραϊκών κοινωνικών δικτύων)"
+msgstr "Μη-Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός εβραϊκών κοινοτήτων)"
 
 msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
 msgstr "Κάμπ: Εβραίοι που προσέρχονται ή εργάζονται σε θερινά εβραϊκά καταλύματα διανυκτέρευσης"
