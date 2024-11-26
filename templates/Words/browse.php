@@ -1,12 +1,4 @@
 <?php echo $this->Html->script('nav', array('block' => 'js_bottom'));?>
-
-
-
-
-
-
-
-
 <section id="main">
 	<nav id="crumbs" class="group">
 		<ul class="right">
@@ -97,21 +89,34 @@
 	<?php else:?>
 
 		<div id="browse_info" class="group">
-		<div id="checkedOptionsDiv"><?php 
-			if (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
-				echo "Checked options: Words not in any other dictionary.";
-			}
-			elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
-				echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
-			 } elseif (array_key_first($cc) == 'types') {
-				echo "Checked options: " . $ortd['toptypes'][$cc['types']];
-			 } else {
-				echo "";
-			 }
-				?></div>	
+				
+			<div class="line-container">
+				<div id="checkedOptionsDiv"><?php 
+					if (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
+						echo "Checked options: Words not in any other dictionary.";
+					}
+					elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
+						echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
+					} elseif (array_key_first($cc) == 'types') {
+						echo "Checked options: " . $ortd['toptypes'][$cc['types']];
+					} else {
+						echo "";
+					}
+						?>
+				</div>
+				<?php if ($isPaginated): ?>
+				<button id="displayAllButton" class="button blue">Display All</button>
 
+				<script>
+					document.getElementById('displayAllButton').addEventListener('click', function () {
+						const currentUrl = new URL(window.location.href); // Get the current URL
+						currentUrl.searchParams.set('displayType', 'all'); // Add or update the displayType parameter
+						window.location.href = currentUrl.toString(); // Redirect to the new URL
+					});
+				</script>
+				<?php endif; ?>	
+			</div>
 		</div>
-		
 		<ul class="word-list">
 		<?php foreach ($words as $word): ?>
 			<li class="group">
@@ -126,6 +131,7 @@
 		<?php endforeach; ?>
 
 		</ul>
+		<?php if ($isPaginated): ?>
 		<div class="pagination">
 
 			<?php if ($this->Paginator->hasPrev()) :?>
@@ -136,6 +142,7 @@
 			<?php endif ?>	
 
 		</div>
+		<?php endif; ?>
 	<?php endif;?>
 
 

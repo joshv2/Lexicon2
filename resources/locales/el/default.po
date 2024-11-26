@@ -169,10 +169,10 @@ msgid "Other"
 msgstr "Άλλη"
 
 msgid "Regions in which the word is used"
-msgstr "Περιοχές στις οποίες η λέξη χρησιμοποιείται"
+msgstr "Περιοχές στις οποίες χρησιμοποιείται η λέξη"
 
 msgid "Types of people who tend to use the word"
-msgstr "Τύποι ανθρώπων που τίνουν να χρησιμοποιούν τη λέξη"
+msgstr "Τύποι ατόμων που τείνουν να χρησιμοποιούν τη λέξη"
 
 msgid "Dictionaries in which the word appears"
 msgstr "Λεξικά στα οποία εμφανίζεται η λέξη"
@@ -635,4 +635,4 @@ msgid "Jews: Jews of diverse religious backgrounds and organizational involvemen
 msgstr "Εβραίοι: Εβραίοι με διαφορετικό θρησκευτικό υπόβαθρο και συμμετοχή"
 
 msgid "Non-Jews: (words that have spread outside of Jewish networks)"
-msgstr "Μη Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός των εβραϊκών κοινοτήτων))"
+msgstr "Μη Εβραίοι: (λέξεις που έχουν διαδοθεί εκτός των εβραϊκών)"

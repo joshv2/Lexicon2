@@ -195,7 +195,30 @@ h6 {
     padding: 0 0 0 40px;
 }
 
+.line-container {
+    display: flex;
+    justify-content: space-between; /* Distributes the elements to opposite ends */
+    align-items: center; /* Vertically aligns elements to the center */
+}
 
+.line-container p {
+    margin: 0; /* Removes default margin from the <p> tag */
+    font-size: 16px; /* Adjust the font size as needed */
+}
+
+/*.button.blue {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}*/
+
+.button.blue:hover {
+    background-color: #0056b3;
+}
 
 #notes.content p,
 #welcome.content p {
@@ -482,13 +505,13 @@ a.disabled:hover {
 
 .button.blue {
     color: #fff;
-    padding: 10px;
+    padding: 6.5px;
     border: 1px #0071E0 solid;
     background: #0079FF;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
     background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
     background: -moz-linear-gradient(center top, #0096FF, #005DFF);
-    margin-top: 6px;
+    margin-top: 0px;
     margin-right: 10px;
 }
 
