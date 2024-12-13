@@ -81,7 +81,7 @@
     </div>
 </div>
 <script>
-  import Table from 'quill-better-table';
+
   Quill.register({
     'modules/better-table': QuillBetterTable
   }, true);
