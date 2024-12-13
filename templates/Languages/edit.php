@@ -81,6 +81,10 @@
     </div>
 </div>
 <script>
+  Quill.register({
+    'modules/better-table': Table,
+  }, true);
+
   var quill = new Quill('#langeditor-AboutSec1Text', {
     theme: 'snow'
   });
@@ -98,7 +102,25 @@
   });
 
   var quill5 = new Quill('#langeditor-NotesSec1Text', {
-    theme: 'snow'
+    theme: 'snow',
+    modules: {
+        'better-table': {
+            operationMenu: {
+                items: {
+                    insertRowAbove: true,
+                    insertRowBelow: true,
+                    insertColumnLeft: true,
+                    insertColumnRight: true,
+                    deleteRow: true,
+                    deleteColumn: true,
+                    deleteTable: true,
+                },
+            },
+        },
+        keyboard: {
+            bindings: Table.keyboardBindings,
+        },
+    }
   });
 
   var form = document.getElementById("pageeditorform"); // get form by ID

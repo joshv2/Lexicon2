@@ -81,7 +81,9 @@
 	<?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 	<!-- Include stylesheet -->
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <?php echo $this->Html->css('style');?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist/quill-better-table.min.css">
+
+	<?php echo $this->Html->css('style');?>
 	<title><?php echo (isset($title)) ? $title . ' - ' . $sitelang->name : $sitelang->name; ?></title>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -99,6 +101,8 @@
 	<?= $this->Html->script('solid')."\n";?>
 
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist/quill-better-table.min.js"></script>
+
 	<?= $this->Html->script('detectios')."\n";?>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
