@@ -837,3 +837,18 @@ msgstr "Israël: Diaspora-joden die zich verbonden voelen met Israël en daar ti
 
 msgid "Portuguese: Jews from Spain and Portugal who were forced to convert to Christianity"
 msgstr "Portugees: Joden uit Spanje en Portugal die gedwongen werden zich tot het christendom te bekeren"
+
+msgid "Home"
+msgstr "Startpagina"
+
+msgid "The Lexicon"
+msgstr "De Lexicon"
+
+msgid "Alphabetical"
+msgstr "Alfabetisch"
+
+msgid "Random"
+msgstr "Willekeurig"
+
+msgid "Add a New Word"
+msgstr "Voeg een woord toe"
