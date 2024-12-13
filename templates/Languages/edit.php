@@ -83,7 +83,7 @@
 <script>
   import Table from 'quill-better-table';
   Quill.register({
-    'modules/better-table': Table,
+    'modules/better-table': QuillBetterTable
   }, true);
 
   var quill = new Quill('#langeditor-AboutSec1Text', {
@@ -119,7 +119,7 @@
             },
         },
         keyboard: {
-            bindings: Table.keyboardBindings,
+            bindings: QuillBetterTable.keyboardBindings,
         },
     }
   });
