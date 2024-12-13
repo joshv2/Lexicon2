@@ -100,11 +100,8 @@
 	<?= $this->Html->script('fontawesome')."\n";?>
 	<?= $this->Html->script('solid')."\n";?>
 	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 	<!--<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
-	<script src="https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist/quill-better-table.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist/quill-better-table.min.css">
-
 	<?= $this->Html->script('detectios')."\n";?>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 

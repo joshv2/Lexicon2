@@ -57,7 +57,7 @@
                     
                     //echo $this->Form->control('AboutSec4Text');
                     echo $this->Form->control('NotesSec1Header', array('type' => 'text'));
-                    
+
                     echo "<label>Text for Notes Section 1</label>";
                     echo "<input type='hidden' name='NotesSec1Text'/>";
                     echo "<div id='langeditor-NotesSec1Text'></div>";
@@ -82,10 +82,6 @@
 </div>
 <script>
 
-  Quill.register({
-    'modules/better-table': QuillBetterTable
-  }, true);
-
   var quill = new Quill('#langeditor-AboutSec1Text', {
     theme: 'snow'
   });
@@ -102,27 +98,10 @@
     theme: 'snow'
   });
 
-  var quill5 = new Quill('#langeditor-NotesSec1Text', {
-    theme: 'snow',
-    modules: {
-        'better-table': {
-            operationMenu: {
-                items: {
-                    insertRowAbove: true,
-                    insertRowBelow: true,
-                    insertColumnLeft: true,
-                    insertColumnRight: true,
-                    deleteRow: true,
-                    deleteColumn: true,
-                    deleteTable: true,
-                },
-            },
-        },
-        keyboard: {
-            bindings: QuillBetterTable.keyboardBindings,
-        },
-    }
+  const quill5 = new Quill('#langeditor-NotesSec1Text', {
+    theme: 'snow'
   });
+
 
   var form = document.getElementById("pageeditorform"); // get form by ID
 
@@ -152,6 +131,7 @@
     quill3.setContents(content3);
     var content4 = JSON.parse(<?= json_encode($language->AboutSec4Text_json); ?>);
     quill4.setContents(content4);
+    
     var content5 = JSON.parse(<?= json_encode($language->NotesSec1Text_json); ?>);
     quill5.setContents(content5.ops);
 </script>
