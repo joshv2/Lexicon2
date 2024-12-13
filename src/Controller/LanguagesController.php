@@ -137,7 +137,7 @@ class LanguagesController extends AppController
                 $original = $postData[$quillField];
                 $jsonFromOriginal = json_decode($original);
                 $postData[$quillField . '_json'] = json_encode($jsonFromOriginal);
-                $quill = new \DBlackborough\Quill\Render($postData[$quillField]);
+                $quill = new \nadar\quill\Lexer($postData[$quillField]);
                 $defresult = $quill->render();
                 $postData[$quillField] = $defresult;
            
