@@ -133,7 +133,7 @@ return [
     ],
     'DebugKit' => [
         'forceEnable' => true, // Forces DebugKit to be enabled even in non-local environments.
-        'safeTlds' => ['dev', 'local', 'test', 'org'], // Add your custom TLD here.
+        'safeTlds' => ['dev', 'local', 'test', 'jewish-languages-testing.org'], // Add your custom TLD here.
     ],
 
     /*
