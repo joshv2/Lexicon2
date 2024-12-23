@@ -19,7 +19,27 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Core\Plugin;
+
 return [
+        'DebugKit' => [
+            'bootstrap' => true,
+            'onlyDebug' => true,
+            'routes' => true,
+            'config' => [
+                'safeTlds' => ['dev', 'local', 'test', 'com'], // Add your custom TLD here
+                'forceEnable' => false, // Optional: Force enable DebugKit in all environments
+            ],
+        ],
+        // Optional plugins which are only needed in CLI commands
+        'Bake' => ['onlyCli' => true, 'optional' => true],
+
+        // Required plugins only in CLI commands
+        'Migrations' => ['onlyCli' => true],
+    ];
+
+
+/*return [
     // Plugins only needed when in debug mode
     'DebugKit' => ['onlyDebug' => true],
 
@@ -30,4 +50,4 @@ return [
     'Migrations' => ['onlyCli' => true],
 
     // Add your custom plugins here
-];
+];*/
