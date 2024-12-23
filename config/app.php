@@ -131,6 +131,10 @@ return [
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
     ],
+    'DebugKit' => [
+        'forceEnable' => true, // Forces DebugKit to be enabled even in non-local environments.
+        'safeTlds' => ['dev', 'local', 'test', 'org'], // Add your custom TLD here.
+    ],
 
     /*
      * Configure the Error and Exception handlers used by your application.
