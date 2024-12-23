@@ -27,7 +27,7 @@ return [
             'onlyDebug' => true,
             'routes' => true,
             'config' => [
-                'safeTlds' => ['dev', 'local', 'test', 'com'], // Add your custom TLD here
+                'safeTlds' => ['dev', 'local', 'test', 'org'], // Add your custom TLD here
                 'forceEnable' => false, // Optional: Force enable DebugKit in all environments
             ],
         ],
