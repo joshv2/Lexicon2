@@ -13,11 +13,6 @@ use Cake\View\JsonView;
 class DefinitionsController extends AppController
 {
     
-    public function viewClasses(): array
-    {
-        return [JsonView::class];
-    }
-    
     /**
      * Index method
      *

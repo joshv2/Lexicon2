@@ -179,6 +179,9 @@ function setInitialValues(mappedEditors) {
 }
 
 function updateAttribute(el, attribute, counter, nextCounter) {
+    if (!el || !el.attr(attribute)) {
+        return;
+    }
     var attrValue = el.attr(attribute);
     el.attr(attribute, attrValue.replace(counter, nextCounter));
 }
@@ -214,78 +217,91 @@ function addRow(el) {
     lastRow.after(newRow);
 }
 
-function addEditorField(el, mappedEditors, newEditors2) {
+function addEditorField(el, mappedEditors) {
     $(el).siblings("a.remove-editor").removeClass("disabled");
     var hiddenInput = $('[id^=defeditor]').last();
-    //console.log(hiddenInput.attr('data-counter'));
-    var counter = hiddenInput.attr('data-counter');
-    //console.log(counter);
+    var counter = hiddenInput.length ? hiddenInput.attr('data-counter') : -1;
     var nextCounter = parseInt(counter) + 1;
 
-    var hiddenInputClone = hiddenInput.clone();
-    //console.log($(el).closest('form-group'));
-    $('#pronunciationsgroup').append(hiddenInputClone);
+    var hiddenInputClone;
+    var newQuillContainer;
+    var newQuillUpdateId;
 
-    //newBox = hiddenInputClone.children()[2];
-    //$(newBox).children()[0].remove();
+    if (hiddenInput.length) {
+        hiddenInputClone = hiddenInput.clone();
+        $('#pronunciationsgroup').append(hiddenInputClone);
 
-    var newQuill = $(hiddenInputClone.children()[2]);
-    var newQuillUpdateId = $(newQuill.children()[1]);
-    console.log(newQuillUpdateId);
-    updateAttribute(newQuillUpdateId, 'id', counter, nextCounter);
-    //console.log(newQuillUpdateId.attr('id'));
+        newQuillContainer = $(hiddenInputClone.children()[2]).clone();
+        newQuillUpdateId = $(newQuillContainer.children()[1]);
+        updateAttribute(newQuillUpdateId, 'id', counter, nextCounter);
 
-    var quill = new Quill('#' + newQuillUpdateId.attr('id'), {
-        theme: 'snow',
-        modules: {
-            toolbar: getToolbarOptions()
-        }
-    });
-    quill.setContents([]);
-    mappedEditors.push({ "id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill }); //
-    console.log(newEditors2);
-    newEditors2 += 1;
-    quill.focus();
+        $('#pronunciationsgroup').append(newQuillContainer);
+    } else {
+        hiddenInputClone = $('<input>', {
+            type: 'hidden',
+            id: 'defeditor-' + nextCounter,
+            name: 'definitions[' + nextCounter + '][id]',
+            'data-counter': nextCounter
+        });
 
-    updateAttribute($(hiddenInputClone.children()[0]), 'name', counter, nextCounter);
-    updateAttribute($(hiddenInputClone.children()[0]), 'id', counter, nextCounter);
-    $(hiddenInputClone.children()[0]).attr('data-counter', nextCounter);
-    $(hiddenInputClone).attr('data-counter', nextCounter);
-    $(hiddenInputClone.children()[0]).val('');
-    $(hiddenInputClone.children()[1]).val('');
-    $(hiddenInputClone.children()[3]).remove();
-    //var editorClone = getNewEditor($(hiddenInputClone.children()[2]), counter, nextCounter);
+        var hiddenDefinitionInput = $('<input>', {
+            type: 'hidden',
+            id: 'definition' + nextCounter,
+            name: 'definitions[' + nextCounter + '][definition]'
+        });
 
-    var hiddenEditorInput = $(hiddenInputClone.children()[1]);
+        newQuillContainer = $('<div>', {
+            class: 'quill-container',
+            id: 'quill-container-' + nextCounter
+        }).append($('<div>', {
+            id: 'editor-' + nextCounter
+        }));
 
-    updateAttribute(hiddenEditorInput, 'id', counter, nextCounter);
-    updateAttribute(hiddenEditorInput, 'name', counter, nextCounter);
+        $(el).parent().append(hiddenInputClone);
+        $(el).parent().append(hiddenDefinitionInput);
+        $(el).parent().append(newQuillContainer);
+    }
 
-    newBox = hiddenInputClone.children()[2];
-    $(newBox).children()[0].remove();
+    // Ensure the newQuillUpdateId is correctly selected
+    newQuillUpdateId = $('#editor-' + nextCounter);
 
+    // Ensure the newQuillUpdateId exists in the DOM before initializing Quill
+    if (newQuillUpdateId.length) {
+        setTimeout(() => {
+            var quill = new Quill('#' + newQuillUpdateId.attr('id'), {
+                theme: 'snow',
+                modules: {
+                    toolbar: getToolbarOptions()
+                }
+            });
+            quill.setContents([]);
+            mappedEditors.push({ "id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill });
+            quill.focus();
+
+            updateAttribute($(hiddenInputClone), 'name', counter, nextCounter);
+            updateAttribute($(hiddenInputClone), 'id', counter, nextCounter);
+            $(hiddenInputClone).attr('data-counter', nextCounter);
+            $(hiddenInputClone).val('');
+        }, 0);
+    } else {
+        console.error('Failed to find the new Quill container in the DOM.');
+    }
 }
 
-function addEditorField2(el, mappedEditors, newEditors2) {
+function addEditorField2(el, mappedEditors) {
     $(el).siblings("a.remove-editor").removeClass("disabled");
     var hiddenInput = $('[id^=senteditor]').last();
-    //console.log(hiddenInput.attr('data-counter'));
-    var counter = hiddenInput.attr('data-counter');
-    //console.log(counter);
+    var counter = hiddenInput.length ? hiddenInput.attr('data-counter') : -1;
     var nextCounter = parseInt(counter) + 1;
 
     var hiddenInputClone = hiddenInput.clone();
-    //console.log($(el).closest('form-group'));
     $('#sentencesgroup').append(hiddenInputClone);
 
-    //newBox = hiddenInputClone.children()[2];
-    //$(newBox).children()[0].remove();
-
-    var newQuill = $(hiddenInputClone.children()[2]);
-    var newQuillUpdateId = $(newQuill.children()[1]);
-    console.log(newQuillUpdateId);
+    var newQuillContainer = $(hiddenInputClone.children()[2]).clone();
+    var newQuillUpdateId = $(newQuillContainer.children()[1]);
     updateAttribute(newQuillUpdateId, 'id', counter, nextCounter);
-    //console.log(newQuillUpdateId.attr('id'));
+
+    $('#sentencesgroup').append(newQuillContainer);
 
     var quill = new Quill('#' + newQuillUpdateId.attr('id'), {
         theme: 'snow',
@@ -294,9 +310,7 @@ function addEditorField2(el, mappedEditors, newEditors2) {
         }
     });
     quill.setContents([]);
-    mappedEditors.push({ "id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill }); //
-    console.log(newEditors2);
-    newEditors2 += 1;
+    mappedEditors.push({ "id": newQuillUpdateId.attr('id').replace('editor-', ''), "editor": quill });
     quill.focus();
 
     updateAttribute($(hiddenInputClone.children()[0]), 'name', counter, nextCounter);
@@ -306,16 +320,10 @@ function addEditorField2(el, mappedEditors, newEditors2) {
     $(hiddenInputClone.children()[0]).val('');
     $(hiddenInputClone.children()[1]).val('');
     $(hiddenInputClone.children()[3]).remove();
-    //var editorClone = getNewEditor($(hiddenInputClone.children()[2]), counter, nextCounter);
 
     var hiddenEditorInput = $(hiddenInputClone.children()[1]);
-
     updateAttribute(hiddenEditorInput, 'id', counter, nextCounter);
     updateAttribute(hiddenEditorInput, 'name', counter, nextCounter);
-
-    newBox = hiddenInputClone.children()[2];
-    $(newBox).children()[0].remove();
-
 }
 
 function removeRow(el) {
