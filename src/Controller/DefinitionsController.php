@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Log\Log;
+use Cake\View\JsonView;
 /**
  * Definitions Controller
  *
@@ -11,12 +12,20 @@ use Cake\Log\Log;
  */
 class DefinitionsController extends AppController
 {
+    
+    public function viewClasses(): array
+    {
+        return [JsonView::class];
+    }
+    
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    
+    
+     public function index()
     {
         $this->paginate = [
             'contain' => ['Words'],
@@ -112,8 +121,6 @@ class DefinitionsController extends AppController
 
     public function ajaxdelete($id = null)
     {
-        $this->RequestHandler->renderAs($this, 'json');
-        $response = [];
 
         if( $this->request->is('post') ) {
             $definition = $this->Definitions->get($id);
@@ -123,24 +130,14 @@ class DefinitionsController extends AppController
             } else {
                 $response['success'] = 0;
             }
-            //debug($response['spelling']);
         } else {
             $response['success'] = 0;
         }
 
         $this->set(compact('response'));
-        $this->viewBuilder()->setOption('serialize', true);
-        $this->RequestHandler->renderAs($this, 'json');
 
-        /*$this->request->allowMethod(['post', 'delete']);
-        $definition = $this->Definitions->get($id);
-        if ($this->Definitions->delete($definition)) {
-            Log::info('Definition \/\/ ' . $this->request->getSession()->read('Auth.username') . ' deleted ' . $definition->definition . ' \/\/', ['scope' => ['events']]);
-            $this->Flash->success(__('The definition has been deleted.'));
-        } else {
-            $this->Flash->error(__('The definition could not be deleted. Please, try again.'));
-        }
+        return $this->response
+            ->withType('application/json')->withStringBody(json_encode($response));
 
-        return $this->redirect(['controller' => 'Words', 'action' => 'edit', $wordid]);*/
     }
 }

@@ -463,13 +463,13 @@ $(function(){
                     success: function(response) {
                         var newData = response;
                         
-                        //alert(newData.response.spelling);
-                        if (newData.response.success == 1) {
+                        console.log(newData);
+                        if (newData.success == 1) {
                             console.log('value deleted');
                             $(elementid + defid[0]).remove();
                         } else {
                             console.log('value not deleted');
-                            console.log(newData.response);
+                            console.log(newData);
                         }
                     }
                 })
