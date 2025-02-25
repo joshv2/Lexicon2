@@ -84,6 +84,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist/quill-better-table.min.css">
 
 	<?php echo $this->Html->css('style');?>
+	<?php echo $this->Html->css('ranking');?>
 	<title><?php echo (isset($title)) ? $title . ' - ' . $sitelang->name : $sitelang->name; ?></title>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>

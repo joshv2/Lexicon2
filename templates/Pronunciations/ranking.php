@@ -16,50 +16,18 @@
 } // TODO: Find a better solution for this
 ?>
 <div class="column-responsive column-80">
-<h2><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
-    <div class="pronunciations form content">
-        <p><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
-        <?= $this->Form->create() ?>
-        <table>
+    <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1">Approval</li>
+        <li class="tab-link" data-tab="tab-2">Change Ordering</li>
+    </ul>
 
-            <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Ranking']);
-                $i = 0; ?>
-            
-            <?php foreach ($requested_pronunciations as $p): ?>
-                <?php if(1 == $p->approved): ?>
-                <?php 
-                    
-                    if ('' !== $p->sound_file){
-                        $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
-                    } else {
-                        $audioPlayer = '';
-                    }
-                    ?>
-                <?php echo $this->Html->tableCells([[$p->spelling, 
-                                                    $audioPlayer, 
-                                                    $p->pronunciation, 
-                                                    $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
-                                                    $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false])
-                                                   ]]); 
-                        $i += 1; ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </table>
-        <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-        
-        <hr/>
-       
-<h2><?=__("Delete/Approve Pronunciations")?></h2>       
-<table>
-
+    <div id="tab-1" class="tab-content current">
+        <h2 class="approval-header"><?=__("Delete/Approve Pronunciations")?></h2>       
+        <table id="approval-table">
             <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','Username','', '','', '']);
                 $i = 0; ?>
-            
             <?php foreach ($requested_pronunciations as $p): ?>
                 <?php 
-                    
                     if ('' !== $p->sound_file){
                         $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
                     } else {
@@ -86,7 +54,63 @@
                         $i += 1; ?>
             <?php endforeach; ?>
         </table> <!-- TODO: Fix when status is deined to have date and also grey out and put on bottom? -->
-
     </div>
+
+    <div id="tab-2" class="tab-content">
+        <h2 class="ranking-header"><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
+        <div class="pronunciations form content">
+            <p class="ranking-description"><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
+            <?= $this->Form->create(null, ['id' => 'ranking-form']) ?>
+            <table id="ranking-table">
+                <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Ranking']);
+                    $i = 0; ?>
+                <?php foreach ($requested_pronunciations as $p): ?>
+                    <?php if(1 == $p->approved): ?>
+                    <?php 
+                        if ('' !== $p->sound_file){
+                            $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
+                        } else {
+                            $audioPlayer = '';
+                        }
+                        ?>
+                    <?php echo $this->Html->tableCells([[$p->spelling, 
+                                                        $audioPlayer, 
+                                                        $p->pronunciation, 
+                                                        $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
+                                                        $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false, 'class' => 'ranking-input'])
+                                                       ]]); 
+                            $i += 1; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </table>
+            <?= $this->Form->button(__('Submit'), ['class' => 'ranking-submit']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tabs = document.querySelectorAll('.tab-link');
+        var contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var tabId = this.getAttribute('data-tab');
+
+                tabs.forEach(function(t) {
+                    t.classList.remove('current');
+                });
+
+                contents.forEach(function(content) {
+                    content.classList.remove('current');
+                });
+
+                this.classList.add('current');
+                document.getElementById(tabId).classList.add('current');
+            });
+        });
+    });
+</script>
 
 
