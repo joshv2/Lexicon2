@@ -59,10 +59,10 @@
     <div id="tab-2" class="tab-content">
         <h2 class="ranking-header"><?php echo 'Order pronunciations for ' . $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h2>
         <div class="pronunciations form content">
-            <p class="ranking-description"><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
+            <p class="ranking-description"><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only. Drag the rows into the order you would like to see displayed.")?></p>
             <?= $this->Form->create(null, ['id' => 'ranking-form']) ?>
             <table id="ranking-table">
-                <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Ranking']);
+                <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', '']); // Removed the 'Ranking' column header
                     $i = 0; ?>
                 <tbody id="sortable">
                 <?php foreach ($requested_pronunciations as $p): ?>
@@ -71,18 +71,17 @@
                         if ('' !== $p->sound_file){
                             $audioPlayer = $this->Html->media($p->sound_file, ['type' => 'audio/webm', 
                                                                                'pathPrefix' => 'recordings/', 
-                                                                               'controls', 
-                                                                               'style' => ['height: 26px; width:158px;']]);
+                                                                               'controls']);
                         } else {
                             $audioPlayer = '';
                         }
                         ?>
-                    <tr>
+                    <tr class="sortable-row">
                     <?php echo $this->Html->tableCells([[$p->spelling, 
                                                         $audioPlayer, 
                                                         $p->pronunciation, 
-                                                        $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]), 
-                                                        $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false, 'class' => 'ranking-input'])
+                                                        $this->Form->hidden('pronunciations.' . $i . '.id', ['value' => $p->id]),
+                                                        $this->Form->hidden('pronunciations.' . $i . '.display_order', ['class' => 'ranking-input'])
                                                        ]]); 
                             $i += 1; ?>
                     </tr>
