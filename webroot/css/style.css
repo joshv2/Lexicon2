@@ -2371,8 +2371,31 @@ label[for="alternates-0-spelling"] {
     display: none;
 }
 
-.tooltip {
+.tooltip2 {
     position: relative;
+    display: inline-block;
+}
+
+.tooltip2 .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 50%; /* Position the tooltip to the side of the icon */
+    left: 125%; /* Adjust the position to the right of the icon */
+    margin-top: -16px; /* Center the tooltip vertically */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip2:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
 
 .tooltip .title {

@@ -71,7 +71,12 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                 <tr>
                                     <th style="width: 0;"></th>
                                     <th style="text-align: left;"><?=__("Spelling")?></th>
-                                    <th style="text-align: left;"><?=__("Phonetic Spelling ")?><span class="tooltip" title="<?= __("Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'")?>"><i class="fa-solid fa-circle-info"></i></span></th>
+                                    <th style="text-align: left;"><?=__("Phonetic Spelling ")?>
+                                    <span class="tooltip2">
+                                    <span class="fas fa-info-circle"></span>
+                                        <span class="tooltiptext"><?= __("Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'")?></span>
+                                        </span></th>
+                                    
                                     <th style="text-align: left;"><?=__("Record")?></th>
                                 </tr>
                             </thead>
