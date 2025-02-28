@@ -128,3 +128,8 @@ ul.tabs li:hover {
 .tab-content.current {
     display: block;
 }
+
+/* Add styles for sortable rows */
+#sortable tr {
+    cursor: move;
+}

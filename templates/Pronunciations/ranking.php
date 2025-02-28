@@ -29,9 +29,7 @@
             <?php foreach ($requested_pronunciations as $p): ?>
                 <?php 
                     if ('' !== $p->sound_file){
-                        $audioPlayer = $this->Html->media($p->sound_file, ['type' => 'audio/webm', 
-                                                                           'pathPrefix' => 'recordings/', 'controls', 
-                                                                           'style' => ['height: 26px; width:158px;']]);
+                        $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
                     } else {
                         $audioPlayer = '';
                     }
@@ -66,6 +64,7 @@
             <table id="ranking-table">
                 <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Ranking']);
                     $i = 0; ?>
+                <tbody id="sortable">
                 <?php foreach ($requested_pronunciations as $p): ?>
                     <?php if(1 == $p->approved): ?>
                     <?php 
@@ -78,6 +77,7 @@
                             $audioPlayer = '';
                         }
                         ?>
+                    <tr>
                     <?php echo $this->Html->tableCells([[$p->spelling, 
                                                         $audioPlayer, 
                                                         $p->pronunciation, 
@@ -85,8 +85,10 @@
                                                         $this->Form->control('pronunciations.' . $i . '.display_order', ['label' => false, 'class' => 'ranking-input'])
                                                        ]]); 
                             $i += 1; ?>
+                    </tr>
                     <?php endif; ?>
                 <?php endforeach; ?>
+                </tbody>
             </table>
             <?= $this->Form->button(__('Submit'), ['class' => 'ranking-submit']) ?>
             <?= $this->Form->end() ?>
@@ -115,6 +117,17 @@
                 document.getElementById(tabId).classList.add('current');
             });
         });
+
+        // Make the table rows sortable
+        $("#sortable").sortable({
+            update: function(event, ui) {
+                // Update the display_order input values based on the new order
+                $('#sortable tr').each(function(index) {
+                    $(this).find('.ranking-input').val(index + 1);
+                });
+            }
+        });
+        $("#sortable").disableSelection();
     });
 </script>
 

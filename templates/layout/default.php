@@ -85,6 +85,7 @@
 
 	<?php echo $this->Html->css('style');?>
 	<?php echo $this->Html->css('ranking');?>
+	
 	<title><?php echo (isset($title)) ? $title . ' - ' . $sitelang->name : $sitelang->name; ?></title>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,6 +94,8 @@
 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<?php echo $this->Html->script('https://code.jquery.com/ui/1.12.1/jquery-ui.min.js');?>
+    <?php echo $this->Html->css('https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');?>
 	<?= $this->Html->script('addform')."\n";?>
 	<?= $this->Html->script('audioplayback')."\n";?>
 	<?= $this->Html->script('exConfirm')."\n";?>
