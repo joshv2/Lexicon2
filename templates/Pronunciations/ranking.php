@@ -29,7 +29,9 @@
             <?php foreach ($requested_pronunciations as $p): ?>
                 <?php 
                     if ('' !== $p->sound_file){
-                        $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
+                        $audioPlayer = $this->Html->media($p->sound_file, ['type' => 'audio/webm', 
+                                                                           'pathPrefix' => 'recordings/', 'controls', 
+                                                                           'style' => ['height: 26px; width:158px;']]);
                     } else {
                         $audioPlayer = '';
                     }
@@ -68,7 +70,10 @@
                     <?php if(1 == $p->approved): ?>
                     <?php 
                         if ('' !== $p->sound_file){
-                            $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
+                            $audioPlayer = $this->Html->media($p->sound_file, ['type' => 'audio/webm', 
+                                                                               'pathPrefix' => 'recordings/', 
+                                                                               'controls', 
+                                                                               'style' => ['height: 26px; width:158px;']]);
                         } else {
                             $audioPlayer = '';
                         }
