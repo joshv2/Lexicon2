@@ -126,7 +126,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $config['Auth']['authorize']['CakeDC/Users.SimpleRbac'] = [
+        /*$config['Auth']['authorize']['CakeDC/Users.SimpleRbac'] = [
             // autoload permissions.php
             'autoload_config' => 'permissions',
             // role field in the Users table
@@ -149,10 +149,10 @@ class AppController extends Controller
              * You could use '*' to match anything
              * Suggestion: put your rules into a specific config file
              */
-            'permissions' => [], // you could set an array of permissions or load them using a file 'autoload_config'
+            /*'permissions' => [], // you could set an array of permissions or load them using a file 'autoload_config'
             // log will default to the 'debug' value, matched rbac rules will be logged in debug.log by default when debug enabled
             'log' => false
-        ];
+        ];*/
 
         $sitelang = $this->languageinfo();
 

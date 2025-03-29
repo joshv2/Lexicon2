@@ -115,7 +115,13 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKECORE_URL', null),
         ],
-
+            '_cake_core_' => [
+            'className' => 'File',
+            'prefix' => 'myapp_cake_core_',
+            'path' => CACHE . 'persistent/',
+            'serialize' => true,
+            'duration' => '+1 years',
+        ],
         /*
          * Configure the cache for model and datasource caches. This cache
          * configuration is used to store schema descriptions, and table listings

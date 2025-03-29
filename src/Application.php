@@ -61,7 +61,7 @@ class Application extends BaseApplication
         //Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
 
         Configure::write('Users.config', ['users']);
-        $this->addPlugin(\CakeDC\Users\Plugin::class, ['routes' => true, 'bootstrap' => true]);
+        #$this->addPlugin(\CakeDC\Users\Plugin::class, ['routes' => true, 'bootstrap' => true]);
 
         //$this->addPlugin(\CakeDC\Users\Plugin::class);
         if (PHP_SAPI === 'cli') {

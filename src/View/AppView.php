@@ -37,7 +37,7 @@ class AppView extends View
      */
     public function initialize(): void
     {
-        $this->addHelper('Authentication.Identity');
-        $this->addHelper('CakeDC/Users.AuthLink');
+        #$this->addHelper('Authentication.Identity');
+        #$this->addHelper('CakeDC/Users.AuthLink');
     }
 }

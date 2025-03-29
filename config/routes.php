@@ -85,6 +85,8 @@ use Cake\Routing\RouteBuilder;
 
     $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
 
+    $builder->connect('/login', ['controller' => 'Auth', 'action' => 'login']);
+    $builder->connect('/callback', ['controller' => 'Auth', 'action' => 'login']);
 
     /*
      * Connect catchall routes for all controllers.

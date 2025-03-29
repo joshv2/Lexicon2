@@ -6,12 +6,12 @@
     "license": "MIT",
     "require": {
         "php": ">=8.1",
-        "cakedc/users": "^14.0",
         "cakephp/cakephp": "^5.0.1",
         "cakephp/migrations": "^4.0.0",
         "cakephp/plugin-installer": "^2.0",
         "cloudconvert/cloudconvert-php": "^3.4",
         "guzzlehttp/guzzle": "^7.9",
+        "league/oauth2-google": "^4.0",
         "mobiledetect/mobiledetectlib": "^3.74",
         "nadar/quill-delta-parser": "^3.4"
     },
