@@ -28,7 +28,13 @@ class SearchController extends AppController {
             $isPaginated = true;
             $count = 0;
         }
-
+        // fallback search if no results
+        if ($count === 0) {
+            $words = $this->fetchTable('Words')->find('fallbackSearchResults', querystring: $q, langid: $sitelang->id);
+            $isPaginated = false; 
+            $words2 = $words->toArray();
+            $count = count($words2);
+        }
         $this->set(compact('words', 'q', 'isPaginated', 'count'));
         $this->render('results');
 	}

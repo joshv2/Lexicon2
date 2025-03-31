@@ -458,9 +458,8 @@ class WordsController extends AppController
                 $sentValue = $data["selectedOptions"];
                 array_push($ortdarray[explode('_',$sentValue)[0]], explode('_',$sentValue)[1]);
 
-                
                 $browsewords = $this->Words->browse_words_filter($ortdarray["Origins"], $ortdarray["Regions"], $ortdarray["Types"], $ortdarray["Dictionaries"], TRUE, $sitelang->id);
-
+        
                 $response_with_language['language'] = $sitelang->id;
                 $response_with_language['words'] = $browsewords;
                 $response['success'] = $response_with_language;
