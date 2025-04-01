@@ -25,16 +25,42 @@ class AuthController extends AppController
                 'code' => $this->request->getQuery('code'),
             ]);
 
-            $user = $provider->getResourceOwner($token);
-            // Save user information in the session or database
-            $this->request->getSession()->write('Auth.User', $user->toArray());
-            $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+            $googleUser = $provider->getResourceOwner($token);
+            $googleEmail = $googleUser->getEmail();
+
+            // Check if the user exists in the database
+            $user = $this->fetchTable('Users')->find()
+                ->where(['email' => $googleEmail])
+                ->first();
+
+            if ($user) {
+                // Log the user in
+                $this->request->getSession()->write('Auth.User', $user);
+                $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+            } else {
+                // Create a new user if not found
+                $user = $this->Users->newEntity([
+                    'email' => $googleEmail,
+                    'name' => $googleUser->getName(),
+                    'google_id' => $googleUser->getId(),
+                    'password' => null, // No password needed for Google accounts
+                ]);
+                if ($this->Users->save($user)) {
+                    // Log the new user in
+                    $this->request->getSession()->write('Auth.User', $user);
+                    $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                } else {
+                    // Handle save failure
+                    $this->Flash->error('Unable to create a new account. Please try again.');
+                    $this->redirect(['controller' => 'Users', 'action' => 'register']);
+                }
+            }
         }
     }
 
     public function logout()
     {
         $this->request->getSession()->destroy();
-        $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+        $this->redirect(['controller' => 'Pages', 'action' => 'index']); // Redirect to index
     }
 }
