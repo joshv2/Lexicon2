@@ -57,11 +57,11 @@
 	})(window,document,'script','dataLayer','<?= $sitelang->googleAnalytics ?>');</script>
 	<!-- End Google Tag Manager -->
 	
-	<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />
+	<!--<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />-->
 	 
 	 
 	 
-	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
+	  <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2080909425204614"
      crossorigin="anonymous"></script>
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({
@@ -69,7 +69,7 @@
 		enable_page_level_ads: true,
 		overlays: {bottom: true}
 	});
-	</script>
+	</script>-->
 	
 	
 	<?php echo $this->Html->css('output.css');?>
@@ -199,8 +199,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <?= $this->Html->script('ortdselectall')."\n";?>
 	<?= $this->Html->script('bottom')."\n";?>
 	<!--Extra ads-->
-	<script type="text/javascript"> var infolinks_pid = 3416121; var infolinks_wsid = 0; </script> 
-	<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+	<!--<script type="text/javascript"> var infolinks_pid = 3416121; var infolinks_wsid = 0; </script> 
+	<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>-->
 	<!--End extra ads -->
 	<script>
         var config = {
