@@ -23,6 +23,7 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
 /*
  * The default class to use for all routes
@@ -87,6 +88,9 @@ use Cake\Routing\RouteBuilder;
 
     $builder->connect('/login', ['controller' => 'Auth', 'action' => 'login']);
     $builder->connect('/callback', ['controller' => 'Auth', 'action' => 'login']);
+
+    $builder->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+
 
     /*
      * Connect catchall routes for all controllers.

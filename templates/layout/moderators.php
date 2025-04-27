@@ -22,7 +22,8 @@
 		<div id="top">
 			<h1>JEL Control Panel</h1>
 			<ul>
-				<li>Logged in as <?php echo $this->Identity->get('username');?></li>
+				<li>Logged in as <?php echo 
+				$this->request->getSession()->read('Auth.username');?></li>
 				<li><?php echo $this->Html->link('Home', '/');?></li>
 				<li><?php echo $this->Html->link('Log out', '/logout');?></li>
 				
@@ -33,11 +34,11 @@
 			<div id="left_inner">
 				<ul class="nav">
 					<li><?php echo $this->Html->link('Moderator Panel', '/moderators');?></li>
-					<li><?php echo $this->AuthLink->link('Add User', '/Users/add');?></li>
-					<li><?php echo $this->AuthLink->link('Add Language', '/Languages/add');?></li>
-					<li><?php echo $this->AuthLink->link('Edit Current Language', '/Languages/edit/' . $sitelang->id);?></li>
-					<li><?php echo $this->AuthLink->link('Log', '/moderators/logs');?></li>
-					<li><?php echo $this->AuthLink->link('My Contributions', '/moderators/me');?></li>
+					<li><?php echo $this->Html->link('Add User', '/Users/add');?></li>
+					<li><?php echo $this->Html->link('Add Language', '/Languages/add');?></li>
+					<li><?php echo $this->Html->link('Edit Current Language', '/Languages/edit/' . $sitelang->id);?></li>
+					<li><?php echo $this->Html->link('Log', '/moderators/logs');?></li>
+					<li><?php echo $this->Html->link('My Contributions', '/moderators/me');?></li>
 					<li><?php echo $this->Html->link('Add a New Word', '/add');?></li>
 					<li><?php echo $this->Html->link('Change Password', '/Users/change-password/' . $userid);?></li>
 					<?php if ('superuser' == $userLevel):?>

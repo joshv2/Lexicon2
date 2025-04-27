@@ -69,7 +69,7 @@ class WordsTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Users', [
-            'className' => 'CakeDC/Users.Users',
+            //'className' => 'CakeDC/Users.Users',
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
         ]);

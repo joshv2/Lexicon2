@@ -16,6 +16,10 @@ class AuthController extends AppController
         ]);
 
         if (!$this->request->getQuery('code')) {
+            // Store the intended redirect URL in the session
+            $redirectUrl = $this->request->getQuery('redirect', '/');
+            $this->request->getSession()->write('Auth.redirect', $redirectUrl);
+
             // Redirect to Google's OAuth 2.0 server
             $authUrl = $provider->getAuthorizationUrl();
             $this->redirect($authUrl);
@@ -34,9 +38,11 @@ class AuthController extends AppController
                 ->first();
 
             if ($user) {
-                // Log the user in
-                $this->request->getSession()->write('Auth.User', $user);
-                $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                // Log the user in and store additional details in the session
+                $this->request->getSession()->write('Auth.id', $user->id);
+                $this->request->getSession()->write('Auth.email', $user->email);
+                $this->request->getSession()->write('Auth.username', $user->username); // Assuming 'username' exists in the Users table
+                $this->request->getSession()->write('Auth.role', $user->role);         // Assuming 'role' exists in the Users table
             } else {
                 // Create a new user if not found
                 $user = $this->Users->newEntity([
@@ -46,21 +52,29 @@ class AuthController extends AppController
                     'password' => null, // No password needed for Google accounts
                 ]);
                 if ($this->Users->save($user)) {
-                    // Log the new user in
-                    $this->request->getSession()->write('Auth.User', $user);
-                    $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                    // Log the new user in and store additional details in the session
+                    $this->request->getSession()->write('Auth.id', $user->id);
+                    $this->request->getSession()->write('Auth.email', $user->email);
+                    $this->request->getSession()->write('Auth.username', $user->username); // Assuming 'username' exists in the Users table
+                    $this->request->getSession()->write('Auth.role', $user->role);         // Assuming 'role' exists in the Users table
                 } else {
                     // Handle save failure
                     $this->Flash->error('Unable to create a new account. Please try again.');
                     $this->redirect(['controller' => 'Users', 'action' => 'register']);
                 }
             }
+
+            // Redirect to the stored URL or default to the homepage
+            $redirectUrl = $this->request->getSession()->read('Auth.redirect', '/');
+            $this->request->getSession()->delete('Auth.redirect'); // Clear the redirect URL
+            $this->redirect($redirectUrl);
         }
     }
 
     public function logout()
     {
         $this->request->getSession()->destroy();
-        $this->redirect(['controller' => 'Pages', 'action' => 'index']); // Redirect to index
+        $redirectUrl = $this->request->getQuery('redirect', '/');
+        $this->redirect($redirectUrl); // Redirect to the specified URL or homepage
     }
 }
