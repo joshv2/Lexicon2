@@ -9,6 +9,7 @@
 /webroot/recordings/*
 /src/Application.php
 superuser.txt
+/config/users.php
 
 # OS generated files #
 ######################
