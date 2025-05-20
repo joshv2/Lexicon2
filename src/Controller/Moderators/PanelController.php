@@ -16,6 +16,7 @@ class PanelController extends AppController {
             
                 $remainingcredits = $this->getremainingcredits();
                 //array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations', 'Sentences', 'SentenceRecordings']);
+                
                 $sitelang = $this->viewBuilder()->getVar('sitelang');
                 $userLevel = $this->request->getSession()->read('Auth.role');
                 $userid = $this->request->getSession()->read('Auth.id');
