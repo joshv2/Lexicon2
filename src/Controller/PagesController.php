@@ -83,7 +83,7 @@ class PagesController extends AppController
         $typesTable = $this->fetchTable('Types');
         $dictionariesTable = $this->fetchTable('Dictionaries');
         $typeCategoriesTable  = $this->fetchTable('TypeCategories');
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->sitelang;
         $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {
