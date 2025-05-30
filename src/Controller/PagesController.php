@@ -76,7 +76,7 @@ class PagesController extends AppController
         }
     }
 
-    public function index(){
+    public function index(): void{
         $wordsTable = $this->fetchTable('Words');
         $originsTable = $this->fetchTable('Origins');
         $regionsTable = $this->fetchTable('Regions');
