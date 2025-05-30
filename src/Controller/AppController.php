@@ -184,9 +184,11 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
-    public function beforeRender(\Cake\Event\EventInterface $event)
+    public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
         $this->set('sitelang', $this->languageinfo());
+        
     }
+
 }
