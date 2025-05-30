@@ -53,8 +53,8 @@ class PagesController extends AppController
         parent::beforeFilter($event);  // <== This is essential
         // Your PagesController specific code here, if any
     }
-     
-    public function display(string ...$path): ?Response
+
+    /*public function display(string ...$path): ?Response
     {
         if (!$path) {
             return $this->redirect('/');
@@ -70,7 +70,7 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        //$sitelang = $this->viewBuilder()->getVar('sitelang');
         $title = ucfirst($page);
         $this->set(compact('page', 'subpage', 'title', 'sitelang'));
 
@@ -82,7 +82,7 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
-    }
+    }*/
 
     public function index(): void{
         $wordsTable = $this->fetchTable('Words');
