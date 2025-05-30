@@ -187,6 +187,6 @@ class AppController extends Controller
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
         parent::beforeRender($event);
-        $this->set('languageInfo', $this->languageinfo());
+        $this->set('sitelang', $this->languageinfo());
     }
 }
