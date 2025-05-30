@@ -227,7 +227,7 @@ class WordsTable extends Table
     public function get_words_starting_with_letter($letter, $langid){
         $query = $this->find()
                     ->where(['spelling LIKE' => $letter.'%', 'approved' => 1, 'language_id' => $langid])
-                    ->order(['spelling' => 'ASC']);
+                    ->orderBy(['spelling' => 'ASC']);
         return $query->all();
     }
 
@@ -241,7 +241,7 @@ class WordsTable extends Table
         if ($ortdtype === 'all' && $ortdvalue == 'all'){
             $query = $this->find()->select(['id','spelling'])
                 ->where(['language_id' => $langid, 'approved' => 1])
-                ->order(['spelling' => 'ASC']);
+                ->orderBy(['spelling' => 'ASC']);
             return $query;
         } elseif ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
             $params['d.word_id IS'] = NULL;
@@ -263,7 +263,7 @@ class WordsTable extends Table
                          'language_id' => $langid])
                 ->contain([ucfirst($pluralization[$ortdtype])])
                          ->distinct()
-                ->order(['spelling' => 'ASC']);
+                ->orderBy(['spelling' => 'ASC']);
         return $query;
     }
     
@@ -337,7 +337,7 @@ class WordsTable extends Table
                         ])
                         ->where([$params, 'language_id' => $langid])
                         ->distinct()
-                        ->order(['spelling' => 'ASC']);
+                        ->orderBy(['spelling' => 'ASC']);
             } else {
                 $query = $this->find()
                 ->join([
@@ -364,7 +364,7 @@ class WordsTable extends Table
                 ])
                 ->where([$params, 'language_id' => $langid])
                 ->distinct()
-                ->order(['spelling' => 'ASC']);
+                ->orderBy(['spelling' => 'ASC']);
             }
 
         }    
@@ -381,14 +381,14 @@ class WordsTable extends Table
         $params['approved ='] = 1; 
         $query = $this->find()->where([$params, 'language_id' => $langid, 'id IN' => $wordIds])
                 ->distinct()
-                ->order(['spelling' => 'ASC']);
+                ->orderBy(['spelling' => 'ASC']);
         return json_encode($query);
     }
 
     public function get_random_words($langid) {
         $query = $this->find()
                 ->where(['approved' => 1, 'language_id' => $langid])
-                ->order("rand()")
+                ->orderBy("rand()")
                 ->limit(20);
         return $query;
     }
@@ -403,12 +403,12 @@ class WordsTable extends Table
                             ->where(['Pronunciations.approved' => 1])
                             ->where(['OR' => [['Pronunciations.sound_file !=' => ''],
                                             ['Pronunciations.pronunciation !=' => '']]])
-                            ->order(['Pronunciations.display_order' => 'ASC']);
+                            ->orderBy(['Pronunciations.display_order' => 'ASC']);
                     })
                     ->contain('Sentences.SentenceRecordings', function (Query $q) {
                         return $q
                             ->where(['SentenceRecordings.approved' => 1])
-                            ->order(['SentenceRecordings.display_order' => 'ASC']);
+                            ->orderBy(['SentenceRecordings.display_order' => 'ASC']);
                     })
                     ->contain('Alternates', function (Query $q) {
                         return $q
@@ -433,14 +433,14 @@ class WordsTable extends Table
                     ->contain('Suggestions', function (Query $q) {
                         return $q
                             ->where(['Suggestions.status' => 'unread'])
-                            ->order(['Suggestions.created' => 'ASC']);
+                            ->orderBy(['Suggestions.created' => 'ASC']);
                     });
         return $query->first();
     }
 
     public function get_pending_words($langid) {
         $query = $this->find()
-                       ->where(['approved' => 0, 'language_id' => $langid])->order(['Words.created' => 'DESC'])
+                       ->where(['approved' => 0, 'language_id' => $langid])->orderBy(['Words.created' => 'DESC'])
                        ->contain(['Users']);
         return $query;
     }
@@ -479,7 +479,7 @@ class WordsTable extends Table
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
                                          ], 'approved' => 1])
                         ->group(['Words.id'])
-                        ->order(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+                        ->orderBy(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
 
         return $query;
     }
@@ -512,7 +512,7 @@ class WordsTable extends Table
     }
 
     public function get_user_words($userid, $langid){
-        $query = $this->find()->where(['user_id' => $userid, 'language_id' => $langid])->order(['created' => 'DESC']);
+        $query = $this->find()->where(['user_id' => $userid, 'language_id' => $langid])->orderBy(['created' => 'DESC']);
         return $query;
     }
 
