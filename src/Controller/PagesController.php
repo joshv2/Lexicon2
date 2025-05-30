@@ -54,35 +54,6 @@ class PagesController extends AppController
         // Your PagesController specific code here, if any
     }
 
-    /*public function display(string ...$path): ?Response
-    {
-        if (!$path) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
-
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        //$sitelang = $this->viewBuilder()->getVar('sitelang');
-        $title = ucfirst($page);
-        $this->set(compact('page', 'subpage', 'title', 'sitelang'));
-
-        try {
-            return $this->render(implode('/', $path));
-        } catch (MissingTemplateException $exception) {
-            if (Configure::read('debug')) {
-                throw $exception;
-            }
-            throw new NotFoundException();
-        }
-    }*/
 
     public function index(): void{
         $wordsTable = $this->fetchTable('Words');
@@ -91,7 +62,7 @@ class PagesController extends AppController
         $typesTable = $this->fetchTable('Types');
         $dictionariesTable = $this->fetchTable('Dictionaries');
         $typeCategoriesTable  = $this->fetchTable('TypeCategories');
-        $sitelang = $this->sitelang;
+        $sitelang = $this->languageinfo();
         $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {

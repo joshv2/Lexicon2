@@ -120,13 +120,6 @@ class AppController extends Controller
         $jsonArrayResponse = json_decode($remaining);
         return $jsonArrayResponse->data->credits;
     }
-
-    public function beforeFilter(EventInterface $event): void{
-        parent::beforeFilter($event);
-
-        $this->sitelang = $this->languageinfo();
-        $this->set('sitelang', $this->sitelang);
-    }
     
     public function initialize(): void
     {

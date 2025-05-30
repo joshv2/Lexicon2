@@ -18,7 +18,7 @@ class OriginsController extends AppController
      */
     public function index()
     {
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $this->paginate = [
             'contain' => ['Languages']
         ];
@@ -52,7 +52,7 @@ class OriginsController extends AppController
     public function add()
     {
         $origin = $this->Origins->newEmptyEntity();
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         if ($this->request->is('post')) {
             $origin = $this->Origins->patchEntity($origin, $this->request->getData());
             if ($this->Origins->save($origin)) {
@@ -76,7 +76,7 @@ class OriginsController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $origin = $this->Origins->get($id, [
             'contain' => ['Words'],
         ]);

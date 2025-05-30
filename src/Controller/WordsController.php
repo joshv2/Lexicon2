@@ -43,7 +43,7 @@ class WordsController extends AppController
             //$queryParams['all'] = 'all';
         }
         
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
 
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $originvalue = [$this->request->getQuery('origin')];
@@ -96,7 +96,7 @@ class WordsController extends AppController
     
 
     public function random() {
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $words = $this->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
         $this->set(compact('words', 'title', 'sitelang'));
@@ -105,7 +105,7 @@ class WordsController extends AppController
 
     public function alphabetical()
     {
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $letter = $this->request->getParam('pass')[0];
         
         $language = $this->fetchTable('Languages');
@@ -151,7 +151,7 @@ class WordsController extends AppController
     {
         
         
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $wordResult = $this->Words->get_word_for_view($id);
         $word = $wordResult[0];
         
@@ -271,7 +271,7 @@ class WordsController extends AppController
     {
         $word = $this->Words->newEmptyEntity();
         
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         
         $getRoute = explode("/", $this->request->getRequestTarget());
         $controllerName = $getRoute[1];
@@ -426,7 +426,7 @@ class WordsController extends AppController
     }
 
     public function checkforword(){
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $response = [];
         if( $this->request->is('post') ) {
             $data = $this->request->getData();
@@ -442,7 +442,7 @@ class WordsController extends AppController
     }
 
     public function browsewords(){
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $response = [];
         $ortdarray["Origins"] = [];
         $ortdarray["Regions"] = [];
@@ -483,7 +483,7 @@ class WordsController extends AppController
 
 
     public function browsewords2(){
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
         $response = [];
         
 
@@ -522,7 +522,7 @@ class WordsController extends AppController
     {
         $wordResult = $this->Words->get_word_for_edit($id);
         $word = $wordResult;
-        $sitelang = $this->viewBuilder()->getVar('sitelang');
+        $sitelang = $this->languageinfo();
 
         if (null !== $this->request->getSession()->read('Auth.username') && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
             
