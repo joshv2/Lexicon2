@@ -22,6 +22,7 @@ use Cake\I18n\I18n;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Event\EventInterface;
+use App\Model\Entity\Language;
 use \CloudConvert\CloudConvert;
 use \CloudConvert\Models\Job;
 use \CloudConvert\Models\Task;
@@ -47,7 +48,9 @@ class AppController extends Controller
      * @return void
      */
 
-    public function languageinfo(){
+    protected ?Language $sitelang = null;
+
+    protected function languageinfo(): ?Language {
         //array_map([$this, 'fetchTable'], ['Languages']);
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         
@@ -55,8 +58,8 @@ class AppController extends Controller
         $urlparts2 = explode('.', $urlparts1[1]);
         $reqsubdomain = $urlparts2[0];
 
-        $sitelangvalues = $this->fetchTable('Languages')->get_language($reqsubdomain);
-        return $sitelangvalues;
+        return $this->fetchTable('Languages')->get_language($reqsubdomain);
+        //return $sitelangvalues;
     }
 
     public function converttomp3($file){
@@ -119,11 +122,10 @@ class AppController extends Controller
     }
 
     public function beforeFilter(EventInterface $event){
-        $sitelang = $this->languageinfo();
-        $this->set('sitelang', $sitelang);
+        parent::beforeFilter($event);
 
-        // Optional: save to a property for later use in controller logic
-        $this->sitelang = $sitelang;
+        $this->sitelang = $this->languageinfo();
+        $this->set('sitelang', $this->sitelang);
     }
     
     public function initialize(): void
