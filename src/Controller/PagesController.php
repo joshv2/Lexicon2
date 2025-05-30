@@ -25,6 +25,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Utility\Inflector;
+use Cake\Event\EventInterface;
 /**
  * Static content controller
  *
@@ -46,6 +47,13 @@ class PagesController extends AppController
      *   be found and not in debug mode.
      * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
      */
+
+    public function beforeFilter(EventInterface $event): void
+    {
+        parent::beforeFilter($event);  // <== This is essential
+        // Your PagesController specific code here, if any
+    }
+     
     public function display(string ...$path): ?Response
     {
         if (!$path) {
