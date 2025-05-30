@@ -7,6 +7,13 @@ use Cake\ORM\TableRegistry;
 
 class LoadORTDComponent extends Component
 {
+    public array $Origins = [];
+    public array $Regions = [];
+    public array $Types = [];
+    public array $TypeCategories = [];
+    public array $Dictionaries = [];
+    public array $Words = [];
+
     public function getORTD($sitelang){
         $this->Origins = TableRegistry::getTableLocator()->get('Origins');
         $this->Regions = TableRegistry::getTableLocator()->get('Regions');
