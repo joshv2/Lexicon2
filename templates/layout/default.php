@@ -57,7 +57,7 @@
 	})(window,document,'script','dataLayer','<?= $sitelang->googleAnalytics ?>');</script>
 	<!-- End Google Tag Manager -->
 	
-	<!--<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />-->
+	<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />
 	 
 	 
 	 
