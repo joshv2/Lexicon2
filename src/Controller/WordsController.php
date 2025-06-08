@@ -781,9 +781,8 @@ class WordsController extends AppController
     {
         $this->request->allowMethod(['post']);
         $datefortimestamp = date('Y-m-d h:i:s', time());
-        $word = $this->Words->get($id, [
-            'contain' => ['Pronunciations']
-        ]);
+        //debug($id); 
+        $word = $this->Words->get(primaryKey: $id, contain: ['Pronunciations']);
         $pronunciations = array();
         if (count($word->pronunciations) > 0) {
             foreach ($word->pronunciations as $p){
