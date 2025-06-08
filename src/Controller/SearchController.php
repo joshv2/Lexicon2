@@ -15,7 +15,7 @@ class SearchController extends AppController {
     {
         //array_map([$this, 'loadModel'], ['Words']);
         $sitelang = $this->languageinfo();
-        $q = $this->request->getQuery('q');
+        $q = trim($this->request->getQuery('q'));
         $displayType = $this->request->getQuery('displayType');
 
         if ($displayType === 'all') {

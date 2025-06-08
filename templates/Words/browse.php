@@ -92,7 +92,9 @@
 				
 			<div class="line-container">
 				<div id="checkedOptionsDiv"><?php 
-					if (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
+					if (isset($cc['error'])) {
+						echo "<span style='color:red'>" . $cc['error'] . "</span>";
+					} elseif (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
 						echo "Checked options: Words not in any other dictionary.";
 					}
 					elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
@@ -102,10 +104,10 @@
 					} else {
 						echo "";
 					}
-						?>
+				?>
 				</div>
 				<?php if ($isPaginated): ?>
-				<button id="displayAllButton" class="button blue">Display All</button>
+				<button id="displayAllButton" class="button blue"><?= __("Display All")?></button>
 
 				<script>
 					document.getElementById('displayAllButton').addEventListener('click', function () {

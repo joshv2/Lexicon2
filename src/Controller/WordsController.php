@@ -37,55 +37,93 @@ class WordsController extends AppController
      */
     public function index()
     {
+        $sitelang = $this->languageinfo();
+        $ortd = $this->LoadORTD->getORTD($sitelang);
         $queryParams = $this->request->getQueryParams();
+        //debug($queryParams);
         if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
-            $queryParams = array_merge(['all' => 'all'], $queryParams);
+            $queryParams = array_merge(['displayType' => 'all'], $queryParams);
             //$queryParams['all'] = 'all';
         }
         
-        $sitelang = $this->languageinfo();
+        $allowed = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page'];
 
-        $ortd = $this->LoadORTD->getORTD($sitelang);
-        $originvalue = [$this->request->getQuery('origin')];
-        $regionvalue = [$this->request->getQuery('region')];
-        $typevalue = [$this->request->getQuery('type')];
-        $dictionaryvalue = [$this->request->getQuery('dictionary')];
-        $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
-                              'regions' => $regionvalue[0],
-                              'types' => $typevalue[0],
-                              'dictionaries' => $dictionaryvalue[0]];
-        
-        $cc = [];
-        foreach($current_condition as $ortdcat => $ortd2) {
-            if ($ortd2 != null){
-                $cc[$ortdcat] = $ortd2;
-
+        foreach (array_keys($queryParams) as $param) {
+            if (!in_array($param, $allowed, true)) {
+                // Invalid value detected
+                
+                $invalidValue = true;
             }
         }
+
+        if (!isset($invalidValue) || $invalidValue !== true) {
+            
+
+            
+            $originvalue = [$this->request->getQuery('origin')];
+            $regionvalue = [$this->request->getQuery('region')];
+            $typevalue = [$this->request->getQuery('type')];
+            $dictionaryvalue = [$this->request->getQuery('dictionary')];
+            $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
+                                'regions' => $regionvalue[0],
+                                'types' => $typevalue[0],
+                                'dictionaries' => $dictionaryvalue[0]];
+            $cc = [];
+            foreach($current_condition as $ortdcat => $ortd2) {
+                if ($ortd2 != null){
+                    $cc[$ortdcat] = $ortd2;
+
+                }
+            }
+            
+            } else {
+                $queryParams = []; 
+                $queryParams = array_merge(['displayType' => 'all'], $queryParams);
+                $current_condition = ['origins' => null, 'regions' => null, 'types' => null, 'dictionaries' => null];
+                $cc = ['error' => 'You entered invalid query params. Displaying all words in the Lexicon. Please try again.'];
+            }
         
+
         $query = $this->Words->browse_words_simplified(
-                        array_keys($queryParams)[0], 
-                        array_values($queryParams)[0],
-                        FALSE, 
-                        $sitelang->id,
-                        TRUE);
-        
-        
+                            array_keys($queryParams)[0], 
+                            array_values($queryParams)[0],
+                            FALSE, 
+                            $sitelang->id,
+                            TRUE);
+        //debug($queryParams);
         $displayType = $this->request->getQuery('displayType');
 
         if ($displayType === 'all') {
-            #$words = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id);
             $isPaginated = false;
             $words = $query->toArray();
             $count = count($words);
         } else {
-            $words = $this->paginate($query);
             $isPaginated = true;
             $count = 0;
+            $page = (int)$this->request->getQuery('page', 1);
+            try {
+                $words = $this->paginate($query);
+            } catch (\Cake\Http\Exception\NotFoundException $e) {
+                // Page out of bounds, show last page and set error message
+                $paginator = $this->getRequest()->getAttribute('paging');
+                $totalPages = isset($paginator['Words']['pageCount']) ? $paginator['Words']['pageCount'] : 1;
+                $cc['error'] = 'You requested a page that is out of bounds. Displaying the last available page.';
+                $this->request = $this->request->withQueryParams(['page' => $totalPages] + $this->request->getQueryParams());
+                $words = $this->paginate($query, ['page' => $totalPages]);
+            }
+            $paginator = $this->getRequest()->getAttribute('paging');
+
+            if (isset($paginator['Words'])) {
+                $totalPages = $paginator['Words']['pageCount'];
+                if ($page > $totalPages && $totalPages > 0) {
+                    $cc['error'] = 'You requested a page that is out of bounds. Displaying from the first page.';
+                    // Optionally, reset to last page or empty results
+                    $this->request = $this->request->withQueryParams(['page' => $totalPages] + $this->request->getQueryParams());
+                    $words = $this->paginate($query, ['page' => $totalPages]);
+                }
+            }
         }
 
-
-        #$this->set('words', $this->paginate($query));
 
 
         $title = 'Browse';
@@ -125,10 +163,7 @@ class WordsController extends AppController
             }
         }
 
-        /*foreach(range(hexdec($sitelang->UTFRangeStart), hexdec($sitelang->UTFRangeEnd)) as $letter2) {
-            $alphabet[] = html_entity_decode("&#$letter2;", ENT_COMPAT, "UTF-8");
-        }*/
-        
+
         
         if($sitelang->righttoleft){
             $alphabet = array_reverse($alphabet);
@@ -153,6 +188,12 @@ class WordsController extends AppController
         
         $sitelang = $this->languageinfo();
         $wordResult = $this->Words->get_word_for_view($id);
+        
+        //debug($wordResult);
+        if (empty($wordResult)) {
+            return $this->redirect(['action' => 'wordnotfound']);
+        }
+        
         $word = $wordResult[0];
         
         
@@ -377,6 +418,8 @@ class WordsController extends AppController
                     }
                 }
                 if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && ('' !== $name || null != $name)){
+
+                    
                     $this->converttomp3($finalname);
                 }
 

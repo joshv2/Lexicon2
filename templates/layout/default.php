@@ -103,7 +103,7 @@
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 	<!--<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
 	<?= $this->Html->script('detectios')."\n";?>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src='https://www.google.com/recaptcha/api.js?hl=<?= $sitelang->i18nspec ?>'></script>
 
 </head>
 <body>

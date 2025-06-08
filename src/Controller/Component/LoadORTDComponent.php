@@ -26,6 +26,7 @@ class LoadORTDComponent extends Component
             $tagging = [];
             if($sitelang->hasOrigins) {
                 $origins = $this->Origins->top_origins_for_home($sitelang->id);
+                $origins['other'] = 'Other';
                 $tagging['origins'] = $origins;
             }
             if($sitelang->hasRegions) {

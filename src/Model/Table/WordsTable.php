@@ -233,15 +233,18 @@ class WordsTable extends Table
 
     
     public function browse_words_simplified($ortdtype, $ortdvalue, $returnjson, $langid, $index = FALSE){
+        if ($ortdtype === 'use') {
+            $ortdtype = 'type';
+        } 
         $pluralization = ['dictionary' => 'dictionaries',
                             'region' => 'regions',
                             'type' => 'types',
                             'origin' => 'origins'];
         
-        if ($ortdtype === 'all' && $ortdvalue == 'all'){
+        if ($ortdtype === 'displayType' && $ortdvalue === 'all'){
             $query = $this->find()->select(['id','spelling'])
                 ->where(['language_id' => $langid, 'approved' => 1])
-                ->orderBy(['spelling' => 'ASC']);
+                ->orderBy(['spelling' => 'ASC', 'id' => 'ASC']);
             return $query;
         } elseif ($ortdtype === 'dictionary' && $ortdvalue == 'none') {
             $params['d.word_id IS'] = NULL;
@@ -312,7 +315,7 @@ class WordsTable extends Table
             $params['approved ='] = 1; 
             if ($index === FALSE) {
             $query = $this->find()
-                        ->select(['id'])
+                        ->select(['id', 'spelling'])
                         ->join([
                             'd' => [
                                 'table' => 'dictionaries_words',
@@ -337,7 +340,7 @@ class WordsTable extends Table
                         ])
                         ->where([$params, 'language_id' => $langid])
                         ->distinct()
-                        ->orderBy(['spelling' => 'ASC']);
+                        ->orderBy(['spelling' => 'ASC', 'Words.id' => 'ASC']);
             } else {
                 $query = $this->find()
                 ->join([

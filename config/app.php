@@ -130,6 +130,13 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
+        '_cake_core_' => [
+    'className' => 'File',
+    'path' => CACHE . 'persistent/',
+    'prefix' => 'myapp_cake_core_',
+    'serialize' => true,
+    'duration' => '+2 minutes',
+],
     ],
 
     /*
