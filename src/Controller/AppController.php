@@ -62,50 +62,6 @@ class AppController extends Controller
         //return $sitelangvalues;
     }
 
-    public function converttomp3($file){
-        $cloudconvert = new CloudConvert(['api_key' => Configure::consume('cloudconvertkey'),
-        'sandbox' => false]);
-
-        $job = (new Job())
-        ->addTask(
-            (new Task('import/upload', 'import-1'))
-                ->set('file', 'recordings/'. $file)
-                ->set('filename', $file)
-            )
-        ->addTask(
-            (new Task('convert', 'task-1'))
-                ->set('input_format', 'webm')
-                ->set('output_format', 'mp3')
-                ->set('engine', 'ffmpeg')
-                ->set('input', ["import-1"])
-                ->set('audio_codec', 'mp3')
-                ->set('audio_qscale', 0)
-                //->set('engine_version', '4.4.1')
-            )
-        ->addTask(
-            (new Task('export/url', 'export-1'))
-                ->set('input', ["task-1"])
-                ->set('inline', false)
-                ->set('archive_multiple_files', false)
-            ); 
-
-        $response1 = $cloudconvert->jobs()->create($job);
-        $uploadTask = $job->getTasks()->whereName('import-1')[0];
-        $cloudconvert->tasks()->upload($uploadTask, fopen(WWW_ROOT . DS . 'recordings/' . $file, 'r'), $file);
-
-        #print_r($response1);
-        $cloudconvert->jobs()->wait($job); // Wait for job completion
-
-        foreach ($job->getExportUrls() as $file) {
-
-            $source = $cloudconvert->getHttpTransport()->download($file->url)->detach();
-            $dest = fopen(WWW_ROOT . DS . 'recordings/' . $file->filename, 'w');
-            
-            stream_copy_to_stream($source, $dest);
-
-        }
-    }
-
     public function getremainingcredits(){
         $cURLConnection = curl_init();
 

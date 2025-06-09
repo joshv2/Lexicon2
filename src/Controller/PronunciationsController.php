@@ -9,10 +9,9 @@ use Cake\Log\Log;
  * @property \App\Model\Table\PronunciationsTable $Pronunciations
  * @method \App\Model\Entity\Pronunciation[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class PronunciationsController extends AppController
-{
-    public function initialize(): void
-    {
+class PronunciationsController extends AppController {
+    
+    public function initialize(): void {
         parent::initialize();
         $this->loadComponent('ProcessFile');
         //$this->loadComponent('LoadORTD');
@@ -24,8 +23,7 @@ class PronunciationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Words'],
         ];
@@ -41,8 +39,7 @@ class PronunciationsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $pronunciation = $this->Pronunciations->get($id, [
             'contain' => ['Words'],
         ]);
@@ -55,8 +52,7 @@ class PronunciationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
-    {
+    public function add($id = null) {
         //array_map([$this, 'loadModel'], ['Words']);
         
         $pronunciation = $this->Pronunciations->newEmptyEntity();
@@ -111,11 +107,13 @@ class PronunciationsController extends AppController
         $this->set(compact('pronunciation', 'words', 'word'));
     }
 
-    public function manage($wordid = null) 
-    {
+    public function manage($wordid = null) {
         //array_map([$this, 'loadModel'], ['Words']);
         $word =  $this->fetchTable('Words')->get($wordid);
-        $requested_pronunciations = $this->Pronunciations->find()->where(['word_id' => $wordid])->contain(['RecordingUsers', 'ApprovingUsers'])->order(['display_order' => 'ASC']);
+        $requested_pronunciations = $this->Pronunciations->find()
+                                            ->where(['word_id' => $wordid])
+                                            ->contain(['RecordingUsers', 'ApprovingUsers'])
+                                            ->order(['display_order' => 'ASC']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             $success = 0;

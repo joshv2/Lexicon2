@@ -20,14 +20,12 @@ use Cake\ORM\TableRegistry;
  * @property \App\Model\Table\WordsTable $Words
  * @method \App\Model\Entity\Word[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class WordsController extends AppController
-{
+class WordsController extends AppController {
     
-    public function initialize(): void
-    {
+    public function initialize(): void  {
         parent::initialize();
         $this->loadComponent('LoadORTD');
-
+        $this->loadComponent('ProcessFile');
     }
     
     /**
@@ -35,8 +33,7 @@ class WordsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
+    public function index() {
         $sitelang = $this->languageinfo();
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $queryParams = $this->request->getQueryParams();
@@ -141,8 +138,7 @@ class WordsController extends AppController
 
     }
 
-    public function alphabetical()
-    {
+    public function alphabetical() {
         $sitelang = $this->languageinfo();
         $letter = $this->request->getParam('pass')[0];
         
@@ -182,8 +178,7 @@ class WordsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         
         
         $sitelang = $this->languageinfo();
@@ -260,8 +255,7 @@ class WordsController extends AppController
         }
     }
 
-    private function process_others($ortd, $postData)
-    {
+    private function process_others($ortd, $postData) {
         $processed = [];
             
         if($postData[$ortd]['_ids'] !== ''){
@@ -308,8 +302,7 @@ class WordsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $word = $this->Words->newEmptyEntity();
         
         $sitelang = $this->languageinfo();
@@ -420,7 +413,7 @@ class WordsController extends AppController
                 if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && ('' !== $name || null != $name)){
 
                     
-                    $this->converttomp3($finalname);
+                    $this->Processfile->converttomp3($finalname);
                 }
 
                 $i++;
@@ -468,7 +461,7 @@ class WordsController extends AppController
         $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
     }
 
-    public function checkforword(){
+    public function checkforword() {
         $sitelang = $this->languageinfo();
         $response = [];
         if( $this->request->is('post') ) {
@@ -484,7 +477,7 @@ class WordsController extends AppController
         return $this->response;
     }
 
-    public function browsewords(){
+    public function browsewords() {
         $sitelang = $this->languageinfo();
         $response = [];
         $ortdarray["Origins"] = [];
@@ -525,7 +518,7 @@ class WordsController extends AppController
     }
 
 
-    public function browsewords2(){
+    public function browsewords2() {
         $sitelang = $this->languageinfo();
         $response = [];
         
@@ -561,8 +554,7 @@ class WordsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $wordResult = $this->Words->get_word_for_edit($id);
         $word = $wordResult;
         $sitelang = $this->languageinfo();
@@ -762,8 +754,7 @@ class WordsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $word = $this->Words->get($id);
         if ($this->Words->delete($word)) {
@@ -777,8 +768,7 @@ class WordsController extends AppController
     }
 
 
-    public function approve($id = null)
-    {
+    public function approve($id = null) {
         $this->request->allowMethod(['post']);
         $datefortimestamp = date('Y-m-d h:i:s', time());
         //debug($id); 
@@ -787,7 +777,7 @@ class WordsController extends AppController
         if (count($word->pronunciations) > 0) {
             foreach ($word->pronunciations as $p){
                 if ('' !== $p->sound_file || null != $p->sound_file){
-                    $this->converttomp3($p->sound_file);
+                    $this->Processfile->converttomp3($p->sound_file);
                 }
                 array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
             }
@@ -809,11 +799,11 @@ class WordsController extends AppController
         return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
     }
 
-    public function success(){
+    public function success() {
 
     }
 
-    public function wordnotfound(){
+    public function wordnotfound() {
 
     }
 }
