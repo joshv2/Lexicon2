@@ -60,7 +60,7 @@ msgstr ""
 
 
 msgid "The suggestion could not be saved. Please, try again."
-msgstr ""
+msgstr "Слово сохранено"
 
 
 
@@ -84,7 +84,7 @@ msgid "View"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 
 msgid "first"
@@ -566,7 +566,7 @@ msgid "Who Uses This"
 msgstr "Пользователь"
 
 msgid "Regions"
-msgstr ""
+msgstr "Регионы"
 
 msgid "full name"
 msgstr ""
