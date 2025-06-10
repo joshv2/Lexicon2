@@ -14,7 +14,7 @@ class PanelController extends AppController {
                 return $this->redirect('/login');
             } else {
             
-                $remainingcredits = 0; //$this->getremainingcredits();
+                $remainingcredits = $this->getremainingcredits();
                 //array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations', 'Sentences', 'SentenceRecordings']);
                 $sitelang = $this->languageinfo();
                 $userLevel = $this->request->getSession()->read('Auth.role');
@@ -53,7 +53,7 @@ class PanelController extends AppController {
 
     public function logs()
         {
-            $remainingcredits = 0; //$this->getremainingcredits();
+            $remainingcredits = $this->getremainingcredits();
             $userid = $this->request->getSession()->read('Auth.id');
             $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
@@ -86,7 +86,7 @@ class PanelController extends AppController {
 
     public function me()
         {
-            $remainingcredits = 0; //$this->getremainingcredits();
+            $remainingcredits = $this->getremainingcredits();
             //array_map([$this, 'loadModel'], ['Words', 'Suggestions', 'Pronunciations']);
             $sitelang = $this->languageinfo();
             $userLevel = $this->request->getSession()->read('Auth.role');
