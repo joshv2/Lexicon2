@@ -135,10 +135,31 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                 <?php endif; ?>
 
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="3">
                                         <a class='add-row'><i class="fa fa-plus" aria-hidden="true"></i> <?=__("Add an additional pronunciation")?></a>&nbsp;&nbsp;
                                         <a class='remove-row disabled'><i class='fa fa-minus' aria-hidden='true'></i> <?=__("Remove")?></a>
-                                        <?php echo ('edit' == $controllerName && count($wordData['pronunciations']) > 0) ? $this->Html->link(__('Change Ranking'), ['controller' => 'Pronunciations', 'action' => 'manage', $wordData['id']]) : ''; ?>
+                                        
+                                    </td>
+                                    <td>
+                                    <?php 
+                                    if ('edit' == $controllerName && count($wordData['pronunciations']) > 0) { 
+                                        if ($pronunciationCount === 0) {
+                                            echo __('No Pronunciations Recorded');
+                                        } else {
+                                            echo $this->Html->link(__('Review/Arrange Recordings') . ' (' . $pronunciationCount . ')', 
+                                                                        ['controller' => 'Pronunciations', 
+                                                                         'action' => 'manage', $wordData['id']], 
+                                                                        ['class' => 'btn-record button', 
+                                                                         'title' => 'Click here to listen to submitted recordings and to change the order in which the recordings appear on the word page']);
+                                        } 
+                                    } else echo '';?>    
+                                    
+                                        </td>
+                                    <td>
+                                        
+                                        </td>
+                                    <td>
+                                        
                                     </td>
                                 </tr>
                             </tbody>

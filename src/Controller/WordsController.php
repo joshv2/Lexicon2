@@ -559,6 +559,15 @@ class WordsController extends AppController {
         $word = $wordResult;
         $sitelang = $this->languageinfo();
 
+        $pronunciationCount = 0;
+        if (!empty($word->pronunciations)) {
+            foreach ($word->pronunciations as $pron) {
+                if (!empty($pron->sound_file)) {
+                    $pronunciationCount++;
+                }
+            }
+        }
+
         if (null !== $this->request->getSession()->read('Auth.username') && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
             
             
@@ -736,7 +745,11 @@ class WordsController extends AppController {
             
             $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
             $title = 'Edit: ' . $word->spelling;
-            $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
+            $this->set(compact('word', 'dictionaries', 'origins', 
+                                'regions', 'types', 'controllerName', 
+                                'title', 'sitelang', 'specialother', 
+                                'specialothervalue', 'specialothertype', 
+                                'specialothervaluetype', 'pronunciationCount'));
             $this->render('add');
         } else {
             return $this->redirect([

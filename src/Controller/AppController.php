@@ -73,6 +73,11 @@ class AppController extends Controller
 
 
         $remaining = curl_exec($cURLConnection);
+        if (curl_errno($cURLConnection)) {
+            $error_msg = curl_error($cURLConnection);
+            curl_close($cURLConnection);
+            throw new \Exception("Curl error: " . $error_msg);
+        }
         $jsonArrayResponse = json_decode($remaining);
         return $jsonArrayResponse->data->credits;
     }
