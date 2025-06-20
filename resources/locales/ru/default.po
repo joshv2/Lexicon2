@@ -145,7 +145,7 @@ msgid "welcome "
 msgstr "приветствие"
 
 msgid "page"
-msgstr ""
+msgstr "&#8203;"
 
 msgid "The lexicon currently has "
 msgstr "В настоящее время словарь насчитывает около "
