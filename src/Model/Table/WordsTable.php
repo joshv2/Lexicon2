@@ -481,7 +481,7 @@ class WordsTable extends Table
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
                                          ], 'approved' => 1])
-                        ->group(['Words.id'])
+                        ->groupBy(['Words.id'])
                         ->orderBy(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
 
         return $query;
