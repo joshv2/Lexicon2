@@ -102,7 +102,7 @@ class SentenceRecordingsTable extends Table
         $query = $this->find()
                     ->where(['sentence_id' => $sentenceid])
                     ->contain(['RecordingUsers', 'ApprovingUsers'])
-                    ->order('display_order');
+                    ->orderBy('display_order');
         return $query;
     }
 }

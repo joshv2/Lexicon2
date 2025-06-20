@@ -22,6 +22,7 @@ use Cake\I18n\I18n;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Event\EventInterface;
+use App\Model\Entity\Language;
 use \CloudConvert\CloudConvert;
 use \CloudConvert\Models\Job;
 use \CloudConvert\Models\Task;
@@ -47,59 +48,18 @@ class AppController extends Controller
      * @return void
      */
 
-    public function languageinfo(){
+    protected ?Language $sitelang = null;
+
+    protected function languageinfo(): ?Language {
         //array_map([$this, 'fetchTable'], ['Languages']);
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        
         $urlparts1 = explode('//', $actual_link);
         $urlparts2 = explode('.', $urlparts1[1]);
         $reqsubdomain = $urlparts2[0];
 
-        $sitelangvalues = $this->fetchTable('Languages')->get_language($reqsubdomain);
-        return $sitelangvalues;
-    }
-
-    public function converttomp3($file){
-        $cloudconvert = new CloudConvert(['api_key' => Configure::consume('cloudconvertkey'),
-        'sandbox' => false]);
-
-        $job = (new Job())
-        ->addTask(
-            (new Task('import/upload', 'import-1'))
-                ->set('file', 'recordings/'. $file)
-                ->set('filename', $file)
-            )
-        ->addTask(
-            (new Task('convert', 'task-1'))
-                ->set('input_format', 'webm')
-                ->set('output_format', 'mp3')
-                ->set('engine', 'ffmpeg')
-                ->set('input', ["import-1"])
-                ->set('audio_codec', 'mp3')
-                ->set('audio_qscale', 0)
-                //->set('engine_version', '4.4.1')
-            )
-        ->addTask(
-            (new Task('export/url', 'export-1'))
-                ->set('input', ["task-1"])
-                ->set('inline', false)
-                ->set('archive_multiple_files', false)
-            ); 
-
-        $response1 = $cloudconvert->jobs()->create($job);
-        $uploadTask = $job->getTasks()->whereName('import-1')[0];
-        $cloudconvert->tasks()->upload($uploadTask, fopen('recordings/' . $file, 'r'), $file);
-
-        #print_r($response1);
-        $cloudconvert->jobs()->wait($job); // Wait for job completion
-
-        foreach ($job->getExportUrls() as $file) {
-
-            $source = $cloudconvert->getHttpTransport()->download($file->url)->detach();
-            $dest = fopen('recordings/' . $file->filename, 'w');
-            
-            stream_copy_to_stream($source, $dest);
-
-        }
+        return $this->fetchTable('Languages')->get_language($reqsubdomain);
+        //return $sitelangvalues;
     }
 
     public function getremainingcredits(){
@@ -113,13 +73,13 @@ class AppController extends Controller
 
 
         $remaining = curl_exec($cURLConnection);
+        if (curl_errno($cURLConnection)) {
+            $error_msg = curl_error($cURLConnection);
+            curl_close($cURLConnection);
+            throw new \Exception("Curl error: " . $error_msg);
+        }
         $jsonArrayResponse = json_decode($remaining);
         return $jsonArrayResponse->data->credits;
-    }
-
-    public function beforeFilter(EventInterface $event){
-        #$sitelang = $this->viewBuilder()->getVar('sitelang');
-        $this->set('sitelang', $this->languageinfo());
     }
     
     public function initialize(): void
@@ -185,5 +145,11 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
-    
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+        $this->set('sitelang', $this->languageinfo());
+        
+    }
+
 }

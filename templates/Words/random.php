@@ -1,15 +1,25 @@
 <section id="main">
-	<nav id="browse" class="group">
+	<!--<nav id="browse" class="group">
 		<ul class="browse_nav">
 			<li class="first main">
 			<?=$this->Html->link('<i class="fa-solid fa-rotate-right"></i>' . __('Refresh'), '/random',
 											['class' => 'main', 'escape' => false]);?>
 			<div class="clear"></div>
 		</ul>
-	</nav>
-	<div id="browse_info">
-		<p class="m0"><?php echo sizeof($words);?> <?=__("random words retrieved")?></p><p id="refresh"><?=$this->Html->link('<i class="fa-solid fa-rotate-right"></i> ' . __('Refresh'), '/random',
-											['class' => 'main', 'escape' => false]);?></p>
+	</nav>-->
+	<div id="browse_info" class="group">
+		<div class="line-container">
+			<div id="checkedOptionsDiv">
+			<?php if ($sitelang->i18nspec === 'ru'): ?>
+				<?=__("Random")?> <?php echo sizeof($words);?> <?=__("words retrieved")?>
+				</p>
+			<?php else: ?>
+			<?php echo sizeof($words);?> <?=__("random words retrieved")?></p>
+			<?php endif; ?>
+			</div>
+			<a href="/random"><button id="displayAllButton" class="button blue"><i class="fa-solid fa-rotate-right"></i> <?= __("Refresh")?></button></a>
+	
+		</div>
 	</div>
 	<ol class="word-list group">
 	<?php $i = 1;

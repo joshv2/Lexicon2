@@ -17,8 +17,8 @@ use Cake\Core\Configure;
     <?= $this->Form->create() ?>
     <fieldset id='loginfieldset'>
         <p><?= __d('cake_d_c/users', 'Already registered? Login here:') ?></p>
-        <?= $this->Form->control('email', ['placeholder' => 'Email address', 'label' => false, 'required' => true, 'id'=> 'loginemail']) ?>
-        <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false, 'required' => true, 'id'=> 'loginpassword']) ?>
+        <?= $this->Form->control('email', ['placeholder' => 'Email address', 'label' => false, 'required' => true, 'id'=> 'loginemail', 'autocomplete'=>"email"]) ?>
+        <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false, 'required' => true, 'id'=> 'loginpassword', 'autocomplete'=>"current-password"]) ?>
         <?php
         if (Configure::read('Users.reCaptcha.login')) {
             echo $this->User->addReCaptcha();
@@ -33,7 +33,7 @@ use Cake\Core\Configure;
         ?>
         <?php
         $registrationActive = Configure::read('Users.Registration.active');
-        
+
         echo '</br><p>Not yet registered?</p>';
         
         if ($registrationActive) {
@@ -47,7 +47,7 @@ use Cake\Core\Configure;
         }
         ?>
     </fieldset>
-    <?= implode(' ', $this->User->socialLoginList()); ?>
+    <?= implode(' ', $this->User->socialLoginList($providerOptions = ['class' => 'button blue2'])); ?>
     <?= $this->Form->button(__d('cake_d_c/users', 'Login'), ['class' => 'button blue2']); ?>
-    <?= $this->Form->end() ?>
+    <?= $this->Form->end()  ?>
 </div>

@@ -124,7 +124,7 @@ class PronunciationsTable extends Table
         $query = $this->find()
                     ->where(['Pronunciations.user_id' => $userid])
                     ->contain(['Words'])
-                    ->order(['Pronunciations.created' => 'DESC']);
+                    ->orderBy(['Pronunciations.created' => 'DESC']);
         return $query;
     }
 
@@ -134,7 +134,7 @@ class PronunciationsTable extends Table
                     ->contain(['Words' => function (Query $q) use ($langid) {
                         return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
                     }, 'RecordingUsers', 'ApprovingUsers'])
-                    ->order(['Pronunciations.created' => 'DESC']);
+                    ->orderBy(['Pronunciations.created' => 'DESC']);
         return $query;
     }
 
@@ -142,7 +142,7 @@ class PronunciationsTable extends Table
         $query = $this->find()->contain(['Words' => function (Query $q) use ($langid) {
             return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
         }, 'RecordingUsers', 'ApprovingUsers'])
-                   ->order(['Pronunciations.approved_date' => 'DESC']);
+                   ->orderBy(['Pronunciations.approved_date' => 'DESC']);
         return $query;
     }
 }

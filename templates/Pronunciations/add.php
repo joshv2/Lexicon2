@@ -5,7 +5,7 @@
  */
 ?>
 
-<p class="landscape">This form is best viewed in landscape mode.</p>
+<p class="landscape"><?= __("This form is best viewed in landscape mode.")?></p>
 <div>
     <div class="column-responsive column-80">
         <div class="pronunciations form content">

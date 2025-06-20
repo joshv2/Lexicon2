@@ -111,7 +111,8 @@ class ProcessfileComponent extends Component
 
         $response1 = $cloudconvert->jobs()->create($job);
         $uploadTask = $job->getTasks()->whereName('import-1')[0];
-        $cloudconvert->tasks()->upload($uploadTask, fopen('recordings/' . $file, 'r'), $file);
+        //$cloudconvert->tasks()->upload($uploadTask, fopen('recordings/' . $file, 'r'), $file);
+        $cloudconvert->tasks()->upload($uploadTask, fopen(WWW_ROOT . DS . 'recordings/' . $file, 'r'), $file);
 
         #print_r($response1);
         $cloudconvert->jobs()->wait($job); // Wait for job completion
@@ -119,8 +120,8 @@ class ProcessfileComponent extends Component
         foreach ($job->getExportUrls() as $file) {
 
             $source = $cloudconvert->getHttpTransport()->download($file->url)->detach();
-            $dest = fopen('recordings/' . $file->filename, 'w');
-            
+            //$dest = fopen('recordings/' . $file->filename, 'w');
+            $dest = fopen(WWW_ROOT . DS . 'recordings/' . $file->filename, 'w');
             stream_copy_to_stream($source, $dest);
 
         }

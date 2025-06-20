@@ -7,6 +7,13 @@ use Cake\ORM\TableRegistry;
 
 class LoadORTDComponent extends Component
 {
+    public ?\App\Model\Table\OriginsTable $Origins = null;
+    public ?\App\Model\Table\RegionsTable $Regions = null;
+    public ?\App\Model\Table\TypesTable $Types = null;
+    public ?\App\Model\Table\TypeCategoriesTable $TypeCategories = null;
+    public ?\App\Model\Table\DictionariesTable $Dictionaries = null;
+    public ?\App\Model\Table\WordsTable $Words = null;
+
     public function getORTD($sitelang){
         $this->Origins = TableRegistry::getTableLocator()->get('Origins');
         $this->Regions = TableRegistry::getTableLocator()->get('Regions');
@@ -19,6 +26,7 @@ class LoadORTDComponent extends Component
             $tagging = [];
             if($sitelang->hasOrigins) {
                 $origins = $this->Origins->top_origins_for_home($sitelang->id);
+                $origins['other'] = 'Other';
                 $tagging['origins'] = $origins;
             }
             if($sitelang->hasRegions) {

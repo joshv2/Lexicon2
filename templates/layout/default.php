@@ -57,7 +57,7 @@
 	})(window,document,'script','dataLayer','<?= $sitelang->googleAnalytics ?>');</script>
 	<!-- End Google Tag Manager -->
 	
-	<!--<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />-->
+	<link rel="stylesheet" href="https://public-assets.tagconcierge.com/consent-banner/1.2.3/styles/light.css" />
 	 
 	 
 	 
@@ -103,7 +103,7 @@
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 	<!--<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
 	<?= $this->Html->script('detectios')."\n";?>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src='https://www.google.com/recaptcha/api.js?hl=<?= $sitelang->i18nspec ?>'></script>
 
 </head>
 <body>

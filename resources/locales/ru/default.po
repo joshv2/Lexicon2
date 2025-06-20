@@ -60,7 +60,7 @@ msgstr ""
 
 
 msgid "The suggestion could not be saved. Please, try again."
-msgstr ""
+msgstr "Слово сохранено"
 
 
 
@@ -84,7 +84,7 @@ msgid "View"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 
 msgid "first"
@@ -106,13 +106,13 @@ msgid "Word"
 msgstr ""
 
 msgid "Spelling"
-msgstr ""
+msgstr "Написание"
 
 msgid "Related Words"
 msgstr ""
 
 msgid "Etymology"
-msgstr ""
+msgstr "Этимология"
 
 msgid "Notes"
 msgstr "Как работает словарь"
@@ -127,10 +127,10 @@ msgid "Welcome"
 msgstr "Добро пожаловать"
 
 msgid "Enter the Lexicon"
-msgstr ""
+msgstr "Войти в словарь"
 
 msgid "Coming Soon."
-msgstr ""
+msgstr "Вскоре"
 
 msgid "Home"
 msgstr "Главная"
@@ -166,10 +166,10 @@ msgid "for information about these languages, dictionaries, and types of people.
 msgstr ""
 
 msgid "Languages of origin"
-msgstr ""
+msgstr "Языки происхождения"
 
 msgid "Other"
-msgstr ""
+msgstr "Другие"
 
 msgid "Regions in which the word is used"
 msgstr "Регионы, где используется данное слово или выражение"
@@ -196,10 +196,10 @@ msgid "Pronuciation (Spelling)"
 msgstr ""
 
 msgid "Phonetic Spelling"
-msgstr ""
+msgstr "Фонетическое написание"
 
 msgid "Record"
-msgstr ""
+msgstr "Озвучить запись"
 
 msgid "spelling"
 msgstr "Написание"
@@ -295,31 +295,31 @@ msgid "Add an additional pronunciation"
 msgstr ""
 
 msgid "Definition(s)"
-msgstr ""
+msgstr "Значение / значения"
 
 msgid "Add an additional definition"
-msgstr ""
+msgstr "Добавить дополнительное значение"
 
 msgid "Example Sentence(s)"
-msgstr ""
+msgstr "Пример предложения"
 
 msgid "Add an additional sentence"
-msgstr ""
+msgstr "Добавить дополнительное предложение"
 
 msgid "Language(s) of Origin"
-msgstr ""
+msgstr "Языки происхождения"
 
 msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
 msgstr ""
 
 msgid "Who Uses This"
-msgstr ""
+msgstr "Пользователь"
 
 msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
 msgstr ""
 
 msgid "Anything else you want website visitors to know about this entry"
-msgstr ""
+msgstr "Дополнительная информация об этой записи"
 
 msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
 msgstr "Информация о Ваших личных данных не появится на сайте. Она необходима нам, в случае, если у нас возникнут вопросы по добавленной Вами статье. Если Вы добавите много слов в наш словарь, у Вас будет возможность попасть в список"
@@ -370,7 +370,7 @@ msgid "words"
 msgstr "слов"
 
 msgid "No words were found."
-msgstr ""
+msgstr "Слова не найдены"
 
 msgid "Add a new word"
 msgstr ""
@@ -402,11 +402,17 @@ msgstr ""
 msgid "Refresh"
 msgstr "Обновить"
 
-msgid "random words retrieved"
-msgstr ""
+msgid "Random" 
+msgstr "Найдено"
+
+msgid "words retrieved"
+msgstr "случайных слов"
 
 msgid "Thank you"
 msgstr "Спасибо"
+
+msgid "This form is best viewed in landscape mode."
+msgstr "Рекомендуется альбомная ориентация."
 
 msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
 msgstr "Спасибо за добовление в Словарь еврейского этнолекта. Через неделю вы сможете увидеть ваше добавление на сайте."
@@ -418,7 +424,7 @@ msgid "Back"
 msgstr ""
 
 msgid " Record a Pronunciation"
-msgstr ""
+msgstr " Озвучить запись"
 
 msgid " Edit"
 msgstr "Изменить"
@@ -442,7 +448,7 @@ msgid "Add a word"
 msgstr "ДОБАВИТЬ СЛОВО"
 
 msgid "Add a Word"
-msgstr ""
+msgstr "Добавить слово"
 
 msgid "Back"
 msgstr ""
@@ -493,25 +499,31 @@ msgid "Camp: Jews who attend or work at a Jewish overnight summer camp"
 msgstr ""
 
 msgid "Jewish Languages"
-msgstr ""
+msgstr "Еврейские языки"
 
 msgid "Volunteer"
-msgstr ""
+msgstr "Волонтерить"
+
+msgid "JEL Forum"
+msgstr "Форум «JEL»"
 
 msgid "Donate"
-msgstr ""
+msgstr "пожертвовать"
 
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 msgid "Search..."
-msgstr ""
+msgstr "Поиск..."
 
 msgid "Lexicon"
-msgstr ""
+msgstr "Словарь"
 
 msgid "See full lexicon in alphabetical order"
 msgstr "Открыть весь словарь в алфавитном порядке"
+
+msgid "Alphabetical"
+msgstr "По алфавиту"
 
 msgid "See a random list of words"
 msgstr "Просмотреть список слов, подобранных случайным образом"
@@ -539,10 +551,10 @@ msgid "Jews of German/Jeckic origin"
 msgstr ""
 
 msgid "Definitions"
-msgstr ""
+msgstr "Значение / значения"
 
 msgid "Example Sentences"
-msgstr ""
+msgstr "Пример предложения"
 
 msgid "Languages of Origin"
 msgstr "Языки происхождения"
@@ -551,10 +563,10 @@ msgid "Etymology"
 msgstr "ЭТИМОЛОГИЯ"
 
 msgid "Who Uses This"
-msgstr ""
+msgstr "Пользователь"
 
 msgid "Regions"
-msgstr ""
+msgstr "Регионы"
 
 msgid "full name"
 msgstr ""
@@ -563,7 +575,7 @@ msgid "full_name"
 msgstr ""
 
 msgid "email"
-msgstr ""
+msgstr "е-мейл"
 
 msgid "suggestion"
 msgstr ""
