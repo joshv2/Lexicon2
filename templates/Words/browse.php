@@ -8,10 +8,7 @@
 	</nav>
 
 	<div class="dropdown-container">
-	<?php $ortdarray = [[$sitelang->hasOrigins, $ortd["origins"], "Origins"], 
-						[$sitelang->hasRegions, $ortd["regions"], "Regions"], 
-						[$sitelang->hasTypes, $ortd["types"], "Types"],
-						[$sitelang->hasDictionaries, $ortd["dictionaries"], "Dictionaries"]];
+	<?php 
 			$i = 0;
 			$j = 3;
 
@@ -147,5 +144,9 @@
 		<?php endif; ?>
 	<?php endif;?>
 
-
+<script>
+	const dropdownContainer = document.querySelector('.dropdown-container');
+	const dropdownCount = dropdownContainer.querySelectorAll('.dropdown3').length;
+	dropdownContainer.style.setProperty('--dropdown-count', dropdownCount);
+</script>
 </section>

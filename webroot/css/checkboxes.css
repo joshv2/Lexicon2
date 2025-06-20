@@ -84,7 +84,7 @@
 .dropdown3 {
   float: left;
   padding-top: 14px;
-  width: 25%;
+  width: calc(100% / var(--dropdown-count, 4));
 }
 /* Style the dropdown content (hidden by default) */
 .dropdown-content3 {

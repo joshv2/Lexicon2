@@ -139,7 +139,7 @@ msgid "About Us"
 msgstr "О нас"
 
 msgid "First time here? Read our "
-msgstr "Первый раз на нашем сайте? Посетите страничку"
+msgstr "Первый раз на нашем сайте? Посетите страничку "
 
 msgid "welcome "
 msgstr "приветствие"
@@ -148,7 +148,7 @@ msgid "page"
 msgstr ""
 
 msgid "The lexicon currently has "
-msgstr "В настоящее время словарь насчитывает около"
+msgstr "В настоящее время словарь насчитывает около "
 
 msgid "entries."
 msgstr "понятий"
@@ -364,7 +364,7 @@ msgid "Browse by Letter"
 msgstr ""
 
 msgid "Showing "
-msgstr "Показано"
+msgstr "Показано "
 
 msgid "words"
 msgstr "слов"
