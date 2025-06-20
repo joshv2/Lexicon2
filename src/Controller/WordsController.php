@@ -124,8 +124,24 @@ class WordsController extends AppController {
 
 
         $title = 'Browse';
+        $ortdarray = [];
 
-        $this->set(compact('current_condition', 'words', 'isPaginated', 'cc', 'ortd', 'title', 'sitelang'));
+        if ($sitelang->hasOrigins) {
+            array_push($ortdarray, [$sitelang->hasOrigins, $ortd["origins"], "Origins"]);
+        }
+        if ($sitelang->hasRegions) {
+            array_push($ortdarray, [$sitelang->hasRegions, $ortd["regions"], "Regions"]);
+        }
+        if ($sitelang->hasTypes) {
+            array_push($ortdarray, [$sitelang->hasTypes, $ortd["types"], "Types"]);
+        }
+        if ($sitelang->hasDictionaries) {
+            array_push($ortdarray, [$sitelang->hasDictionaries, $ortd["dictionaries"], "Dictionaries"]);
+        }
+        
+       
+
+        $this->set(compact('current_condition', 'words', 'isPaginated', 'cc', 'ortd', 'title', 'sitelang', 'ortdarray'));
         $this->render('browse');
     }
     
