@@ -459,28 +459,85 @@ class WordsTable extends Table
                             'table' => 'alternates',
                             'type' => 'LEFT',
                             'conditions' => 'Words.id = a.word_id'
-                        ]]);
-
+                        ],
+                        'd' => [
+                            'table' => 'definitions',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = d.word_id'
+                        ],
+                        's' => [
+                            'table' => 'sentences',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = s.word_id']
+                    ]);
 
         $spellingmatch = $query->newExpr()
                     ->case()
-                    ->when(['Words.spelling LIKE' => $querystring])
-                    ->then(2)
-                    ->when(['a.spelling LIKE' => $querystring])
-                    ->then(2)
-                    ->when(['Words.spelling LIKE' => '%'.$querystring.'%'])
-                    ->then(1)
-                    ->when(['a.spelling LIKE' => '%'.$querystring.'%'])
-                    ->then(1)
+                    ->when(['Words.spelling REGEXP' => '^' . $querystring . '(\\b|$)'])
+                    ->then(5) // **Exact match in term**
+                    ->when(['a.spelling REGEXP' => '^' . $querystring . '$'])
+                    ->then(4) // **Search term is an exact match for a listed alternate**
+                    ->when(['Words.spelling REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'])
+                    ->then(3) // **Exact match somewhere in term**
+                    ->when(['a.spelling REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'])
+                    ->then(3) // **Exact match somewhere in alternate**
+                    ->when(['d.definition REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'])
+                    ->then(2) // **Definition contains search term**
+                    ->when(['s.sentence REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'])
+                    ->then(1) // **Sentence contains search term (lowest priority)**
                     ->else(0);
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
                                  'spellingmatch' => $spellingmatch,
                                  ])
-                        ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
-                                         ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         ], 'approved' => 1])
+                        ->where(['language_id' => $langid,
+                               'approved' => 1,
+                                'OR' => [
+                                    ['Words.spelling REGEXP' => '^' . $querystring . '(\\b|$)'], 
+                                    ['a.spelling REGEXP' => '^' . $querystring . '$'],
+                                    ['Words.spelling REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'],
+                                    ['a.spelling REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'],
+                                    ['d.definition REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)'],
+                                    ['s.sentence REGEXP' => '(\\b|^)' . $querystring . '(\\b|$)']
+                                ]])
+                        ->groupBy(['Words.id'])
+                        ->orderBy(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+
+        return $query;
+    }
+
+    public function findFallbackSearchResults(SelectQuery $query, string $querystring, int $langid) {
+        $querystring = addslashes($querystring);
+        $langid = $langid;
+        $query = $this->find();
+        $query = $query->join([
+
+                        'a' => [
+                            'table' => 'alternates',
+                            'type' => 'LEFT',
+                            'conditions' => 'Words.id = a.word_id'
+                        ]]);
+
+
+        $spellingmatch = $query->newExpr()
+                    ->case()
+                    ->when(['Words.spelling REGEXP' => '.*' . $querystring . '.*'])
+                    ->then(2)
+                    ->when(['a.spelling REGEXP' => '.*' . $querystring . '.*'])
+                    ->then(1) 
+                    ->else(0);
+
+        $query = $query->select(['id','spelling',
+                                 'alternates'=> 'group_concat(a.spelling)', 
+                                 'spellingmatch' => $spellingmatch,
+                                 ])
+                        ->where(['language_id' => $langid,
+                               'approved' => 1,
+                                'OR' => [
+                                    ['Words.spelling REGEXP' => '.*' . $querystring . '.*'], 
+                                    ['a.spelling REGEXP' => '.*' . $querystring . '.*']
+                                ]])
                         ->groupBy(['Words.id'])
                         ->orderBy(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
 

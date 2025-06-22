@@ -15,7 +15,7 @@ class SearchController extends AppController {
     {
         //array_map([$this, 'loadModel'], ['Words']);
         $sitelang = $this->languageinfo();
-        $q = trim($this->request->getQuery('q'));
+        $q = $this->request->getQuery('q');
         $displayType = $this->request->getQuery('displayType');
 
         if ($displayType === 'all') {
@@ -26,9 +26,15 @@ class SearchController extends AppController {
         } else {
 		    $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id));
             $isPaginated = true;
-            $count = 0;
+            $count = count($words);
         }
-
+        // fallback search if no results
+        if ($count === 0) {
+            $words = $this->fetchTable('Words')->find('fallbackSearchResults', querystring: $q, langid: $sitelang->id);
+            $isPaginated = false; 
+            $words2 = $words->toArray();
+            $count = count($words2);
+        }
         $this->set(compact('words', 'q', 'isPaginated', 'count'));
         $this->render('results');
 	}
