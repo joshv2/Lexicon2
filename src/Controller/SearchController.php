@@ -26,7 +26,7 @@ class SearchController extends AppController {
         } else {
 		    $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id));
             $isPaginated = true;
-            $count = 0;
+            $count = count($words);
         }
         // fallback search if no results
         if ($count === 0) {
