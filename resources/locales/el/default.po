@@ -168,17 +168,20 @@ msgstr "Γλώσσες προέλευσης"
 msgid "Other"
 msgstr "Άλλη"
 
-msgid "Regions in which the word is used"
+msgid "Regions in Which the Word is Used"
 msgstr "Περιοχές στις οποίες χρησιμοποιείται η λέξη"
 
 msgid "Types of people who tend to use the word"
 msgstr "Τύποι ατόμων που τείνουν να χρησιμοποιούν τη λέξη"
 
 msgid "Dictionaries in which the word appears"
-msgstr "Λεξικά στα οποία εμφανίζεται η λέξη"
+msgstr "Πηγές στις οποίες εμφανίζεται η λέξη"
 
 msgid "None"
 msgstr "Κανένα"
+
+msgid "Dictionaries"
+msgstr "Λεξικά"
 
 msgid "CAN'T FIND A WORD?"
 msgstr "ΔΕΝ ΜΠΟΡΕΙΤΕ ΝΑ ΒΡΕΙΤΕ ΜΙΑ ΛΕΞΗ;"
@@ -382,6 +385,9 @@ msgstr "ΥΠΟΔΕΙΞΤΕ ΑΛΛΑΓΕΣ ΓΙΑ "
 msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
 msgstr "Είστε έτοιμοι να καταχωρήσετε προτεινόμενες τροποποιήσεις για αυτή την καταχώρηση. Σε περίπτωση που έχετε ερωτήσεις σχετικά με τις γλώσσες προέλευσης, την ορθογραφία ή το ποιοι τις χρησιμοποιούν, δείτε "
 
+msgid "Enter other origins separated by semicolon"
+msgstr "Συμπλήρωσε άλλες γλώσσες προέλευσης διαχωρισμένες με άνω τελεία"
+
 msgid "Notes."
 msgstr "Σημειώσεις."
 
@@ -446,7 +452,7 @@ msgid "Yiddish"
 msgstr "Γίντις"
 
 msgid "Modern Hebrew"
-msgstr "Σύγχρονα Εβραϊκά"
+msgstr "Εβραϊκά"
 
 msgid "Polish"
 msgstr "Πολωνικά"
