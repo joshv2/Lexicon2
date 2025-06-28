@@ -19,12 +19,15 @@ class DictionariesController extends AppController
     public function index()
     {
         $sitelang = $this->languageinfo();
-        $this->paginate = [
-            'contain' => ['Languages']
-        ];
-        $origins = $this->paginate($this->Dictionaries->find()->where(['language_id' => $sitelang->id]));
-
-        $this->set(compact('dictionaries'));
+        //$this->paginate = [
+        //    'contain' => ['Languages']
+        //];
+        $dictionariesQuery = $this->Dictionaries->find()
+        ->contain(['Languages'])
+        ->where(['language_id' => $sitelang->id]);
+        //$this->setPaginated($dictionaries); 
+        $this->set('dictionaries', $this->paginate($dictionariesQuery));
+        $this->set(compact('sitelang'));
     }
 
     /**
