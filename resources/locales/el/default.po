@@ -150,8 +150,8 @@ msgstr "Το λεξικό επί του παρόντος έχει "
 msgid "entries."
 msgstr "καταχωρήσεις."
 
-msgid "entries, including"
-msgstr "καταχωρήσεις, συμπεριλαμβανομένων"
+msgid "entries, including "
+msgstr "καταχωρήσεις, συμπεριλαμβανομένων "
 
 msgid "entries that do not appear in any Jewish English dictionary"
 msgstr "και καταχωρήσεων που δεν εμφανίζονται σε κανένα εβραιο-αγγλικό λεξικό"
