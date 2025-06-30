@@ -46,7 +46,7 @@ $(document).ready(function() {
 		
 		<p class="m3 center"><?=__("The lexicon currently has ")?><?php echo ($total_entries > 0) ? $this->Html->link(__($total_entries), '/words') : '0';?> 
 		<?php if($sitelang->hasDictionaries): ?>
-			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
+			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary")?>.</p>
 		<?php else: ?>
 			<?=__("entries.") ?>
 		<?php endif; ?>

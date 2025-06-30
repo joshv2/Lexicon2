@@ -150,6 +150,12 @@ msgstr "Το λεξικό επί του παρόντος έχει "
 msgid "entries."
 msgstr "καταχωρήσεις."
 
+msgid "entries, including"
+msgstr "καταχωρήσεις, συμπεριλαμβανομένων"
+
+msgid "entries that do not appear in any Jewish English dictionary"
+msgstr "και καταχωρήσεων που δεν εμφανίζονται σε κανένα εβραιο-αγγλικό λεξικό"
+
 msgid "BROWSE:"
 msgstr "ΠΕΡΙΗΓΗΣΗ:"
 
@@ -169,6 +175,9 @@ msgid "Other"
 msgstr "Άλλη"
 
 msgid "Regions in Which the Word is Used"
+msgstr "Περιοχές στις οποίες χρησιμοποιείται η λέξη"
+
+msgid "Regions in which the word is used"
 msgstr "Περιοχές στις οποίες χρησιμοποιείται η λέξη"
 
 msgid "Types of people who tend to use the word"
@@ -327,12 +336,15 @@ msgstr "Το όνομα και το email σας δεν θα εμφανίζον�
 msgid "Top Word Contributors" 
 msgstr "Κορυφαίοι Καταχωρητές Λέξεων"
 
-msgid "Other than that, you will NOT"
-msgstr "Διαφορετικά, ΔΕΝ θα"
+msgid "Other than that, you will"
+msgstr "Σε διαφορετική περίπτωση"
+
+msgid "not"
+msgstr "ΔΕΝ"
 
 
 msgid "be contacted or placed on any email lists"
-msgstr "επικοινωνήσουμε μαζί σας ούτε θα σας βάλουμε σε κάποια λίστα email"
+msgstr "θα επικοινωνήσουμε μαζί σας ούτε θα σας βάλουμε σε κάποια λίστα email"
 
 msgid "Your Name"
 msgstr "Το Όνομά σας"
