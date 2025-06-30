@@ -339,7 +339,7 @@ msgstr "Κορυφαίοι Καταχωρητές Λέξεων"
 msgid "Other than that, you will"
 msgstr "Σε διαφορετική περίπτωση"
 
-msgid "not"
+msgid "NOT"
 msgstr "ΔΕΝ"
 
 
