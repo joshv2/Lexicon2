@@ -13,23 +13,44 @@ class SearchController extends AppController {
 
 	public function index()
     {
-        //array_map([$this, 'loadModel'], ['Words']);
         $sitelang = $this->languageinfo();
         $q = trim($this->request->getQuery('q'));
         $displayType = $this->request->getQuery('displayType');
 
+        // Always get the full set for per-language count (not dependent on pagination)
+        $allWords = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins'])->toArray();
+        $originCounts = [];
+        foreach ($allWords as $word) {
+            if (!empty($word->origins)) {
+                foreach ($word->origins as $origin) {
+                    $originName = $origin->origin;
+                    if (!isset($originCounts[$originName])) {
+                        $originCounts[$originName] = 0;
+                    }
+                    $originCounts[$originName]++;
+                }
+            }
+        }
+        $originSummary = '';
+        if (!empty($originCounts)) {
+            $parts = [];
+            foreach ($originCounts as $lang => $ocount) {
+                $parts[] = $ocount . ' were from ' . $lang;
+            }
+            $originSummary = implode(', ', $parts);
+        }
+
         if ($displayType === 'all') {
-            $words = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id);
+            $words = $allWords;
             $isPaginated = false;
-            $words2 = $words->toArray();
-            $count = count($words2);
+            $count = count($words);
         } else {
-		    $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id));
+            $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins']));
             $isPaginated = true;
             $count = 0;
         }
 
-        $this->set(compact('words', 'q', 'isPaginated', 'count'));
+        $this->set(compact('words', 'q', 'isPaginated', 'count', 'originSummary'));
         $this->render('results');
 	}
 }

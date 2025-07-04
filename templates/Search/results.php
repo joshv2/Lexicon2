@@ -1,10 +1,42 @@
 <section id="main">
 	<div id="browse_info">
-	<?php if ($isPaginated): ?>	
+	<?php
+	function renderResultSummary($q, $countVal, $originSummary, $addMargin = false) {
+	    $resultWord = ($countVal === 1) ? __('result') : __('results');
+	    $style = $addMargin ? ' style="display:inline-block; margin-right: 1.5em;"' : '';
+	    echo '<span class="m0"' . $style . '>';
+	    echo __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
+	    if (!empty($originSummary)) {
+	        echo ', ' . __('of which') . ' ';
+	        if (preg_match_all('/(\d+) were from ([^,]+)/', $originSummary, $matches, PREG_SET_ORDER)) {
+	            $parts = [];
+	            foreach ($matches as $m) {
+	                $verb = ($m[1] == 1) ? __('was') : __('were');
+	                $parts[] = $m[1] . ' ' . $verb . ' from ' . $m[2];
+	            }
+	            if (count($parts) > 1) {
+	                $last = array_pop($parts);
+	                echo implode(', ', $parts) . ', and ' . $last;
+	            } else {
+	                echo $parts[0];
+	            }
+	        } else {
+	            echo $originSummary;
+	        }
+	    }
+	    echo '.';
+	    echo '</span>';
+	}
+	if ($isPaginated) {
+	    $countVal = (int)$this->Paginator->counter('{{count}}');
+	} else {
+	    $countVal = (int)$count;
+	}
+	?>
 	<div class="line-container">
-		<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b> <?= __('returned'); ?> <?php echo $this->Paginator->counter('{{count}}');?> <?= __('results.');?></p>
+		<?php renderResultSummary($q, $countVal, $originSummary, $isPaginated); ?>
+		<?php if ($isPaginated): ?>
 		<button id="displayAllButton" class="button blue">Display All</button>
-
 		<script>
 			document.getElementById('displayAllButton').addEventListener('click', function () {
 				const currentUrl = new URL(window.location.href); // Get the current URL
@@ -12,18 +44,15 @@
 				window.location.href = currentUrl.toString(); // Redirect to the new URL
 			});
 		</script>
+		<?php endif; ?>
 	</div>
-	<?php else: ?>
-	<p class="m0"><?= __('Your search for'); ?> <b><?php echo h($q);?></b> <?= __('returned'); ?> <?php echo $count;?> <?= __('results.');?></p>
-
-	<?php endif; ?>
 	</div>
 	<?php if ($isPaginated && $this->Paginator->counter('{{count}}') <= 0): ?>	
 
 		<div class="c content">
 			<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
 			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="fa-solid fa-plus"></i> ' . __('Add a new word'), '/add',
-										['class' => 'button blue', 'escape' => false]);?></p>
+												['class' => 'button blue', 'escape' => false]);?></p>
 		</div>
 	<?php else: ?>
 		<ol class="word-list group">
