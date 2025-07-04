@@ -476,7 +476,7 @@ class WordsTable extends Table
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
-                                 'spellingmatch' => $spellingmatch,
+                                 'spellingmatch' => $spellingmatch
                                  ])
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
