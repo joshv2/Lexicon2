@@ -143,21 +143,31 @@ usort($noPronunciationsArray, function($a, $b) {
 $count = 0;
 foreach ($noPronunciationsArray as $word): ?>
 		<?php if ($count == 10): ?>
-			<tr id="showMoreMissingPronunciationsRow" style="cursor:pointer; background:#f9f9f9;" onclick="
-				var rows = document.getElementsByClassName('more-missing-row');
-				var icon = document.getElementById('caretIcon');
-				var label = document.getElementById('caretLabel');
-				var expanded = rows[0].style.display !== 'none';
-				for (var i = 0; i < rows.length; i++) {
-					rows[i].style.display = expanded ? 'none' : '';
-				}
-				icon.innerHTML = expanded ? '&#9654;' : '&#9660;';
-				label.innerText = expanded ? 'Show more' : 'Collapse table';
-			">
-				<td style="font-weight:bold;">
-					<span id="caretIcon">&#9654;</span> <span id="caretLabel">Show more</span>
+			<tr style="background:#f9f9f9;">
+				<td colspan="2" style="padding:0;">
+					<button
+						id="showMoreMissingPronunciationsBtn"
+						type="button"
+						aria-expanded="false"
+						aria-controls="moreMissingPronunciationsRows"
+						style="width:100%; text-align:left; background:none; border:none; font-weight:bold; padding:8px; cursor:pointer;"
+						onclick="
+							var rows = document.getElementsByClassName('more-missing-row');
+							var icon = document.getElementById('caretIcon');
+							var label = document.getElementById('caretLabel');
+							var btn = document.getElementById('showMoreMissingPronunciationsBtn');
+							var expanded = rows[0].style.display !== 'none';
+							for (var i = 0; i < rows.length; i++) {
+								rows[i].style.display = expanded ? 'none' : '';
+							}
+							icon.innerHTML = expanded ? '&#9654;' : '&#9660;';
+							label.innerText = expanded ? 'Show more' : 'Collapse table';
+							btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+						"
+					>
+						<span id="caretIcon">&#9654;</span> <span id="caretLabel">Show more</span>
+					</button>
 				</td>
-				<td></td>
 			</tr>
 		<?php endif; ?>
 		<tr<?php if ($count >= 10) echo ' class="more-missing-row" style="display:none;"'; ?>>
