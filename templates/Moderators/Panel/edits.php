@@ -36,9 +36,9 @@
 		<td><?php echo h($suggestion['created']);?></td>
 		<td><?php echo 
 			$this->Form->postLink(
-                'Delete',
-                ['prefix' => false, 'controller' => 'Suggestions', 'action' => 'delete', $suggestion['id']],
-                ['confirm' => 'Are you sure?']);?></td>
+				'Delete',
+				['prefix' => false, 'controller' => 'Suggestions', 'action' => 'delete', $suggestion['id']],
+				['confirm' => 'Are you sure?']);?></td>
 	</tr>
 <?php endforeach; ?>
 
@@ -123,20 +123,50 @@
 
 <?php else: ?>
 
+
 <table>
+	<colgroup>
+		<col style="width:70%">
+		<col style="width:30%">
+	</colgroup>
 	<tr>
 		<th>Word</th>
 		<th></th>
 	</tr>
-
-<?php foreach ($noPronunciations as $word): ////$word = $word['Edit'];  ?> 
-
-	<tr>
-		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
-	</tr>
-<?php endforeach; ?>
-
+	<tbody>
+<?php
+// Ensure $noPronunciations is sorted alphabetically by spelling
+$noPronunciationsArray = is_array($noPronunciations) ? $noPronunciations : $noPronunciations->toArray();
+usort($noPronunciationsArray, function($a, $b) {
+	return strcasecmp($a['spelling'], $b['spelling']);
+});
+$count = 0;
+foreach ($noPronunciationsArray as $word): ?>
+		<?php if ($count == 10): ?>
+			<tr id="showMoreMissingPronunciationsRow" style="cursor:pointer; background:#f9f9f9;" onclick="
+				var rows = document.getElementsByClassName('more-missing-row');
+				var icon = document.getElementById('caretIcon');
+				var label = document.getElementById('caretLabel');
+				var expanded = rows[0].style.display !== 'none';
+				for (var i = 0; i < rows.length; i++) {
+					rows[i].style.display = expanded ? 'none' : '';
+				}
+				icon.innerHTML = expanded ? '&#9654;' : '&#9660;';
+				label.innerText = expanded ? 'Show more' : 'Collapse table';
+			">
+				<td style="font-weight:bold;">
+					<span id="caretIcon">&#9654;</span> <span id="caretLabel">Show more</span>
+				</td>
+				<td></td>
+			</tr>
+		<?php endif; ?>
+		<tr<?php if ($count >= 10) echo ' class="more-missing-row" style="display:none;"'; ?>>
+			<td><?php echo h($word['spelling']);?></td>
+			<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
+		</tr>
+		<?php $count++; ?>
+	<?php endforeach; ?>
+	</tbody>
 </table>
 
 <?php endif;?>
