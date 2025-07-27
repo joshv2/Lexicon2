@@ -1,3 +1,5 @@
+
+
 @import url('font-awesome.css');
 html,
 body {
@@ -894,11 +896,11 @@ header h1 a {
 
 
 /*header h1 a img {
-	background: #fff;
-	padding: 2px 5px 0 5px;
-	margin: 3px 0 0 0;
-	border: 0;
-	border-radius: 5px;
+    background: #fff;
+    padding: 2px 5px 0 5px;
+    margin: 3px 0 0 0;
+    border: 0;
+    border-radius: 5px;
 }*/
 
 header h1 a:hover,
@@ -2086,22 +2088,22 @@ textarea {
         text-decoration: none;
     }
     /*.browse_nav a.main.active
-	{
+    {
 
-		color: #fff;
-		background: linear-gradient(bottom, #333333 0%, #000000 100%);
-		background: -o-linear-gradient(bottom, #333333 0%, #000000 100%);
-		background: -moz-linear-gradient(bottom, #333333 0%, #000000 100%);
-		background: -webkit-linear-gradient(bottom, #333333 0%, #000000 100%);
-		background: -ms-linear-gradient(bottom, #333333 0%, #000000 100%);
-		background: -webkit-gradient(
-			linear,
-			left bottom,
-			left top,
-			color-stop(0, #333333),
-			color-stop(1, #000000)
-		);
-	}*/
+        color: #fff;
+        background: linear-gradient(bottom, #333333 0%, #000000 100%);
+        background: -o-linear-gradient(bottom, #333333 0%, #000000 100%);
+        background: -moz-linear-gradient(bottom, #333333 0%, #000000 100%);
+        background: -webkit-linear-gradient(bottom, #333333 0%, #000000 100%);
+        background: -ms-linear-gradient(bottom, #333333 0%, #000000 100%);
+        background: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, #333333),
+            color-stop(1, #000000)
+        );
+    }*/
     .submenu {
         background: #333;
         position: absolute;
@@ -2130,13 +2132,13 @@ textarea {
         padding: 3px 35px 3px 10px;
     }
     /*.dropdown li a:hover
-	{
-		color: #fff;
-		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
-		background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
-		background: -moz-linear-gradient(center top, #0096FF, #005DFF);
-		text-decoration: none;
-	}*/
+    {
+        color: #fff;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+        background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#0096FF), to(#005DFF));
+        background: -moz-linear-gradient(center top, #0096FF, #005DFF);
+        text-decoration: none;
+    }*/
     /*End mobile filter browse*/
     #home2 {
         width: unset;
@@ -2216,8 +2218,8 @@ textarea {
     }
     /* End General Page Settings */
     /*.topnav a:not(:first-child), .dropdown .dropbtn {
-		display: none;
-	 }*/
+        display: none;
+     }*/
     .topnav a,
     .dropdown .dropbtn {
         display: none;
@@ -2469,12 +2471,22 @@ label[for="alternates-0-spelling"] {
     transform: translateY(-50%);
 }
 
+.pronunciation-table .pronunciationtr,
 .pronunciationtr {
     height: 44px;
 }
-
+.pronunciation-table .pronunciationtr2,
 .pronunciationtr2 {
     min-height: 35px;
+}
+.pronunciation-table .more-missing-row {
+    display: none;
+}
+.pronunciation-table .toggle-row-bg {
+    background: #f9f9f9;
+}
+.pronunciation-table .toggle-row-cell {
+    padding: 0;
 }
 
 .recordinglist {
@@ -2518,3 +2530,4 @@ label[for="alternates-0-spelling"] {
     background-color: #0A3C78;
     border-color: #0A3C78;
 }
+
