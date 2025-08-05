@@ -1,3 +1,11 @@
+<?php
+$this->assign('og_tags', '
+    <meta property="og:title" content="' . h($word->spelling) . ' | ' . $sitelang->name . '" />
+    <meta property="og:description" content="Check out ' .  h($word->spelling) . ' on the ' . $sitelang->name . '" />
+    <meta property="og:url" content="' . $this->Url->build(null, ['fullBase' => true]) . '" />
+');
+?>
+
 <section id="main">
 	<div class="page-header2 group">
 		<h2 class="left"><?php echo $word->spelling;?></h2>
