@@ -104,7 +104,7 @@
 	<!--<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
 	<?= $this->Html->script('detectios')."\n";?>
 	<script src='https://www.google.com/recaptcha/api.js?hl=<?= $sitelang->i18nspec ?>'></script>
-
+<?= $this->fetch('og_tags') ?>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
