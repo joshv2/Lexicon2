@@ -2353,6 +2353,26 @@ a.btn-record:hover {
     font-size: 13px;
 }
 
+.btn-edit-recordings {
+    padding: 5px;
+    /*height: 31px;*/
+    color: white;
+    background-color: rgb(2 137 255);
+    text-shadow: none;
+    border: 1px solid #aaa;
+    font-size: 13px;
+}
+
+a.btn-edit-recordings:hover {
+    padding: 5px;
+    /*height: 31px;*/
+    color: white;
+    background-color: rgb(2 137 255);
+    text-shadow: none;
+    border: 1px solid #aaa;
+    font-size: 13px;
+}
+
 #uploadBoxContainer {
     font-size: 13px;
 }

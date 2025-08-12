@@ -84,7 +84,7 @@ $(function() {
         e.preventDefault();
         $('#recording-file').remove();
         $('.record-success').hide();
-        $(".btn-record").show();
+        $(".btn-new-recording").show();
         $(this).hide();
     });
 
@@ -202,7 +202,7 @@ function addRow(el) {
             return;
         updateAttribute(label, 'for', counter, nextCounter);
     });
-    let recordBtn = newRow.find('.btn-record');
+    let recordBtn = newRow.find('.btn-new-recording');
     $(recordBtn).click(function(ev) {
         ev.preventDefault();
         openRecorderDialog(this)
@@ -365,6 +365,7 @@ function openRecorderDialog(el) {
     window.openRecorder(setRecording.bind(this, el));
 }
 
+// Update button text after recording
 function setRecording(recordBtn, blob) {
     let file = new File([blob], "recording.webm", { type: "audio/webm", lastModified: new Date().getTime() });
     let container = new DataTransfer();
@@ -373,7 +374,7 @@ function setRecording(recordBtn, blob) {
     inputEl.files = container.files;
     $('.remove-recording').show();
     $(recordBtn).prev('.record-success').show();
-    $(".btn-record").text('Change');
+    $(".btn-new-recording").text('Change');
 }
 
 function getNewEditor(el, counter, nextCounter) {
