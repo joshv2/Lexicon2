@@ -93,7 +93,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                             </td>
                                             <td style="vertical-align: top;">
                                                 <span class="record-success" style="display: none;"> <?= __('Recorded') ?> <i class="fa-solid fa-check"></i></span>
-                                                <?= $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']);?>
+                                                <?= $this->Form->button(__('Record'), ['class' => 'btn-new-recording button', 'id' => 'record']);?>
                                                 <?= $this->Form->control('soundfile' . $i, [
                                                     'class' => 'recording-input',
                                                     'type' => 'file',
@@ -122,7 +122,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                         </td>
                                         <td style="vertical-align: top;" id="recordcell">
                                             <span class="record-success" style="display: none;">Recorded <i class="fa-solid fa-check"></i></span>
-                                            <?= $this->Form->button('Record', ['class' => 'btn-record button', 'id' => 'record']);?>
+                                            <?= $this->Form->button('Record', ['class' => 'btn-new-recording button', 'id' => 'record']);?>
                                             <?= $this->Form->control('soundfile0', [
                                                 'class' => 'recording-input',
                                                 'type' => 'file',
