@@ -36,9 +36,9 @@
 		<td><?php echo h($suggestion['created']);?></td>
 		<td><?php echo 
 			$this->Form->postLink(
-                'Delete',
-                ['prefix' => false, 'controller' => 'Suggestions', 'action' => 'delete', $suggestion['id']],
-                ['confirm' => 'Are you sure?']);?></td>
+				'Delete',
+				['prefix' => false, 'controller' => 'Suggestions', 'action' => 'delete', $suggestion['id']],
+				['confirm' => 'Are you sure?']);?></td>
 	</tr>
 <?php endforeach; ?>
 
@@ -123,21 +123,71 @@
 
 <?php else: ?>
 
-<table>
+
+
+<table class="pronunciation-table">
+	<colgroup>
+		<col style="width:70%">
+		<col style="width:30%">
+	</colgroup>
 	<tr>
 		<th>Word</th>
 		<th></th>
 	</tr>
-
-<?php foreach ($noPronunciations as $word): ////$word = $word['Edit'];  ?> 
-
-	<tr>
-		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
-	</tr>
-<?php endforeach; ?>
-
+	<tbody>
+<?php
+// Ensure $noPronunciations is sorted alphabetically by spelling
+$noPronunciationsArray = is_array($noPronunciations) ? $noPronunciations : $noPronunciations->toArray();
+usort($noPronunciationsArray, function($a, $b) {
+	return strcasecmp($a['spelling'], $b['spelling']);
+});
+$count = 0;
+foreach ($noPronunciationsArray as $word): ?>
+		<?php if ($count == 10): ?>
+			<tr class="toggle-row-bg pronunciationtr">
+				<td colspan="2" class="toggle-row-cell">
+					<button
+						id="showMoreMissingPronunciationsBtn"
+						type="button"
+						aria-expanded="false"
+						aria-controls="moreMissingPronunciationsRows"
+						style="width:100%; text-align:left; background:none; border:none; font-weight:bold; padding:8px; cursor:pointer; font-size:1em;"
+					>
+						<span id="caretIcon">&#9654;</span> <span id="caretLabel">Show more</span>
+					</button>
+				</td>
+			</tr>
+		<?php endif; ?>
+		<tr class="pronunciationtr<?= ($count >= 10) ? ' more-missing-row' : '' ?>">
+			<td><?php echo h($word['spelling']);?></td>
+			<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
+		</tr>
+		<?php $count++; ?>
+	<?php endforeach; ?>
+	</tbody>
 </table>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	var btn = document.getElementById('showMoreMissingPronunciationsBtn');
+	if (!btn) return;
+	var rows = document.getElementsByClassName('more-missing-row');
+	var icon = document.getElementById('caretIcon');
+	var label = document.getElementById('caretLabel');
+	btn.addEventListener('click', function() {
+		var expanded = rows.length && rows[0].style.display !== 'none';
+		for (var i = 0; i < rows.length; i++) {
+			rows[i].style.display = expanded ? 'none' : '';
+		}
+		icon.innerHTML = expanded ? '\u25B6' : '\u25BC';
+		label.innerText = expanded ? 'Show more' : 'Collapse table';
+		btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+	});
+	// Ensure rows are hidden on load
+	for (var i = 0; i < rows.length; i++) {
+		rows[i].style.display = 'none';
+	}
+});
+</script>
 
 <?php endif;?>
 <?php if ('superuser' == $userLevel):?>
