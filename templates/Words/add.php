@@ -146,11 +146,13 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                         if ($pronunciationCount === 0) {
                                             echo __('No Pronunciations Recorded');
                                         } else {
-                                            echo $this->Html->link(__('Review/Arrange Recordings') . ' (' . $pronunciationCount . ')', 
-                                                                        ['controller' => 'Pronunciations', 
-                                                                         'action' => 'manage', $wordData['id']], 
-                                                                        ['class' => 'btn-edit-recordings button', 
-                                                                         'title' => 'Click here to listen to submitted recordings and to change the order in which the recordings appear on the word page']);
+                                            echo "<div class='review-button'>
+                                                <a href='/pronunciations/manage/" . $wordData['id'] . "' 
+                                                    class='button blue' 
+                                                    title='Click here to listen to submitted recordings and to change the order in which the recordings appear on the word page'>
+                                                    Review/Arrange Recordings (" . $pronunciationCount . ")
+                                                </a>
+                                            </div>";
                                         } 
                                     } else echo '';?>    
                                     
