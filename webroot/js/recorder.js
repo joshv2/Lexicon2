@@ -16,9 +16,14 @@
                     audio: true,
                     video: false
                 });
-                const mimeType = 'audio/webm';
+                let mimeType = 'audio/webm';
+                if (MediaRecorder.isTypeSupported('audio/mp4')) {
+                    mimeType = 'audio/mp4';
+                } else if (MediaRecorder.isTypeSupported('audio/mpeg')) {
+                    mimeType = 'audio/mpeg';
+                }
+                const recorder = new MediaRecorder(theStream, { mimeType });
                 let chunks = [];
-                const recorder = new MediaRecorder(theStream, { type: mimeType });
                 recorder.addEventListener('dataavailable', event => {
                     if (typeof event.data === 'undefined') return;
                     if (event.data.size === 0) return;
