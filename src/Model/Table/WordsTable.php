@@ -217,7 +217,7 @@ class WordsTable extends Table
                 'p' => [
                     'table' => 'pronunciations',
                     'type' => 'LEFT',
-                    'conditions' => 'Words.id = p.word_id'
+                    'conditions' => "Words.id = p.word_id AND p.pronunciation IS NOT NULL AND p.pronunciation != ''"
                 ]
             ])->where(['Words.approved' => 1, 'language_id' => $langid, 'p.word_id IS' => NULL])
             ->contain(['Users']);
@@ -476,7 +476,7 @@ class WordsTable extends Table
 
         $query = $query->select(['id','spelling',
                                  'alternates'=> 'group_concat(a.spelling)', 
-                                 'spellingmatch' => $spellingmatch,
+                                 'spellingmatch' => $spellingmatch
                                  ])
                         ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
                                          ['a.spelling LIKE' => '%'.$querystring.'%'],
