@@ -2389,7 +2389,7 @@ textarea {
     color: green;
 }
 
-.btn-record {
+.btn-record, .btn-record2 {
     padding: 5px;
     /*height: 31px;*/
     color: white;
@@ -2399,7 +2399,7 @@ textarea {
     font-size: 13px;
 }
 
-a.btn-record:hover {
+a.btn-record:hover, a.btn-record2:hover {
     padding: 5px;
     /*height: 31px;*/
     color: white;
