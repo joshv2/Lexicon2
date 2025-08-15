@@ -149,7 +149,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                             echo $this->Html->link(__('Review/Arrange Recordings') . ' (' . $pronunciationCount . ')', 
                                                                         ['controller' => 'Pronunciations', 
                                                                          'action' => 'manage', $wordData['id']], 
-                                                                        ['class' => 'btn-record button', 
+                                                                        ['class' => 'btn-record2 button', 
                                                                          'title' => 'Click here to listen to submitted recordings and to change the order in which the recordings appear on the word page']);
                                         } 
                                     } else echo '';?>    
