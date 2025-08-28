@@ -213,23 +213,29 @@ class WordsTable extends Table
 
     public function get_words_with_no_pronunciations($langid){
         $query = $this->find()
-        ->join([
-            'p' => [
-                'table' => 'pronunciations',
-                'type' => 'LEFT',
-                'conditions' => [
-                    'Words.id = p.word_id',
-                    'p.sound_file IS NOT' => null,
-                    'p.approved' => 1
-                ]
-            ]
+        ->select([
+            'word_id' => 'Words.id',
+            'Words.spelling'
         ])
+        ->distinct(['Words.id']) // DISTINCT word_id
+        ->leftJoin(
+            ['Pronunciations' => 'pronunciations'],
+            ['Words.id = Pronunciations.word_id']
+        )
         ->where([
-            'Words.language_id' => $langid,
             'Words.approved' => 1,
-            'p.word_id IS' => null
+            'Words.language_id' => $langid
         ])
-        ->contain(['Users']);
+        ->andWhere(function ($exp) {
+            return $exp->or([
+                'Pronunciations.sound_file IS' => null,
+                $exp->and([
+                    'Pronunciations.sound_file IS NOT' => null,
+                    'Pronunciations.approved IS' => null
+                ])
+            ]);
+        });
+
         return $query;
     }
 
