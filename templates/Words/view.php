@@ -48,19 +48,12 @@
 			</li>
 		<?php endif; ?>
 
-		<?php if ($this->Identity->isLoggedIn() && count($word->pronunciations) == 0): ?>
+
+		<?php if (count($word->pronunciations) == 0): ?>
 			<li>
 				<?= $this->Html->link(
 					'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
 					'/pronunciations/add/' . $word->id,
-					['class' => 'button blue nl', 'escape' => false]
-				) ?>
-			</li>
-		<?php elseif (count($word->pronunciations) == 0): ?>
-			<li>
-				<?= $this->Html->link(
-					'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
-					'/login?redirect=/pronunciations/add/' . $word->id,
 					['class' => 'button blue nl', 'escape' => false]
 				) ?>
 			</li>
