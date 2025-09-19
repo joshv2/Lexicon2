@@ -79,11 +79,8 @@
 		<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
 				</br>
 				<?php 
-					if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {
-						echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id, ['class' => 'button blue nl', 'escape' => false]);
-					}
-					elseif (count($word->pronunciations) == 0) {
-							echo $this->Html->link(__('Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id, ['class' => 'button blue nl', 'escape' => false]);
+					if (count($word->pronunciations) == 0) {
+							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id, ['class' => 'button blue nl', 'escape' => false]);
 					}
 				?>
 	</div>
