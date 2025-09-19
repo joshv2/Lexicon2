@@ -3,8 +3,8 @@
 	<?php
 	function renderResultSummary($q, $countVal, $originSummary, $addMargin = false) {
 	    $resultWord = ($countVal === 1) ? __('result') : __('results');
-	    $style = $addMargin ? ' style="display:inline-block; margin-right: 1.5em;"' : '';
-	    echo '<span class="m0"' . $style . '>';
+    	$class = 'm0' . ($addMargin ? ' search-results-header' : '');
+	    echo '<span class="' . $class . '">';
 	    echo __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
 	    if (!empty($originSummary)) {
 	        echo ', ' . __('of which') . ' ';
