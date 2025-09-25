@@ -208,7 +208,7 @@ class PronunciationsController extends AppController {
         
         if (1 == $word->approved) {
             if ($this->Pronunciations->save($pronunciation)) {
-                $this->converttomp3($pronunciation->sound_file);
+                $this->Processfile->converttomp3($pronunciation->sound_file);
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been approved.'));
             } else {
