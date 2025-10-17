@@ -101,7 +101,7 @@
 	<tr>
 		<td><?php echo h($word->word->spelling);?></td>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['submitting_user']['first_name']) . " " . h($word['submitting_user']['last_name']) . " (" . h($word['submitting_user']['email']);?>)</td>
+		<td><?php echo h($word['submitting_user']['first_name']) . " " . h($word['submitting_user']['last_name']) . " (" . h($word['submitting_user']['email']) . ")";?></td>
 		<td><?php echo h($this->Time->format($word['created'], \IntlDateFormatter::FULL, 'America/Los_Angeles'));?></td>
 
 		<td>
@@ -132,8 +132,8 @@
 <?php foreach ($noPronunciations as $word): ////$word = $word['Edit'];  ?> 
 
 	<tr>
-		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
+		<td><?php echo h($word['spelling']);?></td>	
+		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['word_id']);?></td>
 	</tr>
 <?php endforeach; ?>
 

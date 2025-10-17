@@ -211,33 +211,39 @@ class WordsTable extends Table
         return $query;
     }
 
-    public function get_words_with_no_pronunciations($langid){
+    public function get_words_with_no_pronunciations(int $langid)
+    {
         $query = $this->find()
-        ->select([
-            'word_id' => 'Words.id',
-            'Words.spelling'
-        ])
-        ->distinct(['Words.id']) // DISTINCT word_id
-        ->leftJoin(
-            ['Pronunciations' => 'pronunciations'],
-            ['Words.id = Pronunciations.word_id']
-        )
-        ->where([
-            'Words.approved' => 1,
-            'Words.language_id' => $langid
-        ])
-        ->andWhere(function ($exp) {
-            return $exp->or([
-                'Pronunciations.sound_file IS' => null,
-                $exp->and([
-                    'Pronunciations.sound_file IS NOT' => null,
-                    'Pronunciations.approved IS' => null
-                ])
-            ]);
-        });
+            ->select([
+                'word_id' => 'Words.id',
+                'Words.spelling'
+            ])
+            ->leftJoin(
+                ['Pronunciations' => 'pronunciations'],
+                ['Words.id = Pronunciations.word_id']
+            )
+            ->where([
+                'Words.approved' => 1,
+                'Words.language_id' => $langid,
+            ])
+            ->group(['Words.id', 'Words.spelling', 'Words.created'])
+            ->having(function ($exp, $query) {
+                $case = $query->newExpr()->case()
+                    ->when([
+                        'Pronunciations.sound_file IS NOT' => null,
+                        'Pronunciations.sound_file !=' => '',
+                        'Pronunciations.approved' => 1
+                    ])
+                    ->then(1)
+                    ->else(0);
+
+                return $exp->eq($query->func()->sum($case), 0);
+            })
+            ->order(['Words.created' => 'DESC']);
 
         return $query;
     }
+
 
     public function get_words_starting_with_letter($letter, $langid){
         $query = $this->find()
