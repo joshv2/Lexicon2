@@ -31,14 +31,7 @@ class SearchController extends AppController {
                 }
             }
         }
-        $originSummary = '';
-        if (!empty($originCounts)) {
-            $parts = [];
-            foreach ($originCounts as $lang => $ocount) {
-                $parts[] = $ocount . ' were from ' . $lang;
-            }
-            $originSummary = implode(', ', $parts);
-        }
+        // keep originCounts structured (language => count); do not build presentation text here
 
         if ($displayType === 'all') {
             $words = $allWords;
@@ -50,7 +43,30 @@ class SearchController extends AppController {
             $count = 0;
         }
 
-        $this->set(compact('words', 'q', 'isPaginated', 'count', 'originSummary'));
+        // Use full set count for the summary
+        $countVal = count($allWords);
+
+        // Prepare structured summary data (controller returns variables only)
+        $summaryVars = $this->getResultSummaryData($countVal, $originCounts);
+
+        $this->set(compact('words', 'q', 'isPaginated', 'count', 'originCounts', 'countVal'));
+        $this->set($summaryVars);
         $this->render('results');
 	}
+    /**
+     * Return structured summary variables for the view.
+     * - resultWord: 'result' or 'results'
+     * - originParts: array of ['num' => int, 'lang' => string]
+     */
+    private function getResultSummaryData(int $countVal, array $originCounts = []): array
+    {
+        $resultWord = ($countVal === 1) ? __('result') : __('results');
+
+        $originParts = [];
+        foreach ($originCounts as $lang => $num) {
+            $originParts[] = ['num' => (int)$num, 'lang' => $lang];
+        }
+
+        return ['resultWord' => $resultWord, 'originParts' => $originParts];
+    }
 }

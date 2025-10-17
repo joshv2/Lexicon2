@@ -1,40 +1,24 @@
 <section id="main">
 	<div id="browse_info">
-	<?php
-	function renderResultSummary($q, $countVal, $originSummary, $addMargin = false) {
-	    $resultWord = ($countVal === 1) ? __('result') : __('results');
-    	$class = 'm0' . ($addMargin ? ' search-results-header' : '');
-	    echo '<span class="' . $class . '">';
-	    echo __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
-	    if (!empty($originSummary)) {
-	        echo ', ' . __('of which') . ' ';
-	        if (preg_match_all('/(\d+) were from ([^,]+)/', $originSummary, $matches, PREG_SET_ORDER)) {
-	            $parts = [];
-	            foreach ($matches as $m) {
-	                $verb = ($m[1] == 1) ? __('was') : __('were');
-	                $parts[] = $m[1] . ' ' . $verb . ' from ' . $m[2];
-	            }
-	            if (count($parts) > 1) {
-	                $last = array_pop($parts);
-	                echo implode(', ', $parts) . ', and ' . $last;
-	            } else {
-	                echo $parts[0];
-	            }
-	        } else {
-	            echo $originSummary;
-	        }
-	    }
-	    echo '.';
-	    echo '</span>';
-	}
-	if ($isPaginated) {
-	    $countVal = (int)$this->Paginator->counter('{{count}}');
-	} else {
-	    $countVal = (int)$count;
-	}
-	?>
 	<div class="line-container">
-		<?php renderResultSummary($q, $countVal, $originSummary, $isPaginated); ?>
+		<span class="m0<?= !empty($isPaginated) ? ' search-results-header' : '' ?>">
+			<?php
+				$summary = __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
+				if (!empty($originParts)) {
+					$parts = [];
+					foreach ($originParts as $p) {
+						$parts[] = (int)$p['num'] . ' ' . ((int)$p['num'] === 1 ? __('was') : __('were')) . ' ' . __('from') . ' ' . h($p['lang']);
+					}
+					if (count($parts) > 1) {
+						$last = array_pop($parts);
+						$summary .= ', ' . implode(', ', $parts) . ', and ' . $last;
+					} else {
+						$summary .= ', ' . $parts[0];
+					}
+				}
+				echo $summary . '.';
+			?>
+		</span>
 		<?php if ($isPaginated): ?>
 		<button id="displayAllButton" class="button blue">Display All</button>
 		<script>
