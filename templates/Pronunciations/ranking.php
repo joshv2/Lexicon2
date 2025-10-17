@@ -29,7 +29,7 @@
                 <?php if(1 == $p->approved): ?>
                 <?php 
                     
-                    if ('' !== $p->sound_file){
+                    if ('' !== $p->sound_file && !is_null($p->sound_file)){
                         $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
                     } else {
                         $audioPlayer = '';
@@ -60,7 +60,7 @@
             <?php foreach ($requested_pronunciations as $p): ?>
                 <?php 
                     
-                    if ('' !== $p->sound_file){
+                    if ('' !== $p->sound_file && !is_null($p->sound_file)){
                         $audioPlayer = $this->Html->media($p->sound_file, ['pathPrefix' => 'recordings/', 'controls']);
                     } else {
                         $audioPlayer = '';
@@ -77,7 +77,8 @@
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 
                                                         ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']),
                                                     $this->Html->link('<i class="fas fa-times"></i> Deny',
-                                                    ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'edit', $p->id, $word->id], ['escape' => false, 'class' => 'button orange']),
+                                                        ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'edit', $word->id, $p->id],
+                                                        ['escape' => false, 'class' => 'button orange']),                                                    
                                                     $this->Form->postLink(
                                                         '<i class="fas fa-check"></i> Approve',
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'approve', $p->id, $word->id], 
