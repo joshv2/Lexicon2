@@ -487,6 +487,47 @@ class WordsTable extends Table
         return $query;
     }
 
+    /**
+     * Finder to compute origin counts for a given search query and language.
+     * Returns rows with keys: origin, cnt (hydration disabled => arrays).
+     * Usage: $this->find('originCounts', ['querystring' => $q, 'langid' => $langid])
+     */
+    public function findOriginCounts(Query $query, array $options) {
+        $querystring = $options['querystring'] ?? '';
+        $langid = $options['langid'] ?? null;
+
+        // Build a subquery that returns only the IDs of Words matching the search criteria.
+        $searchResultsSub = $this->find('searchResults', ['querystring' => $querystring, 'langid' => $langid]);
+        $idsSubquery = $this->find()
+            ->select(['id'])
+            ->from(['sr' => $searchResultsSub])
+            ->enableHydration(false);
+
+        // Aggregate origins by counting distinct word IDs that appear in origins_words
+        $originQuery = $this->find()
+            ->select([
+                'origin' => 'Origins.origin',
+                'cnt' => $query->func()->count('DISTINCT Words.id')
+            ])
+            ->join([
+                'ow' => [
+                    'table' => 'origins_words',
+                    'type' => 'INNER',
+                    'conditions' => 'Words.id = ow.word_id'
+                ],
+                'Origins' => [
+                    'table' => 'origins',
+                    'type' => 'INNER',
+                    'conditions' => 'Origins.id = ow.origin_id'
+                ]
+            ])
+            ->where(['Words.id IN' => $idsSubquery])
+            ->group(['Origins.origin'])
+            ->enableHydration(false);
+
+        return $originQuery;
+    }
+
     public function findWithSpelling($spelling){
         if(isset($spelling["spelling"])){
             $wordtosearch = $spelling["spelling"];

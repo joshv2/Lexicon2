@@ -16,9 +16,9 @@ class SearchController extends AppController {
         $sitelang = $this->languageinfo();
         $q = trim($this->request->getQuery('q'));
         $displayType = $this->request->getQuery('displayType');
-
-        // Always get the full set for per-language count (not dependent on pagination)
-        $allWords = $this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins'])->toArray();
+        $wordsTable = $this->fetchTable('Words');
+        $baseQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins']);
+        $allWords = $baseQuery->contain(['Origins'])->toArray();
         $originCounts = [];
         foreach ($allWords as $word) {
             if (!empty($word->origins)) {
@@ -31,32 +31,30 @@ class SearchController extends AppController {
                 }
             }
         }
-        // keep originCounts structured (language => count); do not build presentation text here
 
+        // Use full set count for the summary
+        $countVal = count($allWords);
+
+        // If displayType=all we need the full set in PHP; otherwise use pagination
         if ($displayType === 'all') {
             $words = $allWords;
             $isPaginated = false;
             $count = count($words);
         } else {
-            $words = $this->paginate($this->fetchTable('Words')->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins']));
+            $words = $this->paginate($baseQuery);
             $isPaginated = true;
             $count = 0;
         }
 
-        // Use full set count for the summary
-        $countVal = count($allWords);
-
-        // Prepare structured summary data (controller returns variables only)
         $summaryVars = $this->getResultSummaryData($countVal, $originCounts);
 
         $this->set(compact('words', 'q', 'isPaginated', 'count', 'originCounts', 'countVal'));
         $this->set($summaryVars);
         $this->render('results');
 	}
+
     /**
      * Return structured summary variables for the view.
-     * - resultWord: 'result' or 'results'
-     * - originParts: array of ['num' => int, 'lang' => string]
      */
     private function getResultSummaryData(int $countVal, array $originCounts = []): array
     {
