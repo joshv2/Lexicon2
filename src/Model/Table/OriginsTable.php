@@ -13,7 +13,11 @@ class OriginsTable extends Table
         //$this->addBehavior('Timestamp');
         $this->setDisplayField('origin');
         $this->setPrimaryKey('id');
-        $this->belongsToMany('Words'); #, ['joinTable' => 'words_origins']
+        $this->belongsToMany('Words', [
+            'joinTable' => 'origins_words',
+            'foreignKey' => 'origin_id',
+            'targetForeignKey' => 'word_id',
+        ]);
         $this->belongsToMany('Languages', [
             'through' => 'OriginsLanguages'
         ]);
