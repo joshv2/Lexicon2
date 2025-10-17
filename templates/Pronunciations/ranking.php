@@ -20,7 +20,7 @@
     <div class="pronunciations form content">
         <p><?=__("Pronunciations are shown in their current ranking. Ranking is for approved pronunciations only.")?></p>
         <?= $this->Form->create() ?>
-        <table>
+        <table class="edit_table">
 
             <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', '', 'Ranking']);
                 $i = 0; ?>
@@ -52,7 +52,7 @@
         <hr/>
        
 <h2><?=__("Delete/Approve Pronunciations")?></h2>       
-<table>
+<table class="edit_table">
 
             <?php echo $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation', 'Status','Username','', '','', '']);
                 $i = 0; ?>
@@ -75,10 +75,10 @@
                                                     $this->Form->postLink(__(
                                                         '<i class="fa-solid fa-trash"></i> Delete'),
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'delete', $p->id, $word->id], 
-                                                        ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']),
+                                                        ['confirm' => 'Are you sure you want to delete this pronunciation?', 'escape' => false, 'class' => 'button red']) .
                                                     $this->Html->link('<i class="fas fa-times"></i> Deny',
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'edit', $word->id, $p->id],
-                                                        ['escape' => false, 'class' => 'button orange']),                                                    
+                                                        ['escape' => false, 'class' => 'button orange']) .                                                  
                                                     $this->Form->postLink(
                                                         '<i class="fas fa-check"></i> Approve',
                                                         ['prefix' => false, 'controller' => 'Pronunciations', 'action' => 'approve', $p->id, $word->id], 

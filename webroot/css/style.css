@@ -550,16 +550,27 @@ a.disabled:hover {
     background: red;
 }
 
+td .button.red {
+    color: #fff;
+    padding: 3px;
+    width: 80px;
+    margin-bottom: 3px;
+    border: 1px #0071E0 solid;
+    background: red;
+}
+
 .button.orange {
     color: #fff;
-    padding: 10px;
+    padding: 3px;
+    width: 80px;
+    margin-bottom: 3px;
     border: 1px #0071E0 solid;
     background: orange;
 }
 
 .button.green {
     color: #fff;
-    padding: 10px;
+    padding: 3px;
     border: 1px #0071E0 solid;
     background: green;
 }
@@ -2407,6 +2418,22 @@ textarea {
     cursor: not-allowed !important;
     opacity: 0.7;
 }
+
+video {
+    height: 34px;
+}
+
+.edit_table td, .edit_table th {
+    padding: 10px;
+}
+
+.edit_table td:has(.button.red, .button.orange, .button.green) {
+    padding: 2px;
+}
+
+.edit_table tr:not(:last-child) {
+      border-bottom: 1px solid black; /* Or your desired border style */
+    }
 
 a.btn-record:hover, a.btn-record2:hover {
     padding: 5px;
