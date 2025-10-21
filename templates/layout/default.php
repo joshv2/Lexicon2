@@ -153,7 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</ul>
 
 			<form class="form-inline" type="GET" action="/search">
-				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
+				<input class="form-control mr-sm-2" type="search" results="5" placeholder=<?= __("Search...");?> name="q" id="search">
 			</form>
 		</div> <!-- nav -->
 			</nav>
