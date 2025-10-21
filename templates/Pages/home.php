@@ -72,7 +72,7 @@ $(document).ready(function() {
         <div id="lowerhomesearch">
 			<!--<h3><?=__("SEARCH:")?></h3>-->
 			<form id="home_search" class="group m3" method="GET" action="/search">
-				<input id="btmsearch" type="text" placeholder="<?=__('Search')?>" name="q" />
+				<input id="btmsearch" type="search" placeholder="<?=__('Search')?>" name="q" />
 				<button type="submit" class="button blue"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</form>
 			<hr class="m2" />
