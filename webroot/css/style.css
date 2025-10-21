@@ -676,7 +676,7 @@ textarea {
 
 #btmsearch {
     height: 31px;
-    border: 1px solid;
+    border: 1px #c1c1c1 solid;
     width: 89%;
     float: left;
     margin-left: 8px;
