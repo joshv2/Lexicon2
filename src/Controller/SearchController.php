@@ -13,7 +13,7 @@ class SearchController extends AppController {
 
 	public function index()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $q = trim($this->request->getQuery('q'));
         $displayType = $this->request->getQuery('displayType');
         $wordsTable = $this->fetchTable('Words');

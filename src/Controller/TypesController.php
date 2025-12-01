@@ -18,7 +18,7 @@ class TypesController extends AppController
      */
     public function index()
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $this->paginate = [
             'contain' => ['Languages'],
         ];
@@ -51,7 +51,7 @@ class TypesController extends AppController
     public function add()
     {
         $type = $this->Types->newEmptyEntity();
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         if ($this->request->is('post')) {
             $type = $this->Types->patchEntity($type, $this->request->getData());
             if ($this->Types->save($type)) {
@@ -75,7 +75,7 @@ class TypesController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $type = $this->Types->get($id, [
             'contain' => ['Words'],
         ]);

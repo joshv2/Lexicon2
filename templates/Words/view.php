@@ -1,79 +1,76 @@
 <?php
-	$currentUrl = $this->Url->build(null, ['fullBase' => true]);
-	$wordText = h($word->spelling); 
-	$encodedText = urlencode("Check out this word: " . $wordText);
-	$encodedUrl = urlencode($currentUrl);
-?>
-
-<?php
 	$this->assign('og_tags', '
-		<meta property="og:title" content="' . h($word->spelling) . ' | ' . $sitelang->name . '" />
-		<meta property="og:description" content="Check out ' .  h($word->spelling) . ' on the ' . $sitelang->name . '" />
+		<meta property="og:title" content="' . h($spelling) . ' | ' . $sitelang->name . '" />
+		<meta property="og:description" content="Check out ' .  h($spelling) . ' on the ' . $sitelang->name . '" />
 		<meta property="og:url" content="' . $this->Url->build(null, ['fullBase' => true]) . '" />
 	');
+	
+		
 ?>
 	
 	<div class="page-header2 group">
 
 	
-	<h2 class="left"><?php echo $word->spelling;?></h2>
-		
+		<h2 class="left"><?= $spelling;?></h2>
+			
 		<ul class="editbuttons">
-		<li>
-			<button id="shareToggle" class="button blue nl">
-				<i class="fa-solid fa-share-nodes"></i> <?= __('Share') ?>
-			</button>
-			<div class="flexDiv">
-				<div class="shareDropdown" id="shareDropdown">
-					<div class="trianglePointer"></div>
-					<?= $this->cell('Share', ['word' => $word, 'dropdown' => true]) ?>
-				</div>
-			</div>
-		</li>
-		<?php if ($this->Identity->isLoggedIn()): ?>
 			<li>
-				<?= $this->AuthLink->postlink(
-					__('<i class="fa-solid fa-trash"></i> Delete'),
-					[
-						'prefix' => false,
-						'controller' => 'Words',
-						'action' => 'delete', $word['id']
-					],
-					[
-						'escape' => false,
-						'class' => 'button red',
-						'confirm' => 'Are you sure you want to delete ' . $word->spelling . '?'
-					]
-				) ?>
+				<button id="shareToggle" class="button blue nl">
+					<i class="fa-solid fa-share-nodes"></i> <?= __('Share') ?>
+				</button>
+				<div class="flexDiv">
+					<div class="shareDropdown" id="shareDropdown">
+						<div class="trianglePointer"></div>
+						<?= $this->cell('Share', ['word' => $word_id, 'dropdown' => true]) ?>
+					</div>
+				</div>
 			</li>
-		<?php endif; ?>
+			<?php if ($this->Identity->isLoggedIn()): ?>
+				<li>
+					<?= $this->AuthLink->postlink(
+						__('<i class="fa-solid fa-trash"></i> Delete'),
+						[
+							'prefix' => false,
+							'controller' => 'Words',
+							'action' => 'delete', $word_id
+						],
+						[
+							'escape' => false,
+							'class' => 'button red',
+							'confirm' => 'Are you sure you want to delete ' . $spelling . '?'
+						]
+					) ?>
+				</li>
+			<?php endif; ?>
 
+			
+			<?php 
+			$pronunciations_count = count($pronunciations);
+			if ($pronunciations_count == 0): ?>
+				<li>
+					<?= $this->Html->link(
+						'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
+						'/pronunciations/add/' . $word_id,
+						['class' => 'button blue nl', 'escape' => false]
+					) ?>
+				</li>
+			<?php endif; ?>
 
-		<?php if (count($word->pronunciations) == 0): ?>
 			<li>
 				<?= $this->Html->link(
-					'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
-					'/pronunciations/add/' . $word->id,
+					'<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'),
+					'/words/edit/' . $word_id,
 					['class' => 'button blue nl', 'escape' => false]
 				) ?>
 			</li>
-		<?php endif; ?>
-
-		<li>
-			<?= $this->Html->link(
-				'<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'),
-				'/words/edit/' . $word->id,
-				['class' => 'button blue nl', 'escape' => false]
-			) ?>
-		</li>
-	</ul>
-</div>
+		</ul>
+	</div>
 	<div class="page-header group2">
-		<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
+		<?=$this->Html->link(__('Edit'), '/words/edit/' .$word_id);?>
 				</br>
 				<?php 
-					if (count($word->pronunciations) == 0) {
-							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id, ['class' => 'button blue nl', 'escape' => false]);
+					if ($pronunciations_count == 0) {
+							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word_id, ['class' => 'button blue nl', 'escape' => false]);
 					}
 				?>
 	</div>
@@ -81,62 +78,120 @@
 	<div class='c'>
 	<div class="word">
 		<!--<h3>
-			<?php echo $word->spelling; ?>
+			<?= $spelling; ?>
 
 		</h3>-->
 		
-		<?php if(!empty($word->pronunciations)) : ?>
+		<?php if(!empty($pronunciations)) : ?>
 			<h4>Pronunciations</h4>
-			<div class='section-container'>
-			<div class='table-container'>
-			<table>
-			<!--<?=  $this->Html->tableHeaders(['Spelling', 'Listen', 'Pronunciation']);?>-->
-			<?php $i = 0; ?>
-			<?php foreach ($word->pronunciations as $p): ?>
-				<?php if(1 == $p->approved): ?>
-					
-				<?php 
-					if (is_null($p->sound_file) || '' == $p->sound_file) {
-						$audioPlayer = '';
-					}
-					else {
-						$audioPlayer = '<a id="play-pause-button-' . $i . '"><i class="fa-solid fa-volume-up"></i> <span id="listen">listen</span></a>' . $this->Html->media(str_replace('.webm', '.mp3', $p->sound_file), ['pathPrefix' => 'recordings/', 'controls', 'class' => 'audioplayers', 'id' => 'audioplayer'. $i]);
-					}
-					 ?>
-				<?php echo $this->Html->tableCells([[$p->spelling, "(" . $p->pronunciation . ")", $audioPlayer]], ['class' => 'pronunciationtr']); ?>
-				<?php endif; ?>
-				<?php $i += 1; ?>
-			<?php endforeach; ?>
-			</table>
+
+			<div class="pronunciation-section">
+				<style>
+				.pronunciation-section {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					gap: 20px;
+					margin-left: 10px;
+				}
+
+				.table-container {
+					flex: 1;
+				}
+
+				.buttons-container {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: flex-end;
+					min-width: 250px;
+					text-align: right;
+				}
+
+				.buttons-container p {
+					margin: 10px 0;
+				}
+
+				.pronunciationtr td {
+					padding: 2px 2px;
+				}
+				</style>
+				<!-- LEFT SIDE: TABLE -->
+				<div class="table-container">
+					<table>
+						<?php $i = 0; ?>
+						<?php foreach ($pronunciations as $p): ?>
+							<?php if (1 == $p['approved']): ?>
+								<?php 
+									if (empty($p['sound_file'])) {
+										$audioPlayer = '';
+									} else {
+										$audioPlayer = '<a id="play-pause-button-' . $i . '">
+											<i class="fa-solid fa-volume-up"></i> 
+											<span id="listen">listen</span>
+											</a>' .
+											$this->Html->media(
+												str_replace('.webm', '.mp3', $p['sound_file']),
+												[
+													'pathPrefix' => 'recordings/',
+													'controls',
+													'class' => 'audioplayers',
+													'id' => 'audioplayer' . $i
+												]
+											);
+									}
+								?>
+								<?= $this->Html->tableCells(
+									[[$p['spelling'], "(" . $p['pronunciation'] . ")", $audioPlayer]],
+									['class' => 'pronunciationtr']
+								); ?>
+							<?php endif; ?>
+							<?php $i++; ?>
+						<?php endforeach; ?>
+					</table>
 				</div>
-			<div class='delete3'><div class='vertical-center'>
-				<p><?php 
-				echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'), '/pronunciations/add/' .$word->id,
-				['class' => 'button blue', 'escape' => false]);?></p>
-			</div></div>
+
+				<!-- RIGHT SIDE: BUTTONS -->
+				<div class="buttons-container">
+					<p>
+						<?= $this->Html->link(
+							'<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'),
+							'/pronunciations/add/' . $word_id,
+							['class' => 'button blue', 'escape' => false]
+						); ?>
+					</p>
+
+					<?php if ($this->Identity->isLoggedIn()): ?>
+						<p>
+							<?= $this->Html->link(
+								'<i class="fa-solid fa-pen-to-square"></i> ' . __('Manage Pronunciations'),
+								'/pronunciations/manage/' . $word_id,
+								['class' => 'button blue', 'escape' => false]
+							); ?>
+						</p>
+					<?php endif; ?>
+				</div>
+
 			</div>
 		<?php endif; ?>
-		<?php if (!empty($Definitions_definition)): ?>
-		<h4><?=__("Definitions")?></h4>
-		<ul class="multiple-items">
-			<?php foreach ($Definitions_definition as $d): ?>
-        <li><?php echo $d;?></li>
-      <?php endforeach; ?>
-      <?php if (count($Definitions_definition) > 3): ?>
-        <li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-      <?php endif; ?>
-		</ul><?php endif;?>
+		<?= $this->element('word_list', [
+			'header' => __("Definitions"),
+			'newortd' => array_column($definitions, 'definition'),
+			'otherortd' => [],
+			'totalortd' => $total_definitions,
+		]) ?>
+		
 
-		<?php if (!empty($word['sentences'])): ?>
+		<?php if (!empty($sentences)): ?>
 			<h4><?=__("Example Sentences")?></h4>
 			<div class='section-container'>
 				<div class='table-container'>
 				<ul class="sentences multiple-items">
-				<?php $j = count($word->pronunciations) + 1;
+				<?php $j = count($pronunciations) + 1;
 					?>
-				<?php foreach ($word['sentences'] as $s): ?>
+				<?php foreach ($sentences as $s): ?>
 					<?php $k = 1; ?>
-					<li class="pronunciationtr2"><?php echo $s['sentence'];
+					<li class="pronunciationtr2"><?= $s['sentence'];
 					if (count($s['sentence_recordings']) > 0) {
 						echo "<span class='recordinglist'>" . __('Listen to recordings of this sentence') . ": (";
 						
@@ -152,11 +207,13 @@
 					
 					?> 
 				<?php if ($this->Identity->isLoggedIn()):?>
-					<?php echo $this->AuthLink->link(__(' Manage Recordings'), ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $word['id'], $s['id']] ); ?>
+					<?= $this->AuthLink->link(__(' Manage Recordings'), ['prefix' => false, 'controller' => 'SentenceRecordings', 'action' => 'manage', $word_id, $s['id']] ); ?>
 				<?php endif; ?>	
 				</li>
 				<?php endforeach; ?>
-				<?php if (count($word['sentences']) > 3): ?>
+				<?php 
+				
+				if ($sentences_count > 3): ?>
 					<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
 				<?php endif; ?>
 				</ul>
@@ -165,141 +222,73 @@
 			<div class='delete4'><div class='vertical-center'>
 				<p><?php 
 
-					if (count($word['sentences']) == 1){
-					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' .$word->sentences[0]->id,
+					if ($sentences_count == 1){
+					echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/add/' . $sentences[0]['id'],
 											['class' => 'button blue', 'escape' => false]);
 					} else {
-						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word->id,
+						echo $this->Html->link('<i class="fas fa-microphone"></i> ' . __('Record a Sentence'), '/SentenceRecordings/choose/' .$word_id,
 											['class' => 'button blue', 'id' => 'convert', 'escape' => false]);
 					}
 			 ?></p>
 			</div></div>
 		</div>
 		<?php endif;?>
-		<?php if(!empty($word->origins)):?>
-			<?php $neworigins = [];
-			foreach ($word->origins as $key => $origin){
-				$lenotherorigins = 0;
-				//echo $origin->origin, strpos($origin->origin,",") . "</br>";
 
-				if(strpos($origin->origin,",") !== false && $origin->id > 999){
-					//echo "comma";
-					$otherorigins = explode(",",$origin->origin);
-					$lenotherorigins = count($otherorigins);
-				} 
-				//print_r($otherorigins);
+		<?= $this->element('word_list', [
+			'header' => __("Languages of Origin"),
+			'newortd' => $new_origins,
+			'otherortd' => $other_origins ?? [],
+			'totalortd' => $total_origins,
+		]) ?>
 
-
-				if($origin->id != 999 && $lenotherorigins == 0){
-					$neworigins[$key] = __($origin->origin);
-				}
-
-				
-
-				$totalorigins = count($neworigins) + $lenotherorigins;
-			} 
-			?>
-			<h4><?=__("Languages of Origin")?></h4>
-			<ul class="multiple-items">
-			<?php foreach ($neworigins as $s): ?>
-			<li><?php echo $s;?></li>
-			<?php endforeach; ?>
-			<?php if (isset($otherorigins)) : ?>
-				<?php foreach ($otherorigins as $s): ?>
-					<li><?php echo trim($s);?></li>
-				<?php endforeach; ?>
-			<?php endif; ?>
-			<?php if ($totalorigins > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
-		</ul><?php endif;?>
-
-		<?php if(!empty($word->etymology)):?>
+		<?php if(!empty($etymology)):?>
 			<h4><?=__("Etymology")?></h4>
 			<ul class='sentences'>
-			<li><?php echo $word->etymology;?></li>
+			<li><?= $etymology; ?></li>
 			<ul>
 		<?php endif;?>
+
+
+		<?= $this->element('word_list', [
+			'header' => __("Who Uses This"),
+			'newortd' => $new_types,
+			'otherortd' => $other_types ?? [],
+			'totalortd' => $total_types,
+		]) ?>
 		
-		<?php if(!empty($word->types)):?>
-			<?php $newtypes = [];
-			foreach ($word->types as $key => $type){
-				$lenothertypes = 0;
-
-				if($type->id != 999 && $lenothertypes == 0){ // logic to exclude "other" from appearing in list
-					$newtypes[$key] = __($type->type);
-				}
-
-				$totaltypes = count($newtypes) + $lenothertypes;
-			} ?>
-			
-			<h4><?=__("Who Uses This")?></h4>
-			<ul class="multiple-items">
-			<?php foreach ($newtypes as $s): ?>
-			<li><?php echo $s;?></li>
-			<?php endforeach; ?>
-			<?php if (isset($othertypes)) : ?>
-				<?php foreach ($othertypes as $s): ?>
-					<li><?php echo trim($s);?></li>
-				<?php endforeach; ?>
-			<?php endif; ?>	
-
-
-			<?php if ($totaltypes > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
-		</ul><?php endif;?>
 		
 		<?php if($sitelang->hasRegions == 1):?>
-		<?php if(!empty($word->regions)):?>
-			<?php $newregions = [];
-			foreach ($word->regions as $key => $region){
-					$newregions[$key] = __($region->region);
-			} ?>
-			
-			<h4><?=__("Regions")?></h4>
-			<ul class="multiple-items">
-			<?php foreach ($newregions as $s): ?>
-			<li><?php echo $s;?></li>
-			<?php endforeach; ?>
-		</ul><?php endif;?>
+			<?php if(!empty($new_regions)):?>
+				<?= $this->element('word_list', [
+					'header' => __("Regions"),
+					'newortd' => $new_regions,
+					'otherortd' => $other_regions ?? [],
+					'totalortd' => $total_regions,
+				]) ?>
+			<?php endif;?>
 		<?php endif;?>
 			
 		<?php if($sitelang->hasDictionaries == 1):?>
-		<?php if(!empty($word->dictionaries)):?>
-			<h4><?=__("Dictionaries")?></h4>
-			<ul class="multiple-items">
-			<?php foreach ($word->dictionaries as $s): ?>
-			<li><?php echo $s->dictionary;?></li>
-			<?php endforeach; ?>
-			<?php if (count($word->dictionaries) > 3): ?>
-				<li class="view-more-link"><a href="#"><?=__("View More")?></a></li>
-			<?php endif; ?>
-			</ul>
-		<?php else: ?>
-			<h4><?=__("Dictionaries")?></h4>
-			<ul>
-			<li><?=__("None")?></li>
-			</ul>
+			<?= $this->element('word_list', [
+				'header' => __("Dictionaries"),
+				'newortd' => $new_dictionaries,
+				'otherortd' => $other_dictionaries ?? [],
+				'totalortd' => $total_dictionaries,
+			]) ?>
 		<?php endif;?>
-		<?php endif;?>
-		<?php if (!empty($word->alternates)): ?>
-			<?php if (strlen(implode(', ', $Alternates_spelling)) > 360):?>
-				<h4><?=__("Alternative Spellings")?></h4>	
-					<p><span class="more" id='addsp'><?php echo implode(', ', $Alternates_spelling); ?></span></p>
-					
-				
-			<?php else: ?>
-			<h4><?=__("Alternative Spellings")?></h4>
-			<p><?php echo implode(', ', $Alternates_spelling); ?></p>
-			<?php endif; ?>
-		<?php endif;?>
+
+		<?= $this->element('word_alternates', [
+			'alternates' => $alternates,
+			'spellingList' => $spellingList,
+		]) ?>
+
+
 		</div> <!--// TODO check what this div is doing-->
 		<div class='wnotes'>
-		<?php if(!empty($word->notes)):?>
+		<?php if(!empty($notes)):?>
 			<h4><?=__("Notes")?></h4>
 			<ul>
-				<li class='notesli'><?php echo $word->notes;?></li> <!--// TODO should check for <p></br></p> -->
+				<li class='notesli'><?= $notes;?></li> <!--// TODO should check for <p></br></p> -->
 			</ul>
 		<?php endif;?>
 	</div>
@@ -307,14 +296,14 @@
 
 	<div class="c wordedit">
 		<p class="m0">
-		<?=$this->Html->link('<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'), '/words/edit/' .$word->id,
+		<?=$this->Html->link('<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'), '/words/edit/' .$word_id,
 											['class' => 'button blue', 'escape' => false]);?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("Something missing from this entry? Inaccurate? Feel free to suggest an edit.")?></p>
 	</div>
 <div class="shareFooter">
 	Share this word:<br>
 	<div class="shareFooterIcons">
-		<?= $this->cell('Share', [$word]) ?>
+		<?= $this->cell('Share', [$spelling]) ?>
 	</div>
 </div>
 

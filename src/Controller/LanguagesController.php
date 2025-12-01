@@ -24,13 +24,15 @@ class LanguagesController extends AppController
     }
 
     public function about() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $this->set(compact('sitelang'));
     }
 
     public function notes() {
-        $sitelang = $this->languageinfo();
-        $this->set(compact('sitelang'));
+        $sitelang = $this->request->getAttribute('sitelang');
+
+        $sitelang_all = $this->Languages->get_all_language($sitelang['subdomain']);
+        $this->set(compact('sitelang_all'));
     }
 
     /**
@@ -123,7 +125,7 @@ class LanguagesController extends AppController
      */
     public function edit($id = null)
     {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         //$this->set(compact('sitelang'));
         $language = $this->Languages->get($sitelang['id'], [
             'contain' => [],

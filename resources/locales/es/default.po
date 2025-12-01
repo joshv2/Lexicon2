@@ -147,7 +147,7 @@ msgstr " página"
 msgid "The lexicon currently has "
 msgstr "El léxico tiene actualmente "
 
-msgid "entries."
+msgid "entries"
 msgstr "entradas"
 
 msgid "BROWSE:"
