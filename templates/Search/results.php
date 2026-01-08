@@ -3,20 +3,30 @@
 	<div class="line-container">
 		<span class="m0<?= !empty($isPaginated) ? ' search-results-header' : '' ?>">
 			<?php
-				$summary = __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
+				// First sentence: search result count
+				$summaryStart = __('Your search for') . ' <b>' . h($q) . '</b> ' . __('returned') . ' ' . $countVal . ' ' . $resultWord;
+
+				// If we have origin breakdowns, render them as a separate (present-tense) sentence.
 				if (!empty($originParts)) {
 					$parts = [];
 					foreach ($originParts as $p) {
-						$parts[] = (int)$p['num'] . ' ' . ((int)$p['num'] === 1 ? __('was') : __('were')) . ' ' . __('from') . ' ' . h($p['lang']);
+						$num = (int)$p['num'];
+						$verb = ($num === 1) ? __('is') : __('are');
+						$parts[] = $num . ' ' . $verb . ' ' . __('from') . ' ' . h($p['lang']);
 					}
+
 					if (count($parts) > 1) {
 						$last = array_pop($parts);
-						$summary .= ', ' . implode(', ', $parts) . ', and ' . $last;
+						$breakdown = implode(', ', $parts) . ', and ' . $last;
 					} else {
-						$summary .= ', ' . $parts[0];
+						$breakdown = $parts[0];
 					}
+
+					echo $summaryStart . '. ' . $breakdown . '.';
+				} else {
+					// No origin breakdown: single sentence as before
+					echo $summaryStart . '.';
 				}
-				echo $summary . '.';
 			?>
 		</span>
 		<?php if ($isPaginated): ?>
