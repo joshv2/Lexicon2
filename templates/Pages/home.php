@@ -46,7 +46,7 @@ $(document).ready(function() {
 		
 		<p class="m3 center"><?=__("The lexicon currently has ")?><?php echo ($total_entries > 0) ? $this->Html->link(__($total_entries), '/words') : '0';?> 
 		<?php if($sitelang->hasDictionaries): ?>
-			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary.")?></p>
+			<?=__("entries, including ")?><br /><?=$this->Html->link(__($no_dict_entries), '/words?dictionary=none');?> <?=__("entries that do not appear in any Jewish English dictionary")?>.</p>
 		<?php else: ?>
 			<?=__("entries.") ?>
 		<?php endif; ?>
@@ -72,7 +72,7 @@ $(document).ready(function() {
         <div id="lowerhomesearch">
 			<!--<h3><?=__("SEARCH:")?></h3>-->
 			<form id="home_search" class="group m3" method="GET" action="/search">
-				<input id="btmsearch" type="text" placeholder="<?=__('Search')?>" name="q" />
+				<input id="btmsearch" type="search" placeholder="<?=__('Search')?>" name="q" />
 				<button type="submit" class="button blue"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</form>
 			<hr class="m2" />

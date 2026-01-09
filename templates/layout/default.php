@@ -104,7 +104,7 @@
 	<!--<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
 	<?= $this->Html->script('detectios')."\n";?>
 	<script src='https://www.google.com/recaptcha/api.js?hl=<?= $sitelang->i18nspec ?>'></script>
-
+<?= $this->fetch('og_tags') ?>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -153,7 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</ul>
 
 			<form class="form-inline" type="GET" action="/search">
-				<input class="form-control mr-sm-2" type="text" results="5" placeholder=<?= __("Search...");?> aria-label="Search" name="q" id="search">
+				<input class="form-control mr-sm-2" type="search" results="5" placeholder=<?= __("Search...");?> name="q" id="search">
 			</form>
 		</div> <!-- nav -->
 			</nav>

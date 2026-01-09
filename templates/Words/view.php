@@ -1,39 +1,83 @@
-<section id="main">
+<?php
+	$currentUrl = $this->Url->build(null, ['fullBase' => true]);
+	$wordText = h($word->spelling); 
+	$encodedText = urlencode("Check out this word: " . $wordText);
+	$encodedUrl = urlencode($currentUrl);
+?>
+
+<?php
+	$this->assign('og_tags', '
+		<meta property="og:title" content="' . h($word->spelling) . ' | ' . $sitelang->name . '" />
+		<meta property="og:description" content="Check out ' .  h($word->spelling) . ' on the ' . $sitelang->name . '" />
+		<meta property="og:url" content="' . $this->Url->build(null, ['fullBase' => true]) . '" />
+	');
+?>
+	
 	<div class="page-header2 group">
-		<h2 class="left"><?php echo $word->spelling;?></h2>
+
+	
+	<h2 class="left"><?php echo $word->spelling;?></h2>
+		
 		<ul class="editbuttons">
-			<?php if ($this->Identity->isLoggedIn()):?>
-				<li>
-				<?php echo 
-			$this->AuthLink->postlink(__(
-                '<i class="fa-solid fa-trash"></i> Delete'),
-                ['prefix' => false, 'controller' => 'Words', 'action' => 'delete', $word['id']],
-                ['escape' => false, 'class' => 'button red', 'confirm' => 'Are you sure you want to delete '.$word->spelling.'?']);?>
-				</li>
-				<?php endif;?>
-				<li>
-				<?php 
-				if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/pronunciations/add/' .$word->id,
-											['class' => 'nomargin button blue', 'escape' => false]);}
-				elseif (count($word->pronunciations) == 0) {echo $this->Html->link('<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id,
-					['class' => 'nomargin button blue', 'escape' => false]);}
-											?>
-				</li>
-			
+		<li>
+			<button id="shareToggle" class="button blue nl">
+				<i class="fa-solid fa-share-nodes"></i> <?= __('Share') ?>
+			</button>
+			<div class="flexDiv">
+				<div class="shareDropdown" id="shareDropdown">
+					<div class="trianglePointer"></div>
+					<?= $this->cell('Share', ['word' => $word, 'dropdown' => true]) ?>
+				</div>
+			</div>
+		</li>
+		<?php if ($this->Identity->isLoggedIn()): ?>
 			<li>
-			<?=$this->Html->link('<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'), '/words/edit/' .$word->id,
-											['class' => 'button blue nl', 'escape' => false]);?>
+				<?= $this->AuthLink->postlink(
+					__('<i class="fa-solid fa-trash"></i> Delete'),
+					[
+						'prefix' => false,
+						'controller' => 'Words',
+						'action' => 'delete', $word['id']
+					],
+					[
+						'escape' => false,
+						'class' => 'button red',
+						'confirm' => 'Are you sure you want to delete ' . $word->spelling . '?'
+					]
+				) ?>
 			</li>
-		</ul>
-	</div>
+		<?php endif; ?>
+
+
+		<?php if (count($word->pronunciations) == 0): ?>
+			<li>
+				<?= $this->Html->link(
+					'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
+					'/pronunciations/add/' . $word->id,
+					['class' => 'button blue nl', 'escape' => false]
+				) ?>
+			</li>
+		<?php endif; ?>
+
+		<li>
+			<?= $this->Html->link(
+				'<i class="fa-solid fa-pen-to-square"></i>' . __(' Edit'),
+				'/words/edit/' . $word->id,
+				['class' => 'button blue nl', 'escape' => false]
+			) ?>
+		</li>
+	</ul>
+</div>
 	<div class="page-header group2">
-	<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
+		<?=$this->Html->link(__('Edit'), '/words/edit/' .$word->id);?>
 				</br>
-	<?php 
-	if($this->Identity->isLoggedIn() && count($word->pronunciations) == 0) {echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id);}
-	elseif (count($word->pronunciations) == 0) {echo $this->Html->link(__('Record a Pronunciation'), '/login?redirect=/pronunciations/add/' .$word->id);}
-											?>
+				<?php 
+					if (count($word->pronunciations) == 0) {
+							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word->id, ['class' => 'button blue nl', 'escape' => false]);
+					}
+				?>
 	</div>
+
 	<div class='c'>
 	<div class="word">
 		<!--<h3>
@@ -267,5 +311,34 @@
 											['class' => 'button blue', 'escape' => false]);?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<?=__("Something missing from this entry? Inaccurate? Feel free to suggest an edit.")?></p>
 	</div>
+<div class="shareFooter">
+	Share this word:<br>
+	<div class="shareFooterIcons">
+		<?= $this->cell('Share', [$word]) ?>
+	</div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("shareToggle");
+    const dropdown = document.getElementById("shareDropdown");
+
+    dropdown.style.display = "none";
+
+    toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === "none" ? "flex" : "none";
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== toggle) {
+            dropdown.style.display = "none";
+        }
+    });
+
+    dropdown.addEventListener("click", (e) => e.stopPropagation());
+});
+</script>
 </section>
 

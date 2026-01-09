@@ -17,7 +17,10 @@ class SentenceRecordingsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    
+    public function initialize(): void  {
+        parent::initialize();
+        $this->loadComponent('ProcessFile');
+    }
     
     public function index()
     {
@@ -161,7 +164,7 @@ class SentenceRecordingsController extends AppController
         
         
         if ($this->SentenceRecordings->save($sentenceRec)) {
-            $this->converttomp3($sentenceRec->sound_file);
+            $this->Processfile->converttomp3($sentenceRec->sound_file);
             Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . strip_tags($sentenceRec->sentence->sentence) . ' \/\/ '. $sentenceRec->sentence->word_id . ' \/\/ ' . $sentenceRec->sentence->id, ['scope' => ['events']]);
             $this->Flash->success(__('The recording has been approved.'));
         } else {

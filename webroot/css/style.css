@@ -206,6 +206,9 @@ h6 {
     font-size: 16px; /* Adjust the font size as needed */
 }
 
+.search-results-header {
+    display:inline-block; margin-right: 1.5em
+}
 /*.button.blue {
     background-color: #007bff;
     color: white;
@@ -550,16 +553,27 @@ a.disabled:hover {
     background: red;
 }
 
+td .button.red {
+    color: #fff;
+    padding: 3px;
+    width: 80px;
+    margin-bottom: 3px;
+    border: 1px #0071E0 solid;
+    background: red;
+}
+
 .button.orange {
     color: #fff;
-    padding: 10px;
+    padding: 3px;
+    width: 80px;
+    margin-bottom: 3px;
     border: 1px #0071E0 solid;
     background: orange;
 }
 
 .button.green {
     color: #fff;
-    padding: 10px;
+    padding: 3px;
     border: 1px #0071E0 solid;
     background: green;
 }
@@ -661,7 +675,9 @@ textarea {
 }
 
 #btmsearch {
-    width: 87%;
+    height: 31px;
+    border: 1px #c1c1c1 solid;
+    width: 89%;
     float: left;
     margin-left: 8px;
     margin-right: 2px;
@@ -1008,7 +1024,7 @@ input#search {
     border: 1px #fff solid;
     font-size: 12px;
     width: 120px;
-    margin-top: 3px;
+    margin-top: -5px;
     float: left;
     padding: 3px 7px;
     border-radius: 15px;
@@ -1706,6 +1722,64 @@ nav#browsealpha {
     float: right;
 }
 
+
+.flexDiv {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    position: relative;
+}
+
+.shareDropdown {
+    display: none; 
+	position: absolute; 
+	top: 100%; 
+	left: 50%;
+	transform: translateX(-50%);
+	flex-direction: column;
+	background: white; 
+    border: 1px solid #ccc; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    padding: 0.5em; 
+    z-index: 999; 
+    white-space: nowrap;
+    margin-top: 9px;
+    gap: 0.5em;
+    width: max-content;
+}
+
+.trianglePointer {
+    position: absolute; 
+    top: -10px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+    border-bottom: 10px solid white;
+}
+
+.shareLink {
+    align-items: center; 
+    gap: 0.5em; 
+    padding: 0.25em 0; 
+    color:black;
+}
+
+.shareFooter {
+    padding: 2em;
+    border-top: 1px solid #ddd;
+    font-weight: bold;
+    line-height: 1.6;
+    display: block;
+}
+
+.shareFooterIcons {
+    display: flex;
+    margin-top: 0.5em;
+    gap: 1em;
+}
+
 #flashMessage {
     color: #fff;
     background: #b00;
@@ -2331,7 +2405,7 @@ textarea {
     color: green;
 }
 
-.btn-record {
+.btn-record, .btn-record2 {
     padding: 5px;
     /*height: 31px;*/
     color: white;
@@ -2341,7 +2415,32 @@ textarea {
     font-size: 13px;
 }
 
-a.btn-record:hover {
+.btn-record-disabled,
+.btn-record:disabled {
+    background-color: #ccc !important;
+    color: #888 !important;
+    border: 1px solid #aaa !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+video {
+    height: 34px;
+}
+
+.edit_table td, .edit_table th {
+    padding: 10px;
+}
+
+.edit_table td:has(.button.red, .button.orange, .button.green) {
+    padding: 2px;
+}
+
+.edit_table tr:not(:last-child) {
+      border-bottom: 1px solid black; /* Or your desired border style */
+    }
+
+a.btn-record:hover, a.btn-record2:hover {
     padding: 5px;
     /*height: 31px;*/
     color: white;

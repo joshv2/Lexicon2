@@ -153,9 +153,22 @@ class PronunciationsController extends AppController {
      */
     public function edit($wordid, $id = null)
     {
-        $pronunciation = $this->Pronunciations->get($id, [
-            'contain' => [],
-        ]);
+        // Fail gracefully if no id passed
+        if (empty($id)) {
+            $this->Flash->error(__('No pronunciation id provided.'));
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
+        // Handle missing record
+        try {
+            $pronunciation = $this->Pronunciations->get($id, [
+                'contain' => [],
+            ]);
+        } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+            $this->Flash->error(__('Pronunciation not found.'));
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
@@ -165,7 +178,7 @@ class PronunciationsController extends AppController {
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling  . ' \/\/', ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been denied.'));
 
-                return $this->redirect(['action' => 'manage', $id]);
+                return $this->redirect(['action' => 'manage', $wordid]);
             }
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
@@ -208,7 +221,7 @@ class PronunciationsController extends AppController {
         
         if (1 == $word->approved) {
             if ($this->Pronunciations->save($pronunciation)) {
-                $this->converttomp3($pronunciation->sound_file);
+                $this->Processfile->converttomp3($pronunciation->sound_file);
                 Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $pronunciation->spelling . ' \/\/ ' . $wordid, ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been approved.'));
             } else {

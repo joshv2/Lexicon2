@@ -50,7 +50,7 @@ class DictionariesTable extends Table
         ]);
 
         $this->belongsTo('Languages', [
-            'foreignKey' => 'langauge_id',
+            'foreignKey' => 'language_id',
             'joinType' => 'INNER',
         ]);
     }

@@ -1,52 +1,53 @@
 (function() {
     var theBlob;
     var theStream;
-    // window.addEventListener('DOMContentLoaded', () => {
-    // window.InitializeRecorder = function(recordBtn) {
+
     window.openRecorder = async(callback) => {
-        // const getMic = document.getElementById('mic');
-        // const recordButton = document.getElementById('record');
-        // const recordButton = recordBtn;
-        // const list = document.getElementById('recordings');
         if ('MediaRecorder' in window) {
-            // recordBtn.addEventListener('click', async (e) => {
-            // getMic.setAttribute('hidden', 'hidden');
             try {
                 theStream = await navigator.mediaDevices.getUserMedia({
                     audio: true,
                     video: false
                 });
-                const mimeType = 'audio/webm';
+
+                // Pick a mime type that works on iOS Safari
+                let mimeType;
+                if (MediaRecorder.isTypeSupported('audio/mp4')) {
+                    mimeType = 'audio/mp4';
+                } else if (MediaRecorder.isTypeSupported('audio/webm')) {
+                    mimeType = 'audio/webm';
+                } else {
+                    mimeType = 'audio/wav'; // fallback
+                }
+
                 let chunks = [];
-                const recorder = new MediaRecorder(theStream, { type: mimeType });
+                const recorder = new MediaRecorder(theStream, { mimeType: mimeType });
+
                 recorder.addEventListener('dataavailable', event => {
                     if (typeof event.data === 'undefined') return;
                     if (event.data.size === 0) return;
                     chunks.push(event.data);
                 });
+
                 recorder.addEventListener('stop', () => {
-                    const recording = new Blob(chunks, {
-                        type: mimeType
-                    });
+                    const recording = new Blob(chunks, { type: mimeType });
                     const list = document.getElementById('recordings');
                     renderRecording(recording, list);
                     chunks = [];
                 });
+
                 openRecordDialog(recorder, callback);
             } catch {
                 renderError(
                     'You denied access to the microphone so this feature will not work.'
                 );
             }
-            // });
         } else {
             renderError(
                 "Sorry, your browser doesn't support the MediaRecorder API, so this feature will not work."
             );
         }
     }
-
-    //   });
 
     function renderError(message) {
         const main = document.getElementById('main');

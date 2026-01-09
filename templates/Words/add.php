@@ -93,8 +93,15 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                             </td>
                                             <td style="vertical-align: top;">
                                                 <span class="record-success" style="display: none;"> <?= __('Recorded') ?> <i class="fa-solid fa-check"></i></span>
-                                                <?= $this->Form->button(__('Record'), ['class' => 'btn-record button', 'id' => 'record']);?>
-                                                <?= $this->Form->control('soundfile' . $i, [
+                                                    <?= $this->Form->button(
+                                                        __('Record'),
+                                                        [
+                                                            'class' => 'btn-record button' . ('edit' == $controllerName ? ' btn-record-disabled' : ''),
+                                                            'id' => 'record',
+                                                            'disabled' => ('edit' == $controllerName)
+                                                        ]
+                                                    );?>                                                
+                                                    <?= $this->Form->control('soundfile' . $i, [
                                                     'class' => 'recording-input',
                                                     'type' => 'file',
                                                     'style' => 'display:none',
@@ -144,12 +151,12 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                     <?php 
                                     if ('edit' == $controllerName && count($wordData['pronunciations']) > 0) { 
                                         if ($pronunciationCount === 0) {
-                                            echo __('No Pronunciations Recorded');
+                                            echo __('No Pronunciations Recorded - ' . $this->Html->link('Add a Pronunciation', '/pronunciations/add/' . $word->id));
                                         } else {
                                             echo $this->Html->link(__('Review/Arrange Recordings') . ' (' . $pronunciationCount . ')', 
                                                                         ['controller' => 'Pronunciations', 
                                                                          'action' => 'manage', $wordData['id']], 
-                                                                        ['class' => 'btn-record button', 
+                                                                        ['class' => 'btn-record2 button', 
                                                                          'title' => 'Click here to listen to submitted recordings and to change the order in which the recordings appear on the word page']);
                                         } 
                                     } else echo '';?>    
