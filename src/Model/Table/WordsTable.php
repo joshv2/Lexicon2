@@ -489,24 +489,24 @@ class WordsTable extends Table
          * 1 = word/alternate contains an approximation
          */
         $spellingmatch = $query->newExpr()->case()
-            ->when($query->newExpr('Words.spelling = :exact'))
+            ->when($query->newExpr()->eq('Words.spelling', $exact))
             ->then(5)
-            ->when($query->newExpr('a.spelling = :exact'))
+            ->when($query->newExpr()->eq('a.spelling', $exact))
             ->then(4)
-            ->when($query->newExpr('Words.spelling LIKE :prefix'))
+            ->when($query->newExpr()->like('Words.spelling', $prefix))
             ->then(3)
-            ->when($query->newExpr('a.spelling LIKE :prefix'))
+            ->when($query->newExpr()->like('a.spelling', $prefix))
             ->then(2)
-            ->when($query->newExpr('Words.spelling LIKE :like'))
+            ->when($query->newExpr()->like('Words.spelling', $like))
             ->then(1)
-            ->when($query->newExpr('a.spelling LIKE :like'))
+            ->when($query->newExpr()->like('a.spelling', $like))
             ->then(1)
             ->else(0);
 
         $query
             ->select([
-                'id' => 'Words.id',
-                'spelling' => 'Words.spelling',
+                'Words.id',
+                'Words.spelling',
                 'alternates' => $query->func()->group_concat(['a.spelling' => 'identifier']),
                 'spellingmatch' => $spellingmatch
             ])
@@ -516,9 +516,9 @@ class WordsTable extends Table
             ])
             ->andWhere(
                 $query->newExpr()->or([
-                    $query->newExpr('Words.spelling = :exact'),
-                    $query->newExpr('Words.spelling LIKE :like'),
-                    $query->newExpr('a.spelling LIKE :like'),
+                    $query->newExpr()->eq('Words.spelling', $exact),
+                    $query->newExpr()->like('Words.spelling', $like),
+                    $query->newExpr()->like('a.spelling', $like),
                 ])
             )
             ->groupBy(['Words.id'])
@@ -527,11 +527,6 @@ class WordsTable extends Table
                 'Words.spelling' => 'ASC',
                 'Words.id' => 'ASC',
             ]);
-
-        // Bind parameters
-        $query->bind(':exact', $exact, 'string');
-        $query->bind(':prefix', $prefix, 'string');
-        $query->bind(':like', $like, 'string');
 
         return $query;
     }
