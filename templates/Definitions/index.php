@@ -5,7 +5,7 @@
  */
 ?>
 <div class="definitions index content">
-    <?= $this->Html->link(__('New Definition'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('New Definition'), ['action' => 'add', $word->id], ['class' => 'button float-right']) ?>
     <h3><?= __('Definitions') ?></h3>
     <div class="table-responsive">
         <table>

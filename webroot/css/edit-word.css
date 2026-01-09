@@ -1,0 +1,110 @@
+/* Overall page container */
+.edit-word-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* Page title */
+.edit-word-container h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Headings */
+.edit-word-container h3 {
+    margin-top: 30px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #444;
+}
+
+/* Form controls */
+.edit-word-container .input {
+    margin-bottom: 20px;
+}
+
+.edit-word-container label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.edit-word-container input[type="text"],
+.edit-word-container textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-word-container input[type="text"]:focus,
+.edit-word-container textarea:focus {
+    border-color: #0068d4;
+    box-shadow: 0 0 0 3px rgba(0, 104, 212, 0.2);
+    outline: none;
+}
+
+/* Quill editor appearance */
+.ql-container {
+    border-radius: 8px !important;
+    min-height: 180px;
+}
+
+.ql-toolbar {
+    border-radius: 8px 8px 0 0;
+}
+
+#etymology-editor, #notes-editor {
+    background: #fafafa;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid #ddd;
+}
+
+/* Divider */
+.edit-word-container hr {
+    margin: 30px 0;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Save button */
+.edit-word-container button[type="submit"] {
+    background: #0068d4;
+    border: none;
+    color: #fff;
+    padding: 12px 22px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s;
+}
+
+.edit-word-container button[type="submit"]:hover {
+    background: #0054ad;
+}
+
+.edit-word-container button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .edit-word-container {
+        padding: 20px;
+    }
+
+    .edit-word-container h1 {
+        font-size: 1.7rem;
+    }
+}

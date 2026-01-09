@@ -83,6 +83,40 @@ use Cake\Routing\RouteBuilder;
         ['controller' => 'Words', 'action' => 'view'],
         ['id' => '[0-9]+', 'pass' => ['id']]);
 
+    $builder->connect(
+            '/origins/word/{wordId}',
+            ['controller' => 'OriginsWords', 'action' => 'index'],
+            ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+        );
+
+    $builder->connect(
+        '/origins/word/{wordId}/add',
+        ['controller' => 'OriginsWords', 'action' => 'addByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+
+    $builder->connect(
+        '/regions/word/{wordId}',
+        ['controller' => 'RegionsWords', 'action' => 'indexByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+    $builder->connect(
+        '/regions/word/{wordId}/add',
+        ['controller' => 'RegionsWords', 'action' => 'addByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+
+    $builder->connect(
+        '/types/word/{wordId}',
+        ['controller' => 'TypesWords', 'action' => 'indexByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+    $builder->connect(
+        '/types/word/{wordId}/add',
+        ['controller' => 'TypesWords', 'action' => 'addByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+
     $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
 
 
@@ -99,8 +133,13 @@ use Cake\Routing\RouteBuilder;
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
+    $builder->connect(
+        '/sentences/{wordId}',
+        ['controller' => 'Sentences', 'action' => 'index'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+
     $builder->fallbacks();
-    
 });
 
 /*

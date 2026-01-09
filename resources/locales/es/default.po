@@ -72,7 +72,7 @@ msgid "The word has been saved."
 msgstr "Se ha guardado la palabra"
 
 msgid "Submit"
-msgstr "Someter"
+msgstr "Enviar"
 
 msgid "Delete"
 msgstr "Borrar"
@@ -406,7 +406,7 @@ msgid "Thank you"
 msgstr ""
 
 msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
-msgstr ""
+msgstr "Gracias por enviar una entrada al léxico judío latinoamericano."
 
 msgid "See your entry"
 msgstr ""

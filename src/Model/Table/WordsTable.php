@@ -138,19 +138,6 @@ class WordsTable extends Table
             //->requirePresence('notes', 'create')
             ->allowEmptyString('notes', 'true');
 
-        /*$validator
-            ->scalar('full_name');*/
-            //->requirePresence('full_name', 'create')
-            //->notEmptyString('full_name');
-
-        /*$validator
-            ->boolean('approved')
-            ->requirePresence('approved', 'create')
-            ->notEmptyString('approved');
-
-        $validator
-            ->email('email');*/
-
 
         return $validator;
     }

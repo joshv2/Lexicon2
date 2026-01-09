@@ -16,15 +16,23 @@ class OriginsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(?int $wordId = null)
     {
-        $sitelang = $this->request->getAttribute('sitelang');
+        $query = $this->Origins
+                    ->find()
+                    ->contain(['Words']);
+        
+        if($wordId){
+            $query->where(['Origins.word_id' => $wordId]);
+        }
+        $origins = $this->paginate($this->Origins);
+        /*$sitelang = $this->request->getAttribute('sitelang');
         $this->paginate = [
             'contain' => ['Languages']
         ];
         $origins = $this->paginate($this->Origins->find()->where(['language_id' => $sitelang->id]));
-
-        $this->set(compact('origins'));
+        */
+        $this->set(compact('origins', 'wordId'));
     }
 
     /**
@@ -113,5 +121,14 @@ class OriginsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function word(int $wordId)
+    {
+        $word = $this->Origins->Words->get($wordId);
+        $query = $this->Origins->getOriginsForWordIdQuery($wordId);
+        $origins = $this->paginate($query);
+        $this->set(compact('origins', 'word'));
+        $this->render('index');
     }
 }

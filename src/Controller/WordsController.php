@@ -243,6 +243,7 @@ class WordsController extends AppController {
         #$len_other_origins = $ortd_origins['lenotherortd'];
         $total_origins = $ortd_origins['totalortd'];
         $etymology = $word['etymology'];
+        $notes = $word['notes'];
         $ortd_types = $this->process_ortd($word['types'], 'type');
         $new_types = $ortd_types['newortd'];
         $other_types = $ortd_types['otherortd'];
@@ -261,7 +262,7 @@ class WordsController extends AppController {
         return compact('word_id', 'spelling', 'sentences', 'sentences_count', 
                         'pronunciations', 'pronunciations_count', 'definitions', 
                         'total_definitions', 'new_origins', 'other_origins', 'total_origins', 
-                        'etymology', 'new_types', 'other_types', 'total_types', 'new_regions', 
+                        'etymology', 'notes', 'new_types', 'other_types', 'total_types', 'new_regions', 
                         'other_regions', 'total_regions', 'new_dictionaries', 
                         'other_dictionaries', 'total_dictionaries', 'alternates', 'spellingList');
     }
@@ -501,16 +502,42 @@ class WordsController extends AppController {
 
         if ($this->loggedin && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
             
-            $this->set($this->get_word_data($word));
-            $this->set('isEdit', true);
-            return $this->render('view');
-            
+            $word = $this->Words->get($id);
+
+            if ($this->request->is(['patch', 'post', 'put'])) {
+
+                $data = $this->request->getData();
+
+                // Handle Quill JSON fields from hidden inputs set by JavaScript.
+                if (!empty($data['etymology_json'])) {
+                    $word->etymology_json = $data['etymology_json'];
+                }
+
+                if (!empty($data['notes_json'])) {
+                    $word->notes_json = $data['notes_json'];
+                }
+
+                // Also allow normal plain-text versions
+                $word->spelling  = $data['spelling'] ?? $word->spelling;
+                $word->etymology = $data['etymology'] ?? $word->etymology;
+                $word->notes     = $data['notes'] ?? $word->notes;
+
+                if ($this->Words->save($word)) {
+                    $this->Flash->success(__('The word has been updated.'));
+                    return $this->redirect(['action' => 'view', $word->id]);
+                }
+
+                $this->Flash->error(__('The word could not be saved. Please, try again.'));
+            }
+
+            $this->set(compact('word'));
+            $this->render('base_word_edit');
 
         } else {
             return $this->redirect([
                 'controller' => 'Suggestions',
                 'action' => 'add',
-                $word->id
+                $word['id']
             ]);
         }
     }
@@ -566,6 +593,39 @@ class WordsController extends AppController {
 
         return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
     }
+
+    public function baseWordEdit($id = null) {
+        $word = $this->Words->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $data = $this->request->getData();
+
+            // Handle Quill JSON fields from hidden inputs set by JavaScript.
+            if (!empty($data['etymology_json'])) {
+                $word->etymology_json = $data['etymology_json'];
+            }
+
+            if (!empty($data['notes_json'])) {
+                $word->notes_json = $data['notes_json'];
+            }
+
+            // Also allow normal plain-text versions
+            $word->spelling  = $data['spelling'] ?? $word->spelling;
+            $word->etymology = $data['etymology'] ?? $word->etymology;
+            $word->notes     = $data['notes'] ?? $word->notes;
+
+            if ($this->Words->save($word)) {
+                $this->Flash->success(__('The word has been updated.'));
+                return $this->redirect(['action' => 'view', $word->id]);
+            }
+
+            $this->Flash->error(__('The word could not be saved. Please, try again.'));
+        }
+
+        $this->set(compact('word'));
+    }
+           
 
     public function success() {
 

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+
 use Cake\Log\Log;
 
 /**
@@ -15,16 +16,29 @@ class SentencesController extends AppController
     /**
      * Index method
      *
+     * If $wordId is provided, only show sentences for that word.
+     *
+     * @param int|null $wordId Word id to filter by.
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(?int $wordId = null)
     {
+        // Paginator settings should be paginator-only (limit/order/etc), not query options like contain.
         $this->paginate = [
-            'contain' => ['Words'],
+            'limit' => 25,
+            'order' => ['Sentences.id' => 'DESC'],
         ];
-        $sentences = $this->paginate($this->Sentences);
 
-        $this->set(compact('sentences'));
+        $query = $this->Sentences->find()
+            ->contain(['Words']);
+
+        if ($wordId !== null) {
+            $query->where(['Sentences.word_id' => $wordId]);
+        }
+
+        $sentences = $this->paginate($query);
+
+        $this->set(compact('sentences', 'wordId'));
     }
 
     /**
@@ -48,20 +62,35 @@ class SentencesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $sentence = $this->Sentences->newEmptyEntity();
+
         if ($this->request->is('post')) {
-            $sentence = $this->Sentences->patchEntity($sentence, $this->request->getData());
+            $data = $this->request->getData();
+
+            // Force word_id from the URL if provided
+            if ($id !== null) {
+                $data['word_id'] = (int)$id;
+            }
+
+            // Convert Quill delta JSON -> HTML + sentence_json
+            $data = $this->processQuillSentence($data);
+
+            $sentence = $this->Sentences->patchEntity($sentence, $data);
             if ($this->Sentences->save($sentence)) {
                 $this->Flash->success(__('The sentence has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // If word_id exists, go back to the word-scoped index
+                return $this->redirect(['action' => 'index', $sentence->word_id]);
             }
+
             $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
         }
+
+        $wordId = $id;
         $words = $this->Sentences->Words->find(type: 'list', options: ['limit' => 200]);
-        $this->set(compact('sentence', 'words'));
+        $this->set(compact('sentence', 'words', 'wordId'));
     }
 
     /**
@@ -73,20 +102,62 @@ class SentencesController extends AppController
      */
     public function edit($id = null)
     {
-        $sentence = $this->Sentences->get($id, [
-            'contain' => [],
-        ]);
+        $sentence = $this->Sentences->get($id);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $sentence = $this->Sentences->patchEntity($sentence, $this->request->getData());
+            $data = $this->request->getData();
+
+            // Convert Quill delta JSON -> HTML + sentence_json
+            $data = $this->processQuillSentence($data);
+
+            $sentence = $this->Sentences->patchEntity($sentence, $data);
             if ($this->Sentences->save($sentence)) {
                 $this->Flash->success(__('The sentence has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $sentence->word_id]);
             }
+
             $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
         }
+
         $words = $this->Sentences->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentence', 'words'));
+    }
+
+    /**
+     * If sentence is Quill Delta JSON, store it in sentence_json and render HTML into sentence.
+     */
+    private function processQuillSentence(array $data): array
+    {
+        $raw = $data['sentence'] ?? null;
+        if (!is_string($raw)) {
+            return $data;
+        }
+
+        $rawTrim = trim($raw);
+        if ($rawTrim === '') {
+            return $data;
+        }
+
+        $decoded = json_decode($rawTrim, true);
+
+        // Only treat it as Quill if it decodes and has ops
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded) || !isset($decoded['ops'])) {
+            return $data;
+        }
+
+        // Treat a blank delta as empty content
+        if ($rawTrim === '{"ops":[{"insert":"\n"}]}') {
+            $data['sentence'] = '';
+            $data['sentence_json'] = $rawTrim;
+            return $data;
+        }
+
+        $data['sentence_json'] = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+
+        $quill = new \nadar\quill\Lexer($rawTrim);
+        $data['sentence'] = $quill->render() ?? '';
+
+        return $data;
     }
 
     /**
