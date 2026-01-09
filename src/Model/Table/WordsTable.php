@@ -469,85 +469,73 @@ class WordsTable extends Table
         return $query;
     }
 
-    public function findSearchResults(SelectQuery $query, string $querystring, int $langid){
-               
-        $querystring = addslashes($querystring);
-        $langid = $langid;
-        $query = $this->find();
-        $query = $query->join([
+    public function findSearchResults(SelectQuery $query, string $querystring, int $langid) {
+        $q = trim($querystring);
+        if ($q === '') {
+            return $query->where(['1 = 0']);
+        }
 
-                        'a' => [
-                            'table' => 'alternates',
-                            'type' => 'LEFT',
-                            'conditions' => 'Words.id = a.word_id'
-                        ]]);
+        $exact  = $q;
+        $prefix = $q . '%';
+        $like   = '%' . $q . '%';
 
+        $query->leftJoin(['a' => 'alternates'], 'Words.id = a.word_id');
 
-        $spellingmatch = $query->newExpr()
-                    ->case()
-                    ->when(['Words.spelling LIKE' => $querystring])
-                    ->then(2)
-                    ->when(['a.spelling LIKE' => $querystring])
-                    ->then(2)
-                    ->when(['Words.spelling LIKE' => '%'.$querystring.'%'])
-                    ->then(1)
-                    ->when(['a.spelling LIKE' => '%'.$querystring.'%'])
-                    ->then(1)
-                    ->else(0);
+        /**
+         * 5 = exact
+         * 4 = exact alternate
+         * 3 = word starts with an approximation
+         * 2 = alternate starts with an approximation
+         * 1 = word/alternate contains an approximation
+         */
+        $spellingmatch = $query->newExpr()->case()
+            ->when($query->newExpr('Words.spelling = :exact'))
+            ->then(5)
+            ->when($query->newExpr('a.spelling = :exact'))
+            ->then(4)
+            ->when($query->newExpr('Words.spelling LIKE :prefix'))
+            ->then(3)
+            ->when($query->newExpr('a.spelling LIKE :prefix'))
+            ->then(2)
+            ->when($query->newExpr('Words.spelling LIKE :like'))
+            ->then(1)
+            ->when($query->newExpr('a.spelling LIKE :like'))
+            ->then(1)
+            ->else(0);
 
-        $query = $query->select(['id','spelling',
-                                 'alternates'=> 'group_concat(a.spelling)', 
-                                 'spellingmatch' => $spellingmatch
-                                 ])
-                        ->where(['language_id' => $langid, 'OR' => [['Words.spelling LIKE' => '%'.$querystring.'%'],
-                                         ['a.spelling LIKE' => '%'.$querystring.'%'],
-                                         ], 'approved' => 1])
-                        ->groupBy(['Words.id'])
-                        ->orderBy(['spellingmatch' => 'DESC', 'Words.spelling' => 'ASC']);
+        $query
+            ->select([
+                'id' => 'Words.id',
+                'spelling' => 'Words.spelling',
+                'alternates' => $query->func()->group_concat(['a.spelling' => 'identifier']),
+                'spellingmatch' => $spellingmatch
+            ])
+            ->where([
+                'Words.language_id' => $langid,
+                'Words.approved' => 1,
+            ])
+            ->andWhere(
+                $query->newExpr()->or([
+                    $query->newExpr('Words.spelling = :exact'),
+                    $query->newExpr('Words.spelling LIKE :like'),
+                    $query->newExpr('a.spelling LIKE :like'),
+                ])
+            )
+            ->groupBy(['Words.id'])
+            ->orderBy([
+                'spellingmatch' => 'DESC',
+                'Words.spelling' => 'ASC',
+                'Words.id' => 'ASC',
+            ]);
+
+        // Bind parameters
+        $query->bind(':exact', $exact, 'string');
+        $query->bind(':prefix', $prefix, 'string');
+        $query->bind(':like', $like, 'string');
 
         return $query;
     }
 
-    /**
-     * Finder to compute origin counts for a given search query and language.
-     * Returns rows with keys: origin, cnt (hydration disabled => arrays).
-     * Usage: $this->find('originCounts', ['querystring' => $q, 'langid' => $langid])
-     */
-    public function findOriginCounts(Query $query, array $options) {
-        $querystring = $options['querystring'] ?? '';
-        $langid = $options['langid'] ?? null;
-
-        // Build a subquery that returns only the IDs of Words matching the search criteria.
-        $searchResultsSub = $this->find('searchResults', ['querystring' => $querystring, 'langid' => $langid]);
-        $idsSubquery = $this->find()
-            ->select(['id'])
-            ->from(['sr' => $searchResultsSub])
-            ->enableHydration(false);
-
-        // Aggregate origins by counting distinct word IDs that appear in origins_words
-        $originQuery = $this->find()
-            ->select([
-                'origin' => 'Origins.origin',
-                'cnt' => $query->func()->count('DISTINCT Words.id')
-            ])
-            ->join([
-                'ow' => [
-                    'table' => 'origins_words',
-                    'type' => 'INNER',
-                    'conditions' => 'Words.id = ow.word_id'
-                ],
-                'Origins' => [
-                    'table' => 'origins',
-                    'type' => 'INNER',
-                    'conditions' => 'Origins.id = ow.origin_id'
-                ]
-            ])
-            ->where(['Words.id IN' => $idsSubquery])
-            ->group(['Origins.origin'])
-            ->enableHydration(false);
-
-        return $originQuery;
-    }
 
     public function findWithSpelling($spelling){
         if(isset($spelling["spelling"])){
