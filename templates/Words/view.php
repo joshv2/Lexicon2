@@ -243,7 +243,7 @@
                 }
             ?>
         </p>
-
+		<?php if ($this->Identity->isLoggedIn()): ?>
         <p>
             <?= $this->Html->link(
                 '<i class="fa-solid fa-plus"></i> ' . __('Add a Sentence'),
@@ -251,6 +251,7 @@
                 ['class' => 'button blue', 'escape' => false]
             ) ?>
         </p>
+		<?php endif; ?>
     </div>
 </div>
 
