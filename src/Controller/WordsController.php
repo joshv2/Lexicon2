@@ -21,6 +21,8 @@ use Cake\ORM\TableRegistry;
  * @method \App\Model\Entity\Word[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class WordsController extends AppController {
+
+    protected bool $loggedin = false;
     
     public function initialize(): void  {
         parent::initialize();
