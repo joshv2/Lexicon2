@@ -20,7 +20,7 @@ class LogoCell extends Cell
     public function display()
     {
         //$sitelang = $this->request->getAttribute('sitelang');
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         debug($sitelang);
         $this->set('sitei18n', $sitelang->i18nspec);
     }

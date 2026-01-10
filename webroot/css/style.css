@@ -1336,17 +1336,7 @@ nav#browsealpha {
 
 /* Page header */
 
-.page-header {
-    margin: 0;
-    border-bottom: 1px #ccc solid;
-    background: #0A3C78;
-    border-radius: 5px 5px 0 0;
-    color: #fff;
-    padding: 0 20px;
-    padding-bottom: 11px;
-}
-
-.page-header2 {
+.page-header, .page-header2 {
     margin: 0;
     border-bottom: 1px #ccc solid;
     background: #0A3C78;
@@ -1354,36 +1344,84 @@ nav#browsealpha {
     color: #fff;
     padding: 0 20px;
     padding-bottom: 6px;
+
+    display: flex;              
+    justify-content: space-between;
+    align-items: center;       
 }
 
-.page-header h2,
-.page-header2 h2 {
+.page-header2 {
+    line-height: 0.75;
+}
+
+.left-group {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;  
+    margin-top: 23px;      /* space between title and edit link */
+}
+
+.right-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Shared button styles */
+.right-group .btn-blue,
+.right-group .btn-red {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    height: 32px;           /* EXACT same height */
+    border: none;
     font-size: 14px;
-    margin: 0;
-    /*margin: 10px 0;*/
-    padding-top: 14px;
-    font-size: 22px;
-    text-transform: uppercase;
-    letter-spacing: .1em;
+    line-height: 1;         /* prevents weird vertical offsets */
+    text-decoration: none;  /* for <a> buttons */
+    cursor: pointer;
+    color: #fff;
 }
 
-.page-header h2.left,
-.page-header2 h2.left {
-    float: left;
+/* Specific colors */
+.right-group .btn-blue {
+    background: linear-gradient(to bottom, #0096FF, #005DFF);
+    background-color: #0079FF; 
+    font-weight: bold;
+}
+.right-group .btn-blue:hover {
+    background-color: #0869A7;
+    background: linear-gradient(to bottom, #0086E6, #004EE6);
 }
 
-.page-header ul,
-.page-header2 ul {
+.right-group .btn-red {
+    background-color: red;   /* your red */
+}
+.right-group .btn-red:hover {
+    background-color: #A93226;
+}
+
+.page-header ul, .page-header2 ul {
     list-style: none;
     float: right;
     margin: 6px 0 0 0;
 }
 
-.page-header li,
-.page-header2 li {
+.page-header2 .edit-link {
+        color: #ff9900;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+.page-header li, .page-header2 li {
     float: left;
     margin: 0 0 0 12px;
 }
+
+.edit-page-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 
 .clear {
     clear: both;
@@ -2329,8 +2367,7 @@ textarea {
         width: 100%;
         text-align: left;
     }
-    .page-header h2,
-    .page-header2 h2 {
+    .page-header h2 {
         font-size: 14px;
         margin: 0;
         /* margin: 10px 0; */
@@ -2473,6 +2510,10 @@ a.btn-record:hover, a.btn-record2:hover {
     margin-bottom: 10px;
 }
 
+.spelling {
+    text-transform: uppercase;
+    font-size: 24px;
+}
 
 /*** Add/Edit Word Form ***/
 
@@ -2534,9 +2575,33 @@ label[for="alternates-0-spelling"] {
     width: 75%;
 }
 
+.pronunciation-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-left: 10px;
+}
+
 .table-container {
-    float: left;
-    width: 75%;
+    flex: 1;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    min-width: 250px;
+    text-align: right;
+}
+
+.buttons-container p {
+    margin: 10px 0;
+}
+
+.pronunciationtr td {
+    padding: 2px 2px;
 }
 
 .section-container {
@@ -2572,8 +2637,46 @@ label[for="alternates-0-spelling"] {
     height: 44px;
 }
 
+.sentences-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 40px;
+    align-items: center;   
+}
+
+.sentences-section {
+    flex: 1 1 auto;
+}
+
+/* Right column */
+.record-button-section {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sentences list styling */
+.sentences.multiple-items {
+    margin: 0;
+    padding-left: 18px;
+}
+
 .pronunciationtr2 {
-    min-height: 35px;
+    margin-bottom: 15px;
+}
+
+/* Mobile stacking */
+@media (max-width: 780px) {
+    .sentences-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .record-button-section {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .recordinglist {
@@ -2617,3 +2720,4 @@ label[for="alternates-0-spelling"] {
     background-color: #0A3C78;
     border-color: #0A3C78;
 }
+

@@ -28,6 +28,7 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use App\Middleware\SubdomainWordIdMiddleware;
+use App\Middleware\LanguageMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 /**
@@ -55,7 +56,7 @@ class Application extends BaseApplication
         $authenticators = Configure::read('Auth.Authenticators');
         $authenticators['Form']['fields']['username'] = 'email';
         Configure::write('Auth.Authenticators', $authenticators);
-
+        $this->addPlugin('CakephpFixtureFactories');
         //Configure::write('Users.config', ['users', 'permissions']);
         //Configure::write('Users.config', ['users']);
         //Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
@@ -111,8 +112,10 @@ class Application extends BaseApplication
             // creating the middleware instance specify the cache config name by
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
-            ->add(SubdomainWordIdMiddleware::class)
             ->add(new RoutingMiddleware($this))
+            ->add(SubdomainWordIdMiddleware::class)
+            ->add(LanguageMiddleware::class)
+            
 
             // Parse various types of encoded request bodies so that they are
             // available as array through $request->getData()

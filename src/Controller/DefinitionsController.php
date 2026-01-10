@@ -16,14 +16,18 @@ class DefinitionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(?int $wordId = null)
     {
-        $this->paginate = [
-            'contain' => ['Words'],
-        ];
+        $query = $this->Definitions
+            ->find()
+            ->contain(['Words']);
+
+        if ($wordId) {
+            $query->where(['Definitions.word_id' => $wordId]);
+        }
         $definitions = $this->paginate($this->Definitions);
 
-        $this->set(compact('definitions'));
+        $this->set(compact('definitions', 'wordId'));
     }
 
     /**
@@ -47,8 +51,9 @@ class DefinitionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
+        $wordId = $id;
         $definition = $this->Definitions->newEmptyEntity();
         if ($this->request->is('post')) {
             $definition = $this->Definitions->patchEntity($definition, $this->request->getData());
@@ -60,7 +65,7 @@ class DefinitionsController extends AppController
             $this->Flash->error(__('The definition could not be saved. Please, try again.'));
         }
         $words = $this->Definitions->Words->find(type: 'list', options: ['limit' => 200]);
-        $this->set(compact('definition', 'words'));
+        $this->set(compact('definition', 'words', 'wordId'));
     }
 
     /**
@@ -73,18 +78,21 @@ class DefinitionsController extends AppController
     public function edit($id = null)
     {
         $definition = $this->Definitions->get($id, [
-            'contain' => [],
+            'contain' => ['Words']   // <-- load the associated word
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $definition = $this->Definitions->patchEntity($definition, $this->request->getData());
             if ($this->Definitions->save($definition)) {
                 $this->Flash->success(__('The definition has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The definition could not be saved. Please, try again.'));
         }
-        $words = $this->Definitions->Words->find(type: 'list', options: ['limit' => 200]);
+
+        // If you still need the list of words for the <select>
+        $words = $this->Definitions->Words->find('list')->all();
+
         $this->set(compact('definition', 'words'));
     }
 
@@ -107,6 +115,24 @@ class DefinitionsController extends AppController
         }
 
         return $this->redirect(['controller' => 'Words', 'action' => 'edit', $wordid]);
+    }
+
+    public function word(int $wordId)
+    {
+        // Fetch the word record (for the page title, etc.)
+        $word = $this->Definitions->Words->get($wordId, [
+            'fields' => ['id', 'spelling']
+        ]);
+
+        // Use the custom finder
+        $query = $this->Definitions->find('byWordId', [
+            'word_id' => $wordId
+        ]);
+
+        $definitions = $this->paginate($query);
+
+        $this->set(compact('definitions', 'word'));
+        $this->render('index');
     }
 
 

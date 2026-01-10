@@ -190,7 +190,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<li><?php echo $this->Html->link(__('Add a New Word'), '/add');?></li>
 			</ul>
 			<div class="right">
-			<?php echo $this->Html->image("joint_logo.jpg", ['id' => 'jointlogo', 'width' => '100%']);?>
+			<?php echo $this->Html->image("joint_logo2.jpg", ['id' => 'jointlogo', 'width' => '100%']);?>
 			<p><?= $sitelang->name ?> - (C) 2012-present, Sarah Bunin Benor. Attribution: Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">Share-Alike</a> 4.0 International .</a></p>
 			</div>
 			<div class="clear"></div>

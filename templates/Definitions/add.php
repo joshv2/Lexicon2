@@ -17,7 +17,12 @@
             <fieldset>
                 <legend><?= __('Add Definition') ?></legend>
                 <?php
-                    echo $this->Form->control('word_id', ['options' => $words]);
+                    if (isset($wordId)) {
+                        echo $this->Form->control('word_id', ['type' => 'hidden', 'value' => $wordId]);
+                        echo "<p>Adding definition for word ID: " . h($wordId) . "</p>";
+                    } else {
+                        echo $this->Form->control('word_id', ['options' => $words]);
+                    }
                     echo $this->Form->control('definition');
                 ?>
             </fieldset>

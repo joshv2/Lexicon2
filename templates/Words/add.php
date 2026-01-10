@@ -15,6 +15,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
         $wordData = $this->request->getData();
     } else {
         $wordData = $word;
+        print_r($wordData);
     }
 }
 
@@ -40,7 +41,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     //Alternate Spellings
                     echo "<div class='form-group'>";
                     echo "<label>" . __('Alternate Spelling(s)') . "</label>";
-                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['alternates']) > 0) {
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName)
+                        && !empty($wordData['alternates']) && is_array($wordData['alternates']) && count($wordData['alternates']) > 0) {
 
                         $i = 0;
 
@@ -76,7 +78,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['pronunciations']) > 0): ?>
+                                <?php if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName)
+                                            && !empty($wordData['pronunciations']) && is_array($wordData['pronunciations']) && count($wordData['pronunciations']) > 0): ?>
                                     <?php $i = 0;
                                           while ($i < count($wordData['pronunciations'])){ ?>
                                           
@@ -178,7 +181,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<div class='form-group' id='pronunciationsgroup'>";
                     echo "<label>" . __('Definition(s)') . "</label>";
                     echo "<a class='add-editor'><i class='fa fa-plus' aria-hidden='true'></i> " . __('Add an additional definition') . "</a>";
-                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName)
+                        && !empty($wordData['definitions']) && is_array($wordData['definitions']) && count($wordData['definitions']) > 0) { //true == $word->{'hasErrors'} || 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'defintion';
 
@@ -222,7 +226,8 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                     echo "<div class='form-group' id='sentencesgroup'>";
                     echo "<label>" . __('Example Sentence(s)') . "</label>";
                     echo "<a class='add-editor2'><i class='fa fa-plus' aria-hidden='true'></i> " . __('Add an additional sentence') . "</a>";
-                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName) && count($wordData['sentences']) > 0) { 
+                    if ((null !== $this->request->getData('spelling') || 'edit' == $controllerName)
+                        && !empty($wordData['sentences']) && is_array($wordData['sentences']) && count($wordData['sentences']) > 0) { 
                         if(null !== $this->request->getData('spelling')){
                             $arrayLocation = 'sentence';
 

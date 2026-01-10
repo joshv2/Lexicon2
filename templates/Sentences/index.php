@@ -2,11 +2,20 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Sentence[]|\Cake\Collection\CollectionInterface $sentences
+ * @var int|null $wordId
  */
 ?>
 <div class="sentences index content">
-    <?= $this->Html->link(__('New Sentence'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Sentences') ?></h3>
+    <?= $this->Html->link(
+        __('New Sentence'),
+        $wordId !== null ? ['action' => 'add', $wordId] : ['action' => 'add'],
+        ['class' => 'button float-right']
+    ) ?>
+
+    <h3>
+        <?= $wordId !== null ? __('Sentences for Word #{0}', $wordId) : __('Sentences') ?>
+    </h3>
+
     <div class="table-responsive">
         <table>
             <thead>
@@ -31,6 +40,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>

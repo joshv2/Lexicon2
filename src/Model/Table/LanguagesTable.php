@@ -170,11 +170,16 @@ class LanguagesTable extends Table
     }
 
     public function get_language($subdomain){
-        //need to add logic around approved words
+        $query = $this->find()->select(['id', 'name', 'i18nspec', 'subdomain', 'HeaderImage', 
+                                        'LogoImage', 'hasDictionaries', 'hasOrigins', 'hasRegions',
+                                        'hasTypes', 'UTFRangeStart', 'UTFRangeEnd'])
+                    ->where(['subdomain' => $subdomain]);
+        return $query->first();
+    }
+
+    public function get_all_language($subdomain){
         $query = $this->find()
-                    ->where(['subdomain' => $subdomain])
-                    //->contain(['Alphabets'])
-                    ;
+                    ->where(['subdomain' => $subdomain]);             
         return $query->first();
     }
 

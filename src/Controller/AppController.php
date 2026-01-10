@@ -50,17 +50,10 @@ class AppController extends Controller
 
     protected ?Language $sitelang = null;
 
-    protected function languageinfo(): ?Language {
-        //array_map([$this, 'fetchTable'], ['Languages']);
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        
-        $urlparts1 = explode('//', $actual_link);
-        $urlparts2 = explode('.', $urlparts1[1]);
-        $reqsubdomain = $urlparts2[0];
-
-        return $this->fetchTable('Languages')->get_language($reqsubdomain);
-        //return $sitelangvalues;
-    }
+    protected function languageinfo(): ?Language
+        {
+            return $this->request->getAttribute('sitelang');
+        }
 
     public function getremainingcredits(){
         $cURLConnection = curl_init();
@@ -114,10 +107,10 @@ class AppController extends Controller
             'log' => false
         ];
 
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
 
 
-        if (null != $sitelang->i18nspec) {
+        if ($sitelang && !empty($sitelang->i18nspec)) {
             I18n::setLocale($sitelang->i18nspec);
         } else {
             I18n::setLocale('en_US');
