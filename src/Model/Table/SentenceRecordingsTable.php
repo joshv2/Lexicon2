@@ -78,8 +78,7 @@ class SentenceRecordingsTable extends Table
         $validator
             ->scalar('sound_file')
             ->maxLength('sound_file', 4000)
-            ->requirePresence('sound_file', 'create')
-            ->notEmptyFile('sound_file');
+            ->allowEmptyString('sound_file');
 
         return $validator;
     }

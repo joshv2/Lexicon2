@@ -62,52 +62,60 @@ class SentenceRecordingsController extends AppController
             $postData = $this->request->getData();
             $postData['user_id'] = $this->request->getSession()->read('Auth.id');
             $soundFiles = $this->request->getUploadedFiles();
-            // send soundfiles and the controller making the request
-            if ($this->Processfile->areThereAnyFiles($soundFiles)) {
-                if ($this->Processfile->checkFormats($soundFiles)) {
-                    $postData['sound_file'] = $this->Processfile->processSoundfiles($soundFiles, $controller = $this->request->getParam('controller'), $id = $id);
-                    if (sizeof($postData['sound_file']) > 0) {
-                        if (null !== $this->request->getSession()->read('Auth.username') 
-                                && 'superuser' == $this->request->getSession()->read('Auth.role')){
-                                    $datefortimestamp = date('Y-m-d h:i:s', time());
-                                    $postData['sentence_id'] = $id;
-                                    $postData['approved'] = 1;
-                                    $postData['approved_date'] = $datefortimestamp;
-                                    $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
 
-                                    $this->Processfile->convertMP3($postData['sound_file']);
-                                    $postData['sound_file'] = implode(' ,', $postData['sound_file']);
-                                    
-                        } 
-                        
-                        else {
-                            $postData['sound_file'] = implode(' ,', $postData['sound_file']);
-                            $postData['sentence_id'] = $id;
-                            $postData['approved'] = 0;
-                        }
-            
-                    
-                    
-                        $sentenceRecording = $this->SentenceRecordings->patchEntity($sentenceRecording, $postData);
-                        if ($this->SentenceRecordings->save($sentenceRecording)) {
-                            Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a sentence recoding for sentence ID ' . $id . ' \/\/ '. $sentences[0]->word_id . ' \/\/ ' . $id, ['scope' => ['events']]);
-                            $this->Flash->success(__('The sentence recording has been saved.'));
-                            
-                            return $this->redirect(['action' => 'success']);
-                        }
-                    } else {
-                        $this->Flash->error(__('Please record or upload a file in MP3 format.'));
-                    }
-                } else {
-                    $this->Flash->error(__('Please record or upload a recording before submitting.'));
-                }
-            } else {
-                $this->Flash->error(__('The sentence recording could not be saved. Please, try again.'));
+            // Recording is optional: if no file was provided, don't error and don't create a blank record.
+            if (!$this->Processfile->areThereAnyFiles($soundFiles)) {
+                $this->Flash->success(__('No recording submitted.'));
+                return $this->redirect(['action' => 'success']);
             }
+
+            // If they did submit something, validate format.
+            if (!$this->Processfile->checkFormats($soundFiles)) {
+                $this->Flash->error(__('Please record or upload a file in MP3 format.'));
+                goto render;
+            }
+
+            $processedFiles = $this->Processfile->processSoundfiles(
+                $soundFiles,
+                $controller = $this->request->getParam('controller'),
+                $id = $id
+            );
+
+            if (empty($processedFiles)) {
+                $this->Flash->success(__('No recording submitted.'));
+                return $this->redirect(['action' => 'success']);
+            }
+
+            $postData['sentence_id'] = $id;
+
+            if (null !== $this->request->getSession()->read('Auth.username')
+                && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+                $datefortimestamp = date('Y-m-d h:i:s', time());
+                $postData['approved'] = 1;
+                $postData['approved_date'] = $datefortimestamp;
+                $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+
+                $this->Processfile->convertMP3($processedFiles);
+            } else {
+                $postData['approved'] = 0;
+            }
+
+            $postData['sound_file'] = implode(' ,', $processedFiles);
+
+            $sentenceRecording = $this->SentenceRecordings->patchEntity($sentenceRecording, $postData);
+            if ($this->SentenceRecordings->save($sentenceRecording)) {
+                Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a sentence recoding for sentence ID ' . $id . ' \/\/ '. $sentences[0]->word_id . ' \/\/ ' . $id, ['scope' => ['events']]);
+                $this->Flash->success(__('The sentence recording has been saved.'));
+
+                return $this->redirect(['action' => 'success']);
+            }
+
+            $this->Flash->error(__('The sentence recording could not be saved. Please, try again.'));
         }
         //$sentences = $this->SentenceRecordings->Sentences->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('sentenceRecording', 'sentences'));
-        
+
+        render:
 
     }
 

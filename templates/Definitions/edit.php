@@ -28,7 +28,7 @@
         <?php endif; ?>
         <div class="definitions form content">
 
-            <?= $this->Form->create($definition) ?>
+            <?= $this->Form->create($definition, ['id' => 'definition-form']) ?>
             <fieldset>
                 <legend><?= __('Edit Definition') ?></legend>
 
@@ -54,6 +54,20 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+
+    const form = document.getElementById('definition-form');
+    const definitionJsonInput = document.getElementById('definition_json');
+    const definitionHtmlInput = document.getElementById('definition');
+
+    if (!form || !definitionJsonInput || !definitionHtmlInput) {
+        console.warn('Definition edit form inputs not found; cannot sync Quill fields.');
+        return;
+    }
+
+    if (typeof Quill === 'undefined') {
+        console.warn('Quill is not loaded; definition fields will not be updated from the editor.');
+        return;
+    }
 
     // Initialize Quill
     const quill = new Quill('#quill-editor', {
@@ -83,15 +97,19 @@ document.addEventListener("DOMContentLoaded", function() {
         quill.root.innerHTML = <?= json_encode($definition->definition ?? '') ?>;
     }
 
-    // On submit → update hidden form fields
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function () {
+    const syncHiddenFields = function () {
         const delta = quill.getContents();
         const html = quill.root.innerHTML;
 
-        document.getElementById('definition_json').value = JSON.stringify(delta);
-        document.getElementById('definition').value = html;
-    });
+        definitionJsonInput.value = JSON.stringify(delta);
+        definitionHtmlInput.value = html;
+    };
+
+    // Keep hidden fields updated continuously (covers non-standard submits too)
+    quill.on('text-change', syncHiddenFields);
+
+    // On submit → final sync
+    form.addEventListener('submit', syncHiddenFields);
 
 });
 </script>

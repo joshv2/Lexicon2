@@ -13,6 +13,7 @@
             <fieldset>
                 <legend><?= __('Add Pronunciation for ') . $word->spelling ?></legend>
                 <div class='readingSentence'></div>
+                <p><?= __('Recording is optional. You can submit spelling/phonetic spelling without an audio recording.') ?></p>
                 <div class="form-group">
                         <table>
                             <thead>
@@ -66,7 +67,7 @@
 
                     <a href="/notes/#bottom">View tips on making a high-quality recording.</a>
                 <?php
-                    echo $this->Form->hidden(__('word_id'), ['value' => $this->request->getParam('pass')[0]]);
+                    echo $this->Form->hidden('word_id', ['value' => $this->request->getParam('pass')[0]]);
                     //echo $this->Form->control('word_id', ['options' => $words]);
                     //echo $this->Form->control('spelling');
                     //echo $this->Form->control('sound_file');

@@ -5,7 +5,7 @@ class OriginsWordsController extends AppController
 {
     
     
-    public function indexByWord(int $wordId)
+    public function index(int $wordId)
     {
         $query = $this->OriginsWords->find()
             ->contain(['Origins'])
@@ -15,6 +15,7 @@ class OriginsWordsController extends AppController
         $originLinks = $this->paginate($query);
 
         $this->set(compact('originLinks', 'wordId'));
+
     }
 
     public function delete(int $id)
@@ -45,7 +46,7 @@ class OriginsWordsController extends AppController
 
             if ($this->OriginsWords->save($link)) {
                 $this->Flash->success('Origin link added.');
-                return $this->redirect(['action' => 'indexByWord', $wordId]);
+                return $this->redirect(['action' => 'index', $wordId]);
             }
 
             $this->Flash->error('Could not add origin link.');

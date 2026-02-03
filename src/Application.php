@@ -48,22 +48,16 @@ class Application extends BaseApplication
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-
-        $identifiers = Configure::read('Auth.Identifiers');
-        $identifiers['Password']['fields']['username'] = 'email';
-        Configure::write('Auth.Identifiers', $identifiers);
-
-        $authenticators = Configure::read('Auth.Authenticators');
-        $authenticators['Form']['fields']['username'] = 'email';
-        Configure::write('Auth.Authenticators', $authenticators);
         $this->addPlugin('CakephpFixtureFactories');
         //Configure::write('Users.config', ['users', 'permissions']);
         //Configure::write('Users.config', ['users']);
         //Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
 
-       
-        $this->addPlugin(\CakeDC\Users\Plugin::class, ['routes' => true, 'bootstrap' => true]);
+
+        // Ensure CakeDC/Users loads its config overrides from app/config/*.php.
         Configure::write('Users.config', ['users']);
+
+        $this->addPlugin(\CakeDC\Users\Plugin::class, ['routes' => true, 'bootstrap' => true]);
 
         //$this->addPlugin(\CakeDC\Users\Plugin::class);
         if (PHP_SAPI === 'cli') {

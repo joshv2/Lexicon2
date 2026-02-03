@@ -59,49 +59,81 @@ class PronunciationsController extends AppController {
         $word =  $this->fetchTable('Words')->get($id);
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
-            //Process sound files
+            // Process sound files (optional)
             $postData['user_id'] = $this->request->getSession()->read('Auth.id');
+
+            // Ensure association field exists even if the form name changes.
+            if (empty($postData['word_id'])) {
+                $postData['word_id'] = $id;
+            }
+
+            // Avoid nulls for optional text fields.
+            if (!array_key_exists('notes', $postData) || $postData['notes'] === null) {
+                $postData['notes'] = '';
+            }
+
             $soundFiles = $this->request->getUploadedFiles();
-            if ($this->Processfile->areThereAnyFiles($soundFiles)) {
-                if ($this->Processfile->checkFormats($soundFiles)) {
-                    $postData['sound_file'] = $this->Processfile->processSoundfiles($soundFiles, $controller = $this->request->getParam('controller'), $id = $id);
-                    if (sizeof($postData['sound_file']) > 0) {
-                    if (null !== $this->request->getSession()->read('Auth.username') 
-                            && 'superuser' == $this->request->getSession()->read('Auth.role')){
-                                $datefortimestamp = date('Y-m-d h:i:s', time());
-                                $postData['sentence_id'] = $id;
-                                $postData['approved'] = 1;
-                                $postData['approved_date'] = $datefortimestamp;
-                                $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
-                               
-                                $this->Processfile->convertMP3($postData['sound_file']);
-                                $postData['sound_file'] = implode(' ,', $postData['sound_file']);
-                    }
-                    else {
-                        $postData['sound_file'] = implode(' ,', $postData['sound_file']);
+            $hasFiles = $this->Processfile->areThereAnyFiles($soundFiles);
+
+            if ($hasFiles) {
+                if (!$this->Processfile->checkFormats($soundFiles)) {
+                    $this->Flash->error(__('Please record or upload a file in MP3 format.'));
+                    goto render;
+                }
+
+                $processedFiles = $this->Processfile->processSoundfiles(
+                    $soundFiles,
+                    $controller = $this->request->getParam('controller'),
+                    $id = $id
+                );
+
+                if (!empty($processedFiles)) {
+                    if (null !== $this->request->getSession()->read('Auth.username')
+                        && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+                        $datefortimestamp = date('Y-m-d h:i:s', time());
+                        $postData['sentence_id'] = $id;
+                        $postData['approved'] = 1;
+                        $postData['approved_date'] = $datefortimestamp;
+                        $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+
+                        $this->Processfile->convertMP3($processedFiles);
+                    } else {
                         $postData['sentence_id'] = $id;
                         $postData['approved'] = 0;
                     }
 
-                    $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
-                    if ($this->Pronunciations->save($pronunciation)) {
-                        
-                        Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a pronunciation for ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
-                        $this->Flash->success(__('The pronunciation has been saved.'));
-
-                        return $this->redirect(['controller' => 'Words', 'action' => 'view', $word->id]);
-                    }
+                    $postData['sound_file'] = implode(' ,', $processedFiles);
                 } else {
-                    $this->Flash->error(__('Please record or upload a file in MP3 format.'));
+                    // No usable recording after processing; treat as no recording.
+                    $postData['sound_file'] = '';
                 }
             } else {
-                    $this->Flash->error(__('Please record or upload a recording before submitting.'));
-                   
-                }
-            } else {
-                $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
+                $postData['sound_file'] = '';
             }
+
+            $spelling = trim((string)($postData['spelling'] ?? ''));
+            $phonetic = trim((string)($postData['pronunciation'] ?? ''));
+            if ($postData['sound_file'] === '' && $spelling === '' && $phonetic === '') {
+                $this->Flash->error(__('Please enter a spelling and/or phonetic spelling, or attach a recording.'));
+                goto render;
+            }
+
+            if (!array_key_exists('approved', $postData) || $postData['approved'] === null) {
+                $postData['approved'] = 0;
+            }
+
+            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
+            if ($this->Pronunciations->save($pronunciation)) {
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a pronunciation for ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
+                $this->Flash->success(__('The pronunciation has been saved.'));
+
+                return $this->redirect(['controller' => 'Words', 'action' => 'view', $word->id]);
+            }
+
+            $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }    
+
+        render:
         $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
 
         $this->set(compact('pronunciation', 'words', 'word'));

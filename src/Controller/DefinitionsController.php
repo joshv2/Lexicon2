@@ -39,9 +39,7 @@ class DefinitionsController extends AppController
      */
     public function view($id = null)
     {
-        $definition = $this->Definitions->get($id, [
-            'contain' => ['Words'],
-        ]);
+        $definition = $this->Definitions->get($id, contain: ['Words']);
 
         $this->set(compact('definition'));
     }
@@ -77,9 +75,7 @@ class DefinitionsController extends AppController
      */
     public function edit($id = null)
     {
-        $definition = $this->Definitions->get($id, [
-            'contain' => ['Words']   // <-- load the associated word
-        ]);
+        $definition = $this->Definitions->get($id, contain: ['Words']);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $definition = $this->Definitions->patchEntity($definition, $this->request->getData());
@@ -120,9 +116,7 @@ class DefinitionsController extends AppController
     public function word(int $wordId)
     {
         // Fetch the word record (for the page title, etc.)
-        $word = $this->Definitions->Words->get($wordId, [
-            'fields' => ['id', 'spelling']
-        ]);
+        $word = $this->Definitions->Words->get($wordId, fields: ['id', 'spelling']);
 
         // Use the custom finder
         $query = $this->Definitions->find('byWordId', [

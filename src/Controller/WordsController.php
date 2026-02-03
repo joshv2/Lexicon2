@@ -510,12 +510,22 @@ class WordsController extends AppController {
 
                 $data = $this->request->getData();
 
+                // If Quill delta JSON was posted in the base fields (like the add flow),
+                // convert it to HTML and store the delta in *_json.
+                foreach (['etymology', 'notes'] as $field) {
+                    $raw = $data[$field] ?? null;
+                    if (is_string($raw) && preg_match('/^\s*\{.*"ops"\s*:\s*\[/s', $raw)) {
+                        $data = $this->processSingleQuillField($data, $field);
+                    }
+                }
+
                 // Handle Quill JSON fields from hidden inputs set by JavaScript.
-                if (!empty($data['etymology_json'])) {
+                // Use array_key_exists so users can clear fields.
+                if (array_key_exists('etymology_json', $data)) {
                     $word->etymology_json = $data['etymology_json'];
                 }
 
-                if (!empty($data['notes_json'])) {
+                if (array_key_exists('notes_json', $data)) {
                     $word->notes_json = $data['notes_json'];
                 }
 
@@ -603,12 +613,19 @@ class WordsController extends AppController {
 
             $data = $this->request->getData();
 
+            foreach (['etymology', 'notes'] as $field) {
+                $raw = $data[$field] ?? null;
+                if (is_string($raw) && preg_match('/^\s*\{.*"ops"\s*:\s*\[/s', $raw)) {
+                    $data = $this->processSingleQuillField($data, $field);
+                }
+            }
+
             // Handle Quill JSON fields from hidden inputs set by JavaScript.
-            if (!empty($data['etymology_json'])) {
+            if (array_key_exists('etymology_json', $data)) {
                 $word->etymology_json = $data['etymology_json'];
             }
 
-            if (!empty($data['notes_json'])) {
+            if (array_key_exists('notes_json', $data)) {
                 $word->notes_json = $data['notes_json'];
             }
 

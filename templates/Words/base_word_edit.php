@@ -72,20 +72,44 @@ document.addEventListener("DOMContentLoaded", () => {
     loadEditor(etymologyEditor, etymologyJson, etymologyText);
     loadEditor(notesEditor, notesJson, notesText);
 
-    // -------- Before submit: write JSON + plain text into hidden inputs --------
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function() {
-        const etyDelta   = etymologyEditor.getContents();
-        const notesDelta = notesEditor.getContents();
+    // -------- Sync Quill -> hidden inputs --------
+    // Be tolerant of CakePHP name/id variations.
+    const etymologyInput = document.getElementById('etymology') || document.querySelector("input[name='etymology']");
+    const notesInput     = document.getElementById('notes') || document.querySelector("input[name='notes']");
+    const etymologyJsonInput = document.getElementById('etymology-json') || document.querySelector("input[name='etymology_json']");
+    const notesJsonInput     = document.getElementById('notes-json') || document.querySelector("input[name='notes_json']");
 
-        document.querySelector("input[name='etymology_json']").value = JSON.stringify(etyDelta);
-        document.querySelector("input[name='notes_json']").value     = JSON.stringify(notesDelta);
+    const form = (etymologyInput && etymologyInput.form)
+        || (notesInput && notesInput.form)
+        || document.querySelector(".edit-word-container form")
+        || document.querySelector("form");
 
-        document.querySelector("input[name='etymology']").value =
-            etymologyEditor.getText().trim();
+    function syncQuillToInputs() {
+        const etyDelta = etymologyEditor.getContents();
+        const nDelta   = notesEditor.getContents();
 
-        document.querySelector("input[name='notes']").value =
-            notesEditor.getText().trim();
-    });
+        const etyDeltaJson = JSON.stringify(etyDelta);
+        const nDeltaJson   = JSON.stringify(nDelta);
+
+        // For server-side processing, we post the delta JSON in the base fields.
+        if (etymologyInput) etymologyInput.value = etyDeltaJson;
+        if (notesInput) notesInput.value = nDeltaJson;
+
+        // Also keep *_json in sync (useful for backwards compatibility / debugging).
+        if (etymologyJsonInput) etymologyJsonInput.value = etyDeltaJson;
+        if (notesJsonInput) notesJsonInput.value = nDeltaJson;
+    }
+
+    etymologyEditor.on('text-change', syncQuillToInputs);
+    notesEditor.on('text-change', syncQuillToInputs);
+
+    // Ensure hidden inputs are initialized even if user submits without editing.
+    syncQuillToInputs();
+
+    if (form) {
+        form.addEventListener("submit", function() {
+            syncQuillToInputs();
+        });
+    }
 });
 </script>
