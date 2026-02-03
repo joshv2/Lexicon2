@@ -16,7 +16,9 @@
         ) ?>
     </p>
 
-    <?php if ($originLinks->isEmpty()): ?>
+    <?php $originLinkItems = method_exists($originLinks, 'items') ? $originLinks->items() : $originLinks; ?>
+
+    <?php if ($originLinkItems->isEmpty()): ?>
         <p>No origins linked to this word.</p>
     <?php else: ?>
         <table>
@@ -29,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($originLinks as $link): ?>
+                <?php foreach ($originLinkItems as $link): ?>
                     <tr>
                         <td><?= h($link->id) ?></td>
                         <td><?= h($link->origin->origin ?? '') ?></td>

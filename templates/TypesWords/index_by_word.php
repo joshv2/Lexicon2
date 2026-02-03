@@ -13,7 +13,9 @@
         <?= $this->Html->link('Add type link', ['action' => 'addByWord', $wordId]) ?>
     </p>
 
-    <?php if ($typeLinks->isEmpty()): ?>
+    <?php $typeLinkItems = method_exists($typeLinks, 'items') ? $typeLinks->items() : $typeLinks; ?>
+
+    <?php if ($typeLinkItems->isEmpty()): ?>
         <p>No types linked to this word.</p>
     <?php else: ?>
         <table>
@@ -26,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($typeLinks as $link): ?>
+                <?php foreach ($typeLinkItems as $link): ?>
                     <tr>
                         <td><?= h($link->id) ?></td>
                         <td><?= h($link->type->type ?? '') ?></td>

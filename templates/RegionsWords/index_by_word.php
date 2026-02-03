@@ -13,7 +13,9 @@
         <?= $this->Html->link('Add region link', ['action' => 'addByWord', $wordId]) ?>
     </p>
 
-    <?php if ($regionLinks->isEmpty()): ?>
+    <?php $regionLinkItems = method_exists($regionLinks, 'items') ? $regionLinks->items() : $regionLinks; ?>
+
+    <?php if ($regionLinkItems->isEmpty()): ?>
         <p>No regions linked to this word.</p>
     <?php else: ?>
         <table>
@@ -26,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($regionLinks as $link): ?>
+                <?php foreach ($regionLinkItems as $link): ?>
                     <tr>
                         <td><?= h($link->id) ?></td>
                         <td><?= h($link->region->region ?? '') ?></td>
