@@ -138,19 +138,6 @@ class WordsTable extends Table
             //->requirePresence('notes', 'create')
             ->allowEmptyString('notes', 'true');
 
-        /*$validator
-            ->scalar('full_name');*/
-            //->requirePresence('full_name', 'create')
-            //->notEmptyString('full_name');
-
-        /*$validator
-            ->boolean('approved')
-            ->requirePresence('approved', 'create')
-            ->notEmptyString('approved');
-
-        $validator
-            ->email('email');*/
-
 
         return $validator;
     }
@@ -226,7 +213,7 @@ class WordsTable extends Table
                 'Words.approved' => 1,
                 'Words.language_id' => $langid,
             ])
-            ->group(['Words.id', 'Words.spelling', 'Words.created'])
+            ->groupBy(['Words.id', 'Words.spelling', 'Words.created'])
             ->having(function ($exp, $query) {
                 $case = $query->newExpr()->case()
                     ->when([
@@ -239,7 +226,7 @@ class WordsTable extends Table
 
                 return $exp->eq($query->func()->sum($case), 0);
             })
-            ->order(['Words.created' => 'DESC']);
+            ->orderBy(['Words.created' => 'DESC']);
 
         return $query;
     }
@@ -418,12 +405,29 @@ class WordsTable extends Table
     }
 
     public function get_word_for_view($id){
-        $query = $this->find()
+        $query = $this->find()->select(['id','spelling', 'etymology', 'etymology_json', 'notes', 'notes_json', 'approved'])
                     ->where(['Words.id' => $id])
-                    ->contain(['Dictionaries', 'Origins', 'Regions', 'Types', 'Languages', 'Definitions'  => [
-                        'sort' => ['id' => 'ASC']], 'Sentences'])
+                    ->contain(['Dictionaries' => 
+                                    ['fields' => ['dictionary']], 
+                               'Origins' => 
+                                    ['fields' => ['origin']], 
+                               'Regions' => 
+                                    ['fields' => ['region']], 
+                               'Types' => 
+                                    ['fields' => ['type']], 
+                               'Definitions'  => ['fields' => ['word_id', 'definition'], 'sort' => ['id' => 'ASC']], 
+                               'Sentences'])
                     ->contain('Pronunciations', function (Query $q) {
                         return $q
+                            ->select([
+                                'Pronunciations.id',
+                                'Pronunciations.spelling',
+                                'Pronunciations.approved',
+                                'Pronunciations.sound_file',
+                                'Pronunciations.pronunciation',
+                                'Pronunciations.display_order',
+                                'Pronunciations.word_id', 
+                            ])
                             ->where(['Pronunciations.approved' => 1])
                             ->where(['OR' => [['Pronunciations.sound_file !=' => ''],
                                             ['Pronunciations.pronunciation !=' => '']]])
@@ -431,6 +435,13 @@ class WordsTable extends Table
                     })
                     ->contain('Sentences.SentenceRecordings', function (Query $q) {
                         return $q
+                            ->select([
+                                'SentenceRecordings.id',
+                                'SentenceRecordings.approved',
+                                'SentenceRecordings.sound_file',
+                                'SentenceRecordings.display_order',
+                                'SentenceRecordings.sentence_id', 
+                            ])
                             ->where(['SentenceRecordings.approved' => 1])
                             ->orderBy(['SentenceRecordings.display_order' => 'ASC']);
                     })
@@ -438,7 +449,7 @@ class WordsTable extends Table
                         return $q
                             ->where(['Alternates.spelling !=' => '']);
                     });
-        $results = $query->all();
+        $results = $query->first();
         return $results->toArray();
     }
 

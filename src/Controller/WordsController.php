@@ -21,11 +21,15 @@ use Cake\ORM\TableRegistry;
  * @method \App\Model\Entity\Word[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class WordsController extends AppController {
+
+    protected bool $loggedin = false;
     
     public function initialize(): void  {
         parent::initialize();
         $this->loadComponent('LoadORTD');
         $this->loadComponent('ProcessFile');
+
+        $this->loggedin = (bool) $this->request->getSession()->read('Auth.username');
     }
     
     /**
@@ -34,13 +38,12 @@ class WordsController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $queryParams = $this->request->getQueryParams();
-        //debug($queryParams);
+
         if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
             $queryParams = array_merge(['displayType' => 'all'], $queryParams);
-            //$queryParams['all'] = 'all';
         }
         
         $allowed = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page'];
@@ -54,9 +57,6 @@ class WordsController extends AppController {
         }
 
         if (!isset($invalidValue) || $invalidValue !== true) {
-            
-
-            
             $originvalue = [$this->request->getQuery('origin')];
             $regionvalue = [$this->request->getQuery('region')];
             $typevalue = [$this->request->getQuery('type')];
@@ -87,7 +87,7 @@ class WordsController extends AppController {
                             FALSE, 
                             $sitelang->id,
                             TRUE);
-        //debug($queryParams);
+
         $displayType = $this->request->getQuery('displayType');
 
         if ($displayType === 'all') {
@@ -147,7 +147,7 @@ class WordsController extends AppController {
     
 
     public function random() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $words = $this->paginate($this->Words->get_random_words($sitelang->id));
         $title = 'Random Word Listing';
         $this->set(compact('words', 'title', 'sitelang'));
@@ -155,7 +155,7 @@ class WordsController extends AppController {
     }
 
     public function alphabetical() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $letter = $this->request->getParam('pass')[0];
         
         $language = $this->fetchTable('Languages');
@@ -185,8 +185,89 @@ class WordsController extends AppController {
         $this->set(compact('letter', 'words', 'title', 'sitelang', 'alphabet'));
     }
     
-    
-    
+    private function process_ortd(array $ortd, $ortdcategory): array {
+        if (!empty($ortd)) {
+            $newortd = [];
+            $lenotherortd = 0;
+            $otherortd = [];
+            foreach ($ortd as $key => $ortdvalue) {
+                
+                if($ortdcategory == 'origin'){
+                    if (strpos($ortd[$key][$ortdcategory], ",") !== false && $ortd[$key]['_joinData']['id'] > 999) {
+                        $otherortd = explode(",", $ortd[$key][$ortdcategory]);
+                        $lenotherortd = count($otherortd);
+                    }
+                } else {
+                    $otherortd = [];
+                    $lenotherortd = 0;
+                }
+
+                if ($ortd[$key]['_joinData']['id'] != 999 && $lenotherortd === 0) {
+                    $newortd[$key] = __($ortd[$key][$ortdcategory]);
+                }
+            }
+
+            $totalortd = count($newortd) + $lenotherortd;
+
+            return [
+                'newortd'    => $newortd,
+                'otherortd'  => $otherortd,
+                'lenotherortd' => $lenotherortd,
+                'totalortd'  => $totalortd 
+            ];
+        }
+
+        return [
+            'newortd'    => [],
+            'otherortd'  => [],
+            'lenotherortd' => 0,
+            'totalortd'  => 0
+        ];
+    }
+
+    private function process_alternate_spellings(array $alternates): string {
+        $spellingList = implode(', ', array_column($alternates, 'spelling'));
+        return $spellingList;
+    }
+
+    private function get_word_data($word) {
+        $word_id = $word['id'];
+        $spelling = $word['spelling'];
+        $sentences = $word['sentences'];
+        $sentences_count = count($sentences);
+        $pronunciations = $word['pronunciations'];
+        $pronunciations_count = count($pronunciations);
+        $definitions = $word['definitions'];
+        $total_definitions = count($definitions);
+        $ortd_origins = $this->process_ortd($word['origins'], 'origin');
+        $new_origins = $ortd_origins['newortd'];
+        $other_origins = $ortd_origins['otherortd'];
+        $total_origins = $ortd_origins['totalortd'];
+        $etymology = $word['etymology'];
+        $notes = $word['notes'];
+        $ortd_types = $this->process_ortd($word['types'], 'type');
+        $new_types = $ortd_types['newortd'];
+        $other_types = $ortd_types['otherortd'];
+        $total_types = $ortd_types['totalortd'];
+        $ortd_regions = $this->process_ortd($word['regions'], 'region');
+        $new_regions = $ortd_regions['newortd'];
+        $other_regions = $ortd_regions['otherortd'];
+        $total_regions = $ortd_regions['totalortd'];
+        $ortd_dictionaries = $this->process_ortd($word['dictionaries'], 'dictionary');
+        $new_dictionaries = $ortd_dictionaries['newortd'];
+        $other_dictionaries = $ortd_dictionaries['otherortd'];
+        $total_dictionaries = $ortd_dictionaries['totalortd'];
+        $alternates = $word['alternates'];
+        $spellingList = $this->process_alternate_spellings($word['alternates']);
+        
+        return compact('word_id', 'spelling', 'sentences', 'sentences_count', 
+                        'pronunciations', 'pronunciations_count', 'definitions', 
+                        'total_definitions', 'new_origins', 'other_origins', 'total_origins', 
+                        'etymology', 'notes', 'new_types', 'other_types', 'total_types', 'new_regions', 
+                        'other_regions', 'total_regions', 'new_dictionaries', 
+                        'other_dictionaries', 'total_dictionaries', 'alternates', 'spellingList');
+    }
+
     /**
      * View method
      *
@@ -195,124 +276,27 @@ class WordsController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null) {
+        $sitelang = $this->request->getAttribute('sitelang');
+        $word = $this->Words->get_word_for_view($id);
         
-        
-        $sitelang = $this->languageinfo();
-        $wordResult = $this->Words->get_word_for_view($id);
-        
-        //debug($wordResult);
-        if (empty($wordResult)) {
+        if (empty($word)) {
             return $this->redirect(['action' => 'wordnotfound']);
         }
-        
-        $word = $wordResult[0];
-        
-        
-        $contain = ['Dictionaries', 'Origins', 'Regions', 'Types', 'Alternates', 'Definitions', 'Sentences', 'Pronunciations']; //, 'Sentences', 'Pronunciations'
-        $valuenames = ['Dictionaries' => ['dictionary'], 
-                        'Origins' => ['origin'], 
-                        'Regions' => ['region'], 
-                        'Types' => ['type'],
-                        'Alternates' => ['spelling'],
-                        'Definitions' => ['definition'], 
-                        'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']];//'Sentences' => ['sentence'], 'Pronunciations' => ['spelling', 'pronunciation', 'sound_file', 'notes']
-        
-        if (null == $this->request->getSession()->read('Auth.username')){
-            if (1 == $word->approved){
-                $arraysforcompact = [];
-                foreach ($contain as $assoc){ //for each association
-                    $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
-                    //debug($lowerassoc);
-                    foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
-                        //debug($assoc. '_' . $arrayname);
-                        $finalarrayname = $assoc . '_' . $arrayname;
-                        $$finalarrayname = array();
-                    
-                        foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
-                            //debug($toplevelassoc);
-                            if (!empty($toplevelassoc)) {
-                                $$finalarrayname[] = $toplevelassoc->$arrayname;
-                            }
-                            
-                        }
-                        $arraysforcompact[$finalarrayname] = $$finalarrayname;
-                    }
-                }
-                $arraysforcompact['word'] = $word;
-                $arraysforcompact['title'] = $word->spelling;
-                $arraysforcompact['sitelang'] = $sitelang;
-                $this->set($arraysforcompact);
+
+        $this->set('isEdit', false);
+        if ($this->loggedin) {
+            $this->set($this->get_word_data($word));
+        } elseif (!$this->loggedin){
+            if (1 == $word['approved']){
+                $this->set($this->get_word_data($word));
             } else {
                 return $this->redirect(['action' => 'wordnotfound']);
             }
-        } elseif (!null == $this->request->getSession()->read('Auth.username')){
-            $arraysforcompact = [];
-            foreach ($contain as $assoc){ //for each association
-                $lowerassoc = strtolower($assoc); //make a lowercase value of that name to use in retieving actual value
-                foreach ($valuenames[$assoc] as $arrayname){ //loop through each set of values we want to retrieve from the word
-                    $finalarrayname = $assoc . '_' . $arrayname;
-                    $$finalarrayname = array();
-                
-                    foreach ($word->$lowerassoc as $toplevelassoc){ //gets the word level association, loop through all values in that association
-                        if (!empty($toplevelassoc)) {
-                            $$finalarrayname[] = $toplevelassoc->$arrayname;
-                        }
-                        
-                    }
-                    $arraysforcompact[$finalarrayname] = $$finalarrayname;
-                }
-            }
-            $arraysforcompact['word'] = $word;
-            $arraysforcompact['title'] = $word->spelling;
-            $arraysforcompact['sitelang'] = $sitelang;
-            $this->set($arraysforcompact);
         } else {
             return $this->redirect(['action' => 'wordnotfound']);
         }
     }
 
-    private function process_others($ortd, $postData) {
-        $processed = [];
-            
-        if($postData[$ortd]['_ids'] !== ''){
-            foreach ($postData[$ortd]['_ids'] as $ortdid){
-                array_push($processed, array('id' => $ortdid));
-            }
-            
-            if ($postData[substr($ortd, 0, -1) .'_other_entry'] !== ''){
-                
-                foreach (explode(";", $postData[substr($ortd, 0, -1) . '_other_entry']) as $otherortd) {
-                    $table = $this->fetchTable(ucfirst($ortd));
-                    $idofOtherOrtd = $table->getIdIfExists($otherortd);
-                    
-
-                    if ($idofOtherOrtd !== null) {
-                        $returnedIdArray = ['id' => $idofOtherOrtd];
-                        $alreadySubmitted = 0;
-                        foreach ($processed as $idpair){
-                            if ($idpair == $returnedIdArray) {
-                                $alreadySubmitted += 1;
-                            }
-                        }
-                        if ($alreadySubmitted === 0) {
-                            array_push($processed, array('id' => $idofOtherOrtd));
-                        }
-                    } else {
-                        array_push($processed, [ substr($ortd, 0, -1) => $otherortd]);
-                    }
-                }
-                
-
-                unset($postData[substr($ortd, 0, -1) . '_other_entry']);
-            } 
-
-            unset($postData[$ortd]['_ids']);
-            $postData[$ortd] = $processed;
-            return $postData;
-        } else {
-            return $postData;
-        }
-    }
     /**
      * Add method
      *
@@ -320,142 +304,66 @@ class WordsController extends AppController {
      */
     public function add() {
         $word = $this->Words->newEmptyEntity();
-        
-        $sitelang = $this->languageinfo();
-        
+        $sitelang = $this->request->getAttribute('sitelang');
         $getRoute = explode("/", $this->request->getRequestTarget());
         $controllerName = $getRoute[1];
 
         if ($this->request->is('post')) {
-            //assign the post data to a variable
             $postData = $this->request->getData();
-            
-            
 
-            //process the WYSIWYG Quills
-            $quillAssoc2 = ['definitions', 'sentences'];
-            $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
-            try {
-                foreach ($quillAssoc2 as $quillAssoc){
-                    $i = 0;
-                    while ($i < count($postData[$quillAssoc])){
-                        $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
-                        if ('{"ops":[{"insert":"\n"}]}' == $original){
-                            unset($postData[$quillAssoc][$i]);
-                        } else {
-                            $jsonFromOriginal = json_decode($original);
-                            $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
-                            $quill = new \nadar\quill\Lexer($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
-                            $defresult = $quill->render();
-                            $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
-                        }
-                        $i += 1;
-                    }
-                }
-                $original = $postData['etymology'];
-                if ('{"ops":[{"insert":"\n"}]}' == $original){
-                    unset($postData['etymology']);
-                } else {
-                    $jsonFromOriginal = json_decode($original);
-                    $postData['etymology_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \nadar\quill\Lexer($postData['etymology']);
-                    $defresult = $quill->render();
-                    $postData['etymology'] = $defresult;
-                }
-                $original = $postData['notes'];
-                if ('{"ops":[{"insert":"\n"}]}' == $original){
-                    unset($postData['notes']);
-                } else {
-                    $jsonFromOriginal = json_decode($original);
-                    $postData['notes_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \nadar\quill\Lexer($postData['notes']);
-                    $defresult = $quill->render();
-                    $postData['notes'] = $defresult;
-                }
-            } catch (\Exception $e) {
-                echo $e->getMessage();
+            // ENFORCE spelling is required
+            if (empty($postData['spelling'])) {
+                $this->Flash->error(__('Spelling is required.'));
+                return;
             }
 
-            //account for non-submitted data
-            $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
-            $associatedforfilter =  ['Alternates', 'Pronunciations']; //'Definitions', 'Sentences'
-            foreach ($associatedforfilter as $assoc){
-                if (!array_filter($postData[strtolower($assoc)][0])) {
-                    unset($postData[strtolower($assoc)]);  
-                }
+            // Quill fields
+            $postData = $this->processQuillFields($postData, ['definitions' => 'definition', 'sentences' => 'sentence']);
+            $postData = $this->processSingleQuillField($postData, 'etymology');
+            $postData = $this->processSingleQuillField($postData, 'notes');
+
+            // Filter associations
+            $postData = $this->filterAssociations($postData, ['Alternates', 'Pronunciations']);
+
+            // Improved "other" logic
+            foreach (['origins', 'types'] as $assoc) {
+                $postData = $this->processOtherAssociations($postData, $assoc);
             }
 
-
-            $ortdswithother = ['origins','types'];
-            
-            foreach ($ortdswithother as $ortdwithother){
-                $postData = $this->process_others($ortdwithother, $postData);
-            }
-
-
-            //reCaptcha authentication
-            if (null == $this->request->getSession()->read('Auth.username')){
+            // reCaptcha
+            if ($this->loggedin) {
+                $json['success'] = 'false';
+                $validationSet = 'default';
+            } else {
                 $recaptcha = $postData['g-recaptcha-response'];
                 $google_url = "https://www.google.com/recaptcha/api/siteverify";
-                $secret = Configure::consume('recaptcha_secret');
+                $secret = \Cake\Core\Configure::consume('recaptcha_secret');
                 $ip = $_SERVER['REMOTE_ADDR'];
                 $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
-                $http = new Client();
-
+                $http = new \Cake\Http\Client();
                 $res = $http->get($url);
                 $json = $res->getJson();
                 $validationSet = 'notloggedin';
-            } else {
-                $json['success'] = 'false';
-                $validationSet = 'default';
-            }
+            } 
+                
 
-            //Process sound files
-            $soundFiles = $this->request->getUploadedFiles();
-            $i = 0;
-            foreach ($soundFiles as $soundFile) {
-                $name = $soundFile->getClientFilename();
-                $finalname = str_replace(array(' ','/','\\','<',';',':','>','"','|','?','*'), '', $postData['spelling']) . time() . $i . '.webm';
-                $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
-                $type = $soundFile->getClientMediaType();
-                if ($type == 'audio/webm') {
-                    if(!empty($name)){
-                        if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
-                            $soundFile->moveTo($targetPath);
-                            $postData['pronunciations'][$i]['sound_file'] = $finalname;
-                        }
-                    }
-                }
-                if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && ('' !== $name || null != $name)){
+            // Sound files
+            $postData = $this->handleSoundFiles($postData, $this->request->getUploadedFiles());
 
-                    
-                    $this->Processfile->converttomp3($finalname);
-                }
+            // Pronunciation approval
+            $postData = $this->approvePronunciations($postData);
 
-                $i++;
-            }
-
-
-            if (null !== $this->request->getSession()->read('Auth.username')  && 'superuser' == $this->request->getSession()->read('Auth.role') && !empty($postData['pronunciations'])){
-                $datefortimestamp = date('Y-m-d h:i:s', time());
-                $i = 0;
-                foreach ($postData['pronunciations'] as $p) {
-                    $postData['pronunciations'][$i]['approved'] = 1;
-                    $postData['pronunciations'][$i]['approved_date'] = $datefortimestamp;
-                    $postData['pronunciations'][$i]['approving_user_id'] = $this->request->getSession()->read('Auth.id');
-                    $i += 1;
-                }
-            }
+            $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
             $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
             
             
-            if ($json['success'] == "true" || null !== $this->request->getSession()->read('Auth.username')){   //reqiuring reCaptcha to be true or to be logged in
+            if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
                 if ($this->Words->save($word)) {
-                    if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role')) {
-                        Log::info('Word \/\/ ' . $word->spelling. ' was added by ' .  $this->request->getSession()->read('Auth.username') . ' \/\/ ' . $word->id, ['scope' => ['events']]);
+                    if ($this->loggedin && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+                        $this->logWordAction('add_superuser', $word);
                         return $this->redirect(['action' => 'view' , $word->id]);
                     } else {
-                        Log::info($word->spelling. ' was added by ' . $word->full_name . ' (' . $word->email . ')', ['scope' => ['events']]);
+                        $this->logWordAction('add_user', $word);
                         return $this->redirect(['action' => 'success']);
                     }
                 }
@@ -472,13 +380,25 @@ class WordsController extends AppController {
         $types = $this->fetchTable('Types')->top_types($sitelang->id);
         $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
 
-        $recaptcha_user = Configure::consume('recaptcha_user');
+        $recaptcha_user = \Cake\Core\Configure::consume('recaptcha_user');
         $title = 'Add a Word';
-        $this->set(compact('word', 'dictionaries', 'origins', 'regions', 'types', 'recaptcha_user', 'controllerName', 'title', 'sitelang', 'specialother', 'specialothervalue', 'specialothertype', 'specialothervaluetype'));
+        $this->set(compact('word', 
+                           'dictionaries', 
+                           'origins', 
+                           'regions', 
+                           'types', 
+                           'recaptcha_user', 
+                           'controllerName', 
+                           'title', 
+                           'sitelang', 
+                           'specialother', 
+                           'specialothervalue', 
+                           'specialothertype', 
+                           'specialothervaluetype'));
     }
 
     public function checkforword() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $response = [];
         if( $this->request->is('post') ) {
             $data = $this->request->getData();
@@ -494,7 +414,7 @@ class WordsController extends AppController {
     }
 
     public function browsewords() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $response = [];
         $ortdarray["Origins"] = [];
         $ortdarray["Regions"] = [];
@@ -535,7 +455,7 @@ class WordsController extends AppController {
 
 
     public function browsewords2() {
-        $sitelang = $this->languageinfo();
+        $sitelang = $this->request->getAttribute('sitelang');
         $response = [];
         
 
@@ -570,208 +490,65 @@ class WordsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null) {
-        $wordResult = $this->Words->get_word_for_edit($id);
-        $word = $wordResult;
-        $sitelang = $this->languageinfo();
-
-        $pronunciationCount = 0;
-        if (!empty($word->pronunciations)) {
-            foreach ($word->pronunciations as $pron) {
-                if (!empty($pron->sound_file)) {
-                    $pronunciationCount++;
-                }
-            }
+    public function edit($id = null){
+        #$word = $this->Words->find()->where(['id' => $id])->first();
+        $sitelang = $this->request->getAttribute('sitelang');
+        
+        $word = $this->Words->get_word_for_view($id);
+        
+        if (!$word) {
+            throw new \Cake\Http\Exception\NotFoundException(__('Word not found'));
         }
+        
 
-        if (null !== $this->request->getSession()->read('Auth.username') && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
+        if ($this->loggedin && in_array($this->request->getSession()->read('Auth.role'),['superuser','user'])){
             
-            
-            $getRoute = explode("/", $this->request->getRequestTarget());
-            $controllerName = $getRoute[2];
+            $word = $this->Words->get($id);
+
             if ($this->request->is(['patch', 'post', 'put'])) {
-                $postData = $this->request->getData();
-                //process the WYSIWYG Quills
-                $quillAssoc2 = ['definitions', 'sentences'];
-                $processFields = ['definitions' => 'definition', 'sentences' => 'sentence'];
-                try {
-                    foreach ($quillAssoc2 as $quillAssoc){
-                        $idsToDelete = [];
-                        $quillKeys = array_keys($postData[$quillAssoc]);
-                        foreach ($quillKeys as $key => $i){
-                            $original = $postData[$quillAssoc][$i][$processFields[$quillAssoc]];
-                            $jsonFromOriginal = json_decode($original);
-                            $postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json'] = json_encode($jsonFromOriginal);
-                            $quill = new \nadar\quill\Lexer($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
-                            $defresult = $quill->render();
-                            $postData[$quillAssoc][$i][$processFields[$quillAssoc]] = $defresult;
 
+                $data = $this->request->getData();
 
-                            if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData[$quillAssoc][$i][$processFields[$quillAssoc]])){
-                                if ($key > 0){
-                                    unset($postData[$quillAssoc][$i]);
-                                }
-                                else {
-                                    unset($postData[$quillAssoc][$i]['id']);
-                                    unset($postData[$quillAssoc][$i][$processFields[$quillAssoc]]);
-                                    unset($postData[$quillAssoc][$i][$processFields[$quillAssoc] . '_json']);
-                                }
-                            }
-
-                        }
-
-                    }
-                    $original = $postData['etymology'];
-                    $jsonFromOriginal = json_decode($original);
-                    $postData['etymology_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \nadar\quill\Lexer($postData['etymology']);
-                    $defresult = $quill->render();
-                    $postData['etymology'] = $defresult;
-                    if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['etymology'])){
-                        $postData['etymology'] = null;
-                    }
-                    $original = $postData['notes'];
-                    $jsonFromOriginal = json_decode($original);
-                    $postData['notes_json'] = json_encode($jsonFromOriginal);
-                    $quill = new \nadar\quill\Lexer($postData['notes']);
-                    $defresult = $quill->render();
-                    $postData['notes'] = $defresult;
-                    if ('<p><br/></p>' == preg_replace('/\s+/', '',$postData['notes'])){
-                        $postData['notes'] = null;
-                    }
-                } catch (\Exception $e) {
-                    echo $e->getMessage();
-                }
-
-                //account for non-submitted data
-                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
-                $associatedforfilter =  ['Alternates', 'Definitions', 'Pronunciations', 'Sentences'];
-                foreach ($associatedforfilter as $assoc){
-                    if (0 == count($postData[strtolower($assoc)])) {
-                        unset($postData[strtolower($assoc)]);  
+                // If Quill delta JSON was posted in the base fields (like the add flow),
+                // convert it to HTML and store the delta in *_json.
+                foreach (['etymology', 'notes'] as $field) {
+                    $raw = $data[$field] ?? null;
+                    if (is_string($raw) && preg_match('/^\s*\{.*"ops"\s*:\s*\[/s', $raw)) {
+                        $data = $this->processSingleQuillField($data, $field);
                     }
                 }
 
-                $processedOrigins = [];
-                $pattern2 = '/^origin_other_entry/';
-                $postkeys = array_keys($postData);
-                $otheroriginskeyarray = preg_grep($pattern2, $postkeys);
-                $otheroriginskey = $otheroriginskeyarray[array_key_first($otheroriginskeyarray)];
-                if($postData['origins']['_ids'] !== ''){
-                    foreach ($postData['origins']['_ids'] as $originid){
-                        array_push($processedOrigins, array('id' => $originid));
-                    }
-                    if ($postData[$otheroriginskey] !== ''){
-                        if (count($this->fetchTable('Origins')->get_region_by_name($postData[$otheroriginskey])) == 0) {
-                            array_push($processedOrigins, [ 'origin' => $postData[$otheroriginskey]]);
-                            unset($postData[$otheroriginskey]);
-                        } else {
-                            array_push($processedOrigins, [ 'id' => $this->fetchTable('Origins')->get_region_by_name($postData[$otheroriginskey])[0] ]);
-                            unset($postData[$otheroriginskey]);
-                        }
-                        unset($postData['origins']['_ids']);
-                        $postData['origins'] = $processedOrigins;
-                    }
+                // Handle Quill JSON fields from hidden inputs set by JavaScript.
+                // Use array_key_exists so users can clear fields.
+                if (array_key_exists('etymology_json', $data)) {
+                    $word->etymology_json = $data['etymology_json'];
                 }
 
-                $processedTypes = [];
-                if($postData['types']['_ids'] !== ''){
-                    foreach ($postData['types']['_ids'] as $typeid){
-                        array_push($processedTypes, array('id' => $typeid));
-                    }
-                    
-                    $pattern2 = '/^type_other_entry_/';
-                    $postkeys = array_keys($postData);
-                    $othertypeskey = preg_grep($pattern2, $postkeys);
-                    if ($othertypeskey !== false){ //if there 
-                        $othertypeidvalues = array_values($othertypeskey);
-                        $othertypeid = array_shift($othertypeidvalues);
-                        if(isset($othertypeid) && in_array(999,$postData['types']['_ids'])){
-                            $gettypeid = explode("_",$othertypeid);
-                            $gettypeidvalue = $gettypeid[3];
-                            array_push($processedTypes, [ 'id' => $gettypeidvalue, 'type' => $postData[$othertypeid]]);
-                            unset($postData[$othertypeid]);
-                            unset($postData['types']['_ids']);
-                            $postData['types'] = $processedTypes;
-                        } elseif(isset($postData['type_other_entry']) && $postData['type_other_entry'] !== '') {
-                            array_push($processedTypes, ['type' => $postData['type_other_entry']]);
-                            unset($postData['type_other_entry']);
-                            unset($postData['types']['_ids']);
-                            $postData['types'] = $processedTypes;
-                        } else {
-                            unset($postData['type_other_entry']);
-                        }
-                    }
+                if (array_key_exists('notes_json', $data)) {
+                    $word->notes_json = $data['notes_json'];
                 }
 
-                $soundFiles = $this->request->getUploadedFiles();
-                $i = 0;
-                foreach ($soundFiles as $soundFile) {
-                    $name = $soundFile->getClientFilename();
-                    $finalname = str_replace(array(' ','/','\\','<',';',':','>','"','|','?','*'), '', $postData['spelling']) . time() . $i . '.webm';
-                    $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
-                    $type = $soundFile->getClientMediaType();
-                    if ($type == 'audio/webm') {
-                        if(!empty($name)){
-                            if ($soundFile->getSize() > 0 && $soundFile->getError() == 0) {
-                                $soundFile->moveTo($targetPath);
-                                $postData['pronunciations'][$i]['sound_file'] = $finalname;
-                            }
-                        }
-                    }
-                    $i++;
-                }
-                
+                // Also allow normal plain-text versions
+                $word->spelling  = $data['spelling'] ?? $word->spelling;
+                $word->etymology = $data['etymology'] ?? $word->etymology;
+                $word->notes     = $data['notes'] ?? $word->notes;
 
-                $word = $this->Words->patchEntity($word, $postData,  ['associated' => $associated]);
                 if ($this->Words->save($word)) {
-                    Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' edited ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
-                    $this->Flash->success(__('The word has been saved.'));
-    
+                    $this->Flash->success(__('The word has been updated.'));
                     return $this->redirect(['action' => 'view', $word->id]);
                 }
+
                 $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
-            
 
-            $origins = $this->fetchTable('Origins')->top_origins($sitelang->id);
+            $this->set(compact('word'));
+            $this->render('base_word_edit');
 
-            $specialother = '';
-            $specialothervalue = '';
-            foreach($word->origins as $key => $originscan){
-                if(!in_array($originscan->id,array_keys($origins))){
-                    $specialother = '_' . $originscan->id;
-                    $specialothervalue = $originscan->origin;
-                }
-            }
-
-            $types = $this->fetchTable('Types')->top_types($sitelang->id);
-
-            $specialothertype = '';
-            $specialothervaluetype = '';
-
-            foreach($word->types as $key => $typescan){
-                if(!in_array($typescan->id,array_keys($types))){
-                    $specialothertype = '_' . $typescan->id;
-                    $specialothervaluetype = $typescan->type;
-                }
-            }
-
-            $regions = $this->fetchTable('Regions')->top_regions($sitelang->id);
-            
-            $dictionaries = $this->fetchTable('Dictionaries')->top_dictionaries($sitelang->id);
-            $title = 'Edit: ' . $word->spelling;
-            $this->set(compact('word', 'dictionaries', 'origins', 
-                                'regions', 'types', 'controllerName', 
-                                'title', 'sitelang', 'specialother', 
-                                'specialothervalue', 'specialothertype', 
-                                'specialothervaluetype', 'pronunciationCount'));
-            $this->render('add');
         } else {
             return $this->redirect([
                 'controller' => 'Suggestions',
                 'action' => 'add',
-                $word->id
+                $word['id']
             ]);
         }
     }
@@ -787,7 +564,7 @@ class WordsController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $word = $this->Words->get($id);
         if ($this->Words->delete($word)) {
-            Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' deleted ' . $word->spelling . ' \/\/ ', ['scope' => ['events']]);
+            $this->logWordAction('delete', $word);
             $this->Flash->success(__('The word has been deleted.'));
         } else {
             $this->Flash->error(__('The word could not be deleted. Please, try again.'));
@@ -819,7 +596,7 @@ class WordsController extends AppController {
         
         $this->Words->patchEntity($word, $data, ['associated' => ['Pronunciations']]);
         if ($this->Words->save($word)) {
-            Log::info('Word \/\/ ' . $this->request->getSession()->read('Auth.username') . ' approved ' . $word->spelling . ' \/\/ ' . $word->id, ['scope' => ['events']]);
+            $this->logWordAction('approve', $word);
             $this->Flash->success(__('The word has been approved.'));
         } else {
             $this->Flash->error(__('The word could not be approved. Please, try again.'));
@@ -828,11 +605,212 @@ class WordsController extends AppController {
         return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
     }
 
+    public function baseWordEdit($id = null) {
+        $word = $this->Words->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $data = $this->request->getData();
+
+            foreach (['etymology', 'notes'] as $field) {
+                $raw = $data[$field] ?? null;
+                if (is_string($raw) && preg_match('/^\s*\{.*"ops"\s*:\s*\[/s', $raw)) {
+                    $data = $this->processSingleQuillField($data, $field);
+                }
+            }
+
+            // Handle Quill JSON fields from hidden inputs set by JavaScript.
+            if (array_key_exists('etymology_json', $data)) {
+                $word->etymology_json = $data['etymology_json'];
+            }
+
+            if (array_key_exists('notes_json', $data)) {
+                $word->notes_json = $data['notes_json'];
+            }
+
+            // Also allow normal plain-text versions
+            $word->spelling  = $data['spelling'] ?? $word->spelling;
+            $word->etymology = $data['etymology'] ?? $word->etymology;
+            $word->notes     = $data['notes'] ?? $word->notes;
+
+            if ($this->Words->save($word)) {
+                $this->Flash->success(__('The word has been updated.'));
+                return $this->redirect(['action' => 'view', $word->id]);
+            }
+
+            $this->Flash->error(__('The word could not be saved. Please, try again.'));
+        }
+
+        $this->set(compact('word'));
+    }
+           
+
     public function success() {
 
     }
 
     public function wordnotfound() {
 
+    }
+
+    private function processQuillFields(array $postData, array $fields): array {
+        foreach ($fields as $assoc => $field) {
+            if (!isset($postData[$assoc])) continue;
+            foreach ($postData[$assoc] as $i => $item) {
+                $original = $item[$field] ?? '';
+                if ('{"ops":[{"insert":"\n"}]}' === $original) {
+                    unset($postData[$assoc][$i]);
+                    continue;
+                }
+                $jsonFromOriginal = json_decode($original);
+                $postData[$assoc][$i][$field . '_json'] = json_encode($jsonFromOriginal);
+                $quill = new \nadar\quill\Lexer($original);
+                $postData[$assoc][$i][$field] = $quill->render();
+            }
+        }
+        return $postData;
+    }
+
+    private function processSingleQuillField(array $postData, string $field): array {
+        $original = $postData[$field] ?? '';
+    
+        // Check if the original data is valid JSON
+        if (json_decode($original) === null && json_last_error() !== JSON_ERROR_NONE) {
+            // Handle invalid JSON case
+            $postData[$field] = ''; // or set to a default value
+            return $postData;
+        }
+
+        if ('{"ops":[{"insert":"\n"}]}' === $original) {
+            unset($postData[$field]);
+        } else {
+            $jsonFromOriginal = json_decode($original);
+            $postData[$field . '_json'] = json_encode($jsonFromOriginal);
+            $quill = new \nadar\quill\Lexer($original);
+            
+            // Ensure the render method returns a valid value
+            $rendered = $quill->render();
+            if ($rendered !== null) {
+                $postData[$field] = $rendered;
+            } else {
+                $postData[$field] = ''; // Handle the case where render returns null
+            }
+        }
+        return $postData;
+    }
+
+    private function filterAssociations(array $postData, array $associations): array {
+        foreach ($associations as $assoc) {
+            if (!array_filter($postData[strtolower($assoc)][0] ?? [])) {
+                unset($postData[strtolower($assoc)]);
+            }
+        }
+
+        return $postData;
+    }
+
+    private function handleSoundFiles(array $postData, array $soundFiles): array {
+        $i = 0;
+        foreach ($soundFiles as $soundFile) {
+            $name = $soundFile->getClientFilename();
+            $finalname = str_replace([' ','/','\\','<',';',':','>','"','|','?','*'], '', $postData['spelling']) . time() . $i . '.webm';
+            $targetPath = WWW_ROOT. 'recordings'. DS . $finalname;
+            $type = $soundFile->getClientMediaType();
+            if ($type == 'audio/webm' && !empty($name) && $soundFile->getSize() > 0 && $soundFile->getError() == 0) {
+                $soundFile->moveTo($targetPath);
+                $postData['pronunciations'][$i]['sound_file'] = $finalname;
+            }
+            if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role') && ('' !== $name || null != $name)) {
+                $this->Processfile->converttomp3($finalname);
+            }
+            $i++;
+        }
+        return $postData;
+    }
+
+    private function approvePronunciations(array $postData): array {
+        if (null !== $this->request->getSession()->read('Auth.username') && 'superuser' == $this->request->getSession()->read('Auth.role') && !empty($postData['pronunciations'])) {
+            $datefortimestamp = date('Y-m-d h:i:s', time());
+            foreach ($postData['pronunciations'] as $i => $p) {
+                $postData['pronunciations'][$i]['approved'] = 1;
+                $postData['pronunciations'][$i]['approved_date'] = $datefortimestamp;
+                $postData['pronunciations'][$i]['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+            }
+        }
+        return $postData;
+    }
+
+    /**
+     * Improved "other" logic for origins/types
+     * Handles both _ids and _other_entry fields, deduplicates, and ensures correct structure.
+     */
+    private function processOtherAssociations(array $postData, string $assoc): array {
+        $processed = [];
+        $ids = $postData[$assoc]['_ids'] ?? [];
+        $otherEntry = $postData[$assoc . '_other_entry'] ?? '';
+
+        // Add selected IDs
+        foreach ($ids as $id) {
+            if ($id !== '') {
+                $processed[] = ['id' => $id];
+            }
+        }
+
+        // Add "other" entries (semicolon separated)
+        if ($otherEntry !== '') {
+            $others = array_filter(array_map('trim', explode(';', $otherEntry)));
+            $table = $this->fetchTable(ucfirst($assoc));
+            foreach ($others as $otherValue) {
+                $idOfOther = $table->getIdIfExists($otherValue);
+                if ($idOfOther !== null) {
+                    // Avoid duplicates
+                    if (!in_array(['id' => $idOfOther], $processed)) {
+                        $processed[] = ['id' => $idOfOther];
+                    }
+                } else {
+                    $processed[] = [$assoc === 'origins' ? 'origin' : 'type' => $otherValue];
+                }
+            }
+        }
+
+        // Clean up
+        unset($postData[$assoc]['_ids']);
+        unset($postData[$assoc . '_other_entry']);
+        if (!empty($processed)) {
+            $postData[$assoc] = $processed;
+        }
+        return $postData;
+    }
+
+    /**
+     * Centralized logging for word actions.
+     */
+    private function logWordAction(string $action, \App\Model\Entity\Word $word, array $extra = []): void
+    {
+        $username = $this->request->getSession()->read('Auth.username');
+        $role = $this->request->getSession()->read('Auth.role');
+        $logMsg = '';
+
+        switch ($action) {
+            case 'add_superuser':
+                $logMsg = "Word \/\/ {$word->spelling} was added by {$username} \/\/ {$word->id}";
+                break;
+            case 'add_user':
+                $logMsg = "{$word->spelling} was added by {$word->full_name} ({$word->email})";
+                break;
+            case 'edit':
+                $logMsg = "Word \/\/ {$username} edited {$word->spelling} \/\/ {$word->id}";
+                break;
+            case 'delete':
+                $logMsg = "Word \/\/ {$username} deleted {$word->spelling} \/\/ ";
+                break;
+            case 'approve':
+                $logMsg = "Word \/\/ {$username} approved {$word->spelling} \/\/ {$word->id}";
+                break;
+            default:
+                $logMsg = "{$action}: {$word->spelling}";
+        }
+
+        \Cake\Log\Log::info($logMsg, ['scope' => ['events']] + $extra);
     }
 }

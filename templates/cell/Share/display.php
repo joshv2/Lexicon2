@@ -1,6 +1,6 @@
 <?php
 $currentUrl = $this->Url->build(null, ['fullBase' => true]);
-$wordText = h($word->spelling);
+$wordText = h($word);
 $encodedText = urlencode("Check out this word: " . $wordText);
 $encodedUrl = urlencode($currentUrl);
 ?>

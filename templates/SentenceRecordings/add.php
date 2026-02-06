@@ -12,6 +12,7 @@
             <?= $this->Form->create($sentenceRecording, ['id' => 'add_form','enctype' => 'multipart/form-data']) ?>
             <fieldset>
                 <legend><?= __('Add a recording of this sentence:') ?></legend>
+                <p><?= __('Recording is optional. You can submit without attaching an audio file.') ?></p>
                 
                     <?php echo "<div class='readingSentence'>" . strip_tags($sentences[0]->sentence) . 
                     '<br/><br/>'
@@ -28,7 +29,7 @@
                     <div id="buttonContainer">
                         <span class="record-success" style="display: none;">Recorded <i class="fa-solid fa-check"></i></span>    
                         <button class="btn-record button" id="record" type="submit">Click to Record</button>
-                        ' . $this->Form->control(__('soundfile0'), [
+                        ' . $this->Form->control('soundfile0', [
                             'class' => 'recording-input',
                             'type' => 'file',
                             'style' => 'display:none',

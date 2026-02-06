@@ -82,4 +82,13 @@ class DefinitionsTable extends Table
 
         return $rules;
     }
+
+    public function findByWordId(\Cake\ORM\Query\SelectQuery $query, array $options)
+    {
+        $wordId = $options['word_id'] ?? null;
+
+        return $query
+            ->contain(['Words'])
+            ->where(['Definitions.word_id' => $wordId]);
+    }
 }

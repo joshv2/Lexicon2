@@ -56,13 +56,13 @@ class PagesController extends AppController
 
 
     public function index(): void{
+        $sitelang = $this->request->getAttribute('sitelang');
         $wordsTable = $this->fetchTable('Words');
         $originsTable = $this->fetchTable('Origins');
         $regionsTable = $this->fetchTable('Regions');
         $typesTable = $this->fetchTable('Types');
         $dictionariesTable = $this->fetchTable('Dictionaries');
         $typeCategoriesTable  = $this->fetchTable('TypeCategories');
-        $sitelang = $this->languageinfo();
         $total_entries = $wordsTable->find()->where(['approved' => 1, 'language_id' => $sitelang->id])->count();
         $tagging = [];
         if($sitelang->hasOrigins) {

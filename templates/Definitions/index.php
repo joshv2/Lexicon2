@@ -5,7 +5,15 @@
  */
 ?>
 <div class="definitions index content">
-    <?= $this->Html->link(__('New Definition'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?php
+        $newDefinitionLink = ['action' => 'add'];
+        if (isset($word) && $word !== null) {
+            $newDefinitionLink[] = $word->id;
+        } elseif (isset($wordId) && $wordId !== null) {
+            $newDefinitionLink[] = $wordId;
+        }
+    ?>
+    <?= $this->Html->link(__('New Definition'), $newDefinitionLink, ['class' => 'button float-right']) ?>
     <h3><?= __('Definitions') ?></h3>
     <div class="table-responsive">
         <table>
@@ -24,7 +32,11 @@
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $definition->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $definition->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $definition->id], ['confirm' => __('Are you sure you want to delete # {0}?', $definition->id)]) ?>
+                        <?= $this->Form->postLink(
+                            __('Delete'),
+                            ['action' => 'delete', $definition->id, $definition->word_id],
+                            ['confirm' => __('Are you sure you want to delete # {0}?', $definition->id)]
+                        ) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

@@ -84,4 +84,72 @@ class OriginsTable extends Table
         return $matchingOrigin ? $matchingOrigin->id : null;
     }
 
+    /**
+     * Query all origins for a given word id (via origins_words join table).
+     * Returns a SelectQuery so it can be paginated.
+     */
+    public function getOriginsForWordIdQuery(int $wordId): \Cake\ORM\Query\SelectQuery
+    {
+        return $this->find()
+            ->matching('Words', function (\Cake\ORM\Query\SelectQuery $q) use ($wordId) {
+                return $q->where(['Words.id' => $wordId]);
+            })
+            ->distinct(['Origins.id'])
+            ->orderBy(['Origins.id' => 'ASC']);
+    }
+
+    /**
+     * (Optional) Keep the old convenience method, but build from the query.
+     * Returns an array like: [origin_id => origin_name, ...]
+     */
+    public function getOriginsForWordId(int $wordId): array
+    {
+        return $this->getOriginsForWordIdQuery($wordId)
+            ->find('list', valueField: 'origin')
+            ->toArray();
+    }
+
+    /**
+     * Custom finder so you can do: $this->Origins->find('byWordId', ['word_id' => 123])
+     */
+    public function findByWordId(\Cake\ORM\Query\SelectQuery $query, array $options): \Cake\ORM\Query\SelectQuery
+    {
+        $wordId = $options['word_id'] ?? null;
+        if (!$wordId) {
+            return $query->where(['1 = 0']);
+        }
+
+        return $query
+            ->matching('Words', function (\Cake\ORM\Query\SelectQuery $q) use ($wordId) {
+                return $q->where(['Words.id' => $wordId]);
+            })
+            ->distinct(['Origins.id']);
+    }
+
+    /**
+     * Returns junction rows from origins_words for a word, including the junction id
+     * so you can delete that specific link.
+     *
+     * Result rows are OriginsWords entities (contain Origins).
+     */
+    public function getOriginLinksForWordIdQuery(int $wordId): \Cake\ORM\Query\SelectQuery
+    {
+        /** @var \App\Model\Table\OriginsWordsTable $OriginsWords */
+        $OriginsWords = $this->fetchTable('OriginsWords');
+
+        return $OriginsWords->find()
+            ->select([
+                'OriginsWords.id',
+                'OriginsWords.word_id',
+                'OriginsWords.origin_id',
+            ])
+            ->contain([
+                'Origins' => function (\Cake\ORM\Query\SelectQuery $q) {
+                    return $q->select(['Origins.id', 'Origins.origin']);
+                }
+            ])
+            ->where(['OriginsWords.word_id' => $wordId])
+            ->orderBy(['OriginsWords.id' => 'ASC']);
+    }
+
 }
