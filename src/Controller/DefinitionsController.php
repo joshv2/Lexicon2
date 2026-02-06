@@ -18,16 +18,19 @@ class DefinitionsController extends AppController
      */
     public function index(?int $wordId = null)
     {
+        $word = null;
         $query = $this->Definitions
             ->find()
             ->contain(['Words']);
 
         if ($wordId) {
             $query->where(['Definitions.word_id' => $wordId]);
+            // Provide the word context expected by the index template.
+            $word = $this->Definitions->Words->get($wordId, fields: ['id', 'spelling']);
         }
-        $definitions = $this->paginate($this->Definitions);
+        $definitions = $this->paginate($query);
 
-        $this->set(compact('definitions', 'wordId'));
+        $this->set(compact('definitions', 'wordId', 'word'));
     }
 
     /**
@@ -54,11 +57,16 @@ class DefinitionsController extends AppController
         $wordId = $id;
         $definition = $this->Definitions->newEmptyEntity();
         if ($this->request->is('post')) {
+            // If this add form is word-scoped (e.g. /definitions/add/123), lock the word_id.
+            if ($wordId !== null) {
+                $definition->word_id = (int)$wordId;
+            }
             $definition = $this->Definitions->patchEntity($definition, $this->request->getData());
             if ($this->Definitions->save($definition)) {
                 $this->Flash->success(__('The definition has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // Redirect back to the word-scoped list so the index template has $word.
+                return $this->redirect(['action' => 'index', $definition->word_id]);
             }
             $this->Flash->error(__('The definition could not be saved. Please, try again.'));
         }
@@ -99,7 +107,7 @@ class DefinitionsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null, $wordid)
+    public function delete($id = null, $wordid = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $definition = $this->Definitions->get($id);
@@ -110,7 +118,11 @@ class DefinitionsController extends AppController
             $this->Flash->error(__('The definition could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['controller' => 'Words', 'action' => 'edit', $wordid]);
+        if ($wordid !== null) {
+            return $this->redirect(['controller' => 'Words', 'action' => 'edit', $wordid]);
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     public function word(int $wordId)
