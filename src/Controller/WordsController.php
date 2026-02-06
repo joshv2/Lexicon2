@@ -242,7 +242,6 @@ class WordsController extends AppController {
         $ortd_origins = $this->process_ortd($word['origins'], 'origin');
         $new_origins = $ortd_origins['newortd'];
         $other_origins = $ortd_origins['otherortd'];
-        #$len_other_origins = $ortd_origins['lenotherortd'];
         $total_origins = $ortd_origins['totalortd'];
         $etymology = $word['etymology'];
         $notes = $word['notes'];

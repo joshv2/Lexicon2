@@ -26,12 +26,6 @@ class OriginsController extends AppController
             $query->where(['Origins.word_id' => $wordId]);
         }
         $origins = $this->paginate($this->Origins);
-        /*$sitelang = $this->request->getAttribute('sitelang');
-        $this->paginate = [
-            'contain' => ['Languages']
-        ];
-        $origins = $this->paginate($this->Origins->find()->where(['language_id' => $sitelang->id]));
-        */
         $this->set(compact('origins', 'wordId'));
     }
 
