@@ -28,7 +28,7 @@ return [
             'trim',
             explode(',', (string)env('STAGING_AUTH_ROLES', 'superuser'))
         ))),
-        'loginPath' => (string)env('STAGING_AUTH_LOGIN_PATH', '/users/login'),
+        'loginPath' => (string)env('STAGING_AUTH_LOGIN_PATH', '/login'),
         'redirectQueryParam' => (string)env('STAGING_AUTH_REDIRECT_PARAM', 'redirect'),
     ],
 

@@ -33,6 +33,11 @@ class StagingRequireLoginMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
+        // Always allow authentication-related routes (CakeDC/Users defaults).
+        if ($this->isAuthPath($path, $config)) {
+            return $handler->handle($request);
+        }
+
         // Always allow access to the Users plugin routes so login/logout/reset work.
         if (str_starts_with($path, '/users')) {
             return $handler->handle($request);
@@ -77,6 +82,42 @@ class StagingRequireLoginMiddleware implements MiddlewareInterface
         // Common single-file assets
         if (in_array($path, ['/favicon.ico', '/robots.txt', '/sitemap.xml'], true)) {
             return true;
+        }
+
+        return false;
+    }
+
+    private function isAuthPath(string $path, array $config): bool
+    {
+        $loginPath = (string)($config['loginPath'] ?? '/login');
+        if ($path === $loginPath) {
+            return true;
+        }
+
+        // CakeDC/Users default public endpoints.
+        foreach ([
+            '/login',
+            '/logout',
+            '/register',
+            '/profile',
+            '/verify',
+            '/resetOneTimePasswordAuthenticator',
+        ] as $exact) {
+            if ($path === $exact) {
+                return true;
+            }
+        }
+
+        foreach ([
+            '/accounts/validate',
+            '/link-social',
+            '/callback-link-social',
+            '/auth/',
+            '/social-accounts/',
+        ] as $prefix) {
+            if (str_starts_with($path, $prefix)) {
+                return true;
+            }
         }
 
         return false;
