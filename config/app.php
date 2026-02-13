@@ -18,6 +18,20 @@ return [
      */
     'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
+    // Optional: site-wide access control for staging.
+    // When enabled, users must log in using the existing CakeDC/Users flow.
+    // By default only `superuser` can access the site.
+    'StagingAuth' => [
+        'enabled' => filter_var(env('STAGING_AUTH_ENABLED', false), FILTER_VALIDATE_BOOLEAN),
+        // Comma-separated list like: "superuser,moderator"
+        'allowedRoles' => array_values(array_filter(array_map(
+            'trim',
+            explode(',', (string)env('STAGING_AUTH_ROLES', 'superuser'))
+        ))),
+        'loginPath' => (string)env('STAGING_AUTH_LOGIN_PATH', '/users/login'),
+        'redirectQueryParam' => (string)env('STAGING_AUTH_REDIRECT_PARAM', 'redirect'),
+    ],
+
     /*
      * Configure basic information about the application.
      *

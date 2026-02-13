@@ -29,6 +29,7 @@ use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use App\Middleware\SubdomainWordIdMiddleware;
 use App\Middleware\LanguageMiddleware;
+use App\Middleware\StagingRequireLoginMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 /**
@@ -83,7 +84,7 @@ class Application extends BaseApplication
          */
         if (Configure::read('debug')) {
             //$this->addPlugin('DebugKit', ['bootstrap' => true, 'routes' => true, 'middleware' => true]);
-            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com', 'net']);
+            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com', 'net', 'org']);
             //$this->addPlugin('DebugKit');
         }
 
@@ -102,6 +103,9 @@ class Application extends BaseApplication
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error')))
+
+            // Optional: protect staging by requiring an existing logged-in admin.
+            ->add(new StagingRequireLoginMiddleware())
 
             // Handle plugin/theme assets like CakePHP normally does.
             ->add(new AssetMiddleware([
