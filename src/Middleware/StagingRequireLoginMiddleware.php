@@ -26,6 +26,13 @@ class StagingRequireLoginMiddleware implements MiddlewareInterface
 
         $path = $request->getUri()->getPath() ?: '/';
 
+        // Let static assets through without triggering redirects/session churn.
+        // If your nginx is correctly serving webroot assets directly, these won't hit PHP anyway,
+        // but this avoids breaking the login page when they do.
+        if ($this->isPublicPath($path)) {
+            return $handler->handle($request);
+        }
+
         // Always allow access to the Users plugin routes so login/logout/reset work.
         if (str_starts_with($path, '/users')) {
             return $handler->handle($request);
@@ -56,6 +63,23 @@ class StagingRequireLoginMiddleware implements MiddlewareInterface
         }
 
         return $handler->handle($request);
+    }
+
+    private function isPublicPath(string $path): bool
+    {
+        // Common static asset directories under webroot
+        foreach (['/css/', '/js/', '/img/', '/font/', '/fonts/'] as $prefix) {
+            if (str_starts_with($path, $prefix)) {
+                return true;
+            }
+        }
+
+        // Common single-file assets
+        if (in_array($path, ['/favicon.ico', '/robots.txt', '/sitemap.xml'], true)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function redirectToLogin(ServerRequestInterface $request, array $config): ResponseInterface
