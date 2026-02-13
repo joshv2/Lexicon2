@@ -48,7 +48,15 @@ class Application extends BaseApplication
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-        $this->addPlugin('CakephpFixtureFactories');
+
+        // Only needed for tests; avoid loading in web requests.
+        if (PHP_SAPI === 'cli' && (
+            defined('PHPUNIT_COMPOSER_INSTALL')
+            || defined('PHPUNIT_VERSION')
+            || defined('__PHPUNIT_PHAR__')
+        )) {
+            $this->addPlugin('CakephpFixtureFactories');
+        }
         //Configure::write('Users.config', ['users', 'permissions']);
         //Configure::write('Users.config', ['users']);
         //Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);

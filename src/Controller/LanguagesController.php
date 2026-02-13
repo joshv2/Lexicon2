@@ -25,6 +25,12 @@ class LanguagesController extends AppController
 
     public function about() {
         $sitelang = $this->request->getAttribute('sitelang');
+
+        // Middleware stores a lightweight Language entity in the request.
+        // For this page we need the full About section fields, so re-hydrate it.
+        $sitelang = $this->Languages->get_all_language($sitelang['subdomain']);
+        $this->request = $this->request->withAttribute('sitelang', $sitelang);
+
         $this->set(compact('sitelang'));
     }
 

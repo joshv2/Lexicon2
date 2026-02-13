@@ -12,11 +12,6 @@
 
 		<div class="left-group">
 		<div class="spelling"><?= $spelling;?></div>
-		<?= $this->Html->link(
-				__(' Edit'),
-				'/words/edit/' . $word_id,
-				['class' => 'edit-link', 'escape' => false]) 
-		?>
 		</div>
 		<div class="right-group">
 		<ul class="editbuttons">
@@ -53,11 +48,11 @@
 			<?php 
 			$pronunciations_count = count($pronunciations);
 			if ($pronunciations_count == 0): ?>
-				<li>
+				<li class="record-pronunciation-header">
 					<?= $this->Html->link(
-						'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
+						'<i class="fas fa-microphone"></i>&nbsp;' . __('Record a Pronunciation'),
 						'/pronunciations/add/' . $word_id,
-						['class' => 'button blue nl', 'escape' => false]
+						['class' => 'btn-blue', 'escape' => false]
 					) ?>
 				</li>
 			<?php endif; ?>
@@ -69,15 +64,15 @@
 		</ul>
 		</div>
 	</div>
-	<div class="page-header group2">
-		<?=$this->Html->link(__('Edit'), '/words/edit/' .$word_id);?>
-				</br>
-				<?php 
-					if ($pronunciations_count == 0) {
-							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word_id, ['class' => 'button blue nl', 'escape' => false]);
-					}
-				?>
-	</div>
+	<?php if ($pronunciations_count == 0): ?>
+		<div class="page-header group2">
+			<?= $this->Html->link(
+				__('Record a Pronunciation'),
+				'/pronunciations/add/' . $word_id,
+				['class' => 'btn-blue', 'escape' => false]
+			) ?>
+		</div>
+	<?php endif; ?>
 
 	<div class='c'>
 	<div class="word">
@@ -125,7 +120,7 @@
 				<div class="buttons-container">
 					<p>
 						<?= $this->Html->link(
-							'<i class="fas fa-microphone"></i> ' . __('Record a Pronunciation'),
+							'<i class="fas fa-microphone"></i>&nbsp;' . __('Record a Pronunciation'),
 							'/pronunciations/add/' . $word_id,
 							['class' => 'button blue', 'escape' => false]
 						); ?>
@@ -230,15 +225,15 @@
             <?php
                 if ($sentences_count == 1) {
                     echo $this->Html->link(
-                        '<i class="fas fa-microphone"></i> ' . __('Record a Sentence'),
+                        '<i class="fas fa-microphone"></i>&nbsp;' . __('Record a Sentence'),
                         '/SentenceRecordings/add/' . $sentences[0]['id'],
-                        ['class' => 'button blue', 'escape' => false]
+						['class' => 'btn-blue', 'escape' => false]
                     );
                 } else {
                     echo $this->Html->link(
-                        '<i class="fas fa-microphone"></i> ' . __('Record a Sentence'),
+                        '<i class="fas fa-microphone"></i>&nbsp;' . __('Record a Sentence'),
                         '/SentenceRecordings/choose/' . $word_id,
-                        ['class' => 'button blue', 'id' => 'convert', 'escape' => false]
+						['class' => 'btn-blue', 'id' => 'convert', 'escape' => false]
                     );
                 }
             ?>

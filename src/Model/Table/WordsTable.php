@@ -215,7 +215,7 @@ class WordsTable extends Table
             ])
             ->groupBy(['Words.id', 'Words.spelling', 'Words.created'])
             ->having(function ($exp, $query) {
-                $case = $query->newExpr()->case()
+                $case = $query->expr()->case()
                     ->when([
                         'Pronunciations.sound_file IS NOT' => null,
                         'Pronunciations.sound_file !=' => '',
@@ -494,7 +494,7 @@ class WordsTable extends Table
                         ]]);
 
 
-        $spellingmatch = $query->newExpr()
+    $spellingmatch = $query->expr()
                     ->case()
                     ->when(['Words.spelling LIKE' => $querystring])
                     ->then(2)

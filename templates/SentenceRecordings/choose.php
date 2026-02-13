@@ -3,9 +3,17 @@
 <?= $this->Form->create() ?>
 <?php
 $radioOptions = [];
-foreach ($word->sentences as $s) {
-    array_push($radioOptions, ['value' => $s['id'] , 'text' => $s['sentence']]);
-} ?>
-<?php echo $this->Form->radio('sentenceToRecord', $radioOptions, ['escape' => false]); ?>
+
+$sentences = $word['sentences'] ?? [];
+foreach ($sentences as $s) {
+    $radioOptions[] = ['value' => $s['id'] ?? null, 'text' => $s['sentence'] ?? ''];
+}
+
+if (empty($radioOptions)) {
+    echo '<p>' . __('No sentences are available to record for this word yet.') . '</p>';
+} else {
+    echo $this->Form->radio('sentenceToRecord', $radioOptions, ['escape' => false]);
+}
+?>
 </section>
 <?= $this->Form->submit(__('Proceed to Recording'), ['class' => 'button blue']) ?>

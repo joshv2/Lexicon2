@@ -14,8 +14,27 @@ class SearchController extends AppController {
 	public function index()
     {
         $sitelang = $this->request->getAttribute('sitelang');
-        $q = trim($this->request->getQuery('q'));
-        $displayType = $this->request->getQuery('displayType');
+        $qRaw = $this->request->getQuery('q', '');
+        if (is_array($qRaw)) {
+            $qRaw = '';
+        }
+        $q = trim((string)$qRaw);
+        $displayType = (string)$this->request->getQuery('displayType', '');
+
+        // If no query was provided, render an empty result set.
+        // This avoids TypeErrors and prevents expensive "match everything" searches.
+        if ($q === '') {
+            $words = [];
+            $originCounts = [];
+            $countVal = 0;
+            $isPaginated = false;
+            $count = 0;
+            $summaryVars = $this->getResultSummaryData($countVal, $originCounts);
+
+            $this->set(compact('words', 'q', 'isPaginated', 'count', 'originCounts', 'countVal'));
+            $this->set($summaryVars);
+            return $this->render('results');
+        }
         $wordsTable = $this->fetchTable('Words');
         $baseQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins']);
         $allWords = $baseQuery->contain(['Origins'])->toArray();

@@ -104,7 +104,14 @@ class SentenceRecordingsController extends AppController
 
             $sentenceRecording = $this->SentenceRecordings->patchEntity($sentenceRecording, $postData);
             if ($this->SentenceRecordings->save($sentenceRecording)) {
-                Log::info('Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') . ' added a sentence recoding for sentence ID ' . $id . ' \/\/ '. $sentences[0]->word_id . ' \/\/ ' . $id, ['scope' => ['events']]);
+                $wordId = (!empty($sentences) && isset($sentences[0]->word_id)) ? $sentences[0]->word_id : null;
+                Log::info(
+                    'Sentence Recording \/\/ ' . $this->request->getSession()->read('Auth.username') .
+                    ' added a sentence recoding for sentence ID ' . $id .
+                    ' \/\/ ' . ($wordId ?? 'n/a') .
+                    ' \/\/ ' . $id,
+                    ['scope' => ['events']]
+                );
                 $this->Flash->success(__('The sentence recording has been saved.'));
 
                 return $this->redirect(['action' => 'success']);
@@ -229,15 +236,23 @@ class SentenceRecordingsController extends AppController
 
     public function choose($id = null)
     {
-        if( $this->request->is('post') ) {
+        if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $this->redirect('/sentenceRecordings/add/'.$data['sentenceToRecord']);
-        } else {
-        //array_map([$this, 'loadModel'], ['Words', 'Sentences']);
-        $wordResult = $this->fetchTable('Words')->get_word_for_view($id);
-        $word = $wordResult[0];
-        $this->set(compact('word'));
+            return $this->redirect('/sentenceRecordings/add/' . ($data['sentenceToRecord'] ?? ''));
         }
+
+        if ($id === null || $id === '') {
+            $this->Flash->error(__('No word was selected.'));
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+        }
+
+        $word = $this->fetchTable('Words')->get_word_for_view($id);
+        if (empty($word)) {
+            $this->Flash->error(__('That word could not be found.'));
+            return $this->redirect(['controller' => 'Words', 'action' => 'wordnotfound']);
+        }
+
+        $this->set(compact('word'));
     }
 
     public function success(){
