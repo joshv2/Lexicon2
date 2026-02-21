@@ -41,13 +41,32 @@
 		<?php endif; ?>
 	</div>
 	</div>
-	<?php if ($isPaginated && $this->Paginator->counter('{{count}}') <= 0): ?>	
+	<?php if ($countVal <= 0): ?>	
 
 		<div class="c content">
+			<h3><?= __('Entries:'); ?></h3>
 			<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
 			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="fa-solid fa-plus"></i> ' . __('Add a new word'), '/add',
 												['class' => 'button blue', 'escape' => false]);?></p>
 		</div>
+
+		<?php if (!empty($definitionWords)): ?>
+			<div class="c content">
+				<h3><?= __('Definitions:'); ?></h3>
+				<ol class="word-list group">
+					<?php $i = 1;
+					foreach ($definitionWords as $word): ?>
+						<li class="group">
+							<div class="num"><?php echo $i;?></div>
+							<div class="word-main">
+								<h3><?php echo $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h3>
+								<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', ['controller' => 'Words', 'action' => 'view', $word->id], ['class' => 'noborder', 'escape' => false]); ?>
+							</div>
+						</li>
+					<?php ++$i; endforeach; ?>
+				</ol>
+			</div>
+		<?php endif; ?>
 	<?php else: ?>
 		<ol class="word-list group">
 		<?php $i = 1;

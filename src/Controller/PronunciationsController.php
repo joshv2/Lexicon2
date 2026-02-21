@@ -149,25 +149,40 @@ class PronunciationsController extends AppController {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
             $success = 0;
-            foreach ($postData['pronunciations'] as $pronunciation_edit) {
+            $attempted = 0;
 
-                $pronunciation = $this->Pronunciations->get($pronunciation_edit['id'], [
+            $pronunciations = $postData['pronunciations'] ?? [];
+            foreach ($pronunciations as $pronunciationEdit) {
+                if (empty($pronunciationEdit['id']) || !array_key_exists('display_order', $pronunciationEdit)) {
+                    continue;
+                }
+
+                $attempted += 1;
+                $pronunciation = $this->Pronunciations->get($pronunciationEdit['id'], [
                     'contain' => [],
                 ]);
-                $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $pronunciation_edit);
-                if ($this->Pronunciations->save($pronunciation)) {
-                    //$this->Flash->success(__('The pronunciation has been saved.'));
 
-                    //return $this->redirect(['action' => 'index']);
+                $saveData = [
+                    'display_order' => $pronunciationEdit['display_order'],
+                ];
+                $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $saveData);
+
+                if ($this->Pronunciations->save($pronunciation)) {
                     $success += 1;
                 } else {
                     $this->Flash->error(__('The pronunciation order could not be saved. Please, try again.'));
                 }
             }
-            if ($success == count($postData['pronunciations'])) {
-                Log::info($this->request->getSession()->read('Auth.username') . ' ranked ' . $pronunciation->spelling , ['scope' => ['events']]);
+
+            if ($attempted > 0 && $success === $attempted) {
+                Log::info($this->request->getSession()->read('Auth.username') . ' updated pronunciation rankings for word ' . $wordid, ['scope' => ['events']]);
                 $this->Flash->success(__('The rankings have been saved.'));
-                return $this->redirect(['controller' => 'Words', 'action' => 'view', $wordid]);
+                return $this->redirect(['action' => 'manage', $wordid]);
+            }
+
+            if ($attempted === 0) {
+                $this->Flash->error(__('No rankings were submitted.'));
+                return $this->redirect(['action' => 'manage', $wordid]);
             }
 
         }   
@@ -177,21 +192,19 @@ class PronunciationsController extends AppController {
     }
 
     /**
-     * Edit method
+     * Deny method (separate from edit)
      *
-     * @param string|null $id Pronunciation id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @param string|int|null $wordid Word id.
+     * @param string|int|null $id Pronunciation id.
+     * @return \Cake\Http\Response|null|void
      */
-    public function edit($wordid, $id = null)
+    public function deny($wordid = null, $id = null)
     {
-        // Fail gracefully if no id passed
         if (empty($id)) {
             $this->Flash->error(__('No pronunciation id provided.'));
             return $this->redirect(['action' => 'manage', $wordid]);
         }
 
-        // Handle missing record
         try {
             $pronunciation = $this->Pronunciations->get($id, [
                 'contain' => [],
@@ -203,19 +216,89 @@ class PronunciationsController extends AppController {
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $postData = $this->request->getData();
+            $postData['approved'] = -1;
             $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
             $postData['approved_date'] = date('Y-m-d h:i:s', time());
+
             $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $postData);
             if ($this->Pronunciations->save($pronunciation)) {
-                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling  . ' \/\/', ['scope' => ['events']]);
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' denied ' . $pronunciation->spelling . ' \/\/', ['scope' => ['events']]);
                 $this->Flash->success(__('The pronunciation has been denied.'));
-
                 return $this->redirect(['action' => 'manage', $wordid]);
             }
+
             $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
         }
+
         $words = $this->Pronunciations->Words->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('pronunciation', 'words'));
+
+        // Reuse the existing deny form UI.
+        $this->render('edit');
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Pronunciation id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($wordid, $id = null)
+    {
+        if (empty($id)) {
+            $this->Flash->error(__('No pronunciation id provided.'));
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
+        // Inline editing happens on the manage page; do not serve a separate edit screen.
+        if ($this->request->is('get')) {
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
+        try {
+            $pronunciation = $this->Pronunciations->get($id, [
+                'contain' => [],
+            ]);
+        } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+            $this->Flash->error(__('Pronunciation not found.'));
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $postData = $this->request->getData();
+            $rows = $postData['pronunciations'] ?? [];
+
+            $rowData = null;
+            foreach ($rows as $row) {
+                if (!empty($row['id']) && (string)$row['id'] === (string)$id) {
+                    $rowData = $row;
+                    break;
+                }
+            }
+
+            if ($rowData === null) {
+                $this->Flash->error(__('No pronunciation data was submitted.'));
+                return $this->redirect(['action' => 'manage', $wordid]);
+            }
+
+            $saveData = [
+                'spelling' => $rowData['spelling'] ?? $pronunciation->spelling,
+                'pronunciation' => $rowData['pronunciation'] ?? $pronunciation->pronunciation,
+            ];
+
+            $pronunciation = $this->Pronunciations->patchEntity($pronunciation, $saveData);
+            if ($this->Pronunciations->save($pronunciation)) {
+                Log::info('Pronunciation \/\/ ' . $this->request->getSession()->read('Auth.username') . ' edited pronunciation ' . $pronunciation->id . ' \/\/', ['scope' => ['events']]);
+                $this->Flash->success(__('The pronunciation has been saved.'));
+                return $this->redirect(['action' => 'manage', $wordid]);
+            }
+
+            $this->Flash->error(__('The pronunciation could not be saved. Please, try again.'));
+            return $this->redirect(['action' => 'manage', $wordid]);
+        }
+
+        return $this->redirect(['action' => 'manage', $wordid]);
     }
 
     /**

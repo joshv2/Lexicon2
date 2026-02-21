@@ -543,6 +543,39 @@ class WordsTable extends Table
     }
 
 
+    public function findSearchResultsByDefinition(SelectQuery $query, string $querystring, int $langid)
+    {
+        $q = trim($querystring);
+        if ($q === '') {
+            return $query->where(['1 = 0']);
+        }
+
+        $like = '%' . $q . '%';
+
+        $query
+            ->select([
+                'Words.id',
+                'Words.spelling',
+            ])
+            ->distinct(['Words.id'])
+            ->where([
+                'Words.language_id' => $langid,
+                'Words.approved' => 1,
+            ])
+            ->matching('Definitions', function (SelectQuery $q2) use ($like) {
+                return $q2->where([
+                    'Definitions.definition LIKE' => $like,
+                ]);
+            })
+            ->orderBy([
+                'Words.spelling' => 'ASC',
+                'Words.id' => 'ASC',
+            ]);
+
+        return $query;
+    }
+
+
     public function findWithSpelling($spelling){
         if(isset($spelling["spelling"])){
             $wordtosearch = $spelling["spelling"];
