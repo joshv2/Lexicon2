@@ -62,6 +62,9 @@ class PronunciationsController extends AppController {
             // Process sound files (optional)
             $postData['user_id'] = $this->request->getSession()->read('Auth.id');
 
+            $isAdmin = (null !== $this->request->getSession()->read('Auth.username')
+                && 'superuser' == $this->request->getSession()->read('Auth.role'));
+
             // Ensure association field exists even if the form name changes.
             if (empty($postData['word_id'])) {
                 $postData['word_id'] = $id;
@@ -88,21 +91,11 @@ class PronunciationsController extends AppController {
                 );
 
                 if (!empty($processedFiles)) {
-                    if (null !== $this->request->getSession()->read('Auth.username')
-                        && 'superuser' == $this->request->getSession()->read('Auth.role')) {
-                        $datefortimestamp = date('Y-m-d h:i:s', time());
-                        $postData['sentence_id'] = $id;
-                        $postData['approved'] = 1;
-                        $postData['approved_date'] = $datefortimestamp;
-                        $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
-
-                        $this->Processfile->convertMP3($processedFiles);
-                    } else {
-                        $postData['sentence_id'] = $id;
-                        $postData['approved'] = 0;
-                    }
-
                     $postData['sound_file'] = implode(' ,', $processedFiles);
+
+                    if ($isAdmin) {
+                        $this->Processfile->convertMP3($processedFiles);
+                    }
                 } else {
                     // No usable recording after processing; treat as no recording.
                     $postData['sound_file'] = '';
@@ -118,7 +111,11 @@ class PronunciationsController extends AppController {
                 goto render;
             }
 
-            if (!array_key_exists('approved', $postData) || $postData['approved'] === null) {
+            if ($isAdmin) {
+                $postData['approved'] = 1;
+                $postData['approved_date'] = date('Y-m-d h:i:s', time());
+                $postData['approving_user_id'] = $this->request->getSession()->read('Auth.id');
+            } else {
                 $postData['approved'] = 0;
             }
 

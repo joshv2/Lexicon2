@@ -237,6 +237,13 @@ class WordsController extends AppController {
         $sentences_count = count($sentences);
         $pronunciations = $word['pronunciations'];
         $pronunciations_count = count($pronunciations);
+
+        $pendingPronunciationsCount = $this->fetchTable('Pronunciations')
+            ->find()
+            ->where(['Pronunciations.word_id' => $word_id, 'Pronunciations.approved' => 0])
+            ->count();
+        $hasPendingPronunciations = $pendingPronunciationsCount > 0;
+
         $definitions = $word['definitions'];
         $total_definitions = count($definitions);
         $ortd_origins = $this->process_ortd($word['origins'], 'origin');
@@ -260,12 +267,34 @@ class WordsController extends AppController {
         $alternates = $word['alternates'];
         $spellingList = $this->process_alternate_spellings($word['alternates']);
         
-        return compact('word_id', 'spelling', 'sentences', 'sentences_count', 
-                        'pronunciations', 'pronunciations_count', 'definitions', 
-                        'total_definitions', 'new_origins', 'other_origins', 'total_origins', 
-                        'etymology', 'notes', 'new_types', 'other_types', 'total_types', 'new_regions', 
-                        'other_regions', 'total_regions', 'new_dictionaries', 
-                        'other_dictionaries', 'total_dictionaries', 'alternates', 'spellingList');
+                return compact(
+                    'word_id',
+                    'spelling',
+                    'sentences',
+                    'sentences_count',
+                    'pronunciations',
+                    'pronunciations_count',
+                    'pendingPronunciationsCount',
+                    'hasPendingPronunciations',
+                    'definitions',
+                    'total_definitions',
+                    'new_origins',
+                    'other_origins',
+                    'total_origins',
+                    'etymology',
+                    'notes',
+                    'new_types',
+                    'other_types',
+                    'total_types',
+                    'new_regions',
+                    'other_regions',
+                    'total_regions',
+                    'new_dictionaries',
+                    'other_dictionaries',
+                    'total_dictionaries',
+                    'alternates',
+                    'spellingList'
+                );
     }
 
     /**

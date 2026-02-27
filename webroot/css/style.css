@@ -1368,18 +1368,28 @@ nav#browsealpha {
 
 /* Shared button styles */
 .right-group .btn-blue,
-.right-group .btn-red {
+.right-group .btn-red,
+.right-group .button.blue,
+.right-group .button.blue.nl,
+.right-group .button.blue2 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 6px 14px;
     height: 32px;           /* EXACT same height */
     border: none;
+    border-radius: 2px;
     font-size: 14px;
     line-height: 1;         /* prevents weird vertical offsets */
     text-decoration: none;  /* for <a> buttons */
     cursor: pointer;
     color: #fff;
+    box-sizing: border-box;
+    text-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 /* Specific colors */

@@ -552,19 +552,23 @@ class WordsTable extends Table
 
         $like = '%' . $q . '%';
 
+        // Fallback search: definitions OR word notes (approved words, current language only).
+        // Use a LEFT JOIN so matches in Words.notes are not excluded by missing definitions.
         $query
             ->select([
                 'Words.id',
                 'Words.spelling',
             ])
             ->distinct(['Words.id'])
+            ->leftJoinWith('Definitions')
             ->where([
                 'Words.language_id' => $langid,
                 'Words.approved' => 1,
             ])
-            ->matching('Definitions', function (SelectQuery $q2) use ($like) {
-                return $q2->where([
+            ->andWhere(function ($exp) use ($like) {
+                return $exp->or([
                     'Definitions.definition LIKE' => $like,
+                    'Words.notes LIKE' => $like,
                 ]);
             })
             ->orderBy([
