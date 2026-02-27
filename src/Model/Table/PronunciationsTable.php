@@ -128,21 +128,34 @@ class PronunciationsTable extends Table
         return $query;
     }
 
-    public function get_pending_pronunciations($langid){
+    public function get_pending_pronunciations(?int $langid = null): Query
+    {
         $query = $this->find()
-                    ->where(['Pronunciations.approved' => 0])
-                    ->contain(['Words' => function (Query $q) use ($langid) {
-                        return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
-                    }, 'RecordingUsers', 'ApprovingUsers'])
-                    ->orderBy(['Pronunciations.created' => 'DESC']);
-        return $query;
+            ->where(['Pronunciations.approved' => 0]);
+
+        if ($langid !== null) {
+            $query = $query->innerJoinWith('Words', function (Query $q) use ($langid) {
+                return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
+            });
+        }
+
+        return $query
+            ->contain(['Words', 'RecordingUsers', 'ApprovingUsers'])
+            ->orderBy(['Pronunciations.created' => 'DESC']);
     }
 
-    public function get_all_pronunciations($langid){
-        $query = $this->find()->contain(['Words' => function (Query $q) use ($langid) {
-            return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
-        }, 'RecordingUsers', 'ApprovingUsers'])
-                   ->orderBy(['Pronunciations.approved_date' => 'DESC']);
-        return $query;
+    public function get_all_pronunciations(?int $langid = null): Query
+    {
+        $query = $this->find();
+
+        if ($langid !== null) {
+            $query = $query->innerJoinWith('Words', function (Query $q) use ($langid) {
+                return $q->where(['Words.approved' => 1, 'Words.language_id' => $langid]);
+            });
+        }
+
+        return $query
+            ->contain(['Words', 'RecordingUsers', 'ApprovingUsers'])
+            ->orderBy(['Pronunciations.approved_date' => 'DESC']);
     }
 }

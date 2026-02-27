@@ -99,9 +99,15 @@
 <?php foreach ($pendingPronunciations as $word): ////$word = $word['Edit'];  ?> 
 
 	<tr>
-		<td><?php echo h($word->word->spelling);?></td>
+		<td><?php echo h($word->word ? $word->word->spelling : 'Unknown word');?></td>
 		<td><?php echo h($word['spelling']);?></td>
-		<td><?php echo h($word['submitting_user']['first_name']) . " " . h($word['submitting_user']['last_name']) . " (" . h($word['submitting_user']['email']) . ")";?></td>
+		<td><?php 
+			if (!empty($word->submitting_user)) {
+				echo h($word->submitting_user['first_name']) . ' ' . h($word->submitting_user['last_name']) . ' (' . h($word->submitting_user['email']) . ')';
+			} else {
+				echo 'Recording made anonymously';
+			}
+		?></td>
 		<td><?php echo h($this->Time->format($word['created'], \IntlDateFormatter::FULL, 'America/Los_Angeles'));?></td>
 
 		<td>

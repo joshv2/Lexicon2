@@ -543,6 +543,43 @@ class WordsTable extends Table
     }
 
 
+    public function findSearchResultsByDefinition(SelectQuery $query, string $querystring, int $langid)
+    {
+        $q = trim($querystring);
+        if ($q === '') {
+            return $query->where(['1 = 0']);
+        }
+
+        $like = '%' . $q . '%';
+
+        // Fallback search: definitions OR word notes (approved words, current language only).
+        // Use a LEFT JOIN so matches in Words.notes are not excluded by missing definitions.
+        $query
+            ->select([
+                'Words.id',
+                'Words.spelling',
+            ])
+            ->distinct(['Words.id'])
+            ->leftJoinWith('Definitions')
+            ->where([
+                'Words.language_id' => $langid,
+                'Words.approved' => 1,
+            ])
+            ->andWhere(function ($exp) use ($like) {
+                return $exp->or([
+                    'Definitions.definition LIKE' => $like,
+                    'Words.notes LIKE' => $like,
+                ]);
+            })
+            ->orderBy([
+                'Words.spelling' => 'ASC',
+                'Words.id' => 'ASC',
+            ]);
+
+        return $query;
+    }
+
+
     public function findWithSpelling($spelling){
         if(isset($spelling["spelling"])){
             $wordtosearch = $spelling["spelling"];

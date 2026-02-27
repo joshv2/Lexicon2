@@ -12,11 +12,6 @@
 
 		<div class="left-group">
 		<div class="spelling"><?= $spelling;?></div>
-		<?= $this->Html->link(
-				__(' Edit'),
-				'/words/edit/' . $word_id,
-				['class' => 'edit-link', 'escape' => false]) 
-		?>
 		</div>
 		<div class="right-group">
 		<ul class="editbuttons">
@@ -55,17 +50,19 @@
 			if ($pronunciations_count == 0): ?>
 				<li>
 					<?= $this->Html->link(
-						'<i class="fas fa-microphone"></i>' . __(' Record a Pronunciation'),
+						'<i class="fas fa-microphone"></i>&nbsp;' . __('Record a Pronunciation'),
 						'/pronunciations/add/' . $word_id,
 						['class' => 'button blue nl', 'escape' => false]
 					) ?>
 				</li>
 			<?php endif; ?>
-			<?php if ($this->Identity->isLoggedIn()): ?>
 			<li>
-				
+				<?= $this->Html->link(
+					'<i class="fa-solid fa-pen-to-square"></i>&nbsp;' . __('Edit'),
+					'/words/edit/' . $word_id,
+					['class' => 'btn-blue', 'escape' => false]
+				) ?>
 			</li>
-			<?php endif; ?>
 		</ul>
 		</div>
 	</div>
@@ -82,7 +79,7 @@
 	<div class='c'>
 	<div class="word">
 		
-		<?php if(!empty($pronunciations)) : ?>
+		<?php if (!empty($pronunciations) || ($this->Identity->isLoggedIn() && (!empty($hasPendingPronunciations) && $hasPendingPronunciations))) : ?>
 			<h4>Pronunciations</h4>
 
 			<div class="pronunciation-section">
