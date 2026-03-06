@@ -75,7 +75,7 @@ class Application extends BaseApplication
          */
         if (Configure::read('debug')) {
             //$this->addPlugin('DebugKit', ['bootstrap' => true, 'routes' => true, 'middleware' => true]);
-            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com', 'net']);
+            Configure::write('DebugKit.safeTld', ['dev', 'local', 'com', 'net', 'org']);
             //$this->addPlugin('DebugKit');
         }
 
@@ -121,6 +121,10 @@ class Application extends BaseApplication
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]));
+
+        if (Configure::read('debug') && class_exists(\DebugKit\Middleware\DebugKitMiddleware::class)) {
+            $middlewareQueue->add(new \DebugKit\Middleware\DebugKitMiddleware());
+        }
 
         return $middlewareQueue;
     }
