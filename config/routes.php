@@ -117,6 +117,17 @@ use Cake\Routing\RouteBuilder;
         ['pass' => ['wordId'], 'wordId' => '[0-9]+']
     );
 
+    $builder->connect(
+        '/dictionaries/word/{wordId}',
+        ['controller' => 'DictionariesWords', 'action' => 'indexByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+    $builder->connect(
+        '/dictionaries/word/{wordId}/add',
+        ['controller' => 'DictionariesWords', 'action' => 'addByWord'],
+        ['pass' => ['wordId'], 'wordId' => '[0-9]+']
+    );
+
     $builder->connect('/random', ['controller' => 'Words', 'action' => 'random']);
 
 
