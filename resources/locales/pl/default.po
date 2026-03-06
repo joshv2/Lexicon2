@@ -1,0 +1,2027 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2026-02-20 09:45+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ./src/Controller/AlphabetAddendumsController.php:56
+#: ./src/Controller/AlphabetAddendumsController.php:81
+msgid "The alphabet addendum has been saved."
+msgstr "Dodatek do alfabetu został zapisany."
+
+#: ./src/Controller/AlphabetAddendumsController.php:60
+#: ./src/Controller/AlphabetAddendumsController.php:85
+msgid "The alphabet addendum could not be saved. Please, try again."
+msgstr "Nie udało się zapisać dodatku do alfabetu. Proszę spróbować ponownie."
+
+#: ./src/Controller/AlphabetAddendumsController.php:103
+msgid "The alphabet addendum has been deleted."
+msgstr "Dodatek do alfabetu został usunięty."
+
+#: ./src/Controller/AlphabetAddendumsController.php:105
+msgid "The alphabet addendum could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć dodatku do alfabetu. Proszę spróbować ponownie."
+
+#: ./src/Controller/AlphabetsController.php:56
+#: ./src/Controller/AlphabetsController.php:81
+msgid "The alphabet has been saved."
+msgstr "Alfabet został zapisany."
+
+#: ./src/Controller/AlphabetsController.php:60
+#: ./src/Controller/AlphabetsController.php:85
+msgid "The alphabet could not be saved. Please, try again."
+msgstr "Nie udało się zapisać alfabetu. Proszę spróbować ponownie."
+
+#: ./src/Controller/AlphabetsController.php:103
+msgid "The alphabet has been deleted."
+msgstr "Alfabet został usunięty."
+
+#: ./src/Controller/AlphabetsController.php:105
+msgid "The alphabet could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć alfabetu. Proszę spróbować ponownie."
+
+#: ./src/Controller/AlternatesController.php:56
+#: ./src/Controller/AlternatesController.php:81
+msgid "The alternate has been saved."
+msgstr "Wariant został zapisany."
+
+#: ./src/Controller/AlternatesController.php:60
+#: ./src/Controller/AlternatesController.php:85
+msgid "The alternate could not be saved. Please, try again."
+msgstr "Nie udało się zapisać wariantu. Proszę spróbować ponownie."
+
+#: ./src/Controller/AlternatesController.php:103
+msgid "The alternate has been deleted."
+msgstr "Wariant został usunięty."
+
+#: ./src/Controller/AlternatesController.php:105
+msgid "The alternate could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć wariantu. Proszę spróbować ponownie."
+
+#: ./src/Controller/DefinitionsController.php:66
+#: ./src/Controller/DefinitionsController.php:91
+msgid "The definition has been saved."
+msgstr "Definicja została zapisana."
+
+#: ./src/Controller/DefinitionsController.php:71
+#: ./src/Controller/DefinitionsController.php:94
+msgid "The definition could not be saved. Please, try again."
+msgstr "Nie udało się zapisać definicji. Proszę spróbować ponownie."
+
+#: ./src/Controller/DefinitionsController.php:116
+msgid "The definition has been deleted."
+msgstr "Definicja została usunięta."
+
+#: ./src/Controller/DefinitionsController.php:118
+msgid "The definition could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć definicji. Proszę spróbować ponownie."
+
+#: ./src/Controller/DictionariesController.php:61
+#: ./src/Controller/DictionariesController.php:87
+msgid "The dictionary has been saved."
+msgstr "Słownik został zapisany."
+
+#: ./src/Controller/DictionariesController.php:65
+#: ./src/Controller/DictionariesController.php:91
+msgid "The dictionary could not be saved. Please, try again."
+msgstr "Nie udało się zapisać słownika. Proszę spróbować ponownie."
+
+#: ./src/Controller/DictionariesController.php:110
+msgid "The dictionary has been deleted."
+msgstr "Słownik został usunięty."
+
+#: ./src/Controller/DictionariesController.php:112
+msgid "The dictionary could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć słownika. Proszę spróbować ponownie."
+
+#: ./src/Controller/LanguagesController.php:74
+msgid "Please include a header image."
+msgstr "Proszę dołączyć obraz nagłówka."
+
+#: ./src/Controller/LanguagesController.php:86
+msgid "Please include a logo image."
+msgstr "Proszę dołączyć obraz logo."
+
+#: ./src/Controller/LanguagesController.php:101
+msgid "Please include a translation file."
+msgstr "Proszę dołączyć plik tłumaczenia."
+
+#: ./src/Controller/LanguagesController.php:110
+#: ./src/Controller/LanguagesController.php:159
+msgid "The language has been saved."
+msgstr "Język został zapisany."
+
+#: ./src/Controller/LanguagesController.php:114
+#: ./src/Controller/LanguagesController.php:163
+msgid "The language could not be saved. Please, try again."
+msgstr "Nie udało się zapisać języka. Proszę spróbować ponownie."
+
+#: ./src/Controller/LanguagesController.php:180
+msgid "The language has been deleted."
+msgstr "Język został usunięty."
+
+#: ./src/Controller/LanguagesController.php:182
+msgid "The language could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć języka. Proszę spróbować ponownie."
+
+#: ./src/Controller/OriginsController.php:61
+#: ./src/Controller/OriginsController.php:89
+msgid "The origin has been saved."
+msgstr "Pochodzenie zostało zapisane."
+
+#: ./src/Controller/OriginsController.php:65
+#: ./src/Controller/OriginsController.php:93
+msgid "The origin could not be saved. Please, try again."
+msgstr "Nie udało się zapisać pochodzenia. Proszę spróbować ponownie."
+
+#: ./src/Controller/OriginsController.php:112
+msgid "The origin has been deleted."
+msgstr "Pochodzenie zostało usunięte."
+
+#: ./src/Controller/OriginsController.php:114
+msgid "The origin could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć pochodzenia. Proszę spróbować ponownie."
+
+#: ./src/Controller/PagesController.php:92
+#: ./templates/layout/default.php:133
+#: ./templates/layout/default.php:187
+msgid "Home"
+msgstr "Strona główna"
+
+#: ./src/Controller/PronunciationsController.php:80
+#: ./src/Controller/SentenceRecordingsController.php:74
+msgid "Please record or upload a file in MP3 format."
+msgstr "Proszę nagrać lub przesłać plik w formacie MP3."
+
+#: ./src/Controller/PronunciationsController.php:117
+msgid "Please enter a spelling and/or phonetic spelling, or attach a recording."
+msgstr "Proszę wpisać pisownię i/lub zapis fonetyczny albo dołączyć nagranie."
+
+#: ./src/Controller/PronunciationsController.php:128
+#: ./src/Controller/PronunciationsController.php:293
+msgid "The pronunciation has been saved."
+msgstr "Wymowa została zapisana."
+
+#: ./src/Controller/PronunciationsController.php:133
+#: ./src/Controller/PronunciationsController.php:230
+#: ./src/Controller/PronunciationsController.php:297
+msgid "The pronunciation could not be saved. Please, try again."
+msgstr "Nie udało się zapisać wymowy. Proszę spróbować ponownie."
+
+#: ./src/Controller/PronunciationsController.php:173
+msgid "The pronunciation order could not be saved. Please, try again."
+msgstr "Nie udało się zapisać kolejności wymów. Proszę spróbować ponownie."
+
+#: ./src/Controller/PronunciationsController.php:179
+#: ./src/Controller/SentenceRecordingsController.php:149
+msgid "The rankings have been saved."
+msgstr "Oceny zostały zapisane."
+
+#: ./src/Controller/PronunciationsController.php:184
+msgid "No rankings were submitted."
+msgstr "Nie przesłano żadnych ocen."
+
+#: ./src/Controller/PronunciationsController.php:204
+#: ./src/Controller/PronunciationsController.php:250
+msgid "No pronunciation id provided."
+msgstr "Nie podano identyfikatora wymowy."
+
+#: ./src/Controller/PronunciationsController.php:213
+#: ./src/Controller/PronunciationsController.php:264
+msgid "Pronunciation not found."
+msgstr "Nie znaleziono wymowy."
+
+#: ./src/Controller/PronunciationsController.php:226
+msgid "The pronunciation has been denied."
+msgstr "Wymowa została odrzucona."
+
+#: ./src/Controller/PronunciationsController.php:281
+msgid "No pronunciation data was submitted."
+msgstr "Nie przesłano danych wymowy."
+
+#: ./src/Controller/PronunciationsController.php:317
+msgid "The pronunciation has been deleted."
+msgstr "Wymowa została usunięta."
+
+#: ./src/Controller/PronunciationsController.php:319
+msgid "The pronunciation could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć wymowy. Proszę spróbować ponownie."
+
+#: ./src/Controller/PronunciationsController.php:341
+msgid "The pronunciation has been approved."
+msgstr "Wymowa została zatwierdzona."
+
+#: ./src/Controller/PronunciationsController.php:343
+msgid "The pronunciation could not be approved. Please, try again."
+msgstr "Nie udało się zatwierdzić wymowy. Proszę spróbować ponownie."
+
+#: ./src/Controller/PronunciationsController.php:346
+msgid "The word for this pronunciation needs to be approved prior to the pronuinciation being approved."
+msgstr "Słowo dla tej wymowy musi zostać zatwierdzone, zanim będzie można zatwierdzić wymowę."
+
+#: ./src/Controller/RegionsController.php:58
+#: ./src/Controller/RegionsController.php:85
+msgid "The region has been saved."
+msgstr "Region został zapisany."
+
+#: ./src/Controller/RegionsController.php:62
+#: ./src/Controller/RegionsController.php:89
+msgid "The region could not be saved. Please, try again."
+msgstr "Nie udało się zapisać regionu. Proszę spróbować ponownie."
+
+#: ./src/Controller/RegionsController.php:108
+msgid "The region has been deleted."
+msgstr "Region został usunięty."
+
+#: ./src/Controller/RegionsController.php:110
+msgid "The region could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć regionu. Proszę spróbować ponownie."
+
+#: ./src/Controller/SearchController.php:75
+msgid "result"
+msgstr "wynik"
+
+#: ./src/Controller/SearchController.php:75
+msgid "results"
+msgstr "wyniki"
+
+#: ./src/Controller/SentenceRecordingsController.php:68
+#: ./src/Controller/SentenceRecordingsController.php:85
+msgid "No recording submitted."
+msgstr "Nie przesłano żadnego nagrania."
+
+#: ./src/Controller/SentenceRecordingsController.php:108
+#: ./src/Controller/SentenceRecordingsController.php:200
+msgid "The sentence recording has been saved."
+msgstr "Nagranie zdania zostało zapisane."
+
+#: ./src/Controller/SentenceRecordingsController.php:113
+#: ./src/Controller/SentenceRecordingsController.php:204
+msgid "The sentence recording could not be saved. Please, try again."
+msgstr "Nie udało się zapisać nagrania zdania. Proszę spróbować ponownie."
+
+#: ./src/Controller/SentenceRecordingsController.php:144
+msgid "The recording order could not be saved. Please, try again."
+msgstr "Nie udało się zapisać kolejności nagrań. Proszę spróbować ponownie."
+
+#: ./src/Controller/SentenceRecordingsController.php:177
+msgid "The recording has been approved."
+msgstr "Nagranie zostało zatwierdzone."
+
+#: ./src/Controller/SentenceRecordingsController.php:179
+msgid "The recording could not be approved. Please, try again."
+msgstr "Nie udało się zatwierdzić nagrania. Proszę spróbować ponownie."
+
+#: ./src/Controller/SentenceRecordingsController.php:222
+msgid "The sentence recording has been deleted."
+msgstr "Nagranie zdania zostało usunięte."
+
+#: ./src/Controller/SentenceRecordingsController.php:224
+msgid "The sentence recording could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć nagrania zdania. Proszę spróbować ponownie."
+
+#: ./src/Controller/SentencesController.php:82
+#: ./src/Controller/SentencesController.php:115
+msgid "The sentence has been saved."
+msgstr "Zdanie zostało zapisane."
+
+#: ./src/Controller/SentencesController.php:88
+#: ./src/Controller/SentencesController.php:119
+msgid "The sentence could not be saved. Please, try again."
+msgstr "Nie udało się zapisać zdania. Proszę spróbować ponownie."
+
+#: ./src/Controller/SentencesController.php:175
+msgid "The sentence has been deleted."
+msgstr "Zdanie zostało usunięte."
+
+#: ./src/Controller/SentencesController.php:177
+msgid "The sentence could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć zdania. Proszę spróbować ponownie."
+
+#: ./src/Controller/SuggestionsController.php:57
+#: ./src/Controller/SuggestionsController.php:103
+msgid "The suggestion has been saved."
+msgstr "Sugestia została zapisana."
+
+#: ./src/Controller/SuggestionsController.php:61
+#: ./src/Controller/SuggestionsController.php:108
+msgid "The suggestion could not be saved. Please, try again."
+msgstr "Nie udało się zapisać sugestii. Proszę spróbować ponownie."
+
+#: ./src/Controller/SuggestionsController.php:128
+msgid "The suggestion could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć sugestii. Proszę spróbować ponownie."
+
+#: ./src/Controller/TypesController.php:58
+#: ./src/Controller/TypesController.php:85
+msgid "The type has been saved."
+msgstr "Typ został zapisany."
+
+#: ./src/Controller/TypesController.php:62
+#: ./src/Controller/TypesController.php:89
+msgid "The type could not be saved. Please, try again."
+msgstr "Nie udało się zapisać typu. Proszę spróbować ponownie."
+
+#: ./src/Controller/TypesController.php:108
+msgid "The type has been deleted."
+msgstr "Typ został usunięty."
+
+#: ./src/Controller/TypesController.php:110
+msgid "The type could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć typu. Proszę spróbować ponownie."
+
+#: ./src/Controller/WordsController.php:316
+msgid "Spelling is required."
+msgstr "Pisownia jest wymagana."
+
+#: ./src/Controller/WordsController.php:371
+#: ./src/Controller/WordsController.php:541
+#: ./src/Controller/WordsController.php:641
+msgid "The word could not be saved. Please, try again."
+msgstr "Nie udało się zapisać słowa. Proszę spróbować ponownie."
+
+#: ./src/Controller/WordsController.php:500
+msgid "Word not found"
+msgstr "Nie znaleziono słowa"
+
+#: ./src/Controller/WordsController.php:537
+#: ./src/Controller/WordsController.php:637
+msgid "The word has been updated."
+msgstr "Słowo zostało zaktualizowane."
+
+#: ./src/Controller/WordsController.php:568
+msgid "The word has been deleted."
+msgstr "Słowo zostało usunięte."
+
+#: ./src/Controller/WordsController.php:570
+msgid "The word could not be deleted. Please, try again."
+msgstr "Nie udało się usunąć słowa. Proszę spróbować ponownie."
+
+#: ./src/Controller/WordsController.php:600
+msgid "The word has been approved."
+msgstr "Słowo zostało zatwierdzone."
+
+#: ./src/Controller/WordsController.php:602
+msgid "The word could not be approved. Please, try again."
+msgstr "Nie udało się zatwierdzić słowa. Proszę spróbować ponownie."
+
+#: ./templates/Alphabets/add.php:10
+#: ./templates/Alphabets/edit.php:10
+#: ./templates/Alphabets/index.php:17
+#: ./templates/Alphabets/view.php:10
+#: ./templates/Alternates/add.php:10
+#: ./templates/Alternates/edit.php:10
+#: ./templates/Alternates/index.php:17
+#: ./templates/Alternates/view.php:10
+#: ./templates/Definitions/add.php:10
+#: ./templates/Definitions/index.php:24
+#: ./templates/Definitions/view.php:10
+#: ./templates/Dictionaries/add.php:13
+#: ./templates/Dictionaries/edit.php:13
+#: ./templates/Dictionaries/index.php:16
+#: ./templates/Dictionaries/view.php:10
+#: ./templates/Dictionaries/view.php:44
+#: ./templates/Languages/add.php:10
+#: ./templates/Languages/edit.php:10
+#: ./templates/Languages/index.php:18
+#: ./templates/Languages/view.php:10
+#: ./templates/Languages/view.php:117
+#: ./templates/OriginsWords/add_by_word.php:13
+#: ./templates/Origins/add.php:13
+#: ./templates/Origins/edit.php:13
+#: ./templates/Origins/index.php:20
+#: ./templates/Origins/view.php:10
+#: ./templates/Origins/view.php:49
+#: ./templates/Pronunciations/index.php:20
+#: ./templates/Pronunciations/ranking.php:96
+#: ./templates/Pronunciations/view.php:10
+#: ./templates/RegionsWords/add_by_word.php:13
+#: ./templates/Regions/add.php:13
+#: ./templates/Regions/edit.php:13
+#: ./templates/Regions/index.php:21
+#: ./templates/Regions/view.php:13
+#: ./templates/Regions/view.php:60
+#: ./templates/SentenceRecordings/edit.php:10
+#: ./templates/SentenceRecordings/index.php:17
+#: ./templates/SentenceRecordings/view.php:10
+#: ./templates/Sentences/add.php:18
+#: ./templates/Sentences/edit.php:20
+#: ./templates/Sentences/index.php:25
+#: ./templates/Sentences/view.php:10
+#: ./templates/Sentences/view.php:45
+#: ./templates/Suggestions/add.php:10
+#: ./templates/Suggestions/edit.php:10
+#: ./templates/Suggestions/index.php:21
+#: ./templates/Suggestions/view.php:10
+#: ./templates/TypesWords/add_by_word.php:13
+#: ./templates/Types/add.php:13
+#: ./templates/Types/edit.php:13
+#: ./templates/Types/index.php:21
+#: ./templates/Types/view.php:10
+#: ./templates/Types/view.php:57
+#: ./templates/Words/index.php:20
+#: ./templates/Words/viewauto.php:10
+#: ./templates/Words/viewauto.php:70
+#: ./templates/Words/viewauto.php:95
+#: ./templates/Words/viewauto.php:120
+#: ./templates/Words/viewauto.php:145
+#: ./templates/Words/viewauto.php:171
+#: ./templates/Words/viewauto.php:198
+#: ./templates/Words/viewauto.php:225
+#: ./templates/Words/viewauto.php:255
+msgid "Actions"
+msgstr "Akcje"
+
+#: ./templates/Alphabets/add.php:11
+#: ./templates/Alphabets/edit.php:16
+#: ./templates/Alphabets/view.php:13
+msgid "List Alphabets"
+msgstr "Lista alfabetów"
+
+#: ./templates/Alphabets/add.php:18
+msgid "Add Alphabet"
+msgstr "Dodaj alfabet"
+
+#: ./templates/Alphabets/add.php:24
+#: ./templates/Alphabets/edit.php:29
+#: ./templates/Alternates/add.php:24
+#: ./templates/Alternates/edit.php:29
+#: ./templates/Definitions/add.php:29
+#: ./templates/Definitions/edit.php:45
+#: ./templates/Dictionaries/add.php:29
+#: ./templates/Dictionaries/edit.php:34
+#: ./templates/Languages/add.php:75
+#: ./templates/Languages/edit.php:78
+#: ./templates/OriginsWords/add_by_word.php:38
+#: ./templates/Origins/add.php:30
+#: ./templates/Origins/edit.php:34
+#: ./templates/Pronunciations/add.php:78
+#: ./templates/Pronunciations/edit.php:20
+#: ./templates/RegionsWords/add_by_word.php:38
+#: ./templates/Regions/add.php:29
+#: ./templates/Regions/edit.php:34
+#: ./templates/SentenceRecordings/add.php:52
+#: ./templates/SentenceRecordings/edit.php:29
+#: ./templates/SentenceRecordings/ranking.php:47
+#: ./templates/Sentences/add.php:46
+#: ./templates/Sentences/edit.php:45
+#: ./templates/Suggestions/add.php:29
+#: ./templates/Suggestions/edit.php:33
+#: ./templates/TypesWords/add_by_word.php:38
+#: ./templates/Types/add.php:29
+#: ./templates/Types/edit.php:34
+#: ./templates/Words/add.php:407
+msgid "Submit"
+msgstr "Zapisz"
+
+#: ./templates/Alphabets/edit.php:12
+#: ./templates/Alphabets/index.php:29
+#: ./templates/Alternates/edit.php:12
+#: ./templates/Alternates/index.php:29
+#: ./templates/Definitions/index.php:36
+#: ./templates/Dictionaries/edit.php:15
+#: ./templates/Dictionaries/index.php:27
+#: ./templates/Dictionaries/view.php:59
+#: ./templates/Languages/edit.php:12
+#: ./templates/Languages/index.php:31
+#: ./templates/Languages/view.php:137
+#: ./templates/Origins/edit.php:15
+#: ./templates/Origins/index.php:32
+#: ./templates/Origins/view.php:69
+#: ./templates/Pronunciations/index.php:35
+#: ./templates/Regions/edit.php:15
+#: ./templates/Regions/index.php:34
+#: ./templates/Regions/view.php:80
+#: ./templates/SentenceRecordings/edit.php:12
+#: ./templates/SentenceRecordings/index.php:29
+#: ./templates/Sentences/edit.php:22
+#: ./templates/Sentences/index.php:36
+#: ./templates/Sentences/view.php:55
+#: ./templates/Suggestions/edit.php:12
+#: ./templates/Suggestions/index.php:37
+#: ./templates/Types/edit.php:15
+#: ./templates/Types/index.php:34
+#: ./templates/Types/view.php:77
+#: ./templates/Words/index.php:35
+#: ./templates/Words/viewauto.php:79
+#: ./templates/Words/viewauto.php:104
+#: ./templates/Words/viewauto.php:129
+#: ./templates/Words/viewauto.php:154
+#: ./templates/Words/viewauto.php:181
+#: ./templates/Words/viewauto.php:208
+#: ./templates/Words/viewauto.php:235
+#: ./templates/Words/viewauto.php:268
+msgid "Delete"
+msgstr "Usuń"
+
+#: ./templates/Alphabets/edit.php:14
+#: ./templates/Alphabets/index.php:29
+#: ./templates/Alphabets/view.php:12
+#: ./templates/Alternates/edit.php:14
+#: ./templates/Alternates/index.php:29
+#: ./templates/Alternates/view.php:12
+#: ./templates/Definitions/index.php:38
+#: ./templates/Definitions/view.php:15
+#: ./templates/Dictionaries/edit.php:17
+#: ./templates/Dictionaries/index.php:27
+#: ./templates/Dictionaries/view.php:12
+#: ./templates/Dictionaries/view.php:59
+#: ./templates/Languages/edit.php:14
+#: ./templates/Languages/index.php:31
+#: ./templates/Languages/view.php:12
+#: ./templates/Languages/view.php:137
+#: ./templates/Origins/edit.php:17
+#: ./templates/Origins/index.php:32
+#: ./templates/Origins/view.php:12
+#: ./templates/Origins/view.php:69
+#: ./templates/Pronunciations/index.php:35
+#: ./templates/Pronunciations/view.php:12
+#: ./templates/Regions/edit.php:17
+#: ./templates/Regions/index.php:34
+#: ./templates/Regions/view.php:15
+#: ./templates/Regions/view.php:80
+#: ./templates/SentenceRecordings/edit.php:14
+#: ./templates/SentenceRecordings/index.php:29
+#: ./templates/SentenceRecordings/view.php:12
+#: ./templates/Sentences/edit.php:24
+#: ./templates/Sentences/index.php:36
+#: ./templates/Sentences/view.php:12
+#: ./templates/Sentences/view.php:55
+#: ./templates/Suggestions/edit.php:14
+#: ./templates/Suggestions/index.php:37
+#: ./templates/Suggestions/view.php:12
+#: ./templates/Types/edit.php:17
+#: ./templates/Types/index.php:34
+#: ./templates/Types/view.php:12
+#: ./templates/Types/view.php:77
+#: ./templates/Words/index.php:35
+#: ./templates/Words/viewauto.php:12
+#: ./templates/Words/viewauto.php:79
+#: ./templates/Words/viewauto.php:104
+#: ./templates/Words/viewauto.php:129
+#: ./templates/Words/viewauto.php:154
+#: ./templates/Words/viewauto.php:181
+#: ./templates/Words/viewauto.php:208
+#: ./templates/Words/viewauto.php:235
+#: ./templates/Words/viewauto.php:268
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Czy na pewno chcesz usunąć # {0}?"
+
+#: ./templates/Alphabets/edit.php:23
+#: ./templates/Alphabets/view.php:11
+msgid "Edit Alphabet"
+msgstr "Edytuj alfabet"
+
+#: ./templates/Alphabets/index.php:8
+#: ./templates/Alphabets/view.php:14
+msgid "New Alphabet"
+msgstr "Nowy alfabet"
+
+#: ./templates/Alphabets/index.php:9
+msgid "Alphabets"
+msgstr "Alfabety"
+
+#: ./templates/Alphabets/index.php:27
+#: ./templates/Alternates/index.php:27
+#: ./templates/Definitions/index.php:33
+#: ./templates/Dictionaries/index.php:25
+#: ./templates/Dictionaries/view.php:57
+#: ./templates/Languages/index.php:29
+#: ./templates/Languages/view.php:135
+#: ./templates/Origins/index.php:30
+#: ./templates/Origins/view.php:67
+#: ./templates/Pronunciations/index.php:33
+#: ./templates/Regions/index.php:32
+#: ./templates/Regions/view.php:78
+#: ./templates/SentenceRecordings/index.php:27
+#: ./templates/Sentences/index.php:34
+#: ./templates/Sentences/view.php:53
+#: ./templates/Suggestions/index.php:35
+#: ./templates/Types/index.php:32
+#: ./templates/Types/view.php:75
+#: ./templates/Words/index.php:33
+#: ./templates/Words/viewauto.php:77
+#: ./templates/Words/viewauto.php:102
+#: ./templates/Words/viewauto.php:127
+#: ./templates/Words/viewauto.php:152
+#: ./templates/Words/viewauto.php:179
+#: ./templates/Words/viewauto.php:206
+#: ./templates/Words/viewauto.php:233
+#: ./templates/Words/viewauto.php:266
+msgid "View"
+msgstr "Zobacz"
+
+#: ./templates/Alphabets/index.php:28
+#: ./templates/Alternates/index.php:28
+#: ./templates/Definitions/index.php:34
+#: ./templates/Dictionaries/index.php:26
+#: ./templates/Dictionaries/view.php:58
+#: ./templates/Languages/index.php:30
+#: ./templates/Languages/view.php:136
+#: ./templates/Origins/index.php:31
+#: ./templates/Origins/view.php:68
+#: ./templates/Pronunciations/index.php:34
+#: ./templates/Regions/index.php:33
+#: ./templates/Regions/view.php:79
+#: ./templates/SentenceRecordings/index.php:28
+#: ./templates/Sentences/index.php:35
+#: ./templates/Sentences/view.php:54
+#: ./templates/Suggestions/index.php:36
+#: ./templates/Types/index.php:33
+#: ./templates/Types/view.php:76
+#: ./templates/Words/add.php:8
+#: ./templates/Words/index.php:34
+#: ./templates/Words/view.php:73
+#: ./templates/Words/viewauto.php:78
+#: ./templates/Words/viewauto.php:103
+#: ./templates/Words/viewauto.php:128
+#: ./templates/Words/viewauto.php:153
+#: ./templates/Words/viewauto.php:180
+#: ./templates/Words/viewauto.php:207
+#: ./templates/Words/viewauto.php:234
+#: ./templates/Words/viewauto.php:267
+msgid "Edit"
+msgstr "Edytuj"
+
+#: ./templates/Alphabets/index.php:38
+#: ./templates/Alternates/index.php:38
+#: ./templates/Definitions/index.php:48
+#: ./templates/Dictionaries/index.php:36
+#: ./templates/Languages/index.php:40
+#: ./templates/Origins/index.php:41
+#: ./templates/Pronunciations/index.php:44
+#: ./templates/Regions/index.php:43
+#: ./templates/SentenceRecordings/index.php:38
+#: ./templates/Sentences/index.php:46
+#: ./templates/Suggestions/index.php:46
+#: ./templates/Types/index.php:43
+#: ./templates/Words/index.php:44
+msgid "first"
+msgstr "pierwsza"
+
+#: ./templates/Alphabets/index.php:39
+#: ./templates/Alternates/index.php:39
+#: ./templates/Definitions/index.php:49
+#: ./templates/Dictionaries/index.php:37
+#: ./templates/Languages/index.php:41
+#: ./templates/Origins/index.php:42
+#: ./templates/Pronunciations/index.php:45
+#: ./templates/Regions/index.php:44
+#: ./templates/Search/results.php:87
+#: ./templates/SentenceRecordings/index.php:39
+#: ./templates/Sentences/index.php:47
+#: ./templates/Suggestions/index.php:47
+#: ./templates/Types/index.php:44
+#: ./templates/Words/browse.php:137
+#: ./templates/Words/index.php:45
+msgid "previous"
+msgstr "poprzednia"
+
+#: ./templates/Alphabets/index.php:41
+#: ./templates/Alternates/index.php:41
+#: ./templates/Definitions/index.php:51
+#: ./templates/Dictionaries/index.php:39
+#: ./templates/Languages/index.php:43
+#: ./templates/Origins/index.php:44
+#: ./templates/Pronunciations/index.php:47
+#: ./templates/Regions/index.php:46
+#: ./templates/Search/results.php:90
+#: ./templates/SentenceRecordings/index.php:41
+#: ./templates/Sentences/index.php:49
+#: ./templates/Suggestions/index.php:49
+#: ./templates/Types/index.php:46
+#: ./templates/Words/browse.php:140
+#: ./templates/Words/index.php:47
+msgid "next"
+msgstr "następna"
+
+#: ./templates/Alphabets/index.php:42
+#: ./templates/Alternates/index.php:42
+#: ./templates/Definitions/index.php:52
+#: ./templates/Dictionaries/index.php:40
+#: ./templates/Languages/index.php:44
+#: ./templates/Origins/index.php:45
+#: ./templates/Pronunciations/index.php:48
+#: ./templates/Regions/index.php:47
+#: ./templates/SentenceRecordings/index.php:42
+#: ./templates/Sentences/index.php:50
+#: ./templates/Suggestions/index.php:50
+#: ./templates/Types/index.php:47
+#: ./templates/Words/index.php:48
+msgid "last"
+msgstr "ostatnia"
+
+#: ./templates/Alphabets/index.php:44
+#: ./templates/Alternates/index.php:44
+#: ./templates/Definitions/index.php:54
+#: ./templates/Dictionaries/index.php:42
+#: ./templates/Languages/index.php:46
+#: ./templates/Origins/index.php:47
+#: ./templates/Pronunciations/index.php:50
+#: ./templates/Regions/index.php:49
+#: ./templates/SentenceRecordings/index.php:44
+#: ./templates/Sentences/index.php:52
+#: ./templates/Suggestions/index.php:52
+#: ./templates/Types/index.php:49
+#: ./templates/Words/index.php:50
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Strona {{page}} z {{pages}}, wyświetlono {{current}} rekord(ów) z {{count}} łącznie"
+
+#: ./templates/Alphabets/view.php:12
+msgid "Delete Alphabet"
+msgstr "Usuń alfabet"
+
+#: ./templates/Alphabets/view.php:22
+#: ./templates/Regions/view.php:29
+#: ./templates/Types/view.php:26
+#: ./templates/Words/viewauto.php:30
+msgid "Language"
+msgstr "Język"
+
+
+
+#: ./templates/Alphabets/view.php:30
+#: ./templates/Alternates/view.php:30
+#: ./templates/Definitions/view.php:30
+#: ./templates/Dictionaries/view.php:26
+#: ./templates/Dictionaries/view.php:36
+#: ./templates/Languages/view.php:34
+#: ./templates/Languages/view.php:104
+#: ./templates/Origins/view.php:26
+#: ./templates/Origins/view.php:36
+#: ./templates/Pronunciations/view.php:42
+#: ./templates/Regions/view.php:33
+#: ./templates/Regions/view.php:47
+#: ./templates/SentenceRecordings/view.php:30
+#: ./templates/Sentences/view.php:26
+#: ./templates/Sentences/view.php:42
+#: ./templates/Suggestions/view.php:42
+#: ./templates/Types/view.php:30
+#: ./templates/Types/view.php:44
+#: ./templates/Words/viewauto.php:34
+#: ./templates/Words/viewauto.php:68
+#: ./templates/Words/viewauto.php:93
+#: ./templates/Words/viewauto.php:118
+#: ./templates/Words/viewauto.php:143
+#: ./templates/Words/viewauto.php:168
+#: ./templates/Words/viewauto.php:195
+#: ./templates/Words/viewauto.php:222
+#: ./templates/Words/viewauto.php:249
+msgid "Id"
+msgstr "ID"
+
+#: ./templates/Alternates/add.php:11
+#: ./templates/Alternates/edit.php:16
+#: ./templates/Alternates/view.php:13
+msgid "List Alternates"
+msgstr "Lista wariantów"
+
+#: ./templates/Alternates/add.php:18
+msgid "Add Alternate"
+msgstr "Dodaj wariant"
+
+#: ./templates/Alternates/edit.php:23
+#: ./templates/Alternates/view.php:11
+msgid "Edit Alternate"
+msgstr "Edytuj wariant"
+
+#: ./templates/Alternates/index.php:8
+#: ./templates/Alternates/view.php:14
+msgid "New Alternate"
+msgstr "Nowy wariant"
+
+#: ./templates/Alternates/index.php:9
+msgid "Alternates"
+msgstr "Warianty"
+
+#: ./templates/Alternates/view.php:12
+msgid "Delete Alternate"
+msgstr "Usuń wariant"
+
+#: ./templates/Alternates/view.php:22
+#: ./templates/Definitions/view.php:26
+#: ./templates/Pronunciations/view.php:22
+#: ./templates/Sentences/view.php:22
+#: ./templates/Suggestions/view.php:22
+msgid "Word"
+msgstr "Słowo"
+
+#: ./templates/Alternates/view.php:26
+#: ./templates/Dictionaries/view.php:37
+#: ./templates/Languages/view.php:105
+#: ./templates/Origins/view.php:37
+#: ./templates/Pages/notes.php:11
+#: ./templates/Pronunciations/ranking.php:90
+#: ./templates/Pronunciations/view.php:26
+#: ./templates/Regions/view.php:48
+#: ./templates/Types/view.php:45
+#: ./templates/Words/add.php:75
+#: ./templates/Words/viewauto.php:22
+#: ./templates/Words/viewauto.php:170
+#: ./templates/Words/viewauto.php:251
+msgid "Spelling"
+msgstr "Pisownia"
+
+#: ./templates/Definitions/add.php:11
+#: ./templates/Definitions/view.php:17
+msgid "List Definitions"
+msgstr "Lista definicji"
+
+#: ./templates/Definitions/add.php:18
+msgid "Add Definition"
+msgstr "Dodaj definicję"
+
+#: ./templates/Definitions/edit.php:33
+#: ./templates/Definitions/view.php:11
+msgid "Edit Definition"
+msgstr "Edytuj definicję"
+
+#: ./templates/Definitions/index.php:16
+#: ./templates/Definitions/view.php:18
+msgid "New Definition"
+msgstr "Nowa definicja"
+
+#: ./templates/Definitions/index.php:17
+#: ./templates/Words/view.php:148
+msgid "Definitions"
+msgstr "Definicje"
+
+#: ./templates/Definitions/view.php:13
+msgid "Delete Definition"
+msgstr "Usuń definicję"
+
+#: ./templates/Definitions/view.php:35
+#: ./templates/Words/viewauto.php:197
+msgid "Definition"
+msgstr "Definicja"
+
+#: ./templates/Dictionaries/add.php:14
+#: ./templates/Dictionaries/edit.php:19
+#: ./templates/Dictionaries/view.php:13
+msgid "List Dictionaries"
+msgstr "Lista słowników"
+
+#: ./templates/Dictionaries/add.php:21
+msgid "Add Dictionary"
+msgstr "Dodaj słownik"
+
+#: ./templates/Dictionaries/edit.php:26
+#: ./templates/Dictionaries/view.php:11
+msgid "Edit Dictionary"
+msgstr "Edytuj słownik"
+
+#: ./templates/Dictionaries/index.php:8
+#: ./templates/Dictionaries/view.php:14
+msgid "New Dictionary"
+msgstr "Nowy słownik"
+
+#: ./templates/Dictionaries/index.php:9
+#: ./templates/Words/add.php:286
+#: ./templates/Words/view.php:301
+msgid "Dictionaries"
+msgstr "Słowniki"
+
+#: ./templates/Dictionaries/view.php:12
+msgid "Delete Dictionary"
+msgstr "Usuń słownik"
+
+#: ./templates/Dictionaries/view.php:22
+#: ./templates/Words/viewauto.php:69
+msgid "Dictionary"
+msgstr "Słownik"
+
+#: ./templates/Dictionaries/view.php:31
+#: ./templates/Languages/view.php:99
+#: ./templates/Origins/view.php:31
+#: ./templates/Regions/view.php:42
+#: ./templates/Types/view.php:39
+msgid "Related Words"
+msgstr "Powiązane słowa"
+
+#: ./templates/Dictionaries/view.php:38
+#: ./templates/Languages/view.php:106
+#: ./templates/Origins/view.php:38
+#: ./templates/Regions/view.php:49
+#: ./templates/Types/view.php:46
+#: ./templates/Words/view.php:271
+#: ./templates/Words/viewauto.php:51
+msgid "Etymology"
+msgstr "Etymologia"
+
+#: ./templates/Dictionaries/view.php:39
+#: ./templates/Languages/notes.php:11
+#: ./templates/Languages/view.php:108
+#: ./templates/Origins/view.php:40
+#: ./templates/Pronunciations/view.php:38
+#: ./templates/Regions/view.php:51
+#: ./templates/Types/view.php:48
+#: ./templates/Words/view.php:318
+#: ./templates/Words/viewauto.php:57
+#: ./templates/Words/viewauto.php:254
+#: ./templates/layout/default.php:142
+#: ./templates/layout/default.php:179
+msgid "Notes"
+msgstr "Notatki"
+
+#: ./templates/Dictionaries/view.php:40
+#: ./templates/Languages/view.php:110
+#: ./templates/Origins/view.php:42
+#: ./templates/Regions/view.php:53
+#: ./templates/Suggestions/view.php:46
+#: ./templates/Types/view.php:50
+#: ./templates/Words/viewauto.php:42
+msgid "Created"
+msgstr "Utworzono"
+
+#: ./templates/Dictionaries/view.php:41
+#: ./templates/Languages/view.php:111
+#: ./templates/Origins/view.php:43
+#: ./templates/Regions/view.php:54
+#: ./templates/Types/view.php:51
+#: ./templates/Words/viewauto.php:46
+msgid "Approved"
+msgstr "Zatwierdzono"
+
+#: ./templates/Dictionaries/view.php:42
+#: ./templates/Languages/view.php:113
+#: ./templates/Origins/view.php:45
+#: ./templates/Regions/view.php:56
+#: ./templates/Types/view.php:53
+#: ./templates/Words/viewauto.php:38
+msgid "Language Id"
+msgstr "ID języka"
+
+#: ./templates/Dictionaries/view.php:43
+#: ./templates/Languages/view.php:114
+#: ./templates/Origins/view.php:46
+#: ./templates/Regions/view.php:57
+#: ./templates/Types/view.php:54
+#: ./templates/Words/viewauto.php:26
+msgid "User Id"
+msgstr "ID użytkownika"
+
+#: ./templates/Languages/about.php:10
+#: ./templates/Pages/welcome.php:6
+msgid "Welcome"
+msgstr "Witamy"
+
+#: ./templates/Languages/about.php:17
+#: ./templates/Languages/about.php:22
+#: ./templates/Pages/about.php:19
+msgid "Enter the Lexicon"
+msgstr "Wejdź do leksykonu"
+
+#: ./templates/Languages/about.php:20
+msgid "Coming Soon."
+msgstr "Wkrótce."
+
+#: ./templates/Languages/about.php:33
+#: ./templates/layout/default.php:139
+#: ./templates/layout/default.php:178
+msgid "About Us"
+msgstr "O nas"
+
+#: ./templates/Languages/add.php:11
+#: ./templates/Languages/edit.php:16
+#: ./templates/Languages/view.php:13
+msgid "List Languages"
+msgstr "Lista języków"
+
+#: ./templates/Languages/add.php:12
+#: ./templates/Languages/edit.php:17
+msgid "Return to Moderators Panel"
+msgstr "Powrót do panelu moderatorów"
+
+#: ./templates/Languages/add.php:20
+msgid "Add Language"
+msgstr "Dodaj język"
+
+#: ./templates/Languages/add.php:59
+msgid "Add Origins"
+msgstr "Dodaj pochodzenia"
+
+#: ./templates/Languages/add.php:61
+msgid "Add Regions"
+msgstr "Dodaj regiony"
+
+#: ./templates/Languages/add.php:63
+msgid "Add Types"
+msgstr "Dodaj typy"
+
+#: ./templates/Languages/add.php:65
+msgid "Add Dictionaries"
+msgstr "Dodaj słowniki"
+
+#: ./templates/Languages/add.php:70
+msgid "Add additional characters out of range"
+msgstr "Dodaj dodatkowe znaki spoza zakresu"
+
+#: ./templates/Languages/edit.php:25
+#: ./templates/Languages/view.php:11
+msgid "Edit Language"
+msgstr "Edytuj język"
+
+#: ./templates/Languages/index.php:8
+#: ./templates/Languages/view.php:14
+msgid "New Language"
+msgstr "Nowy język"
+
+#: ./templates/Languages/index.php:9
+msgid "Languages"
+msgstr "Języki"
+
+#: ./templates/Languages/view.php:115
+#: ./templates/Origins/view.php:47
+#: ./templates/Regions/view.php:58
+#: ./templates/Suggestions/view.php:30
+#: ./templates/Types/view.php:55
+msgid "Full Name"
+msgstr "Imię i nazwisko"
+
+#: ./templates/Languages/view.php:116
+#: ./templates/Origins/view.php:48
+#: ./templates/Regions/view.php:59
+#: ./templates/Suggestions/view.php:34
+#: ./templates/Types/view.php:56
+msgid "Email"
+msgstr "E-mail"
+
+#: ./templates/OriginsWords/add_by_word.php:15
+msgid "Back to origins for this word"
+msgstr "Wróć do pochodzeń dla tego słowa"
+
+#: ./templates/OriginsWords/add_by_word.php:26
+msgid "Add Origin Link"
+msgstr "Dodaj powiązanie z pochodzeniem"
+
+#: ./templates/Origins/add.php:14
+#: ./templates/Origins/edit.php:19
+#: ./templates/Origins/view.php:13
+msgid "List Origins"
+msgstr "Lista pochodzeń"
+
+#: ./templates/Origins/add.php:21
+msgid "Add Origin"
+msgstr "Dodaj pochodzenie"
+
+#: ./templates/Origins/edit.php:26
+#: ./templates/Origins/view.php:11
+msgid "Edit Origin"
+msgstr "Edytuj pochodzenie"
+
+#: ./templates/Origins/index.php:11
+#: ./templates/Origins/view.php:14
+msgid "New Origin"
+msgstr "Nowe pochodzenie"
+
+#: ./templates/Origins/index.php:12
+msgid "Origins"
+msgstr "Pochodzenia"
+
+#: ./templates/Origins/view.php:12
+msgid "Delete Origin"
+msgstr "Usuń pochodzenie"
+
+#: ./templates/Origins/view.php:22
+#: ./templates/Words/viewauto.php:94
+msgid "Origin"
+msgstr "Pochodzenie"
+
+
+#: ./templates/Pages/home.php:32
+msgid "Lexicon"
+msgstr "Leksykon"
+
+#: ./templates/Pages/home.php:38
+#: ./templates/Pages/home.php:75
+msgid "Search"
+msgstr "Szukaj"
+
+#: ./templates/Pages/home.php:45
+msgid "First time here? Read our "
+msgstr "Pierwszy raz tutaj? Przeczytaj naszą "
+
+#: ./templates/Pages/home.php:45
+msgid "welcome "
+msgstr "powitalną "
+
+#: ./templates/Pages/home.php:45
+msgid "page"
+msgstr "stronę"
+
+#: ./templates/Pages/home.php:47
+msgid "The lexicon currently has "
+msgstr "Leksykon zawiera obecnie "
+
+#: ./templates/Pages/home.php:49
+msgid "entries, including "
+msgstr "haseł, w tym "
+
+#: ./templates/Pages/home.php:49
+msgid "entries that do not appear in any Jewish English dictionary"
+msgstr "haseł, które nie pojawiają się w żadnym żydowsko-angielskim słowniku"
+
+#: ./templates/Pages/home.php:51
+msgid "entries."
+msgstr "haseł."
+
+#: ./templates/Pages/home.php:54
+msgid "BROWSE:"
+msgstr "PRZEGLĄDAJ:"
+
+#: ./templates/Pages/home.php:57
+msgid "See full lexicon in alphabetical order"
+msgstr "Zobacz cały leksykon w porządku alfabetycznym"
+
+#: ./templates/Pages/home.php:58
+msgid "See a random list of words"
+msgstr "Zobacz losową listę słów"
+
+#: ./templates/Pages/home.php:73
+msgid "SEARCH:"
+msgstr "SZUKAJ:"
+
+#: ./templates/Pages/home.php:81
+msgid "ADVANCED SEARCH:"
+msgstr "WYSZUKIWANIE ZAAWANSOWANE:"
+
+#: ./templates/Pages/home.php:82
+msgid "See the"
+msgstr "Zobacz"
+
+#: ./templates/Pages/home.php:82
+msgid "NOTES"
+msgstr "NOTATKI"
+
+#: ./templates/Pages/home.php:82
+msgid "for information about these languages, dictionaries, and types of people."
+msgstr "aby uzyskać informacje o tych językach, słownikach i typach osób."
+
+#: ./templates/Pages/home.php:88
+#: ./templates/Pages/notes.php:14
+msgid "Languages of origin"
+msgstr "Języki pochodzenia"
+
+#: ./templates/Pages/home.php:97
+#: ./templates/Pages/home.php:114
+#: ./templates/Pages/home.php:153
+#: ./templates/Words/browse.php:64
+msgid "Other"
+msgstr "Inne"
+
+#: ./templates/Pages/home.php:104
+msgid "Regions in which the word is used"
+msgstr "Regiony, w których używa się słowa"
+
+#: ./templates/Pages/home.php:121
+msgid "Types of people who tend to use the word"
+msgstr "Typy osób, które zwykle używają tego słowa"
+
+#: ./templates/Pages/home.php:167
+msgid "Dictionaries in which the word appears"
+msgstr "Słowniki, w których występuje to słowo"
+
+#: ./templates/Pages/home.php:173
+#: ./templates/element/word_list.php:38
+msgid "None"
+msgstr "Brak"
+
+#: ./templates/Pages/home.php:179
+msgid "CAN'T FIND A WORD?"
+msgstr "NIE MOŻESZ ZNALEŹĆ SŁOWA?"
+
+#: ./templates/Pages/home.php:180
+msgid "Like other collaborative sites, such as Wikipedia and Urban Dictionary, the Jewish English Lexicon is made possible by visitor participation. Please take a few minutes to add a word or two."
+msgstr "Podobnie jak inne serwisy współtworzone przez użytkowników, takie jak Wikipedia czy Urban Dictionary, Jewish English Lexicon istnieje dzięki udziałowi odwiedzających. Poświęć kilka minut, aby dodać jedno lub dwa słowa."
+
+#: ./templates/Pages/home.php:181
+msgid "Add an entry"
+msgstr "Dodaj hasło"
+
+#: ./templates/Pronunciations/add.php:8
+#: ./templates/Words/add.php:24
+msgid "This form is best viewed in landscape mode."
+msgstr "Ten formularz najlepiej oglądać w trybie poziomym."
+
+#: ./templates/Pronunciations/add.php:14
+msgid "Add Pronunciation for "
+msgstr "Dodaj wymowę dla "
+
+#: ./templates/Pronunciations/add.php:16
+msgid "Recording is optional. You can submit spelling/phonetic spelling without an audio recording."
+msgstr "Nagranie jest opcjonalne. Możesz przesłać pisownię/zapis fonetyczny bez nagrania audio."
+
+#: ./templates/Pronunciations/add.php:22
+msgid "Pronuciation (Spelling)"
+msgstr "Wymowa (pisownia)"
+
+#: ./templates/Pronunciations/add.php:23
+msgid "Phonetic Spelling"
+msgstr "Zapis fonetyczny"
+
+#: ./templates/Pronunciations/add.php:24
+#: ./templates/Words/add.php:77
+#: ./templates/Words/add.php:100
+msgid "Record"
+msgstr "Nagraj"
+
+#: ./templates/Pronunciations/add.php:51
+msgid "soundfile0"
+msgstr "plik dźwiękowy 0"
+
+#: ./templates/Pronunciations/edit.php:13
+msgid "Deny Pronunciation"
+msgstr "Odrzuć wymowę"
+
+#: ./templates/Pronunciations/edit.php:16
+msgid "notes"
+msgstr "notatki"
+
+#: ./templates/Pronunciations/edit.php:17
+msgid "approved"
+msgstr "zatwierdzone"
+
+#: ./templates/Pronunciations/index.php:8
+#: ./templates/Pronunciations/view.php:14
+msgid "New Pronunciation"
+msgstr "Nowa wymowa"
+
+#: ./templates/Pronunciations/index.php:9
+msgid "Pronunciations"
+msgstr "Wymowy"
+
+#: ./templates/Pronunciations/ranking.php:74
+msgid "Approved pronunciations can be ranked. Pending and approved pronunciations can be edited inline."
+msgstr "Zatwierdzone wymowy można oceniać. Oczekujące i zatwierdzone wymowy można edytować bezpośrednio w tabeli."
+
+#: ./templates/Pronunciations/ranking.php:91
+msgid "Listen"
+msgstr "Odsłuchaj"
+
+#: ./templates/Pronunciations/ranking.php:92
+#: ./templates/Pronunciations/view.php:34
+#: ./templates/Words/viewauto.php:253
+msgid "Pronunciation"
+msgstr "Wymowa"
+
+#: ./templates/Pronunciations/ranking.php:93
+#: ./templates/Suggestions/view.php:38
+msgid "Status"
+msgstr "Status"
+
+#: ./templates/Pronunciations/ranking.php:94
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: ./templates/Pronunciations/ranking.php:95
+msgid "Ranking"
+msgstr "Ocena"
+
+#: ./templates/Pronunciations/ranking.php:185
+msgid "Go"
+msgstr "Przejdź"
+
+#: ./templates/Pronunciations/ranking.php:199
+msgid "Save Rankings"
+msgstr "Zapisz oceny"
+
+#: ./templates/Pronunciations/view.php:11
+msgid "Edit Pronunciation"
+msgstr "Edytuj wymowę"
+
+#: ./templates/Pronunciations/view.php:12
+msgid "Delete Pronunciation"
+msgstr "Usuń wymowę"
+
+#: ./templates/Pronunciations/view.php:13
+msgid "List Pronunciations"
+msgstr "Lista wymów"
+
+#: ./templates/Pronunciations/view.php:30
+#: ./templates/SentenceRecordings/view.php:26
+#: ./templates/Sentences/view.php:44
+#: ./templates/Words/viewauto.php:252
+msgid "Sound File"
+msgstr "Plik dźwiękowy"
+
+#: ./templates/RegionsWords/add_by_word.php:15
+msgid "Back to regions for this word"
+msgstr "Wróć do regionów dla tego słowa"
+
+#: ./templates/RegionsWords/add_by_word.php:26
+msgid "Add Region Link"
+msgstr "Dodaj powiązanie z regionem"
+
+#: ./templates/Regions/add.php:14
+#: ./templates/Regions/edit.php:19
+#: ./templates/Regions/view.php:16
+msgid "List Regions"
+msgstr "Lista regionów"
+
+#: ./templates/Regions/add.php:21
+msgid "Add Region"
+msgstr "Dodaj region"
+
+#: ./templates/Regions/edit.php:26
+#: ./templates/Regions/view.php:14
+msgid "Edit Region"
+msgstr "Edytuj region"
+
+#: ./templates/Regions/index.php:11
+#: ./templates/Regions/view.php:17
+msgid "New Region"
+msgstr "Nowy region"
+
+#: ./templates/Regions/index.php:12
+#: ./templates/Words/view.php:290
+msgid "Regions"
+msgstr "Regiony"
+
+#: ./templates/Regions/view.php:15
+msgid "Delete Region"
+msgstr "Usuń region"
+
+#: ./templates/Regions/view.php:25
+#: ./templates/Words/viewauto.php:119
+msgid "Region"
+msgstr "Region"
+
+#: ./templates/Regions/view.php:37
+#: ./templates/Types/view.php:34
+#: ./templates/Words/random.php:40
+msgid "Top"
+msgstr "Top"
+
+#: ./templates/Regions/view.php:38
+#: ./templates/Types/view.php:35
+#: ./templates/Words/viewauto.php:47
+msgid "Yes"
+msgstr "Tak"
+
+#: ./templates/Regions/view.php:38
+#: ./templates/Types/view.php:35
+#: ./templates/Words/viewauto.php:47
+msgid "No"
+msgstr "Nie"
+
+#: ./templates/Search/results.php:7
+msgid "Your search for"
+msgstr "Wyszukiwanie dla"
+
+#: ./templates/Search/results.php:7
+msgid "returned"
+msgstr "zwróciło"
+
+#: ./templates/Search/results.php:14
+msgid "is"
+msgstr "jest"
+
+#: ./templates/Search/results.php:14
+msgid "are"
+msgstr "są"
+
+#: ./templates/Search/results.php:15
+msgid "from"
+msgstr "z"
+
+#: ./templates/Search/results.php:47
+msgid "Entries:"
+msgstr "Hasła:"
+
+#: ./templates/Search/results.php:48
+msgid "That word is not yet in the database. Try searching with a different spelling."
+msgstr "Tego słowa nie ma jeszcze w bazie danych. Spróbuj wyszukać z inną pisownią."
+
+#: ./templates/Search/results.php:49
+msgid "If you still don't find it, please help to make this lexicon more complete by adding it"
+msgstr "Jeśli nadal go nie znajdziesz, pomóż uzupełnić leksykon, dodając je"
+
+#: ./templates/Search/results.php:49
+#: ./templates/Words/browse.php:5
+msgid "Add a new word"
+msgstr "Dodaj nowe słowo"
+
+#: ./templates/Search/results.php:55
+msgid "Definitions:"
+msgstr "Definicje:"
+
+#: ./templates/Search/results.php:63
+#: ./templates/Search/results.php:78
+#: ./templates/Words/alphabetical.php:52
+#: ./templates/Words/browse.php:124
+#: ./templates/Words/random.php:31
+msgid "SEE FULL ENTRY"
+msgstr "ZOBACZ CAŁE HASŁO"
+
+#: ./templates/SentenceRecordings/add.php:14
+msgid "Add a recording of this sentence:"
+msgstr "Dodaj nagranie tego zdania:"
+
+#: ./templates/SentenceRecordings/add.php:15
+msgid "Recording is optional. You can submit without attaching an audio file."
+msgstr "Nagranie jest opcjonalne. Możesz przesłać bez dołączania pliku audio."
+
+#: ./templates/SentenceRecordings/add.php:46
+msgid "When you are finished recording, please press submit."
+msgstr "Gdy zakończysz nagrywanie, naciśnij przycisk Zapisz."
+
+#: ./templates/SentenceRecordings/add.php:46
+msgid "View tips on making a high-quality recording."
+msgstr "Zobacz wskazówki dotyczące nagrania wysokiej jakości."
+
+#: ./templates/SentenceRecordings/choose.php:11
+msgid "Proceed to Recording"
+msgstr "Przejdź do nagrywania"
+
+#: ./templates/SentenceRecordings/edit.php:16
+#: ./templates/SentenceRecordings/view.php:13
+msgid "List Sentence Recordings"
+msgstr "Lista nagrań zdań"
+
+#: ./templates/SentenceRecordings/edit.php:23
+#: ./templates/SentenceRecordings/view.php:11
+msgid "Edit Sentence Recording"
+msgstr "Edytuj nagranie zdania"
+
+#: ./templates/SentenceRecordings/index.php:8
+#: ./templates/SentenceRecordings/view.php:14
+msgid "New Sentence Recording"
+msgstr "Nowe nagranie zdania"
+
+#: ./templates/SentenceRecordings/index.php:9
+msgid "Sentence Recordings"
+msgstr "Nagrania zdań"
+
+#: ./templates/SentenceRecordings/ranking.php:22
+msgid "Sentences are shown in their current ranking. Ranking is for approved pronunciations only."
+msgstr "Zdania są wyświetlane według bieżącej kolejności. Ranking dotyczy tylko zatwierdzonych wymów."
+
+#: ./templates/SentenceRecordings/ranking.php:53
+msgid "Delete/Approve Sentence Recordings"
+msgstr "Usuń/Zatwierdź nagrania zdań"
+
+#: ./templates/SentenceRecordings/ranking.php:73
+msgid "<i class=\"fa-solid fa-trash\"></i> Delete"
+msgstr "<i class=\"fa-solid fa-trash\"></i> Usuń"
+
+#: ./templates/SentenceRecordings/success.php:3
+#: ./templates/Words/success.php:6
+msgid "Thank you"
+msgstr "Dziękujemy"
+
+#: ./templates/SentenceRecordings/success.php:6
+msgid "Thank you for adding a sentence recording to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr "Dziękujemy za dodanie nagrania zdania do Jewish English Lexicon. Wróć za około tydzień, aby zobaczyć swoje hasło na stronie."
+
+#: ./templates/SentenceRecordings/tips.php:3
+msgid "Tips for making a high-quality recording:"
+msgstr "Wskazówki dotyczące tworzenia nagrania wysokiej jakości:"
+
+#: ./templates/SentenceRecordings/view.php:12
+msgid "Delete Sentence Recording"
+msgstr "Usuń nagranie zdania"
+
+#: ./templates/SentenceRecordings/view.php:22
+#: ./templates/Sentences/view.php:31
+#: ./templates/Words/viewauto.php:224
+msgid "Sentence"
+msgstr "Zdanie"
+
+#: ./templates/Sentences/add.php:19
+#: ./templates/Sentences/edit.php:26
+#: ./templates/Sentences/view.php:13
+msgid "List Sentences"
+msgstr "Lista zdań"
+
+#: ./templates/Sentences/add.php:27
+msgid "Add Sentence"
+msgstr "Dodaj zdanie"
+
+#: ./templates/Sentences/edit.php:33
+#: ./templates/Sentences/view.php:11
+msgid "Edit Sentence"
+msgstr "Edytuj zdanie"
+
+#: ./templates/Sentences/index.php:10
+#: ./templates/Sentences/view.php:14
+msgid "New Sentence"
+msgstr "Nowe zdanie"
+
+#: ./templates/Sentences/index.php:16
+msgid "Sentences for Word #{0}"
+msgstr "Zdania dla słowa #{0}"
+
+#: ./templates/Sentences/index.php:16
+msgid "Sentences"
+msgstr "Zdania"
+
+#: ./templates/Sentences/view.php:12
+msgid "Delete Sentence"
+msgstr "Usuń zdanie"
+
+#: ./templates/Sentences/view.php:37
+msgid "Related Sentence Recordings"
+msgstr "Powiązane nagrania zdań"
+
+#: ./templates/Sentences/view.php:43
+msgid "Sentence Id"
+msgstr "ID zdania"
+
+#: ./templates/Suggestions/add.php:11
+#: ./templates/Suggestions/edit.php:16
+#: ./templates/Suggestions/view.php:13
+msgid "List Suggestions"
+msgstr "Lista sugestii"
+
+#: ./templates/Suggestions/add.php:18
+msgid "Add Suggestion for "
+msgstr "Dodaj sugestię dla "
+
+#: ./templates/Suggestions/add.php:22
+msgid "full_name"
+msgstr "Imię i nazwisko"
+
+#: ./templates/Suggestions/add.php:23
+msgid "email"
+msgstr "E-mail"
+
+#: ./templates/Suggestions/add.php:25
+msgid "suggestion"
+msgstr "Sugestia"
+
+#: ./templates/Suggestions/edit.php:23
+#: ./templates/Suggestions/view.php:11
+msgid "Edit Suggestion"
+msgstr "Edytuj sugestię"
+
+#: ./templates/Suggestions/index.php:8
+#: ./templates/Suggestions/view.php:14
+msgid "New Suggestion"
+msgstr "Nowa sugestia"
+
+#: ./templates/Suggestions/index.php:9
+msgid "Suggestions"
+msgstr "Sugestie"
+
+#: ./templates/Suggestions/view.php:12
+msgid "Delete Suggestion"
+msgstr "Usuń sugestię"
+
+#: ./templates/Suggestions/view.php:26
+msgid "User"
+msgstr "Użytkownik"
+
+#: ./templates/Suggestions/view.php:51
+msgid "Suggestion"
+msgstr "Sugestia"
+
+#: ./templates/TypesWords/add_by_word.php:15
+msgid "Back to types for this word"
+msgstr "Wróć do typów dla tego słowa"
+
+#: ./templates/TypesWords/add_by_word.php:26
+msgid "Add Type Link"
+msgstr "Dodaj powiązanie z typem"
+
+#: ./templates/Types/add.php:14
+#: ./templates/Types/edit.php:19
+#: ./templates/Types/view.php:13
+msgid "List Types"
+msgstr "Lista typów"
+
+#: ./templates/Types/add.php:21
+msgid "Add Type"
+msgstr "Dodaj typ"
+
+#: ./templates/Types/edit.php:26
+#: ./templates/Types/view.php:11
+msgid "Edit Type"
+msgstr "Edytuj typ"
+
+#: ./templates/Types/index.php:11
+#: ./templates/Types/view.php:14
+msgid "New Type"
+msgstr "Nowy typ"
+
+#: ./templates/Types/index.php:12
+msgid "Types"
+msgstr "Typy"
+
+#: ./templates/Types/view.php:12
+msgid "Delete Type"
+msgstr "Usuń typ"
+
+#: ./templates/Types/view.php:22
+#: ./templates/Words/viewauto.php:144
+msgid "Type"
+msgstr "Typ"
+
+#: ./templates/Words/add.php:10
+msgid "New"
+msgstr "Nowe"
+
+#: ./templates/Words/add.php:29
+msgid "word"
+msgstr "słowo"
+
+#: ./templates/Words/add.php:36
+msgid "Most Common Spelling"
+msgstr "Najczęstsza pisownia"
+
+#: ./templates/Words/add.php:43
+msgid "Alternate Spelling(s)"
+msgstr "Warianty pisowni"
+
+#: ./templates/Words/add.php:58
+msgid "Add an additional spelling"
+msgstr "Dodaj dodatkową pisownię"
+
+#: ./templates/Words/add.php:59
+#: ./templates/Words/add.php:150
+msgid "Remove"
+msgstr "Usuń"
+
+#: ./templates/Words/add.php:76
+msgid "Phonetic Spelling "
+msgstr "Zapis fonetyczny "
+
+#: ./templates/Words/add.php:76
+msgid "Using dashes and capital letters, indicate syllable and stress, e.g., 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+msgstr "Używając myślników i wielkich liter, zaznacz sylaby i akcent, np. 'te-SHOO-vuh' vs. 'tshoo-VAH'"
+
+#: ./templates/Words/add.php:98
+msgid "Recorded"
+msgstr "Nagrano"
+
+#: ./templates/Words/add.php:149
+msgid "Add an additional pronunciation"
+msgstr "Dodaj dodatkową wymowę"
+
+#: ./templates/Words/add.php:157
+msgid "No Pronunciations Recorded - "
+msgstr "Brak nagranych wymów — "
+
+#: ./templates/Words/add.php:159
+msgid "Review/Arrange Recordings"
+msgstr "Przejrzyj/Ułóż nagrania"
+
+#: ./templates/Words/add.php:182
+msgid "Definition(s)"
+msgstr "Definicje"
+
+#: ./templates/Words/add.php:183
+msgid "Add an additional definition"
+msgstr "Dodaj dodatkową definicję"
+
+#: ./templates/Words/add.php:227
+msgid "Example Sentence(s)"
+msgstr "Przykładowe zdania"
+
+#: ./templates/Words/add.php:228
+msgid "Add an additional sentence"
+msgstr "Dodaj dodatkowe zdanie"
+
+#: ./templates/Words/add.php:273
+msgid "Language(s) of Origin"
+msgstr "Języki pochodzenia"
+
+#: ./templates/Words/add.php:274
+#: ./templates/Words/add.php:287
+msgid "Hold down Ctrl to select more than one option, Ctrl-click again to deselect"
+msgstr "Przytrzymaj Ctrl, aby wybrać więcej niż jedną opcję; kliknij ponownie z Ctrl, aby odznaczyć"
+
+#: ./templates/Words/add.php:293
+msgid "Enter other origins separated by semicolon"
+msgstr "Wpisz inne pochodzenia oddzielone średnikiem"
+
+#: ./templates/Words/add.php:332
+#: ./templates/Words/view.php:279
+msgid "Who Uses This"
+msgstr "Kto tego używa"
+
+#: ./templates/Words/add.php:333
+#: ./templates/Words/add.php:343
+msgid "Hold down Ctrl (command on Mac) to select more than one option, Ctrl/command-click again to deselect"
+msgstr "Przytrzymaj Ctrl (Command na Macu), aby wybrać więcej niż jedną opcję; kliknij ponownie z Ctrl/Command, aby odznaczyć"
+
+#: ./templates/Words/add.php:342
+msgid "Regions in Which the Word is Used"
+msgstr "Regiony, w których używa się tego słowa"
+
+#: ./templates/Words/add.php:357
+msgid "Enter other groups separated by semicolon"
+msgstr "Wpisz inne grupy oddzielone średnikiem"
+
+#: ./templates/Words/add.php:381
+msgid "Anything else you want website visitors to know about this entry"
+msgstr "Coś jeszcze, co chcesz, aby odwiedzający stronę wiedzieli o tym haśle"
+
+#: ./templates/Words/add.php:393
+msgid "Your name and email will not appear on the website. We require it in case we have questions about your entry. If you add many words to the lexicon, we will give you the option of being listed as one of the"
+msgstr "Twoje imię i nazwisko oraz e-mail nie pojawią się na stronie. Wymagamy ich na wypadek pytań dotyczących Twojego zgłoszenia. Jeśli dodasz wiele słów do leksykonu, zaproponujemy Ci możliwość umieszczenia na liście jako jeden z"
+
+#: ./templates/Words/add.php:393
+msgid "Top Word Contributors"
+msgstr "Najwięksi współtwórcy haseł"
+
+#: ./templates/Words/add.php:393
+msgid "Other than that, you will"
+msgstr "Poza tym nie będziesz"
+
+#: ./templates/Words/add.php:393
+msgid "NOT"
+msgstr "NIE"
+
+#: ./templates/Words/add.php:393
+msgid "be contacted or placed on any email lists"
+msgstr "kontaktowany(-a) ani dodany(-a) do żadnych list mailingowych"
+
+#: ./templates/Words/add.php:395
+msgid "Your Name"
+msgstr "Twoje imię i nazwisko"
+
+#: ./templates/Words/add.php:399
+msgid "Your Email Address"
+msgstr "Twój adres e-mail"
+
+#: ./templates/Words/add.php:404
+msgid "Double check your submission!"
+msgstr "Sprawdź jeszcze raz swoje zgłoszenie!"
+
+#: ./templates/Words/add.php:411
+msgid "Approve Word"
+msgstr "Zatwierdź słowo"
+
+#: ./templates/Words/add.php:415
+#: ./templates/Words/viewauto.php:12
+msgid "Delete Word"
+msgstr "Usuń słowo"
+
+#: ./templates/Words/add.php:418
+msgid "Are you sure?"
+msgstr "Czy na pewno?"
+
+#: ./templates/Words/add.php:456
+msgid "This word already exists in the lexicon or is being evaluated."
+msgstr "To słowo już istnieje w leksykonie albo jest w trakcie oceny."
+
+#: ./templates/Words/alphabetical.php:38
+msgid "Showing "
+msgstr "Wyświetlanie "
+
+#: ./templates/Words/alphabetical.php:38
+msgid "words"
+msgstr "słów"
+
+#: ./templates/Words/alphabetical.php:43
+msgid "No words were found."
+msgstr "Nie znaleziono żadnych słów."
+
+#: ./templates/Words/base_word_edit.php:38
+msgid "Save"
+msgstr "Zapisz"
+
+#: ./templates/Words/browse.php:84
+msgid "No words were found. Refine your search options above."
+msgstr "Nie znaleziono żadnych słów. Doprecyzuj opcje wyszukiwania powyżej."
+
+#: ./templates/Words/browse.php:107
+msgid "Display All"
+msgstr "Wyświetl wszystko"
+
+#: ./templates/Words/edit.php:6
+msgid "Editing"
+msgstr "Edycja"
+
+#: ./templates/Words/edit.php:10
+msgid "SUGGEST CHANGES FOR "
+msgstr "ZAPROPONUJ ZMIANY DLA "
+
+#: ./templates/Words/edit.php:11
+msgid "You are about to enter suggested edits for this entry. In case you have questions about languages of origin, spelling, or who uses it, please see "
+msgstr "Zamierzasz wprowadzić proponowane poprawki do tego hasła. Jeśli masz pytania dotyczące języków pochodzenia, pisowni lub tego, kto tego używa, zobacz "
+
+#: ./templates/Words/edit.php:11
+msgid "Notes."
+msgstr "Notatki."
+
+#: ./templates/Words/edit.php:11
+msgid "What edits would you like to suggest to this entry? Please be specific."
+msgstr "Jakie zmiany chcesz zaproponować dla tego hasła? Prosimy o konkrety."
+
+#: ./templates/Words/index.php:8
+#: ./templates/Words/viewauto.php:14
+msgid "New Word"
+msgstr "Nowe słowo"
+
+#: ./templates/Words/index.php:9
+msgid "Words"
+msgstr "Słowa"
+
+#: ./templates/Words/random.php:5
+#: ./templates/Words/random.php:20
+#: ./templates/Words/random.php:38
+msgid "Refresh"
+msgstr "Odśwież"
+
+#: ./templates/Words/random.php:14
+#: ./templates/layout/default.php:189
+msgid "Random"
+msgstr "Losowe"
+
+#: ./templates/Words/random.php:14
+msgid "words retrieved"
+msgstr "pobranych słów"
+
+#: ./templates/Words/random.php:17
+msgid "random words retrieved"
+msgstr "losowych pobranych słów"
+
+#: ./templates/Words/success.php:9
+msgid "Thank you for adding an entry to the Jewish English Lexicon. Check back in about a week to see your entry on the website."
+msgstr "Dziękujemy za dodanie hasła do Jewish English Lexicon. Wróć za około tydzień, aby zobaczyć swoje hasło na stronie."
+
+#: ./templates/Words/success.php:12
+msgid "See your entry"
+msgstr "Zobacz swoje hasło"
+
+#: ./templates/Words/view.php:16
+#: ./templates/Words/view.php:328
+msgid " Edit"
+msgstr " Edytuj"
+
+#: ./templates/Words/view.php:25
+msgid "Share"
+msgstr "Udostępnij"
+
+#: ./templates/Words/view.php:37
+msgid "<i class=\"fa-solid fa-trash\"></i>&nbsp;Delete"
+msgstr "<i class=\"fa-solid fa-trash\"></i>&nbsp;Usuń"
+
+#: ./templates/Words/view.php:58
+msgid " Record a Pronunciation"
+msgstr " Nagraj wymowę"
+
+#: ./templates/Words/view.php:77
+#: ./templates/Words/view.php:128
+msgid "Record a Pronunciation"
+msgstr "Nagraj wymowę"
+
+#: ./templates/Words/view.php:137
+msgid "Manage Pronunciations"
+msgstr "Zarządzaj wymowami"
+
+#: ./templates/Words/view.php:157
+msgid "Example Sentences"
+msgstr "Przykładowe zdania"
+
+#: ./templates/Words/view.php:187
+msgid "Recording"
+msgstr "Nagranie"
+
+#: ./templates/Words/view.php:201
+msgid "Listen to recordings of this sentence"
+msgstr "Odsłuchaj nagrania tego zdania"
+
+#: ./templates/Words/view.php:208
+msgid " Manage Recordings"
+msgstr " Zarządzaj nagraniami"
+
+#: ./templates/Words/view.php:218
+#: ./templates/element/word_list.php:18
+msgid "View More"
+msgstr "Zobacz więcej"
+
+#: ./templates/Words/view.php:233
+#: ./templates/Words/view.php:239
+msgid "Record a Sentence"
+msgstr "Nagraj zdanie"
+
+#: ./templates/Words/view.php:249
+msgid "Add a Sentence"
+msgstr "Dodaj zdanie"
+
+#: ./templates/Words/view.php:263
+msgid "Languages of Origin"
+msgstr "Języki pochodzenia"
+
+#: ./templates/Words/view.php:330
+msgid "Something missing from this entry? Inaccurate? Feel free to suggest an edit."
+msgstr "Brakuje czegoś w tym haśle? Nieścisłe? Zaproponuj poprawkę."
+
+#: ./templates/Words/viewauto.php:11
+msgid "Edit Word"
+msgstr "Edytuj słowo"
+
+#: ./templates/Words/viewauto.php:13
+msgid "List Words"
+msgstr "Lista słów"
+
+#: ./templates/Words/viewauto.php:63
+msgid "Related Dictionaries"
+msgstr "Powiązane słowniki"
+
+#: ./templates/Words/viewauto.php:88
+msgid "Related Origins"
+msgstr "Powiązane pochodzenia"
+
+#: ./templates/Words/viewauto.php:113
+msgid "Related Regions"
+msgstr "Powiązane regiony"
+
+#: ./templates/Words/viewauto.php:138
+msgid "Related Types"
+msgstr "Powiązane typy"
+
+#: ./templates/Words/viewauto.php:163
+msgid "Related Alternates"
+msgstr "Powiązane warianty"
+
+#: ./templates/Words/viewauto.php:169
+#: ./templates/Words/viewauto.php:196
+#: ./templates/Words/viewauto.php:223
+#: ./templates/Words/viewauto.php:250
+msgid "Word Id"
+msgstr "ID słowa"
+
+#: ./templates/Words/viewauto.php:190
+msgid "Related Definitions"
+msgstr "Powiązane definicje"
+
+#: ./templates/Words/viewauto.php:217
+msgid "Related Sentences"
+msgstr "Powiązane zdania"
+
+#: ./templates/Words/viewauto.php:244
+msgid "Related Pronunciations"
+msgstr "Powiązane wymowy"
+
+#: ./templates/Words/wordnotfound.php:6
+msgid "Error"
+msgstr "Błąd"
+
+#: ./templates/Words/wordnotfound.php:9
+msgid "This word can not be found or has not yet been approved"
+msgstr "Nie można znaleźć tego słowa lub nie zostało jeszcze zatwierdzone"
+
+#: ./templates/Words/wordnotfound.php:11
+msgid "Add a word"
+msgstr "Dodaj słowo"
+
+#: ./templates/element/word_alternates.php:3
+#: ./templates/element/word_alternates.php:8
+msgid "Alternative Spellings"
+msgstr "Alternatywne pisownie"
+
+#: ./templates/element/word_list.php:27
+msgid "Edit "
+msgstr "Edytuj "
+
+#: ./templates/layout/default.php:136
+msgid "Add a Word"
+msgstr "Dodaj słowo"
+
+#: ./templates/layout/default.php:148
+#: ./templates/layout/default.php:182
+msgid "Volunteer"
+msgstr "Wolontariat"
+
+#: ./templates/layout/default.php:151
+#: ./templates/layout/default.php:183
+msgid "Donate"
+msgstr "Przekaż darowiznę"
+
+#: ./templates/layout/default.php:156
+msgid "Search..."
+msgstr "Szukaj..."
+
+#: ./templates/layout/default.php:180
+msgid "JEL Forum"
+msgstr "Forum JEL"
+
+#: ./templates/layout/default.php:186
+msgid "The Lexicon"
+msgstr "Leksykon"
+
+#: ./templates/layout/default.php:188
+msgid "Alphabetical"
+msgstr "Alfabetycznie"
+
+#: ./templates/layout/default.php:190
+msgid "Add a New Word"
+msgstr "Dodaj nowe słowo"
+
+#: ./templates/layout/error.php:36
+msgid "Back"
+msgstr "Wróć"
+
