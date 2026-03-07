@@ -458,6 +458,10 @@ class WordsTable extends Table
                             ->where(['Alternates.spelling !=' => '']);
                     });
         $results = $query->first();
+        if ($results === null) {
+            return null;
+        }
+
         return $results->toArray();
     }
 

@@ -5,19 +5,21 @@ namespace App\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
-class SentencesFixture extends TestFixture
+class AlternatesFixture extends TestFixture
 {
     public $import = false;
 
     public array $fields = [
         'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'autoIncrement' => true],
         'word_id' => ['type' => 'integer', 'length' => 11, 'null' => false],
-        'sentence' => ['type' => 'text', 'null' => true, 'default' => null],
-        'sentence_json' => ['type' => 'text', 'null' => true, 'default' => null],
+        'spelling' => ['type' => 'string', 'length' => 255, 'null' => false],
         '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+        '_indexes' => [
+            'word_id' => ['type' => 'index', 'columns' => ['word_id']],
+        ],
     ];
 
     public array $records = [
-        ['id' => 1, 'word_id' => 1, 'sentence' => 'I ate an apple.'],
+        ['id' => 1, 'word_id' => 1, 'spelling' => 'appl'],
     ];
 }

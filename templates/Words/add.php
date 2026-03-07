@@ -4,6 +4,12 @@
  * @var \App\Model\Entity\Word $word
  */
 
+$controllerName = $controllerName ?? '';
+$specialother = $specialother ?? '';
+$specialothervalue = $specialothervalue ?? '';
+$specialothertype = $specialothertype ?? '';
+$specialothervaluetype = $specialothervaluetype ?? '';
+
 if ('edit' == $controllerName){
     $header = __('Edit');
 } else {

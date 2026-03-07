@@ -8,7 +8,7 @@ use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
 use Cake\Http\Exception\InternalErrorException;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Datasource\PaginatorInterface;
 use Cake\Datasource\FactoryLocator;
@@ -379,61 +379,58 @@ class WordsController extends AppController {
             // ENFORCE spelling is required
             if (empty($postData['spelling'])) {
                 $this->Flash->error(__('Spelling is required.'));
-                return;
-            }
-
-            // Quill fields
-            $postData = $this->processQuillFields($postData, ['definitions' => 'definition', 'sentences' => 'sentence']);
-            $postData = $this->processSingleQuillField($postData, 'etymology');
-            $postData = $this->processSingleQuillField($postData, 'notes');
-
-            // Filter associations
-            $postData = $this->filterAssociations($postData, ['Alternates', 'Pronunciations']);
-
-            // Improved "other" logic
-            foreach (['origins', 'types'] as $assoc) {
-                $postData = $this->processOtherAssociations($postData, $assoc);
-            }
-
-            // reCaptcha
-            if ($this->loggedin) {
-                $json['success'] = 'false';
-                $validationSet = 'default';
             } else {
-                $recaptcha = $postData['g-recaptcha-response'];
-                $google_url = "https://www.google.com/recaptcha/api/siteverify";
-                $secret = \Cake\Core\Configure::consume('recaptcha_secret');
-                $ip = $_SERVER['REMOTE_ADDR'];
-                $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
-                $http = new \Cake\Http\Client();
-                $res = $http->get($url);
-                $json = $res->getJson();
-                $validationSet = 'notloggedin';
-            } 
-                
+                // Quill fields
+                $postData = $this->processQuillFields($postData, ['definitions' => 'definition', 'sentences' => 'sentence']);
+                $postData = $this->processSingleQuillField($postData, 'etymology');
+                $postData = $this->processSingleQuillField($postData, 'notes');
 
-            // Sound files
-            $postData = $this->handleSoundFiles($postData, $this->request->getUploadedFiles());
+                // Filter associations
+                $postData = $this->filterAssociations($postData, ['Alternates', 'Pronunciations']);
 
-            // Pronunciation approval
-            $postData = $this->approvePronunciations($postData);
+                // Improved "other" logic
+                foreach (['origins', 'types'] as $assoc) {
+                    $postData = $this->processOtherAssociations($postData, $assoc);
+                }
 
-            $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
-            $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
-            
-            
-            if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
-                if ($this->Words->save($word)) {
-                    if ($this->loggedin && 'superuser' == $this->request->getSession()->read('Auth.role')) {
-                        $this->logWordAction('add_superuser', $word);
-                        return $this->redirect(['action' => 'view' , $word->id]);
-                    } else {
-                        $this->logWordAction('add_user', $word);
-                        return $this->redirect(['action' => 'success']);
+                // reCaptcha
+                if ($this->loggedin) {
+                    $json['success'] = 'false';
+                    $validationSet = 'default';
+                } else {
+                    $recaptcha = $postData['g-recaptcha-response'];
+                    $google_url = "https://www.google.com/recaptcha/api/siteverify";
+                    $secret = \Cake\Core\Configure::consume('recaptcha_secret');
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
+                    $http = new \Cake\Http\Client();
+                    $res = $http->get($url);
+                    $json = $res->getJson();
+                    $validationSet = 'notloggedin';
+                }
+
+                // Sound files
+                $postData = $this->handleSoundFiles($postData, $this->request->getUploadedFiles());
+
+                // Pronunciation approval
+                $postData = $this->approvePronunciations($postData);
+
+                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+                $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
+
+                if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
+                    if ($this->Words->save($word)) {
+                        if ($this->loggedin && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+                            $this->logWordAction('add_superuser', $word);
+                            return $this->redirect(['action' => 'view' , $word->id]);
+                        } else {
+                            $this->logWordAction('add_user', $word);
+                            return $this->redirect(['action' => 'success']);
+                        }
                     }
                 }
+                $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
 
         $specialother = '';
