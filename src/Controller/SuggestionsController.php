@@ -18,10 +18,8 @@ class SuggestionsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Words', 'Users'],
-        ];
-        $suggestions = $this->paginate($this->Suggestions);
+        $query = $this->Suggestions->find()->contain(['Words', 'Users']);
+        $suggestions = $this->paginate($query);
 
         $this->set(compact('suggestions'));
     }

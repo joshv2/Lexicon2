@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Log\Log;
+use Cake\Http\Exception\NotFoundException;
 /**
  * SentenceRecordings Controller
  *
@@ -24,10 +25,8 @@ class SentenceRecordingsController extends AppController
     
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Sentences'],
-        ];
-        $sentenceRecordings = $this->paginate($this->SentenceRecordings);
+        $query = $this->SentenceRecordings->find()->contain(['Sentences']);
+        $sentenceRecordings = $this->paginate($query);
 
         $this->set(compact('sentenceRecordings'));
     }
@@ -229,15 +228,28 @@ class SentenceRecordingsController extends AppController
 
     public function choose($id = null)
     {
-        if( $this->request->is('post') ) {
+        if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $this->redirect('/sentenceRecordings/add/'.$data['sentenceToRecord']);
-        } else {
-        //array_map([$this, 'loadModel'], ['Words', 'Sentences']);
-        $wordResult = $this->fetchTable('Words')->get_word_for_view($id);
+            $sentenceId = $data['sentenceToRecord'] ?? null;
+
+            if ($sentenceId === null || !ctype_digit((string)$sentenceId)) {
+                throw new NotFoundException('Sentence not found');
+            }
+
+            return $this->redirect('/sentenceRecordings/add/' . $sentenceId);
+        }
+
+        if ($id === null || !ctype_digit((string)$id)) {
+            throw new NotFoundException('Word not found');
+        }
+
+        $wordResult = $this->fetchTable('Words')->get_word_for_view((int)$id);
+        if (empty($wordResult)) {
+            throw new NotFoundException('Word not found');
+        }
+
         $word = $wordResult[0];
         $this->set(compact('word'));
-        }
     }
 
     public function success(){

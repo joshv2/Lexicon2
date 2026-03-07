@@ -178,7 +178,10 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'skipLog' => [],
+        'skipLog' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN) ? [] : [
+            'Cake\\Http\\Exception\\NotFoundException',
+            'Cake\\Http\\Exception\\MethodNotAllowedException',
+        ],
         'log' => true,
         'trace' => true,
         'ignoredDeprecationPaths' => [],

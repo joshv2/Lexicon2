@@ -42,53 +42,89 @@ class WordsController extends AppController {
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $queryParams = $this->request->getQueryParams();
 
-        if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
-            $queryParams = array_merge(['displayType' => 'all'], $queryParams);
-        }
-        
-        $allowed = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page'];
-
+        $allowedKeys = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page', 'sort', 'direction'];
+        $invalid = false;
         foreach (array_keys($queryParams) as $param) {
-            if (!in_array($param, $allowed, true)) {
-                // Invalid value detected
-                
-                $invalidValue = true;
+            if (!in_array($param, $allowedKeys, true)) {
+                $invalid = true;
+                break;
             }
         }
 
-        if (!isset($invalidValue) || $invalidValue !== true) {
-            $originvalue = [$this->request->getQuery('origin')];
-            $regionvalue = [$this->request->getQuery('region')];
-            $typevalue = [$this->request->getQuery('type')];
-            $dictionaryvalue = [$this->request->getQuery('dictionary')];
-            $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
-                                'regions' => $regionvalue[0],
-                                'types' => $typevalue[0],
-                                'dictionaries' => $dictionaryvalue[0]];
-            $cc = [];
-            foreach($current_condition as $ortdcat => $ortd2) {
-                if ($ortd2 != null){
-                    $cc[$ortdcat] = $ortd2;
+        $originRaw = $this->request->getQuery('origin');
+        $regionRaw = $this->request->getQuery('region');
+        $typeRaw = $this->request->getQuery('type');
+        $dictionaryRaw = $this->request->getQuery('dictionary');
 
+        $current_condition = [
+            'origins' => $originRaw,
+            'regions' => $regionRaw,
+            'types' => $typeRaw,
+            'dictionaries' => $dictionaryRaw,
+        ];
+        $cc = [];
+
+        $isValidFilterValue = static function ($value): bool {
+            if ($value === null || $value === '') {
+                return true;
+            }
+            $value = (string)$value;
+            return ctype_digit($value) || in_array($value, ['other', 'none'], true);
+        };
+
+        if (!$invalid) {
+            if (!$isValidFilterValue($originRaw)
+                || !$isValidFilterValue($regionRaw)
+                || !$isValidFilterValue($typeRaw)
+                || !$isValidFilterValue($dictionaryRaw)) {
+                $invalid = true;
+            }
+
+            $pageRaw = $this->request->getQuery('page');
+            if ($pageRaw !== null && $pageRaw !== '' && !ctype_digit((string)$pageRaw)) {
+                $invalid = true;
+            }
+        }
+
+        if (!$invalid) {
+            foreach ($current_condition as $ortdcat => $ortd2) {
+                if ($ortd2 !== null && $ortd2 !== '') {
+                    $cc[$ortdcat] = $ortd2;
                 }
             }
-            
-            } else {
-                $queryParams = []; 
-                $queryParams = array_merge(['displayType' => 'all'], $queryParams);
-                $current_condition = ['origins' => null, 'regions' => null, 'types' => null, 'dictionaries' => null];
-                $cc = ['error' => 'You entered invalid query params. Displaying all words in the Lexicon. Please try again.'];
+        } else {
+            $current_condition = ['origins' => null, 'regions' => null, 'types' => null, 'dictionaries' => null];
+            $cc = ['error' => 'You entered invalid query params. Displaying all words in the Lexicon. Please try again.'];
+        }
+
+        // Determine the actual filter (origin/region/type/dictionary). Pagination (page/displayType) should not affect filtering.
+        $filterKey = null;
+        $filterValue = null;
+        foreach (['origin', 'region', 'type', 'dictionary'] as $key) {
+            $value = $this->request->getQuery($key);
+            if ($value !== null && $value !== '') {
+                $filterKey = $key;
+                $filterValue = $value;
+                break;
             }
-        
+        }
+        if ($invalid || $filterKey === null) {
+            $filterKey = 'displayType';
+            $filterValue = 'all';
+        }
 
         $query = $this->Words->browse_words_simplified(
-                            array_keys($queryParams)[0], 
-                            array_values($queryParams)[0],
-                            FALSE, 
-                            $sitelang->id,
-                            TRUE);
+            $filterKey,
+            $filterValue,
+            false,
+            $sitelang->id,
+            true
+        );
 
         $displayType = $this->request->getQuery('displayType');
+        if ($displayType === null && $filterKey === 'displayType') {
+            $displayType = 'all';
+        }
 
         if ($displayType === 'all') {
             $isPaginated = false;

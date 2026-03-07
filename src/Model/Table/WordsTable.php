@@ -248,6 +248,14 @@ class WordsTable extends Table
                             'region' => 'regions',
                             'type' => 'types',
                             'origin' => 'origins'];
+
+        // Hardening: ignore unknown filter keys (e.g., bots sending ?page=2 first)
+        // and return a safe default query instead of emitting warnings.
+        if ($ortdtype !== 'displayType' && !array_key_exists($ortdtype, $pluralization)) {
+            return $this->find()->select(['id', 'spelling'])
+                ->where(['language_id' => $langid, 'approved' => 1])
+                ->orderBy(['spelling' => 'ASC', 'id' => 'ASC']);
+        }
         
         if ($ortdtype === 'displayType' && $ortdvalue === 'all'){
             $query = $this->find()->select(['id','spelling'])

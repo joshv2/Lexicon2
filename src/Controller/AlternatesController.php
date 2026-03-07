@@ -18,10 +18,8 @@ class AlternatesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Words'],
-        ];
-        $alternates = $this->paginate($this->Alternates);
+        $query = $this->Alternates->find()->contain(['Words']);
+        $alternates = $this->paginate($query);
 
         $this->set(compact('alternates'));
     }

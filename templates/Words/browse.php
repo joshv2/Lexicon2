@@ -94,8 +94,15 @@
 					} elseif (array_key_first($cc) == 'dictionaries' && $cc['dictionaries'] == 'none') {
 						echo "Checked options: Words not in any other dictionary.";
 					}
-					elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'])){
-						echo "Checked options: " . $ortd[array_key_first($cc)][$cc[array_key_first($cc)]];
+					elseif (in_array(array_key_first($cc),['origins', 'regions', 'dictionaries'], true)){
+						$cat = array_key_first($cc);
+						$rawVal = (string)$cc[$cat];
+						$lookupKey = ctype_digit($rawVal) ? (int)$rawVal : $rawVal;
+						if (isset($ortd[$cat]) && is_array($ortd[$cat]) && array_key_exists($lookupKey, $ortd[$cat])) {
+							echo "Checked options: " . $ortd[$cat][$lookupKey];
+						} else {
+							echo "";
+						}
 					} elseif (array_key_first($cc) == 'types') {
 						echo "Checked options: " . $ortd['toptypes'][$cc['types']];
 					} else {

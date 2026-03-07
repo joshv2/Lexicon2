@@ -19,10 +19,11 @@ class RegionsController extends AppController
     public function index()
     {
         $sitelang = $this->request->getAttribute('sitelang');
-        $this->paginate = [
-            'contain' => ['Languages'],
-        ];
-        $regions = $this->paginate($this->Regions->find()->where(['language_id' => $sitelang->id]));
+        $query = $this->Regions
+            ->find()
+            ->contain(['Languages'])
+            ->where(['language_id' => $sitelang->id]);
+        $regions = $this->paginate($query);
 
         $this->set(compact('regions'));
     }
