@@ -74,6 +74,7 @@
 							echo $this->Html->link(__('Record a Pronunciation'), '/pronunciations/add/' .$word_id, ['class' => 'button blue nl', 'escape' => false]);
 					}
 				?>
+
 	</div>
 
 	<div class='c'>
@@ -306,6 +307,7 @@
 		<?= $this->element('word_alternates', [
 			'alternates' => $alternates,
 			'spellingList' => $spellingList,
+			'word_id' => $word_id,
 		]) ?>
 
 

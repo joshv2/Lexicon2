@@ -120,6 +120,11 @@ return [
         ],
         [
             'role' => 'superuser',
+            'controller' => 'Alternates',
+            'action' => '*',
+        ],
+        [
+            'role' => 'superuser',
             'plugin' => 'CakeDC/Users',
             'controller' => 'Users',
             'action' => ['register'],

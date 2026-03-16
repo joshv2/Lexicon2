@@ -44,7 +44,13 @@
             <div class="text">
                 <strong><?= __('AboutSec1Text') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($language->AboutSec1Text)); ?>
+                    <?php
+                        $raw = (string)($language->AboutSec1Text ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="text">
@@ -56,7 +62,13 @@
             <div class="text">
                 <strong><?= __('AboutSec2Text') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($language->AboutSec2Text)); ?>
+                    <?php
+                        $raw = (string)($language->AboutSec2Text ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="text">
@@ -68,7 +80,13 @@
             <div class="text">
                 <strong><?= __('AboutSec3Text') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($language->AboutSec3Text)); ?>
+                    <?php
+                        $raw = (string)($language->AboutSec3Text ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="text">
@@ -80,7 +98,13 @@
             <div class="text">
                 <strong><?= __('AboutSec4Text') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($language->AboutSec4Text)); ?>
+                    <?php
+                        $raw = (string)($language->AboutSec4Text ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="text">
@@ -92,7 +116,13 @@
             <div class="text">
                 <strong><?= __('NotesSec1Text') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($language->NotesSec1Text)); ?>
+                    <?php
+                        $raw = (string)($language->NotesSec1Text ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="related">

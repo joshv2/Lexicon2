@@ -67,8 +67,8 @@ class SentencesTable extends Table
 
         $validator
             ->scalar('sentence')
-            //->requirePresence('sentence', 'create')
-            ->allowEmptyString('sentence', 'true');
+            ->requirePresence('sentence', 'create')
+            ->notEmptyString('sentence', 'Sentence is required.');
 
         return $validator;
     }

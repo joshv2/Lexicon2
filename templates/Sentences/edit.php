@@ -28,7 +28,7 @@ $initialDelta =
     </aside>
     <div class="column-responsive column-80">
         <div class="sentences form content">
-            <?= $this->Form->create($sentence) ?>
+            <?= $this->Form->create($sentence, ['id' => 'add_form']) ?>
             <fieldset>
                 <legend><?= __('Edit Sentence') ?></legend>
                 <?php
@@ -40,6 +40,7 @@ $initialDelta =
 
                 <div class="editor-container">
                     <div id="editor-sentence"></div>
+                    <textarea id="sentence-fallback" style="display:none;width:100%;min-height:240px"></textarea>
                 </div>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
@@ -52,58 +53,48 @@ $initialDelta =
 document.addEventListener('DOMContentLoaded', function () {
     const hidden = document.getElementById('sentence');
     const editor = document.getElementById('editor-sentence');
-    if (!hidden || !editor || typeof Quill === 'undefined') return;
+    const fallback = document.getElementById('sentence-fallback');
+    if (!hidden || !editor) return;
 
-    const editorContainer = editor.closest('.editor-container') || editor.parentElement || document.body;
-
-    function dedupeToolbars() {
-        const toolbars = editorContainer.querySelectorAll('.ql-toolbar');
-        for (let i = 1; i < toolbars.length; i++) toolbars[i].remove();
-    }
-
-    // Keep deduping even if something else initializes Quill later
-    dedupeToolbars();
-    const obs = new MutationObserver(() => dedupeToolbars());
-    obs.observe(editorContainer, { childList: true, subtree: true });
-
-    // Prevent *this* template from double-initializing
-    if (editor.__quill || editor.dataset.quillInitialized === '1' || editor.classList.contains('ql-container')) {
-        // Still ensure we don't end up with two toolbars
-        dedupeToolbars();
-        return;
-    }
-    editor.dataset.quillInitialized = '1';
-
-    const quill = new Quill(editor, {
-        theme: 'snow',
-        modules: {
-            toolbar: [
-                [{ 'header': [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                ['link'],
-                ['clean']
-            ]
-        }
-    });
-
-    function parseDeltaOps(raw) {
-        const fallbackOps = [{ insert: "\n" }];
-        if (!raw) return fallbackOps;
+    function deltaToPlainText(raw) {
+        if (!raw) return '';
         try {
-            const content = JSON.parse(raw);
-            if (content && Array.isArray(content.ops)) return content.ops;
-        } catch (e) {}
-        return fallbackOps;
+            const parsed = JSON.parse(raw);
+            if (!parsed || !Array.isArray(parsed.ops)) return '';
+            return parsed.ops.map(op => (typeof op.insert === 'string' ? op.insert : '')).join('').replace(/\n+$/,'');
+        } catch (e) {
+            return '';
+        }
     }
 
-    quill.setContents(parseDeltaOps(hidden.value));
-    dedupeToolbars();
+    // If Quill can't load, show a plain textarea and still submit content.
+    // When Quill is available, the global app script (webroot/js/addform.js)
+    // initializes #editor-sentence and syncs it into #sentence on submit.
+    if (typeof Quill === 'undefined') {
+        if (!fallback) return;
+        fallback.style.display = '';
+        fallback.value = deltaToPlainText(hidden.value);
 
-    const form = hidden.closest('form');
-    if (form) {
-        form.addEventListener('submit', function () {
-            hidden.value = JSON.stringify(quill.getContents());
-        });
+        const form = hidden.closest('form');
+        if (form) {
+            form.addEventListener('submit', function () {
+                hidden.value = JSON.stringify({ ops: [{ insert: (fallback.value || '') + "\n" }] });
+            });
+        }
     }
 });
 </script>
+
+<style>
+    .editor-container {
+        width: 100%;
+    }
+    #editor-sentence,
+    #editor-sentence .ql-toolbar,
+    #editor-sentence .ql-container {
+        width: 100%;
+    }
+    #editor-sentence .ql-editor {
+        min-height: 240px;
+    }
+</style>

@@ -50,13 +50,25 @@
             <div class="text">
                 <strong><?= __('Etymology') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($word->etymology)); ?>
+                    <?php
+                        $raw = (string)($word->etymology ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="text">
                 <strong><?= __('Notes') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($word->notes)); ?>
+                    <?php
+                        $raw = (string)($word->notes ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="related">
@@ -201,7 +213,7 @@
                         <tr>
                             <td><?= h($definitions->id) ?></td>
                             <td><?= h($definitions->word_id) ?></td>
-                            <td><?= h($definitions->definition) ?></td>
+                            <td><?= strip_tags((string)$definitions->definition, '<a><b><i><em><strong><u><p><br><ul><ol><li>') ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Definitions', 'action' => 'view', $definitions->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Definitions', 'action' => 'edit', $definitions->id]) ?>
@@ -228,7 +240,7 @@
                         <tr>
                             <td><?= h($sentences->id) ?></td>
                             <td><?= h($sentences->word_id) ?></td>
-                            <td><?= h($sentences->sentence) ?></td>
+                            <td><?= strip_tags((string)$sentences->sentence, '<a><b><i><em><strong><u><p><br><ul><ol><li>') ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Sentences', 'action' => 'view', $sentences->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Sentences', 'action' => 'edit', $sentences->id]) ?>

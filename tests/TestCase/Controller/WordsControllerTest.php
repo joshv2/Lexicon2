@@ -512,4 +512,24 @@ class WordsControllerTest extends TestCase
         $this->assertResponseCode(302);
         $this->assertHeader('Location', '/words/10');
     }
+
+    public function testViewRendersQuillLinksInDefinitions()
+    {
+        $definitionsTable = TableRegistry::getTableLocator()->get('Definitions');
+
+        $definitionHtml = '<p>According to <a href="https://jel.jewish-languages.org/words/250">kashrut</a>.<br /></p>';
+        $entity = $definitionsTable->newEntity([
+            'id' => 99,
+            'word_id' => 1,
+            'definition' => $definitionHtml,
+        ]);
+        $saved = $definitionsTable->save($entity);
+        $this->assertNotFalse($saved, 'Expected definition to be saved for rendering test.');
+
+        $this->get('/words/view/1');
+        $this->assertResponseOk();
+        $this->assertResponseContains('href="https://jel.jewish-languages.org/words/250"');
+        $this->assertResponseContains('>kashrut<');
+        $this->assertResponseNotContains('&lt;a');
+    }
 }

@@ -4,12 +4,12 @@
     <div class="table-container">
     <ul class="multiple-items">
         <?php foreach ($newortd as $s): ?>
-            <li><?= strip_tags($s, '<b><i><em><strong><u><p><br><ul><ol><li>') ?></li>
+            <li><?= strip_tags($s, '<a><b><i><em><strong><u><p><br><ul><ol><li>') ?></li>
         <?php endforeach; ?>
 
         <?php if (!empty($otherortd)): ?>
             <?php foreach ($otherortd as $s): ?>
-                <li><?= trim(strip_tags($s, '<b><i><em><strong><u><p><br><ul><ol><li>')) ?></li>
+                <li><?= trim(strip_tags($s, '<a><b><i><em><strong><u><p><br><ul><ol><li>')) ?></li>
             <?php endforeach; ?>
         <?php endif; ?>
 

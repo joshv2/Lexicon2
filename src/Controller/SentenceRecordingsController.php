@@ -55,7 +55,12 @@ class SentenceRecordingsController extends AppController
     public function add($id = null)
     {
         //array_map([$this, 'loadModel'], ['Sentences']);
-        $sentences = $this->fetchTable('Sentences')->get_sentences($id);
+        if ($id === null || !ctype_digit((string)$id)) {
+            throw new NotFoundException('Sentence not found');
+        }
+
+        // Keep template compatibility ($sentences[0]) while ensuring a 404 when not found.
+        $sentences = [$this->fetchTable('Sentences')->get((int)$id)];
         $sentenceRecording = $this->SentenceRecordings->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
@@ -244,11 +249,13 @@ class SentenceRecordingsController extends AppController
         }
 
         $wordResult = $this->fetchTable('Words')->get_word_for_view((int)$id);
-        if (empty($wordResult)) {
+        if (empty($wordResult) || !is_array($wordResult)) {
             throw new NotFoundException('Word not found');
         }
 
-        $word = $wordResult[0];
+        // get_word_for_view() returns a single associative array; wrap into an object
+        // so the existing template can read $word->sentences.
+        $word = (object)$wordResult;
         $this->set(compact('word'));
     }
 

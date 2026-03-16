@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Log\Log;
+use Cake\Utility\Hash;
 
 /**
  * Sentences Controller
@@ -50,9 +51,7 @@ class SentencesController extends AppController
      */
     public function view($id = null)
     {
-        $sentence = $this->Sentences->get($id, [
-            'contain' => ['Words', 'SentenceRecordings'],
-        ]);
+        $sentence = $this->Sentences->get($id, contain: ['Words', 'SentenceRecordings']);
 
         $this->set(compact('sentence'));
     }
@@ -85,7 +84,14 @@ class SentencesController extends AppController
                 return $this->redirect(['action' => 'index', $sentence->word_id]);
             }
 
-            $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
+            $errorMessage = $this->firstEntityError($sentence);
+            if ($errorMessage !== null) {
+                $this->Flash->error(__('The sentence could not be saved: {0}', $errorMessage));
+            } else {
+                $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
+            }
+
+            Log::warning('Sentence add failed: ' . json_encode($sentence->getErrors(), JSON_UNESCAPED_UNICODE), ['scope' => ['events']]);
         }
 
         $wordId = $id;
@@ -116,7 +122,14 @@ class SentencesController extends AppController
                 return $this->redirect(['action' => 'index', $sentence->word_id]);
             }
 
-            $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
+            $errorMessage = $this->firstEntityError($sentence);
+            if ($errorMessage !== null) {
+                $this->Flash->error(__('The sentence could not be saved: {0}', $errorMessage));
+            } else {
+                $this->Flash->error(__('The sentence could not be saved. Please, try again.'));
+            }
+
+            Log::warning('Sentence edit failed: ' . json_encode($sentence->getErrors(), JSON_UNESCAPED_UNICODE), ['scope' => ['events']]);
         }
 
         $words = $this->Sentences->Words->find(type: 'list', options: ['limit' => 200]);
@@ -140,8 +153,9 @@ class SentencesController extends AppController
 
         $decoded = json_decode($rawTrim, true);
 
-        // Only treat it as Quill if it decodes and has ops
+        // Only treat it as Quill if it decodes and has ops; otherwise keep as plain text.
         if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded) || !isset($decoded['ops'])) {
+            $data['sentence'] = $rawTrim;
             return $data;
         }
 
@@ -158,6 +172,30 @@ class SentencesController extends AppController
         $data['sentence'] = $quill->render() ?? '';
 
         return $data;
+    }
+
+    private function firstEntityError($entity): ?string
+    {
+        $errors = method_exists($entity, 'getErrors') ? $entity->getErrors() : [];
+        if (empty($errors)) {
+            return null;
+        }
+
+        $flat = Hash::flatten($errors);
+        foreach ($flat as $value) {
+            if (is_string($value) && trim($value) !== '') {
+                return $value;
+            }
+            if (is_array($value)) {
+                foreach ($value as $sub) {
+                    if (is_string($sub) && trim($sub) !== '') {
+                        return $sub;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

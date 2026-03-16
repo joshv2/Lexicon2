@@ -30,7 +30,13 @@
             <div class="text">
                 <strong><?= __('Sentence') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($sentence->sentence)); ?>
+                    <?php
+                        $raw = (string)($sentence->sentence ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                        $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
+                    ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
             <div class="related">
