@@ -170,17 +170,35 @@ class LanguagesTable extends Table
     }
 
     public function get_language($subdomain){
-        $query = $this->find()->select(['id', 'name', 'i18nspec', 'subdomain', 'HeaderImage', 
-                                        'LogoImage', 'hasDictionaries', 'hasOrigins', 'hasRegions',
-                                        'hasTypes', 'UTFRangeStart', 'UTFRangeEnd'])
+        // Minimal language info for global request attribute (performance).
+        $query = $this->find()->select([
+                                        'id',
+                                        'name',
+                                        'i18nspec',
+                                        'subdomain',
+                                        'HeaderImage',
+                                        'LogoImage',
+                                        'hasDictionaries',
+                                        'hasOrigins',
+                                        'hasRegions',
+                                        'hasTypes',
+                                        'UTFRangeStart',
+                                        'UTFRangeEnd',
+                                    ])
                     ->where(['subdomain' => $subdomain]);
         return $query->first();
     }
 
+    public function get_language_full(string $subdomain)
+    {
+        // Full row for content pages (About/Notes/etc.).
+        return $this->find()
+            ->where(['subdomain' => $subdomain])
+            ->first();
+    }
+
     public function get_all_language($subdomain){
-        $query = $this->find()
-                    ->where(['subdomain' => $subdomain]);             
-        return $query->first();
+        return $this->get_language_full($subdomain);
     }
 
     
