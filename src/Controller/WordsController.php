@@ -269,6 +269,7 @@ class WordsController extends AppController {
     private function get_word_data($word) {
         $word_id = $word['id'];
         $spelling = $word['spelling'];
+        $wordApproved = (int)($word['approved'] ?? 0);
         $sentences = $word['sentences'];
         $sentences_count = count($sentences);
         $pronunciations = $word['pronunciations'];
@@ -306,6 +307,7 @@ class WordsController extends AppController {
                 return compact(
                     'word_id',
                     'spelling',
+                    'wordApproved',
                     'sentences',
                     'sentences_count',
                     'pronunciations',
@@ -638,33 +640,104 @@ class WordsController extends AppController {
 
     public function approve($id = null) {
         $this->request->allowMethod(['post']);
-        $datefortimestamp = date('Y-m-d h:i:s', time());
-        //debug($id); 
-        $word = $this->Words->get(primaryKey: $id, contain: ['Pronunciations']);
-        $pronunciations = array();
-        if (count($word->pronunciations) > 0) {
-            foreach ($word->pronunciations as $p){
-                if ('' !== $p->sound_file || null != $p->sound_file){
-                    $this->Processfile->converttomp3($p->sound_file);
-                }
-                array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
-            }
-            $data = ['approved' => 1,
-                    'approved_date' => $datefortimestamp,
-                    'user_id' => $this->request->getSession()->read('Auth.id'),
-                    'pronunciations' => $pronunciations];
+        $role = (string)$this->request->getSession()->read('Auth.role');
+        $approverId = $this->request->getSession()->read('Auth.id');
+
+        if (!in_array($role, ['superuser', 'moderator'], true) || empty($approverId)) {
+            $this->Flash->error(__('You are not authorized to approve words.'));
+            return $this->redirect($this->referer(['action' => 'view', $id], true));
         }
-            
-        
-        $this->Words->patchEntity($word, $data, ['associated' => ['Pronunciations']]);
-        if ($this->Words->save($word)) {
+
+        $timestamp = date('Y-m-d H:i:s');
+
+        $wordsTable = $this->fetchTable('Words');
+        $pronunciationsTable = $this->fetchTable('Pronunciations');
+        $sentencesTable = $this->fetchTable('Sentences');
+        $sentenceRecordingsTable = $this->fetchTable('SentenceRecordings');
+
+        $word = $wordsTable->get($id);
+
+        // Gather audio files for any pending associated records before updating.
+        $pendingPronunciationFiles = $pronunciationsTable->find()
+            ->select(['sound_file'])
+            ->where([
+                'word_id' => $id,
+                'approved' => 0,
+                'sound_file IS NOT' => null,
+                'sound_file !=' => '',
+            ])
+            ->enableHydration(false)
+            ->all()
+            ->extract('sound_file')
+            ->toList();
+
+        $sentenceIds = $sentencesTable->find()
+            ->select(['id'])
+            ->where(['word_id' => $id])
+            ->enableHydration(false)
+            ->all()
+            ->extract('id')
+            ->toList();
+
+        $pendingSentenceRecordingFiles = [];
+        if (!empty($sentenceIds)) {
+            $pendingSentenceRecordingFiles = $sentenceRecordingsTable->find()
+                ->select(['sound_file'])
+                ->where([
+                    'sentence_id IN' => $sentenceIds,
+                    'approved' => 0,
+                    'sound_file IS NOT' => null,
+                    'sound_file !=' => '',
+                ])
+                ->enableHydration(false)
+                ->all()
+                ->extract('sound_file')
+                ->toList();
+        }
+
+        $connection = $wordsTable->getConnection();
+
+        try {
+            $connection->transactional(function () use ($wordsTable, $pronunciationsTable, $sentenceRecordingsTable, $sentenceIds, $id, $timestamp, $approverId) {
+                $wordsTable->updateAll(
+                    ['approved' => 1, 'approved_date' => $timestamp],
+                    ['id' => $id]
+                );
+
+                // Approve only pending (0) pronunciations and recordings; leave denied (-1) untouched.
+                $pronunciationsTable->updateAll(
+                    ['approved' => 1, 'approved_date' => $timestamp, 'approving_user_id' => $approverId],
+                    ['word_id' => $id, 'approved' => 0]
+                );
+
+                if (!empty($sentenceIds)) {
+                    $sentenceRecordingsTable->updateAll(
+                        ['approved' => 1, 'approved_date' => $timestamp, 'approving_user_id' => $approverId],
+                        ['sentence_id IN' => $sentenceIds, 'approved' => 0]
+                    );
+                }
+            });
+
+            // Convert any newly-approved webm files to mp3. Do this after DB updates.
+            $filesToConvert = array_values(array_unique(array_merge($pendingPronunciationFiles, $pendingSentenceRecordingFiles)));
+            foreach ($filesToConvert as $file) {
+                if (is_string($file) && $file !== '' && str_ends_with($file, '.webm')) {
+                    try {
+                        $this->Processfile->converttomp3($file);
+                    } catch (\Throwable $e) {
+                        // Conversion failures shouldn't block approval.
+                        Log::warning('Audio conversion failed during word approve: ' . $e->getMessage(), ['scope' => ['events']]);
+                    }
+                }
+            }
+
             $this->logWordAction('approve', $word);
             $this->Flash->success(__('The word has been approved.'));
-        } else {
+        } catch (\Throwable $e) {
             $this->Flash->error(__('The word could not be approved. Please, try again.'));
         }
 
-        return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
+        return $this->redirect($this->referer(['action' => 'view', $id], true));
     }
 
     public function baseWordEdit($id = null) {

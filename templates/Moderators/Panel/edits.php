@@ -74,7 +74,7 @@
 			}
 				?></td>
 		<td><?php echo h($word['created'].' ('.$this->Time->format($word['created'], [\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT], false, 'America/Los_Angeles').')');?></td>
-		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['id']);?></td>
+		<td><?php echo $this->Html->link('View Entry', '/words/'.$word['id']);?></td>
 	</tr>
 <?php endforeach; ?>
 
@@ -139,7 +139,7 @@
 
 	<tr>
 		<td><?php echo h($word['spelling']);?></td>	
-		<td><?php echo $this->Html->link('View Entry', '/words/edit/'.$word['word_id']);?></td>
+		<td><?php echo $this->Html->link('View Entry', '/words/'.$word['word_id']);?></td>
 	</tr>
 <?php endforeach; ?>
 

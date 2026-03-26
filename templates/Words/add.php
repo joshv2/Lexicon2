@@ -417,7 +417,7 @@ if (null !== $this->request->getData('spelling') || 'edit' == $controllerName){
                 echo $this->Form->postLink(__(
                     'Approve Word'),
                     ['prefix' => false, 'controller' => 'Words', 'action' => 'approve', $wordData['id']],
-                    ['confirm' => 'Are you sure?'])
+                                        [])
                  . ' ' . $this->Form->postLink(__(
                     'Delete Word'),
                     ['prefix' => false, 'action' => 'delete', $wordData['id']],

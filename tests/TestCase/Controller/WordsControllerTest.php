@@ -240,6 +240,86 @@ class WordsControllerTest extends TestCase
         $this->assertResponseContains('pendingword');
     }
 
+    public function testApproveWordApprovesPendingPronunciationsAndSentenceRecordings(): void
+    {
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $this->session([
+            'Auth' => [
+                'username' => 'admin',
+                'role' => 'superuser',
+                'id' => '00000000-0000-0000-0000-000000000001',
+            ]
+        ]);
+
+        $words = TableRegistry::getTableLocator()->get('Words');
+        $pronunciations = TableRegistry::getTableLocator()->get('Pronunciations');
+        $sentences = TableRegistry::getTableLocator()->get('Sentences');
+        $sentenceRecordings = TableRegistry::getTableLocator()->get('SentenceRecordings');
+
+        // Word 3 is pending in fixture.
+        $this->assertSame(0, (int)$words->get(3)->approved);
+
+        $pendingPron = $pronunciations->newEntity([
+            'word_id' => 3,
+            'spelling' => 'pendingword',
+            'sound_file' => null,
+            'pronunciation' => '/pɛn/',
+            'approved' => 0,
+        ]);
+        $this->assertNotFalse($pronunciations->save($pendingPron));
+
+        $deniedPron = $pronunciations->newEntity([
+            'word_id' => 3,
+            'spelling' => 'pendingword',
+            'sound_file' => null,
+            'pronunciation' => '/dɪˈnaɪd/',
+            'approved' => -1,
+        ]);
+        $this->assertNotFalse($pronunciations->save($deniedPron));
+
+        $sentence = $sentences->newEntity([
+            'word_id' => 3,
+            'sentence' => 'This is a pending word.',
+        ]);
+        $this->assertNotFalse($sentences->save($sentence));
+
+        $pendingRecording = $sentenceRecordings->newEntity([
+            'sentence_id' => $sentence->id,
+            'sound_file' => null,
+            'approved' => 0,
+        ]);
+        $this->assertNotFalse($sentenceRecordings->save($pendingRecording));
+
+        $deniedRecording = $sentenceRecordings->newEntity([
+            'sentence_id' => $sentence->id,
+            'sound_file' => null,
+            'approved' => -1,
+        ]);
+        $this->assertNotFalse($sentenceRecordings->save($deniedRecording));
+
+        $this->post('/words/approve/3', []);
+        $this->assertRedirect();
+
+        $wordAfter = $words->get(3);
+        $this->assertSame(1, (int)$wordAfter->approved);
+
+        $pendingPronAfter = $pronunciations->get($pendingPron->id);
+        $this->assertSame(1, (int)$pendingPronAfter->approved);
+        $this->assertSame('00000000-0000-0000-0000-000000000001', (string)$pendingPronAfter->approving_user_id);
+
+        $deniedPronAfter = $pronunciations->get($deniedPron->id);
+        $this->assertSame(-1, (int)$deniedPronAfter->approved);
+
+        $pendingRecAfter = $sentenceRecordings->get($pendingRecording->id);
+        $this->assertSame(1, (int)$pendingRecAfter->approved);
+        $this->assertSame('00000000-0000-0000-0000-000000000001', (string)$pendingRecAfter->approving_user_id);
+
+        $deniedRecAfter = $sentenceRecordings->get($deniedRecording->id);
+        $this->assertSame(-1, (int)$deniedRecAfter->approved);
+    }
+
     public function testIndexRendersBrowsePage()
     {
         $this->get('/words');

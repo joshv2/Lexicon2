@@ -27,6 +27,23 @@
 				</div>
 			</li>
 			<?php if ($this->Identity->isLoggedIn()): ?>
+				<?php if (in_array($this->request->getSession()->read('Auth.role'), ['superuser', 'moderator'], true) && (int)$wordApproved === 0): ?>
+					<li>
+						<?= $this->AuthLink->postlink(
+							__('<i class="fa-solid fa-check"></i>&nbsp;Approve'),
+							[
+								'prefix' => false,
+								'controller' => 'Words',
+								'action' => 'approve',
+								$word_id,
+							],
+							[
+								'escape' => false,
+								'class' => 'btn-blue',
+							]
+						) ?>
+					</li>
+				<?php endif; ?>
 				<li>
 					<?= $this->AuthLink->postlink(
 						__('<i class="fa-solid fa-trash"></i>&nbsp;Delete'),
@@ -263,6 +280,7 @@
 			'otherortd' => $other_origins ?? [],
 			'totalortd' => $total_origins,
 			'edit_controller' => 'origins',
+			'manage_label' => __('Manage Origins'),
 		]) ?>
 
 		<?php if(!empty($etymology)):?>
@@ -279,19 +297,19 @@
 			'otherortd' => $other_types ?? [],
 			'totalortd' => $total_types,
 			'edit_controller' => 'types',
+			'manage_label' => __('Manage Types'),
 		]) ?>
 		
 		
 		<?php if($sitelang->hasRegions == 1):?>
-			<?php if(!empty($new_regions)):?>
-				<?= $this->element('word_list', [
-					'header' => __("Regions"),
-					'newortd' => $new_regions,
-					'otherortd' => $other_regions ?? [],
-					'totalortd' => $total_regions,
-					'edit_controller' => 'regions',
-				]) ?>
-			<?php endif;?>
+			<?= $this->element('word_list', [
+				'header' => __("Regions"),
+				'newortd' => $new_regions,
+				'otherortd' => $other_regions ?? [],
+				'totalortd' => $total_regions,
+				'edit_controller' => 'regions',
+				'manage_label' => __('Manage Regions'),
+			]) ?>
 		<?php endif;?>
 			
 		<?php if($sitelang->hasDictionaries == 1):?>
@@ -301,6 +319,7 @@
 				'otherortd' => $other_dictionaries ?? [],
 				'totalortd' => $total_dictionaries,
 				'edit_controller' => 'dictionaries',
+				'manage_label' => __('Manage Dictionaries'),
 			]) ?>
 		<?php endif;?>
 
