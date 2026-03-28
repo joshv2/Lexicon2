@@ -248,6 +248,14 @@ class WordsTable extends Table
                             'region' => 'regions',
                             'type' => 'types',
                             'origin' => 'origins'];
+
+        // Hardening: ignore unknown filter keys (e.g., bots sending ?page=2 first)
+        // and return a safe default query instead of emitting warnings.
+        if ($ortdtype !== 'displayType' && !array_key_exists($ortdtype, $pluralization)) {
+            return $this->find()->select(['id', 'spelling'])
+                ->where(['language_id' => $langid, 'approved' => 1])
+                ->orderBy(['spelling' => 'ASC', 'id' => 'ASC']);
+        }
         
         if ($ortdtype === 'displayType' && $ortdvalue === 'all'){
             $query = $this->find()->select(['id','spelling'])
@@ -450,6 +458,10 @@ class WordsTable extends Table
                             ->where(['Alternates.spelling !=' => '']);
                     });
         $results = $query->first();
+        if ($results === null) {
+            return null;
+        }
+
         return $results->toArray();
     }
 
@@ -590,14 +602,14 @@ class WordsTable extends Table
 
         $wordspellingquery = $this->find()
                                 ->select(['spelling'])
-                                ->where(['spelling COLLATE utf8mb4_bin =' => $wordtosearch, 'approved' => 1, 'language_id' => $spelling["language_id"]
+                                ->where(['BINARY spelling =' => $wordtosearch, 'approved' => 1, 'language_id' => $spelling["language_id"]
                             ]);
 
         $altspellingquery = $alternates->find()
                                 ->select(['spelling'])
                                 ->contain('Words'
                                         )
-                                ->where(['Alternates.spelling COLLATE utf8mb4_bin =' => $wordtosearch, 'Words.language_id' => $spelling["language_id"]]);
+                    ->where(['BINARY Alternates.spelling =' => $wordtosearch, 'Words.language_id' => $spelling["language_id"]]);
 
         $finalquery = $altspellingquery->union($wordspellingquery);
         if ($finalquery->count() > 0) {

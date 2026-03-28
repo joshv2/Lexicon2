@@ -64,9 +64,7 @@ class AlternatesTable extends Table
         $validator
             ->scalar('spelling')
             ->maxLength('spelling', 255)
-            ->allowEmptyString('spelling', 'true');
-            //->requirePresence('spelling');
-            //->allowEmptyString('spelling', 'false')*/
+            ->allowEmptyString('spelling');
 
         return $validator;
     }
@@ -81,6 +79,30 @@ class AlternatesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['word_id'], 'Words'), ['errorField' => 'word_id']);
+
+        // Prevent duplicate alternates for the same word (when spelling is non-empty).
+        $rules->add(function ($entity) {
+            $wordId = $entity->get('word_id');
+            $spelling = (string)$entity->get('spelling');
+            if ($spelling === '') {
+                return true;
+            }
+
+            $conditions = [
+                'word_id' => $wordId,
+                'spelling' => $spelling,
+            ];
+
+            $id = $entity->get('id');
+            if (!empty($id)) {
+                $conditions['id !='] = $id;
+            }
+
+            return !$this->exists($conditions);
+        }, 'uniqueAlternateSpellingPerWord', [
+            'errorField' => 'spelling',
+            'message' => 'That alternate spelling already exists for this word.',
+        ]);
 
         return $rules;
     }

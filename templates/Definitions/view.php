@@ -34,7 +34,12 @@
             <div class="text">
                 <strong><?= __('Definition') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($definition->definition)); ?>
+                    <?php
+                        $raw = (string)($definition->definition ?? '');
+                        $allowed = '<a><b><i><em><strong><u><p><br><ul><ol><li>';
+                        $sanitized = strip_tags($raw, $allowed);
+                    ?>
+                    <?= str_contains($raw, '<') ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
                 </blockquote>
             </div>
         </div>

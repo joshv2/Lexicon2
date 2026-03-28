@@ -8,7 +8,7 @@ use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\Collection\Collection;
 use Cake\Http\Exception\InternalErrorException;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Datasource\PaginatorInterface;
 use Cake\Datasource\FactoryLocator;
@@ -42,53 +42,89 @@ class WordsController extends AppController {
         $ortd = $this->LoadORTD->getORTD($sitelang);
         $queryParams = $this->request->getQueryParams();
 
-        if($queryParams === [] or (array_keys($queryParams) === ['page'] && count($queryParams) === 1)){
-            $queryParams = array_merge(['displayType' => 'all'], $queryParams);
-        }
-        
-        $allowed = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page'];
-
+        $allowedKeys = ['origin', 'region', 'type', 'dictionary', 'displayType', 'page', 'sort', 'direction'];
+        $invalid = false;
         foreach (array_keys($queryParams) as $param) {
-            if (!in_array($param, $allowed, true)) {
-                // Invalid value detected
-                
-                $invalidValue = true;
+            if (!in_array($param, $allowedKeys, true)) {
+                $invalid = true;
+                break;
             }
         }
 
-        if (!isset($invalidValue) || $invalidValue !== true) {
-            $originvalue = [$this->request->getQuery('origin')];
-            $regionvalue = [$this->request->getQuery('region')];
-            $typevalue = [$this->request->getQuery('type')];
-            $dictionaryvalue = [$this->request->getQuery('dictionary')];
-            $current_condition = ['origins' => $originvalue[0], //needs to remain an array for the browse_words_filter function
-                                'regions' => $regionvalue[0],
-                                'types' => $typevalue[0],
-                                'dictionaries' => $dictionaryvalue[0]];
-            $cc = [];
-            foreach($current_condition as $ortdcat => $ortd2) {
-                if ($ortd2 != null){
-                    $cc[$ortdcat] = $ortd2;
+        $originRaw = $this->request->getQuery('origin');
+        $regionRaw = $this->request->getQuery('region');
+        $typeRaw = $this->request->getQuery('type');
+        $dictionaryRaw = $this->request->getQuery('dictionary');
 
+        $current_condition = [
+            'origins' => $originRaw,
+            'regions' => $regionRaw,
+            'types' => $typeRaw,
+            'dictionaries' => $dictionaryRaw,
+        ];
+        $cc = [];
+
+        $isValidFilterValue = static function ($value): bool {
+            if ($value === null || $value === '') {
+                return true;
+            }
+            $value = (string)$value;
+            return ctype_digit($value) || in_array($value, ['other', 'none'], true);
+        };
+
+        if (!$invalid) {
+            if (!$isValidFilterValue($originRaw)
+                || !$isValidFilterValue($regionRaw)
+                || !$isValidFilterValue($typeRaw)
+                || !$isValidFilterValue($dictionaryRaw)) {
+                $invalid = true;
+            }
+
+            $pageRaw = $this->request->getQuery('page');
+            if ($pageRaw !== null && $pageRaw !== '' && !ctype_digit((string)$pageRaw)) {
+                $invalid = true;
+            }
+        }
+
+        if (!$invalid) {
+            foreach ($current_condition as $ortdcat => $ortd2) {
+                if ($ortd2 !== null && $ortd2 !== '') {
+                    $cc[$ortdcat] = $ortd2;
                 }
             }
-            
-            } else {
-                $queryParams = []; 
-                $queryParams = array_merge(['displayType' => 'all'], $queryParams);
-                $current_condition = ['origins' => null, 'regions' => null, 'types' => null, 'dictionaries' => null];
-                $cc = ['error' => 'You entered invalid query params. Displaying all words in the Lexicon. Please try again.'];
+        } else {
+            $current_condition = ['origins' => null, 'regions' => null, 'types' => null, 'dictionaries' => null];
+            $cc = ['error' => 'You entered invalid query params. Displaying all words in the Lexicon. Please try again.'];
+        }
+
+        // Determine the actual filter (origin/region/type/dictionary). Pagination (page/displayType) should not affect filtering.
+        $filterKey = null;
+        $filterValue = null;
+        foreach (['origin', 'region', 'type', 'dictionary'] as $key) {
+            $value = $this->request->getQuery($key);
+            if ($value !== null && $value !== '') {
+                $filterKey = $key;
+                $filterValue = $value;
+                break;
             }
-        
+        }
+        if ($invalid || $filterKey === null) {
+            $filterKey = 'displayType';
+            $filterValue = 'all';
+        }
 
         $query = $this->Words->browse_words_simplified(
-                            array_keys($queryParams)[0], 
-                            array_values($queryParams)[0],
-                            FALSE, 
-                            $sitelang->id,
-                            TRUE);
+            $filterKey,
+            $filterValue,
+            false,
+            $sitelang->id,
+            true
+        );
 
         $displayType = $this->request->getQuery('displayType');
+        if ($displayType === null && $filterKey === 'displayType') {
+            $displayType = 'all';
+        }
 
         if ($displayType === 'all') {
             $isPaginated = false;
@@ -233,6 +269,7 @@ class WordsController extends AppController {
     private function get_word_data($word) {
         $word_id = $word['id'];
         $spelling = $word['spelling'];
+        $wordApproved = (int)($word['approved'] ?? 0);
         $sentences = $word['sentences'];
         $sentences_count = count($sentences);
         $pronunciations = $word['pronunciations'];
@@ -270,6 +307,7 @@ class WordsController extends AppController {
                 return compact(
                     'word_id',
                     'spelling',
+                    'wordApproved',
                     'sentences',
                     'sentences_count',
                     'pronunciations',
@@ -343,61 +381,58 @@ class WordsController extends AppController {
             // ENFORCE spelling is required
             if (empty($postData['spelling'])) {
                 $this->Flash->error(__('Spelling is required.'));
-                return;
-            }
-
-            // Quill fields
-            $postData = $this->processQuillFields($postData, ['definitions' => 'definition', 'sentences' => 'sentence']);
-            $postData = $this->processSingleQuillField($postData, 'etymology');
-            $postData = $this->processSingleQuillField($postData, 'notes');
-
-            // Filter associations
-            $postData = $this->filterAssociations($postData, ['Alternates', 'Pronunciations']);
-
-            // Improved "other" logic
-            foreach (['origins', 'types'] as $assoc) {
-                $postData = $this->processOtherAssociations($postData, $assoc);
-            }
-
-            // reCaptcha
-            if ($this->loggedin) {
-                $json['success'] = 'false';
-                $validationSet = 'default';
             } else {
-                $recaptcha = $postData['g-recaptcha-response'];
-                $google_url = "https://www.google.com/recaptcha/api/siteverify";
-                $secret = \Cake\Core\Configure::consume('recaptcha_secret');
-                $ip = $_SERVER['REMOTE_ADDR'];
-                $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
-                $http = new \Cake\Http\Client();
-                $res = $http->get($url);
-                $json = $res->getJson();
-                $validationSet = 'notloggedin';
-            } 
-                
+                // Quill fields
+                $postData = $this->processQuillFields($postData, ['definitions' => 'definition', 'sentences' => 'sentence']);
+                $postData = $this->processSingleQuillField($postData, 'etymology');
+                $postData = $this->processSingleQuillField($postData, 'notes');
 
-            // Sound files
-            $postData = $this->handleSoundFiles($postData, $this->request->getUploadedFiles());
+                // Filter associations
+                $postData = $this->filterAssociations($postData, ['Alternates', 'Pronunciations']);
 
-            // Pronunciation approval
-            $postData = $this->approvePronunciations($postData);
+                // Improved "other" logic
+                foreach (['origins', 'types'] as $assoc) {
+                    $postData = $this->processOtherAssociations($postData, $assoc);
+                }
 
-            $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
-            $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
-            
-            
-            if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
-                if ($this->Words->save($word)) {
-                    if ($this->loggedin && 'superuser' == $this->request->getSession()->read('Auth.role')) {
-                        $this->logWordAction('add_superuser', $word);
-                        return $this->redirect(['action' => 'view' , $word->id]);
-                    } else {
-                        $this->logWordAction('add_user', $word);
-                        return $this->redirect(['action' => 'success']);
+                // reCaptcha
+                if ($this->loggedin) {
+                    $json['success'] = 'false';
+                    $validationSet = 'default';
+                } else {
+                    $recaptcha = $postData['g-recaptcha-response'];
+                    $google_url = "https://www.google.com/recaptcha/api/siteverify";
+                    $secret = \Cake\Core\Configure::consume('recaptcha_secret');
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha ."&remoteip=" . $ip;
+                    $http = new \Cake\Http\Client();
+                    $res = $http->get($url);
+                    $json = $res->getJson();
+                    $validationSet = 'notloggedin';
+                }
+
+                // Sound files
+                $postData = $this->handleSoundFiles($postData, $this->request->getUploadedFiles());
+
+                // Pronunciation approval
+                $postData = $this->approvePronunciations($postData);
+
+                $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
+                $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
+
+                if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
+                    if ($this->Words->save($word)) {
+                        if ($this->loggedin && 'superuser' == $this->request->getSession()->read('Auth.role')) {
+                            $this->logWordAction('add_superuser', $word);
+                            return $this->redirect(['action' => 'view' , $word->id]);
+                        } else {
+                            $this->logWordAction('add_user', $word);
+                            return $this->redirect(['action' => 'success']);
+                        }
                     }
                 }
+                $this->Flash->error(__('The word could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The word could not be saved. Please, try again.'));
         }
 
         $specialother = '';
@@ -605,33 +640,104 @@ class WordsController extends AppController {
 
     public function approve($id = null) {
         $this->request->allowMethod(['post']);
-        $datefortimestamp = date('Y-m-d h:i:s', time());
-        //debug($id); 
-        $word = $this->Words->get(primaryKey: $id, contain: ['Pronunciations']);
-        $pronunciations = array();
-        if (count($word->pronunciations) > 0) {
-            foreach ($word->pronunciations as $p){
-                if ('' !== $p->sound_file || null != $p->sound_file){
-                    $this->Processfile->converttomp3($p->sound_file);
-                }
-                array_push($pronunciations, ['id' => $p->id, 'approved' => 1, 'approved_date' => $datefortimestamp, 'approving_user_id' => $this->request->getSession()->read('Auth.id')]);
-            }
-            $data = ['approved' => 1,
-                    'approved_date' => $datefortimestamp,
-                    'user_id' => $this->request->getSession()->read('Auth.id'),
-                    'pronunciations' => $pronunciations];
+        $role = (string)$this->request->getSession()->read('Auth.role');
+        $approverId = $this->request->getSession()->read('Auth.id');
+
+        if (!in_array($role, ['superuser', 'moderator'], true) || empty($approverId)) {
+            $this->Flash->error(__('You are not authorized to approve words.'));
+            return $this->redirect($this->referer(['action' => 'view', $id], true));
         }
-            
-        
-        $this->Words->patchEntity($word, $data, ['associated' => ['Pronunciations']]);
-        if ($this->Words->save($word)) {
+
+        $timestamp = date('Y-m-d H:i:s');
+
+        $wordsTable = $this->fetchTable('Words');
+        $pronunciationsTable = $this->fetchTable('Pronunciations');
+        $sentencesTable = $this->fetchTable('Sentences');
+        $sentenceRecordingsTable = $this->fetchTable('SentenceRecordings');
+
+        $word = $wordsTable->get($id);
+
+        // Gather audio files for any pending associated records before updating.
+        $pendingPronunciationFiles = $pronunciationsTable->find()
+            ->select(['sound_file'])
+            ->where([
+                'word_id' => $id,
+                'approved' => 0,
+                'sound_file IS NOT' => null,
+                'sound_file !=' => '',
+            ])
+            ->enableHydration(false)
+            ->all()
+            ->extract('sound_file')
+            ->toList();
+
+        $sentenceIds = $sentencesTable->find()
+            ->select(['id'])
+            ->where(['word_id' => $id])
+            ->enableHydration(false)
+            ->all()
+            ->extract('id')
+            ->toList();
+
+        $pendingSentenceRecordingFiles = [];
+        if (!empty($sentenceIds)) {
+            $pendingSentenceRecordingFiles = $sentenceRecordingsTable->find()
+                ->select(['sound_file'])
+                ->where([
+                    'sentence_id IN' => $sentenceIds,
+                    'approved' => 0,
+                    'sound_file IS NOT' => null,
+                    'sound_file !=' => '',
+                ])
+                ->enableHydration(false)
+                ->all()
+                ->extract('sound_file')
+                ->toList();
+        }
+
+        $connection = $wordsTable->getConnection();
+
+        try {
+            $connection->transactional(function () use ($wordsTable, $pronunciationsTable, $sentenceRecordingsTable, $sentenceIds, $id, $timestamp, $approverId) {
+                $wordsTable->updateAll(
+                    ['approved' => 1, 'approved_date' => $timestamp],
+                    ['id' => $id]
+                );
+
+                // Approve only pending (0) pronunciations and recordings; leave denied (-1) untouched.
+                $pronunciationsTable->updateAll(
+                    ['approved' => 1, 'approved_date' => $timestamp, 'approving_user_id' => $approverId],
+                    ['word_id' => $id, 'approved' => 0]
+                );
+
+                if (!empty($sentenceIds)) {
+                    $sentenceRecordingsTable->updateAll(
+                        ['approved' => 1, 'approved_date' => $timestamp, 'approving_user_id' => $approverId],
+                        ['sentence_id IN' => $sentenceIds, 'approved' => 0]
+                    );
+                }
+            });
+
+            // Convert any newly-approved webm files to mp3. Do this after DB updates.
+            $filesToConvert = array_values(array_unique(array_merge($pendingPronunciationFiles, $pendingSentenceRecordingFiles)));
+            foreach ($filesToConvert as $file) {
+                if (is_string($file) && $file !== '' && str_ends_with($file, '.webm')) {
+                    try {
+                        $this->Processfile->converttomp3($file);
+                    } catch (\Throwable $e) {
+                        // Conversion failures shouldn't block approval.
+                        Log::warning('Audio conversion failed during word approve: ' . $e->getMessage(), ['scope' => ['events']]);
+                    }
+                }
+            }
+
             $this->logWordAction('approve', $word);
             $this->Flash->success(__('The word has been approved.'));
-        } else {
+        } catch (\Throwable $e) {
             $this->Flash->error(__('The word could not be approved. Please, try again.'));
         }
 
-        return $this->redirect(['prefix' => 'Moderators', 'controller' => 'panel', 'action' => 'index']);
+        return $this->redirect($this->referer(['action' => 'view', $id], true));
     }
 
     public function baseWordEdit($id = null) {

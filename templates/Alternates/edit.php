@@ -2,32 +2,29 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Alternate $alternate
+ * @var \App\Model\Entity\Word $word
+ * @var string|int $wordId
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+
+<div class="column-responsive column-80">
+    <h2>
+        <?= __('Edit alternate spelling for {0}', $this->Html->link(h($word->spelling), ['prefix' => false, 'controller' => 'Words', 'action' => 'view', $word->id], ['escape' => false])) ?>
+    </h2>
+
+    <div class="alternates form content">
+        <?= $this->Form->create($alternate, ['url' => ['prefix' => false, 'controller' => 'Alternates', 'action' => 'edit', $alternate->id, $wordId]]) ?>
+        <?= $this->Form->control('spelling', ['label' => __('Spelling')]) ?>
+
+        <div style="margin-top: 10px;">
+            <?= $this->Form->button(__('Save'), ['class' => 'button blue']) ?>
+            <?= $this->Html->link(__('Cancel'), ['prefix' => false, 'controller' => 'Alternates', 'action' => 'manage', $wordId], ['class' => 'button']) ?>
             <?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $alternate->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $alternate->id), 'class' => 'side-nav-item']
+                ['prefix' => false, 'controller' => 'Alternates', 'action' => 'delete', $alternate->id, $wordId],
+                ['confirm' => __('Are you sure you want to delete "{0}"?', $alternate->spelling), 'class' => 'button red']
             ) ?>
-            <?= $this->Html->link(__('List Alternates'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="alternates form content">
-            <?= $this->Form->create($alternate) ?>
-            <fieldset>
-                <legend><?= __('Edit Alternate') ?></legend>
-                <?php
-                    echo $this->Form->control('word_id', ['options' => $words]);
-                    echo $this->Form->control('spelling');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>

@@ -19,10 +19,11 @@ class TypesController extends AppController
     public function index()
     {
         $sitelang = $this->request->getAttribute('sitelang');
-        $this->paginate = [
-            'contain' => ['Languages'],
-        ];
-        $types = $this->paginate($this->Types->find()->where(['language_id' => $sitelang->id]));
+        $query = $this->Types
+            ->find()
+            ->contain(['Languages'])
+            ->where(['language_id' => $sitelang->id]);
+        $types = $this->paginate($query);
 
         $this->set(compact('types'));
     }

@@ -25,13 +25,27 @@ class LanguagesController extends AppController
 
     public function about() {
         $sitelang = $this->request->getAttribute('sitelang');
+        if ($sitelang && !empty($sitelang->subdomain)) {
+            $sitelangFull = $this->Languages->get_language_full($sitelang->subdomain);
+            if ($sitelangFull) {
+                $this->request = $this->request->withAttribute('sitelang', $sitelangFull);
+                $sitelang = $sitelangFull;
+            }
+        }
         $this->set(compact('sitelang'));
     }
 
     public function notes() {
         $sitelang = $this->request->getAttribute('sitelang');
 
-        $sitelang_all = $this->Languages->get_all_language($sitelang['subdomain']);
+        $sitelang_all = null;
+        if ($sitelang && !empty($sitelang->subdomain)) {
+            $sitelang_all = $this->Languages->get_language_full($sitelang->subdomain);
+            if ($sitelang_all) {
+                $this->request = $this->request->withAttribute('sitelang', $sitelang_all);
+            }
+        }
+
         $this->set(compact('sitelang_all'));
     }
 

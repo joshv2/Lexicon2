@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Log\Log;
+use Cake\Http\Exception\NotFoundException;
 /**
  * SentenceRecordings Controller
  *
@@ -24,10 +25,8 @@ class SentenceRecordingsController extends AppController
     
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Sentences'],
-        ];
-        $sentenceRecordings = $this->paginate($this->SentenceRecordings);
+        $query = $this->SentenceRecordings->find()->contain(['Sentences']);
+        $sentenceRecordings = $this->paginate($query);
 
         $this->set(compact('sentenceRecordings'));
     }
@@ -56,7 +55,12 @@ class SentenceRecordingsController extends AppController
     public function add($id = null)
     {
         //array_map([$this, 'loadModel'], ['Sentences']);
-        $sentences = $this->fetchTable('Sentences')->get_sentences($id);
+        if ($id === null || !ctype_digit((string)$id)) {
+            throw new NotFoundException('Sentence not found');
+        }
+
+        // Keep template compatibility ($sentences[0]) while ensuring a 404 when not found.
+        $sentences = [$this->fetchTable('Sentences')->get((int)$id)];
         $sentenceRecording = $this->SentenceRecordings->newEmptyEntity();
         if ($this->request->is('post')) {
             $postData = $this->request->getData();
@@ -229,15 +233,30 @@ class SentenceRecordingsController extends AppController
 
     public function choose($id = null)
     {
-        if( $this->request->is('post') ) {
+        if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $this->redirect('/sentenceRecordings/add/'.$data['sentenceToRecord']);
-        } else {
-        //array_map([$this, 'loadModel'], ['Words', 'Sentences']);
-        $wordResult = $this->fetchTable('Words')->get_word_for_view($id);
-        $word = $wordResult[0];
-        $this->set(compact('word'));
+            $sentenceId = $data['sentenceToRecord'] ?? null;
+
+            if ($sentenceId === null || !ctype_digit((string)$sentenceId)) {
+                throw new NotFoundException('Sentence not found');
+            }
+
+            return $this->redirect('/sentenceRecordings/add/' . $sentenceId);
         }
+
+        if ($id === null || !ctype_digit((string)$id)) {
+            throw new NotFoundException('Word not found');
+        }
+
+        $wordResult = $this->fetchTable('Words')->get_word_for_view((int)$id);
+        if (empty($wordResult) || !is_array($wordResult)) {
+            throw new NotFoundException('Word not found');
+        }
+
+        // get_word_for_view() returns a single associative array; wrap into an object
+        // so the existing template can read $word->sentences.
+        $word = (object)$wordResult;
+        $this->set(compact('word'));
     }
 
     public function success(){

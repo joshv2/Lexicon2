@@ -60,7 +60,7 @@ class Application extends BaseApplication
         $this->addPlugin(\CakeDC\Users\Plugin::class, ['routes' => true, 'bootstrap' => true]);
 
         //$this->addPlugin(\CakeDC\Users\Plugin::class);
-        if (PHP_SAPI === 'cli') {
+        if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
             //$this->bootstrapCli();
         } else {
             FactoryLocator::add(

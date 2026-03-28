@@ -18,10 +18,8 @@ class AlphabetsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Languages'],
-        ];
-        $alphabets = $this->paginate($this->Alphabets);
+        $query = $this->Alphabets->find()->contain(['Languages']);
+        $alphabets = $this->paginate($query);
 
         $this->set(compact('alphabets'));
     }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Log\Log;
+use Cake\Http\Exception\NotFoundException;
 /**
  * Pronunciations Controller
  *
@@ -24,10 +25,15 @@ class PronunciationsController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index() {
-        $this->paginate = [
-            'contain' => ['Words'],
-        ];
-        $pronunciations = $this->paginate($this->Pronunciations);
+        $query = $this->Pronunciations->find()->contain(['Words']);
+
+        try {
+            $pronunciations = $this->paginate($query);
+        } catch (NotFoundException $e) {
+            // Bots often request absurd page numbers; fall back to page 1 without throwing.
+            $this->request = $this->request->withQueryParams(['page' => 1] + $this->request->getQueryParams());
+            $pronunciations = $this->paginate($query, ['page' => 1]);
+        }
 
         $this->set(compact('pronunciations'));
     }
