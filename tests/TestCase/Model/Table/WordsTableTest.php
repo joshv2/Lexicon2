@@ -169,7 +169,7 @@ class WordsTableTest extends TestCase
         $this->assertSame(4, (int)$rows2[0]['spellingmatch']);
     }
 
-    public function testFindSearchResultsByDefinitionMatchesDefinitionAndNotes(): void
+    public function testFindSearchResultsByDefinitionMatchesDefinitionOnly(): void
     {
         $words = TableRegistry::getTableLocator()->get('Words');
 
@@ -183,7 +183,18 @@ class WordsTableTest extends TestCase
         $words->findSearchResultsByDefinition($q2, 'noteonly', 1);
         $rows2 = $q2->enableHydration(false)->toArray();
         $ids2 = array_map(static fn ($r) => $r['id'], $rows2);
-        $this->assertSame([4], $ids2);
+        $this->assertSame([], $ids2);
+    }
+
+    public function testFindSearchResultsElsewhereMatchesNotesAndEtymology(): void
+    {
+        $words = TableRegistry::getTableLocator()->get('Words');
+
+        $q1 = $words->find();
+        $words->findSearchResultsElsewhere($q1, 'noteonly', 1);
+        $rows1 = $q1->enableHydration(false)->toArray();
+        $ids1 = array_map(static fn ($r) => $r['id'], $rows1);
+        $this->assertSame([4], $ids1);
     }
 
     public function testFindWithSpellingRejectsWordOrAlternateDuplicates(): void

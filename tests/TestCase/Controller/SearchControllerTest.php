@@ -43,6 +43,9 @@ class SearchControllerTest extends TestCase
         $this->assertResponseOk();
         $this->assertResponseContains('Your search for');
         $this->assertResponseContains('apple');
+        $this->assertResponseContains('Entries:');
+        $this->assertResponseContains('Definitions:');
+        $this->assertResponseContains('Elsewhere:');
     }
 
     public function testSearchEmptyQueryShowsNoResultsMessage()
@@ -54,7 +57,7 @@ class SearchControllerTest extends TestCase
 
     public function testSearchDisplayAllOmitsDisplayAllButton()
     {
-        $this->get('/search?q=apple&displayType=all');
+        $this->get('/search?q=apple&section=entries&displayType=all');
         $this->assertResponseOk();
         $this->assertResponseContains('Your search for');
         $this->assertResponseContains('apple');

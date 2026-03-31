@@ -23,7 +23,7 @@ $initialDelta =
                 ['action' => 'delete', $sentence->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $sentence->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Sentences'), ['action' => 'index', $sentence->word_id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Manage Sentences'), ['action' => 'word', $sentence->word_id], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">

@@ -209,7 +209,17 @@
 							?>
 
 							<li class="pronunciationtr2">
-								<?= $sentence['sentence']; ?>
+								<?php
+									// Some legacy Quill content may contain entity-encoded entities (e.g. '&amp;quot;'),
+									// which renders visibly as '&quot;'. Unwrap one layer safely.
+									$sentenceHtml = (string)($sentence['sentence'] ?? '');
+									$sentenceHtml = preg_replace(
+										'/&amp;((?:#\d+|#x[0-9A-Fa-f]+|[A-Za-z][A-Za-z0-9]+));/',
+										'&$1;',
+										$sentenceHtml
+									) ?? $sentenceHtml;
+									echo $sentenceHtml;
+								?>
 
 								<?php if ($recordingLinks): ?>
 									<span class="recordinglist">
@@ -260,11 +270,11 @@
         </p>
 		<?php if ($this->Identity->isLoggedIn()): ?>
         <p>
-            <?= $this->Html->link(
-                '<i class="fa-solid fa-plus"></i> ' . __('Add a Sentence'),
-                '/sentences/add/' . $word_id,
-                ['class' => 'button blue', 'escape' => false]
-            ) ?>
+			<?= $this->Html->link(
+				'<i class="fa-solid fa-pen-to-square"></i> ' . __('Manage Sentences'),
+				['prefix' => false, 'controller' => 'Sentences', 'action' => 'word', $word_id],
+				['class' => 'button blue', 'escape' => false]
+			) ?>
         </p>
 		<?php endif; ?>
     </div>
