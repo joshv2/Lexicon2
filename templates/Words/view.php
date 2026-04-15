@@ -166,6 +166,19 @@
 			'totalortd' => $total_definitions,
 			'edit_controller' => 'definitions',
 		]) ?>
+		<?php if (empty($sentences) && $this->Identity->isLoggedIn() && in_array($this->request->getSession()->read('Auth.role'), ['superuser', 'moderator'], true)): ?>
+			<div class="record-button-section">
+				<div class="buttons-container">
+					<p>
+						<?= $this->Html->link(
+							'<i class="fa-solid fa-pen-to-square"></i> ' . __('Manage Sentences'),
+							['prefix' => false, 'controller' => 'Sentences', 'action' => 'word', $word_id],
+							['class' => 'button blue', 'escape' => false]
+						) ?>
+					</p>
+				</div>
+			</div>
+		<?php endif; ?>
 		
 
 		<?php if (!empty($sentences)): ?>
