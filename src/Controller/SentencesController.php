@@ -43,6 +43,30 @@ class SentencesController extends AppController
     }
 
     /**
+     * Word-scoped management page.
+     *
+     * Mirrors other content controllers that provide /{controller}/word/{wordId}.
+     */
+    public function word(int $wordId)
+    {
+        $word = $this->Sentences->Words->get($wordId);
+
+        $this->paginate = [
+            'limit' => 25,
+            'order' => ['Sentences.id' => 'DESC'],
+        ];
+
+        $query = $this->Sentences->find()
+            ->contain(['Words'])
+            ->where(['Sentences.word_id' => $wordId]);
+
+        $sentences = $this->paginate($query);
+
+        $this->set(compact('sentences', 'wordId', 'word'));
+        $this->render('index');
+    }
+
+    /**
      * View method
      *
      * @param string|null $id Sentence id.
@@ -80,8 +104,12 @@ class SentencesController extends AppController
             if ($this->Sentences->save($sentence)) {
                 $this->Flash->success(__('The sentence has been saved.'));
 
-                // If word_id exists, go back to the word-scoped index
-                return $this->redirect(['action' => 'index', $sentence->word_id]);
+                // If word_id exists, go back to the word-scoped management page
+                if (!empty($sentence->word_id)) {
+                    return $this->redirect(['action' => 'word', $sentence->word_id]);
+                }
+
+                return $this->redirect(['action' => 'index']);
             }
 
             $errorMessage = $this->firstEntityError($sentence);
@@ -119,7 +147,11 @@ class SentencesController extends AppController
             $sentence = $this->Sentences->patchEntity($sentence, $data);
             if ($this->Sentences->save($sentence)) {
                 $this->Flash->success(__('The sentence has been saved.'));
-                return $this->redirect(['action' => 'index', $sentence->word_id]);
+                if (!empty($sentence->word_id)) {
+                    return $this->redirect(['action' => 'word', $sentence->word_id]);
+                }
+
+                return $this->redirect(['action' => 'index']);
             }
 
             $errorMessage = $this->firstEntityError($sentence);
@@ -166,10 +198,27 @@ class SentencesController extends AppController
             return $data;
         }
 
-        $data['sentence_json'] = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+        // Normalize any HTML entities that may have been persisted into the Delta text
+        // (e.g. '&quot;') so we don't double-escape them when rendering later.
+        foreach ($decoded['ops'] as &$op) {
+            if (is_array($op) && isset($op['insert']) && is_string($op['insert'])) {
+                $op['insert'] = html_entity_decode($op['insert'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            }
+        }
+        unset($op);
 
-        $quill = new \nadar\quill\Lexer($rawTrim);
-        $data['sentence'] = $quill->render() ?? '';
+        $normalizedDeltaJson = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+        if (is_string($normalizedDeltaJson) && $normalizedDeltaJson !== '') {
+            $data['sentence_json'] = $normalizedDeltaJson;
+
+            $quill = new \nadar\quill\Lexer($normalizedDeltaJson);
+            $data['sentence'] = $quill->render() ?? '';
+        } else {
+            // Fallback: keep original when normalization failed for any reason.
+            $data['sentence_json'] = json_encode($decoded, JSON_UNESCAPED_UNICODE);
+            $quill = new \nadar\quill\Lexer($rawTrim);
+            $data['sentence'] = $quill->render() ?? '';
+        }
 
         return $data;
     }
@@ -213,6 +262,10 @@ class SentencesController extends AppController
             $this->Flash->success(__('The sentence has been deleted.'));
         } else {
             $this->Flash->error(__('The sentence could not be deleted. Please, try again.'));
+        }
+
+        if (!empty($sentence->word_id)) {
+            return $this->redirect(['action' => 'word', $sentence->word_id]);
         }
 
         return $this->redirect(['action' => 'index']);

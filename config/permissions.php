@@ -103,10 +103,16 @@ return [
             'action' => '*',
         ],
         [
-            'role' => ['superuser', 'user'],
+            'role' => ['superuser', 'moderator', 'user'],
             'prefix' => 'Moderators',
             'controller' => 'Panel',
             'action' => ['index'],
+        ],
+        [
+            'role' => ['superuser'],
+            'prefix' => 'Moderators',
+            'controller' => 'Users',
+            'action' => ['index', 'setRole'],
         ],
         [
             'role' => 'user',
@@ -114,9 +120,14 @@ return [
             'action' => ['delete'],
         ],
         [
+            'role' => ['superuser', 'moderator'],
+            'controller' => 'Words',
+            'action' => ['approve'],
+        ],
+        [
             'role' => 'superuser',
             'controller' => 'Words',
-            'action' => ['approve', 'delete'],
+            'action' => ['delete'],
         ],
         [
             'role' => 'superuser',

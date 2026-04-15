@@ -36,7 +36,7 @@
                         $sanitized = strip_tags($raw, $allowed);
                         $looksLikeHtml = (bool)preg_match('/<\s*(a|p|br|ul|ol|li|b|i|em|strong|u)\b/i', $raw);
                     ?>
-                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h($raw)); ?>
+                    <?= $looksLikeHtml ? $sanitized : $this->Text->autoParagraph(h(html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8'))); ?>
                 </blockquote>
             </div>
             <div class="related">

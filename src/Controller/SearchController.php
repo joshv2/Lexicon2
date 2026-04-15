@@ -18,51 +18,142 @@ class SearchController extends AppController {
         // Normalize query text so searches work with HTML entities and common punctuation variants.
         $q = html_entity_decode($q, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $q = str_replace(["\u{2019}", "\u{2018}", "\u{02BC}"], "'", $q);
+
+        $section = (string)$this->request->getQuery('section');
+        if (!in_array($section, ['', 'entries', 'definitions', 'elsewhere'], true)) {
+            $section = '';
+        }
+
         $displayType = $this->request->getQuery('displayType');
+        $previewLimit = 5;
+
         $wordsTable = $this->fetchTable('Words');
-        $baseQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id)->contain(['Origins']);
-        $allWords = $baseQuery->contain(['Origins'])->toArray();
+
+        $entriesQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id);
+        $entryIdQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id)
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+
+        $entryCountQuery = $wordsTable->find('searchResults', querystring: $q, langid: $sitelang->id)
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+        $entryCount = (int)$entryCountQuery->count();
+
+        $definitionsQuery = $wordsTable->find('searchResultsByDefinition', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery]);
+
+        $definitionIdQuery = $wordsTable->find('searchResultsByDefinition', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery])
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+        $definitionCountQuery = $wordsTable->find('searchResultsByDefinition', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery])
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+        $definitionCount = (int)$definitionCountQuery->count();
+
+        $elsewhereQuery = $wordsTable->find('searchResultsElsewhere', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery])
+            ->andWhere(['Words.id NOT IN' => $definitionIdQuery]);
+
+        $elsewhereIdQuery = $wordsTable->find('searchResultsElsewhere', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery])
+            ->andWhere(['Words.id NOT IN' => $definitionIdQuery])
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+        $elsewhereCountQuery = $wordsTable->find('searchResultsElsewhere', querystring: $q, langid: $sitelang->id)
+            ->andWhere(['Words.id NOT IN' => $entryIdQuery])
+            ->andWhere(['Words.id NOT IN' => $definitionIdQuery])
+            ->select(['Words.id'], true)
+            ->distinct(['Words.id'])
+            ->orderBy([], true);
+        $elsewhereCount = (int)$elsewhereCountQuery->count();
+
+        $countVal = $entryCount + $definitionCount + $elsewhereCount;
+
         $originCounts = [];
-        foreach ($allWords as $word) {
-            if (!empty($word->origins)) {
-                foreach ($word->origins as $origin) {
-                    $originName = $origin->origin;
-                    if (!isset($originCounts[$originName])) {
-                        $originCounts[$originName] = 0;
-                    }
-                    $originCounts[$originName]++;
+        if ($countVal > 0) {
+            $allIdQuery = (clone $entryIdQuery)->union($definitionIdQuery)->union($elsewhereIdQuery);
+
+            $originQuery = $wordsTable->find();
+            $originRows = $originQuery
+                ->select([
+                    'origin' => 'Origins.origin',
+                    'cnt' => $originQuery->func()->count('DISTINCT Words.id'),
+                ])
+                ->innerJoinWith('Origins')
+                ->where(['Words.id IN' => $allIdQuery])
+                ->groupBy(['Origins.origin'])
+                ->orderBy(['cnt' => 'DESC', 'Origins.origin' => 'ASC'])
+                ->enableHydration(false)
+                ->toArray();
+
+            foreach ($originRows as $row) {
+                if (!empty($row['origin'])) {
+                    $originCounts[(string)$row['origin']] = (int)$row['cnt'];
                 }
             }
         }
 
-        // Use full set count for the summary
-        $countVal = count($allWords);
-
-        // If no entry matches, search definitions for the term (approved words, current language only)
+        $words = [];
         $definitionWords = [];
-        $definitionCount = 0;
-        if ($countVal === 0) {
-            $definitionWords = $wordsTable
-                ->find('searchResultsByDefinition', querystring: $q, langid: $sitelang->id)
-                ->all()
-                ->toArray();
-            $definitionCount = count($definitionWords);
-        }
+        $elsewhereWords = [];
+        $isPaginated = false;
+        $count = 0;
 
-        // If displayType=all we need the full set in PHP; otherwise use pagination
-        if ($displayType === 'all') {
-            $words = $allWords;
-            $isPaginated = false;
-            $count = count($words);
+        if ($section === '') {
+            $words = $entriesQuery->limit($previewLimit)->all()->toArray();
+            $definitionWords = $definitionsQuery->limit($previewLimit)->all()->toArray();
+            $elsewhereWords = $elsewhereQuery->limit($previewLimit)->all()->toArray();
+        } elseif ($section === 'entries') {
+            if ($displayType === 'all') {
+                $words = $entriesQuery->all()->toArray();
+                $count = count($words);
+            } else {
+                $words = $this->paginate($entriesQuery);
+                $isPaginated = true;
+            }
+        } elseif ($section === 'definitions') {
+            if ($displayType === 'all') {
+                $definitionWords = $definitionsQuery->all()->toArray();
+                $count = count($definitionWords);
+            } else {
+                $definitionWords = $this->paginate($definitionsQuery);
+                $isPaginated = true;
+            }
         } else {
-            $words = $this->paginate($baseQuery);
-            $isPaginated = true;
-            $count = 0;
+            if ($displayType === 'all') {
+                $elsewhereWords = $elsewhereQuery->all()->toArray();
+                $count = count($elsewhereWords);
+            } else {
+                $elsewhereWords = $this->paginate($elsewhereQuery);
+                $isPaginated = true;
+            }
         }
 
         $summaryVars = $this->getResultSummaryData($countVal, $originCounts);
 
-        $this->set(compact('words', 'q', 'isPaginated', 'count', 'originCounts', 'countVal', 'definitionWords', 'definitionCount'));
+        $this->set(compact(
+            'q',
+            'section',
+            'previewLimit',
+            'isPaginated',
+            'displayType',
+            'count',
+            'countVal',
+            'originCounts',
+            'entryCount',
+            'definitionCount',
+            'elsewhereCount',
+            'words',
+            'definitionWords',
+            'elsewhereWords'
+        ));
         $this->set($summaryVars);
         $this->render('results');
 	}

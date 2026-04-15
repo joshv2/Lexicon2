@@ -41,18 +41,59 @@
 		<?php endif; ?>
 	</div>
 	</div>
-	<?php if ($countVal <= 0): ?>	
 
+	<?php if (!empty($section)): ?>
 		<div class="c content">
-			<h3><?= __('Entries:'); ?></h3>
-			<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
-			<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->Html->link('<i class="fa-solid fa-plus"></i> ' . __('Add a new word'), '/add',
-												['class' => 'button blue', 'escape' => false]);?></p>
+			<p>
+				<?= $this->Html->link(__('Back to all results'), ['controller' => 'Search', 'action' => 'index', '?' => ['q' => $q]]); ?>
+			</p>
 		</div>
+	<?php endif; ?>
 
-		<?php if (!empty($definitionWords)): ?>
-			<div class="c content">
-				<h3><?= __('Definitions:'); ?></h3>
+	<?php if (empty($section) || $section === 'entries'): ?>
+		<div class="c content">
+			<h3><?= __('Entries:'); ?> <?= '(' . (int)$entryCount . ')'; ?></h3>
+			<?php if ((int)$entryCount <= 0): ?>
+				<p><?= __('That word is not yet in the database. Try searching with a different spelling.');?></p>
+				<p><?= __("If you still don't find it, please help to make this lexicon more complete by adding it");?>:&nbsp;&nbsp;&nbsp;&nbsp;<?= $this->Html->link('<i class="fa-solid fa-plus"></i> ' . __('Add a new word'), '/add', ['class' => 'button blue', 'escape' => false]);?></p>
+			<?php else: ?>
+				<ol class="word-list group">
+					<?php $i = 1;
+					foreach ($words as $word): ?>
+						<li class="group">
+							<div class="num"><?php echo $i;?></div>
+							<div class="word-main">
+								<h3><?php echo $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h3>
+								<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', ['controller' => 'Words', 'action' => 'view', $word->id], ['class' => 'noborder', 'escape' => false]); ?>
+							</div>
+						</li>
+					<?php ++$i; endforeach; ?>
+				</ol>
+
+				<?php if (empty($section) && (int)$entryCount > (int)$previewLimit): ?>
+					<p><?= $this->Html->link(__('View all entries'), ['controller' => 'Search', 'action' => 'index', '?' => ['q' => $q, 'section' => 'entries']]); ?></p>
+				<?php endif; ?>
+			<?php endif; ?>
+		</div>
+		<?php if ($isPaginated && $section === 'entries'): ?>
+			<div class="pagination">
+				<?php if ($this->Paginator->hasPrev()) :?>
+					<?= $this->Paginator->prev(' << ' . __('previous'));?>
+				<?php endif ?>
+				<?php if ($this->Paginator->hasNext()) :?>
+					<?= $this->Paginator->next(' >> ' . __('next'));?>
+				<?php endif ?>
+				<div class="clear"></div>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+
+	<?php if (empty($section) || $section === 'definitions'): ?>
+		<div class="c content">
+			<h3><?= __('Definitions:'); ?> <?= '(' . (int)$definitionCount . ')'; ?></h3>
+			<?php if ((int)$definitionCount <= 0): ?>
+				<p><?= __('No matches were found in definitions.'); ?></p>
+			<?php else: ?>
 				<ol class="word-list group">
 					<?php $i = 1;
 					foreach ($definitionWords as $word): ?>
@@ -65,33 +106,59 @@
 						</li>
 					<?php ++$i; endforeach; ?>
 				</ol>
-			</div>
-		<?php endif; ?>
-	<?php else: ?>
-		<ol class="word-list group">
-		<?php $i = 1;
-		foreach ($words as $word): ?>
-			<li class="group">
-				<div class="num"><?php echo $i;?></div>
-				<div class="word-main">
-					<h3><?php echo $this->Html->link($word->spelling, '/words//'.$word->id); ?></h3>
-					<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', '/words//'.$word->id, ['class' => 'noborder', 'escape' => false]); ?>
-					
-				</div>
-			</li>
-		<?php ++$i; endforeach; ?>
-		</ol>
-		<?php if ($isPaginated): ?>
-		<div class="pagination">
-			<?php if ($this->Paginator->hasPrev()) :?>
+
+				<?php if (empty($section) && (int)$definitionCount > (int)$previewLimit): ?>
+					<p><?= $this->Html->link(__('View all definition matches'), ['controller' => 'Search', 'action' => 'index', '?' => ['q' => $q, 'section' => 'definitions']]); ?></p>
+				<?php endif; ?>
+			<?php endif; ?>
+		</div>
+		<?php if ($isPaginated && $section === 'definitions'): ?>
+			<div class="pagination">
+				<?php if ($this->Paginator->hasPrev()) :?>
 					<?= $this->Paginator->prev(' << ' . __('previous'));?>
 				<?php endif ?>
 				<?php if ($this->Paginator->hasNext()) :?>
 					<?= $this->Paginator->next(' >> ' . __('next'));?>
-				<?php endif ?>	
-			<div class="clear"></div>
-		</div>
+				<?php endif ?>
+				<div class="clear"></div>
+			</div>
 		<?php endif; ?>
+	<?php endif; ?>
 
-	<?php endif;?>
+	<?php if (empty($section) || $section === 'elsewhere'): ?>
+		<div class="c content">
+			<h3><?= __('Elsewhere:'); ?> <?= '(' . (int)$elsewhereCount . ')'; ?></h3>
+			<?php if ((int)$elsewhereCount <= 0): ?>
+				<p><?= __('No matches were found elsewhere in the entry text.'); ?></p>
+			<?php else: ?>
+				<ol class="word-list group">
+					<?php $i = 1;
+					foreach ($elsewhereWords as $word): ?>
+						<li class="group">
+							<div class="num"><?php echo $i;?></div>
+							<div class="word-main">
+								<h3><?php echo $this->Html->link($word->spelling, ['controller' => 'Words', 'action' => 'view', $word->id]); ?></h3>
+								<?php echo $this->Html->link(__('SEE FULL ENTRY') . ' <i class="fa fa-caret-down"></i>', ['controller' => 'Words', 'action' => 'view', $word->id], ['class' => 'noborder', 'escape' => false]); ?>
+							</div>
+						</li>
+					<?php ++$i; endforeach; ?>
+				</ol>
+
+				<?php if (empty($section) && (int)$elsewhereCount > (int)$previewLimit): ?>
+					<p><?= $this->Html->link(__('View all elsewhere matches'), ['controller' => 'Search', 'action' => 'index', '?' => ['q' => $q, 'section' => 'elsewhere']]); ?></p>
+				<?php endif; ?>
+			<?php endif; ?>
+		</div>
+		<?php if ($isPaginated && $section === 'elsewhere'): ?>
+			<div class="pagination">
+				<?php if ($this->Paginator->hasPrev()) :?>
+					<?= $this->Paginator->prev(' << ' . __('previous'));?>
+				<?php endif ?>
+				<?php if ($this->Paginator->hasNext()) :?>
+					<?= $this->Paginator->next(' >> ' . __('next'));?>
+				<?php endif ?>
+				<div class="clear"></div>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 </section>

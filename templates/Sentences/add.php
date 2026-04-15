@@ -16,7 +16,11 @@ $initialDelta =
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Sentences'), ['action' => 'index', $wordId], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(
+                __('Manage Sentences'),
+                $wordId !== null ? ['action' => 'word', $wordId] : ['action' => 'index'],
+                ['class' => 'side-nav-item']
+            ) ?>
         </div>
     </aside>
 
