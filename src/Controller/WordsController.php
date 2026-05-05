@@ -400,7 +400,10 @@ class WordsController extends AppController {
                     $json['success'] = 'false';
                     $validationSet = 'default';
                 } else {
-                    $recaptcha = $postData['g-recaptcha-response'];
+                    $recaptcha = (string)($postData['g-recaptcha-response'] ?? '');
+                    if ($recaptcha === '') {
+                        $this->Flash->error(__('Please complete the reCAPTCHA.'));
+                    }
                     $google_url = "https://www.google.com/recaptcha/api/siteverify";
                     $secret = \Cake\Core\Configure::consume('recaptcha_secret');
                     $ip = $_SERVER['REMOTE_ADDR'];
