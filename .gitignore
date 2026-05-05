@@ -50,3 +50,6 @@ nbproject/*
 deploymentchecklist.txt
 jvconsul_lexicon2prod.sql
 config/Migrations/schema-dump-default.lock
+
+# Local-only tooling
+/tools/analyze_nginx_access_window.ps1

@@ -19,10 +19,10 @@
                 <?php
                     echo $this->Form->hidden('word_id', ['value' => $word->id]);
                     //echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control(__('full_name'));
-                    echo $this->Form->control(__('email'));
+                    echo $this->Form->control('full_name', ['label' => __('Your Name')]);
+                    echo $this->Form->control('email', ['label' => __('Your Email Address')]);
                     echo $this->Form->hidden('status', ['value' => 'unread']);
-                    echo $this->Form->control(__('suggestion'));
+                    echo $this->Form->control('suggestion', ['label' => __('Suggestion')]);
                     echo "<div class='g-recaptcha' data-sitekey='" . $recaptcha_user . "'></div>";
                 ?>
             </fieldset>

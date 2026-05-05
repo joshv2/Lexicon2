@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Core\Configure;
+use Cake\Http\Client;
 /**
  * Suggestions Controller
  *
@@ -47,19 +48,52 @@ class SuggestionsController extends AppController
      */
     public function add($id = null)
     {
-        //array_map([$this, 'loadModel'], ['Words']);
-        $suggestion = $this->Suggestions->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $suggestion = $this->Suggestions->patchEntity($suggestion, $this->request->getData());
-            if ($this->Suggestions->save($suggestion)) {
-                $this->Flash->success(__('The suggestion has been saved.'));
-
-                return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
-            }
-            $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
-        }
         $word = $this->fetchTable('Words')->get($id);
         $recaptcha_user = Configure::consume('recaptcha_user');
+
+        $suggestion = $this->Suggestions->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $postData = $this->request->getData();
+            $suggestion = $this->Suggestions->patchEntity($suggestion, $postData);
+
+            $loggedin = (bool)$this->request->getSession()->read('Auth.username');
+            $captchaOk = $loggedin;
+
+            if (!$loggedin) {
+                $recaptcha = (string)($postData['g-recaptcha-response'] ?? '');
+                if ($recaptcha === '') {
+                    $captchaOk = false;
+                    $this->Flash->error(__('Please complete the reCAPTCHA.'));
+                } else {
+                    $google_url = 'https://www.google.com/recaptcha/api/siteverify';
+                    $secret = Configure::consume('recaptcha_secret');
+                    $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+                    $url = $google_url
+                        . '?secret=' . rawurlencode((string)$secret)
+                        . '&response=' . rawurlencode($recaptcha)
+                        . '&remoteip=' . rawurlencode((string)$ip);
+
+                    $http = new Client();
+                    $res = $http->get($url);
+                    $json = (array)$res->getJson();
+                    $captchaOk = !empty($json['success']);
+
+                    if (!$captchaOk) {
+                        $this->Flash->error(__('reCAPTCHA verification failed. Please try again.'));
+                    }
+                }
+            }
+
+            if ($captchaOk) {
+                if ($this->Suggestions->save($suggestion)) {
+                    $this->Flash->success(__('The suggestion has been saved.'));
+                    return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                }
+                $this->Flash->error(__('The suggestion could not be saved. Please, try again.'));
+            }
+        }
+
         //$users = $this->Suggestions->Users->find(type: 'list', options: ['limit' => 200]);
         $this->set(compact('suggestion', 'word', 'recaptcha_user'));
     }
