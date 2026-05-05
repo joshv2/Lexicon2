@@ -282,13 +282,25 @@ class WordsController extends AppController {
         $hasPendingPronunciations = $pendingPronunciationsCount > 0;
 
         $definitions = $word['definitions'];
+        foreach ($definitions as $i => $definition) {
+            if (isset($definition['definition']) && $this->looksLikeQuillDelta($definition['definition'])) {
+                $definitions[$i]['definition'] = $this->renderQuillDeltaToHtml((string)$definition['definition']);
+            }
+        }
         $total_definitions = count($definitions);
         $ortd_origins = $this->process_ortd($word['origins'], 'origin');
         $new_origins = $ortd_origins['newortd'];
         $other_origins = $ortd_origins['otherortd'];
         $total_origins = $ortd_origins['totalortd'];
         $etymology = $word['etymology'];
+        if ($this->looksLikeQuillDelta($etymology)) {
+            $etymology = $this->renderQuillDeltaToHtml((string)$etymology);
+        }
+
         $notes = $word['notes'];
+        if ($this->looksLikeQuillDelta($notes)) {
+            $notes = $this->renderQuillDeltaToHtml((string)$notes);
+        }
         $ortd_types = $this->process_ortd($word['types'], 'type');
         $new_types = $ortd_types['newortd'];
         $other_types = $ortd_types['otherortd'];
@@ -422,6 +434,9 @@ class WordsController extends AppController {
 
                 $associated =  ['Alternates', 'Languages', 'Definitions', 'Pronunciations', 'Sentences', 'Dictionaries', 'Origins', 'Regions', 'Types'];
                 $word = $this->Words->patchEntity($word, $postData,  ['validate' => $validationSet, 'associated' => $associated]);
+
+                // Safety net: ensure Quill delta JSON isn't persisted into text/HTML columns.
+                $this->normalizeQuillOnWordEntity($word);
 
                 if ($json['success'] == "true" || $this->loggedin){   //reqiuring reCaptcha to be true or to be logged in
                     if ($this->Words->save($word)) {
@@ -800,6 +815,10 @@ class WordsController extends AppController {
                     unset($postData[$assoc][$i]);
                     continue;
                 }
+
+                if (!is_string($original) || $original === '' || !$this->looksLikeQuillDelta($original)) {
+                    continue;
+                }
                 $jsonFromOriginal = json_decode($original);
                 $postData[$assoc][$i][$field . '_json'] = json_encode($jsonFromOriginal);
                 $quill = new \nadar\quill\Lexer($original);
@@ -811,6 +830,12 @@ class WordsController extends AppController {
 
     private function processSingleQuillField(array $postData, string $field): array {
         $original = $postData[$field] ?? '';
+
+        // Only convert when the posted value actually looks like a Quill delta.
+        // Otherwise leave it alone (it may already be HTML/plain text).
+        if (!is_string($original) || !$this->looksLikeQuillDelta($original)) {
+            return $postData;
+        }
     
         // Check if the original data is valid JSON
         if (json_decode($original) === null && json_last_error() !== JSON_ERROR_NONE) {
@@ -835,6 +860,78 @@ class WordsController extends AppController {
             }
         }
         return $postData;
+    }
+
+    private function looksLikeQuillDelta(mixed $value): bool
+    {
+        return is_string($value) && preg_match('/^\s*\{.*"ops"\s*:\s*\[/s', $value) === 1;
+    }
+
+    private function renderQuillDeltaToHtml(string $delta): string
+    {
+        try {
+            $quill = new \nadar\quill\Lexer($delta);
+            $rendered = $quill->render();
+            return is_string($rendered) ? $rendered : '';
+        } catch (\Throwable $e) {
+            // Don't lose user input if conversion fails.
+            return $delta;
+        }
+    }
+
+    private function normalizeQuillOnWordEntity(\App\Model\Entity\Word $word): void
+    {
+        foreach (['etymology', 'notes'] as $field) {
+            $current = $word->get($field);
+            if (!$this->looksLikeQuillDelta($current)) {
+                continue;
+            }
+
+            if (empty($word->get($field . '_json'))) {
+                json_decode((string)$current);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $word->set($field . '_json', json_encode(json_decode((string)$current)));
+                }
+            }
+
+            $word->set($field, $this->renderQuillDeltaToHtml((string)$current));
+        }
+
+        if (!empty($word->definitions)) {
+            foreach ($word->definitions as $definition) {
+                $current = $definition->get('definition');
+                if (!$this->looksLikeQuillDelta($current)) {
+                    continue;
+                }
+
+                if (empty($definition->get('definition_json'))) {
+                    json_decode((string)$current);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $definition->set('definition_json', json_encode(json_decode((string)$current)));
+                    }
+                }
+
+                $definition->set('definition', $this->renderQuillDeltaToHtml((string)$current));
+            }
+        }
+
+        if (!empty($word->sentences)) {
+            foreach ($word->sentences as $sentence) {
+                $current = $sentence->get('sentence');
+                if (!$this->looksLikeQuillDelta($current)) {
+                    continue;
+                }
+
+                if (empty($sentence->get('sentence_json'))) {
+                    json_decode((string)$current);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $sentence->set('sentence_json', json_encode(json_decode((string)$current)));
+                    }
+                }
+
+                $sentence->set('sentence', $this->renderQuillDeltaToHtml((string)$current));
+            }
+        }
     }
 
     private function filterAssociations(array $postData, array $associations): array {
