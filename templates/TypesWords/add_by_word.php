@@ -7,36 +7,74 @@
  * @var array $types
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(
-                __('Back to types for this word'),
-                ['action' => 'indexByWord', $wordId],
-                ['class' => 'side-nav-item']
-            ) ?>
+<section id="main" class="main">
+    <div class="c">
+        <div class="page-header group">
+            <h2 class="left"><?= __('Add Type') ?></h2>
+            <div class="right">
+                <?= $this->Html->link(
+                    __('Back'),
+                    ['action' => 'indexByWord', $wordId],
+                    ['class' => 'button blue nl']
+                ) ?>
+            </div>
         </div>
-    </aside>
 
-    <div class="column-responsive column-80">
-        <div class="typesWords form content">
+        <div class="typesWords form content" style="max-width: 100%;">
             <?= $this->Form->create($link) ?>
-            <fieldset>
-                <legend><?= __('Add Type Link') ?></legend>
+            <?= $this->Form->control('word_id', ['type' => 'hidden', 'value' => $wordId]) ?>
+            <p><?= h("Word ID: {$wordId}") ?></p>
 
-                <?= $this->Form->control('word_id', ['type' => 'hidden', 'value' => $wordId]) ?>
-                <p><?= h("Adding type link for word ID: {$wordId}") ?></p>
+            <?= $this->Form->control('type_id', [
+                'label' => __('Type'),
+                'options' => $types,
+                'empty' => __('(choose one)'),
+                'onchange' => 'toggleTypesOther(this)',
+                'style' => 'width: 100%; max-width: 100%;'
+            ]) ?>
 
-                <?= $this->Form->control('type_id', [
-                    'label' => 'Type',
-                    'options' => $types,
-                    'empty' => '(choose one)',
+            <div class="form-group-types-other" id="types-other-wrapper" style="display:none; max-width: 100%;">
+                <?= $this->Form->control('types_other_entry', [
+                    'label' => __('Enter other groups separated by semicolon'),
+                    'id' => 'types-other-entry',
+                    'required' => false,
                 ]) ?>
-            </fieldset>
+            </div>
 
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Submit'), ['class' => 'button blue']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+</section>
+
+<script>
+function toggleTypesOther(selectEl) {
+    const otherBox = document.getElementById('types-other-wrapper')
+        || document.querySelector('.form-group-types-other');
+    const otherInput = document.getElementById('types-other-entry');
+    if (!selectEl || !otherBox || !otherInput) return;
+
+    const isOther = String(selectEl.value) === '999';
+    otherBox.style.display = isOther ? 'block' : 'none';
+    if (isOther) {
+        otherInput.setAttribute('required', 'required');
+    } else {
+        otherInput.removeAttribute('required');
+    }
+}
+
+const initTypeOtherToggle = () => {
+    const select = document.getElementById('type-id')
+        || document.querySelector('select[name="type_id"]');
+    if (!select) return;
+    select.addEventListener('change', () => toggleTypesOther(select));
+    toggleTypesOther(select);
+
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTypeOtherToggle);
+} else {
+    initTypeOtherToggle();
+}
+</script>

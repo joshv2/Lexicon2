@@ -25,7 +25,7 @@ class WordsControllerPrivateMethodsTest extends TestCase
 
         // sample post data with existing id and an "other" new entry
         $postData = [
-            'origins' => ['_ids' => ['1', '']], 
+            'origins' => ['_ids' => ['1', '']],
             'origins_other_entry' => 'NewOrigin; ExistingOrigin',
             'types' => ['_ids' => ['']],
             'types_other_entry' => '',
@@ -49,5 +49,57 @@ class WordsControllerPrivateMethodsTest extends TestCase
             }
         }
         $this->assertTrue($hasOriginOrId);
+    }
+
+    public function testProcessOtherAssociationsDropsSentinelWhenOtherProvided(): void
+    {
+        $req = new ServerRequest();
+        $controller = new WordsController($req);
+
+        $postData = [
+            'origins' => ['_ids' => ['999', '1']],
+            'origins_other_entry' => 'NewOrigin',
+        ];
+
+        $rm = new ReflectionMethod(WordsController::class, 'processOtherAssociations');
+        $rm->setAccessible(true);
+
+        $result = $rm->invoke($controller, $postData, 'origins');
+
+        $this->assertArrayHasKey('origins', $result);
+        $ids = [];
+        foreach ($result['origins'] as $entry) {
+            if (isset($entry['id'])) {
+                $ids[] = (int)$entry['id'];
+            }
+        }
+        $this->assertNotContains(999, $ids);
+        $this->assertContains(1, $ids);
+    }
+
+    public function testProcessOtherAssociationsDedupesCaseInsensitively(): void
+    {
+        $req = new ServerRequest();
+        $controller = new WordsController($req);
+
+        $postData = [
+            'origins' => ['_ids' => []],
+            'origins_other_entry' => 'Foo; foo; FOO',
+        ];
+
+        $rm = new ReflectionMethod(WordsController::class, 'processOtherAssociations');
+        $rm->setAccessible(true);
+
+        $result = $rm->invoke($controller, $postData, 'origins');
+
+        $this->assertArrayHasKey('origins', $result);
+
+        $ids = [];
+        foreach ($result['origins'] as $entry) {
+            if (isset($entry['id'])) {
+                $ids[] = (int)$entry['id'];
+            }
+        }
+        $this->assertCount(1, array_unique($ids));
     }
 }
