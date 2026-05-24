@@ -226,21 +226,45 @@ class WordsController extends AppController {
             $newortd = [];
             $lenotherortd = 0;
             $otherortd = [];
+            $hadSentinelOther = false;
+
+            $fk = $ortdcategory . '_id';
             foreach ($ortd as $key => $ortdvalue) {
-                
-                if($ortdcategory == 'origin'){
-                    if (strpos($ortd[$key][$ortdcategory], ",") !== false && $ortd[$key]['_joinData']['id'] > 999) {
-                        $otherortd = explode(",", $ortd[$key][$ortdcategory]);
-                        $lenotherortd = count($otherortd);
-                    }
-                } else {
-                    $otherortd = [];
-                    $lenotherortd = 0;
+
+                $assocId = null;
+                if (!empty($ortdvalue['_joinData']) && isset($ortdvalue['_joinData'][$fk])) {
+                    $assocId = (int)$ortdvalue['_joinData'][$fk];
+                } elseif (isset($ortdvalue['id'])) {
+                    $assocId = (int)$ortdvalue['id'];
                 }
 
-                if ($ortd[$key]['_joinData']['id'] != 999 && $lenotherortd === 0) {
-                    $newortd[$key] = __($ortd[$key][$ortdcategory]);
+                if ($assocId === 999) {
+                    $hadSentinelOther = true;
+                    continue;
                 }
+
+                // Legacy support: some older data stored multiple "other" values in a single Origin row
+                // as comma-separated text. Keep displaying these as separate list items.
+                if ($ortdcategory === 'origin' && isset($ortdvalue[$ortdcategory]) && is_string($ortdvalue[$ortdcategory])) {
+                    $text = $ortdvalue[$ortdcategory];
+                    if ($assocId !== null && $assocId > 999 && strpos($text, ',') !== false) {
+                        $parts = array_filter(array_map('trim', explode(',', $text)));
+                        if ($parts) {
+                            $otherortd = array_merge($otherortd, $parts);
+                            $lenotherortd = count($otherortd);
+                            continue;
+                        }
+                    }
+                }
+
+                if (isset($ortdvalue[$ortdcategory])) {
+                    $newortd[$key] = __($ortdvalue[$ortdcategory]);
+                }
+            }
+
+            // Backward-compat fallback: if the only thing linked is the sentinel (999), keep showing "Other".
+            if (empty($newortd) && empty($otherortd) && $hadSentinelOther) {
+                $newortd[] = __('Other');
             }
 
             $totalortd = count($newortd) + $lenotherortd;
@@ -845,7 +869,11 @@ class WordsController extends AppController {
         }
 
         if ('{"ops":[{"insert":"\n"}]}' === $original) {
-            unset($postData[$field]);
+            // Clearing a Quill editor posts a minimal delta. Treat that as an explicit
+            // request to delete the content (do NOT unset the key; callers may rely on
+            // its presence to overwrite existing DB values).
+            $postData[$field] = '';
+            $postData[$field . '_json'] = '';
         } else {
             $jsonFromOriginal = json_decode($original);
             $postData[$field . '_json'] = json_encode($jsonFromOriginal);
@@ -982,38 +1010,126 @@ class WordsController extends AppController {
     private function processOtherAssociations(array $postData, string $assoc): array {
         $processed = [];
         $ids = $postData[$assoc]['_ids'] ?? [];
-        $otherEntry = $postData[$assoc . '_other_entry'] ?? '';
 
-        // Add selected IDs
-        foreach ($ids as $id) {
-            if ($id !== '') {
-                $processed[] = ['id' => $id];
-            }
-        }
+        $preferredOtherKey = $assoc . '_other_entry';           // e.g. origins_other_entry
+        $legacyOtherKey = rtrim($assoc, 's') . '_other_entry';  // e.g. origin_other_entry
+        $otherEntry = '';
 
-        // Add "other" entries (semicolon separated)
-        if ($otherEntry !== '') {
-            $others = array_filter(array_map('trim', explode(';', $otherEntry)));
-            $table = $this->fetchTable(ucfirst($assoc));
-            foreach ($others as $otherValue) {
-                $idOfOther = $table->getIdIfExists($otherValue);
-                if ($idOfOther !== null) {
-                    // Avoid duplicates
-                    if (!in_array(['id' => $idOfOther], $processed)) {
-                        $processed[] = ['id' => $idOfOther];
-                    }
-                } else {
-                    $processed[] = [$assoc === 'origins' ? 'origin' : 'type' => $otherValue];
+        if (!empty($postData[$preferredOtherKey])) {
+            $otherEntry = (string)$postData[$preferredOtherKey];
+        } elseif (!empty($postData[$legacyOtherKey])) {
+            $otherEntry = (string)$postData[$legacyOtherKey];
+        } else {
+            // Back-compat: some old JS renamed the field (origin_other_entry1, type_other_entry2, ...)
+            foreach ($postData as $key => $value) {
+                if (str_starts_with((string)$key, $legacyOtherKey) && !empty($value)) {
+                    $otherEntry = (string)$value;
+                    break;
                 }
             }
         }
 
-        // Clean up
+        $others = [];
+        if (trim($otherEntry) !== '') {
+            $rawOthers = array_filter(array_map('trim', explode(';', $otherEntry)));
+            $seen = [];
+            foreach ($rawOthers as $v) {
+                $normalized = mb_strtolower($v);
+                if ($normalized === '' || isset($seen[$normalized])) {
+                    continue;
+                }
+                $seen[$normalized] = true;
+                $others[] = $v;
+            }
+        }
+
+        // If the user provided typed "other" values, treat the 999 sentinel as UI-only.
+        if ($others) {
+            $ids = array_values(array_filter($ids, static fn($id) => (string)$id !== '999' && (string)$id !== ''));
+        }
+
+        // Add selected IDs
+        foreach ($ids as $id) {
+            if ((string)$id !== '') {
+                $processed[] = ['id' => (int)$id];
+            }
+        }
+
+        if ($others) {
+            $sitelang = $this->request->getAttribute('sitelang');
+            $languageId = (is_object($sitelang) && isset($sitelang->id)) ? (int)$sitelang->id : 0;
+            $ortdTable = $this->fetchTable(ucfirst($assoc));
+
+            foreach ($others as $otherValue) {
+                $idOfOther = method_exists($ortdTable, 'getIdIfExists') ? $ortdTable->getIdIfExists($otherValue) : null;
+                if ($idOfOther === 999) {
+                    $idOfOther = null;
+                }
+
+                if ($idOfOther === null) {
+                    $field = $assoc === 'origins' ? 'origin' : 'type';
+                    $entity = $ortdTable->newEmptyEntity();
+                    $entity = $ortdTable->patchEntity($entity, [$field => $otherValue]);
+                    $saved = $ortdTable->save($entity);
+                    $idOfOther = $saved ? (int)$saved->id : null;
+                }
+
+                if ($idOfOther !== null) {
+                    // Avoid duplicates vs selected ids and within other entries
+                    $already = false;
+                    foreach ($processed as $entry) {
+                        if (isset($entry['id']) && (int)$entry['id'] === (int)$idOfOther) {
+                            $already = true;
+                            break;
+                        }
+                    }
+                    if (!$already) {
+                        $processed[] = ['id' => (int)$idOfOther];
+                    }
+
+                    // Ensure the ORTD item is linked to this language so it can appear in future dropdowns.
+                    if ($languageId > 0) {
+                        if ($assoc === 'origins') {
+                            $join = $this->fetchTable('OriginsLanguages');
+                            $exists = $join->find()
+                                ->where(['origin_id' => $idOfOther, 'language_id' => $languageId])
+                                ->count();
+                            if ($exists === 0) {
+                                $link = $join->newEmptyEntity();
+                                $link = $join->patchEntity($link, [
+                                    'origin_id' => $idOfOther,
+                                    'language_id' => $languageId,
+                                    'top' => 0,
+                                ]);
+                                $join->save($link);
+                            }
+                        } elseif ($assoc === 'types') {
+                            $join = $this->fetchTable('TypesLanguages');
+                            $exists = $join->find()
+                                ->where(['type_id' => $idOfOther, 'language_id' => $languageId])
+                                ->count();
+                            if ($exists === 0) {
+                                $link = $join->newEmptyEntity();
+                                $link = $join->patchEntity($link, [
+                                    'type_id' => $idOfOther,
+                                    'language_id' => $languageId,
+                                    'top' => 0,
+                                    'type_category_id' => 0,
+                                ]);
+                                $join->save($link);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         unset($postData[$assoc]['_ids']);
-        unset($postData[$assoc . '_other_entry']);
+        unset($postData[$preferredOtherKey], $postData[$legacyOtherKey]);
         if (!empty($processed)) {
             $postData[$assoc] = $processed;
         }
+
         return $postData;
     }
 
